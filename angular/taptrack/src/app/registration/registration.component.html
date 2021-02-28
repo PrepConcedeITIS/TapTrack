@@ -1,0 +1,38 @@
+<div class="col-md-6 offset-md-3 mt-5">
+  <h1>Registration</h1>
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="form-control form-group">
+      <label>Email</label>
+      <input type="text" class="form-control" name="email" formControlName="email">
+      <div class="validation" *ngIf="emailControl.touched && emailControl.invalid">
+        <small *ngIf="emailControl.errors.required" class="form-text text-muted">
+          Email is required
+        </small>
+        <small *ngIf="emailControl.errors.email" class="form-text text-muted">
+          Incorrect email
+        </small>
+      </div>
+    </div>
+    <div class="form-control form-group">
+      <label>Password</label>
+      <input class="form-control" type="password" name="password" formControlName="password">
+      <div class="validation" *ngIf="form.controls.password.touched && form.controls.password.invalid">
+        <small *ngIf="form.controls.password.errors.required" class="form-text text-muted">
+          Password is required
+        </small>
+      </div>
+    </div>
+    <div class="form-control form-group">
+      <label>Password repeat</label>
+      <input class="form-control" type="password" name="password-repeat" formControlName="passwordRepeat">
+      <div class="validation"
+           *ngIf="form.get('password').touched && form.get('passwordRepeat').touched && form.controls.passwordRepeat.errors">
+        <small *ngIf="form.controls.passwordRepeat.errors.mustMatch" class="form-text text-muted">
+          Password doesn't match
+        </small>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="form.invalid" type="submit">Submit</button>
+  </form>
+</div>

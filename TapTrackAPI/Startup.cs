@@ -79,8 +79,13 @@ namespace TapTrackAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            #warning
+            app.UseCors(builder => builder.WithOrigins("paste url from prod front").AllowAnyHeader().AllowAnyMethod());
+            
             if (env.IsDevelopment())
             {
+                app.UseCors(builder =>
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TapTrackAPI v1"));
