@@ -33,7 +33,6 @@ export class RegistrationComponent implements OnInit {
 
   submit() {
     if (!this.form.invalid) {
-      console.log('here');
       this.registrationService.register({
         email: this.form.get('email').value,
         password: this.form.get('password').value
@@ -48,5 +47,9 @@ export class RegistrationComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  redirectToLoginPage(): void {
+    this.router.navigate(['login']);
   }
 }
