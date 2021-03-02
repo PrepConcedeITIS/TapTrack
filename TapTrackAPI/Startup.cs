@@ -80,7 +80,7 @@ namespace TapTrackAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             #warning
-            app.UseCors(builder => builder.WithOrigins("paste url from prod front").AllowAnyHeader().AllowAnyMethod());
+            //app.UseCors(builder => builder.WithOrigins("paste url from prod front").AllowAnyHeader().AllowAnyMethod());
             
             if (env.IsDevelopment())
             {

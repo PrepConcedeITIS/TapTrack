@@ -6,7 +6,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {ProjectComponent} from './project/project.component';
 
 const routes: Routes = [
-  {path: '', component: ProjectComponent, canActivate: [AuthGuard]},
+  {path: '', component: ProjectComponent/*, canActivate: [AuthGuard]*/},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
 

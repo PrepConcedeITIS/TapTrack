@@ -1,1 +1,9 @@
-<p>project works!</p>
+<div class="col-md-6 offset-md-3 pt-5 mt-5">
+  <div class="card p-3">
+    <h4 class="card-header">TapTrack Registration</h4>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>
