@@ -11,5 +11,14 @@ namespace TapTrackAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            /*builder.Entity<User>().HasData(new []
+            {
+                new User("admin@tpk.com"){PasswordHash = }
+            })*/
+            base.OnModelCreating(builder);
+        }
     }
 }

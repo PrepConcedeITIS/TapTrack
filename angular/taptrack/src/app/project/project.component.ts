@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 
@@ -9,13 +9,16 @@ import {FormlyFieldConfig} from "@ngx-formly/core";
 })
 export class ProjectComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
+
   form = new FormGroup({});
-  model = { email: 'email@gmail.com' };
+  model = {};
   fields: FormlyFieldConfig[] = [
     {
       key: 'name',
       type: 'input',
+      className: '',
       templateOptions: {
         label: 'Project Name',
         placeholder: 'Enter your new project name',
@@ -42,7 +45,11 @@ export class ProjectComponent implements OnInit {
     },
     {
       key: 'logo',
-      type: 'file'
+      type: 'file',
+      className: 'width100',
+      templateOptions: {
+        label: 'Logo\n'
+      }
     }
   ];
 

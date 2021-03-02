@@ -33,11 +33,10 @@ namespace TapTrackAPI
         {
             services.AddCors();
             services.AddDbContext<AppDbContext>(builder => builder
-                .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
+                .UseNpgsql(Configuration.GetConnectionString("PostgresLocal")));
             services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddSignInManager()
-                //.AddUserManager<User>()
                 ;
 
             services.AddControllers()
