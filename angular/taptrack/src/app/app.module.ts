@@ -12,7 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
-import {FormlyFieldFile} from "./_extensions/file-type.component";
+import {FormlyFieldFileComponent} from "./_extensions/file-type.component";
 import {FileValueAccessor} from "./_extensions/file-value-accessor";
 
 @NgModule({
@@ -22,7 +22,7 @@ import {FileValueAccessor} from "./_extensions/file-value-accessor";
     RegistrationComponent,
     ProjectComponent,
     FileValueAccessor,
-    FormlyFieldFile,
+    FormlyFieldFileComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +31,7 @@ import {FileValueAccessor} from "./_extensions/file-value-accessor";
     HttpClientModule,
     FormlyModule.forRoot({
       types: [
-        { name: 'file', component: FormlyFieldFile, wrappers: ['form-field'] },
+        { name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field'] },
       ],
     }),
     FormlyBootstrapModule

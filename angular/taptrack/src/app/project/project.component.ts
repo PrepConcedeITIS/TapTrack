@@ -23,6 +23,7 @@ export class ProjectComponent implements OnInit {
         label: 'Project Name',
         placeholder: 'Enter your new project name',
         required: true,
+        hideRequiredMarker: true
       }
     },
     {
@@ -32,6 +33,7 @@ export class ProjectComponent implements OnInit {
         label: 'Project Shortcut Name',
         placeholder: 'Enter your new project shortcut name',
         required: true,
+        hideRequiredMarker: true
       }
     },
     {
@@ -40,15 +42,14 @@ export class ProjectComponent implements OnInit {
       templateOptions: {
         label: 'Project Description',
         placeholder: 'Your project description',
-        required: false,
+        required: false
       }
     },
     {
       key: 'logo',
       type: 'file',
-      className: 'width100',
       templateOptions: {
-        label: 'Logo\n'
+        label: 'Project logo'
       }
     }
   ];
