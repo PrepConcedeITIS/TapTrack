@@ -7,6 +7,11 @@ namespace TapTrackAPI.Core.Entities
 {
     public class Issue : EntityBase
     {
+        protected Issue()
+        {
+            
+        }
+        
         public string Title { get; protected set; }
         public string Description { get; protected set; }
         public virtual TeamMember Creator { get; protected set; }

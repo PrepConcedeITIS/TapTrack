@@ -20,5 +20,9 @@ namespace TapTrackAPI.Core.Entities
             ProjectId = projectId;
             Role = role.ToString();
         }
+
+        protected TeamMember()
+        {
+        }
     }
 }
