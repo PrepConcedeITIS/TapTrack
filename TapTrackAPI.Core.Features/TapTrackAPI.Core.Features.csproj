@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TapTrackAPI.Core\TapTrackAPI.Core.csproj" />
+      <ProjectReference Include="..\TapTrackAPI.Data\TapTrackAPI.Data.csproj" />
     </ItemGroup>
 
 </Project>
