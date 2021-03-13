@@ -5,6 +5,8 @@ namespace TapTrackAPI.Core.Entities
 {
     public class User : IdentityUser<Guid>
     {
+        public string ProfileImageUrl { get; set; }
+        
         protected User()
         {
         }

@@ -49,5 +49,10 @@ namespace TapTrackAPI.Core.Services
 
             return "";
         }
+
+        public Task<string> UploadUserProfileImage(IFormFile file, string userId)
+        {
+            return UploadImage(file, userId, null);
+        }
     }
 }
