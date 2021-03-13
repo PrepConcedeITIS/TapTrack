@@ -15,6 +15,7 @@ using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
 using TapTrackAPI.Core.Interfaces;
+using TapTrackAPI.Core.Services;
 using TapTrackAPI.Data;
 
 namespace TapTrackAPI
@@ -73,6 +74,7 @@ namespace TapTrackAPI
             });
 
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IImageUploadService, ImageUploadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
