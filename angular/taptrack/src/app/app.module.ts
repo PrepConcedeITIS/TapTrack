@@ -14,6 +14,9 @@ import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import {FormlyFieldFileComponent} from "./_extensions/file-type.component";
 import {FileValueAccessor} from "./_extensions/file-value-accessor";
+import { ProfileComponent } from './profile/profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MaterialModule} from "./_modules/material/material.module";
 
 @NgModule({
   declarations: [
@@ -23,9 +26,11 @@ import {FileValueAccessor} from "./_extensions/file-value-accessor";
     ProjectComponent,
     FileValueAccessor,
     FormlyFieldFileComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
+    MaterialModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -34,7 +39,8 @@ import {FileValueAccessor} from "./_extensions/file-value-accessor";
         { name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field'] },
       ],
     }),
-    FormlyBootstrapModule
+    FormlyBootstrapModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

@@ -1,0 +1,26 @@
+img.avatar {
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.outer-flex-container {
+  display: flex;
+}
+
+.outer-flex-item-column1 {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.outer-flex-item-column2 {
+  text-align: center;
+  flex-grow: 2;
+}
+
+.color1 {
+  background-color: #675BA7;
+}
+
+.color2 {
+  background-color: #9BC850;
+}

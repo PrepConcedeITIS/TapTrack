@@ -29,7 +29,7 @@ namespace TapTrackAPI.Core.Features.Profile
         public async Task<IActionResult> Get()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            return Ok(new UserProfile(user.ProfileImageUrl, user.UserName, user.Email));
+            return Ok(new UserProfile("здесь должна быть ссылка на image", user.UserName, user.Email));
         }
 
         [HttpPut("uploadProfileImage")]
