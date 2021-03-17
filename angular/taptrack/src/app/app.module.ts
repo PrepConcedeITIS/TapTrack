@@ -7,7 +7,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
-import {ProjectComponent} from './project/project.component';
+import {ProjectCreateComponent} from './project/project-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {FormlyModule} from '@ngx-formly/core';
@@ -23,7 +23,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    ProjectComponent,
+    ProjectCreateComponent,
     FileValueAccessor,
     FormlyFieldFileComponent,
   ],

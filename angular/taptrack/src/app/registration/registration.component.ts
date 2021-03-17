@@ -21,6 +21,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authenticationService.logout();
+
     this.form = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required],
