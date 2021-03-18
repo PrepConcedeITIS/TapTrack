@@ -8,20 +8,20 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  public currentUserSubject: BehaviorSubject<UserWithToken>;
+  public currentUser: Observable<UserWithToken>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<UserWithToken>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
+  public get currentUserValue(): UserWithToken {
     return this.currentUserSubject.value;
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<User>(`${environment.apiUrl}/auth/login`,
+    return this.http.post<UserWithToken>(`${environment.apiUrl}/auth/login`,
       {
         email,
         password
@@ -42,6 +42,11 @@ export class AuthenticationService {
   }
 }
 
+export interface UserWithToken {
+  token: string;
+  user: User;
+}
+
 export interface User {
   id: number;
   username: string;
@@ -49,5 +54,4 @@ export interface User {
   passwordHash: string;
   firstName: string;
   lastName: string;
-  token?: string;
 }

@@ -11,6 +11,11 @@ namespace TapTrackAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+        
+        public DbSet<Issue> Issues { get; protected set; }
+        public DbSet<Comment> Comments { get; protected set; }
+        public DbSet<TeamMember> TeamMembers { get; protected set; }
+        public DbSet<Project> Projects { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
