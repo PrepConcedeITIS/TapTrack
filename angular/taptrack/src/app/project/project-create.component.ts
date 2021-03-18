@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup} from "@angular/forms";
-import {FormlyFieldConfig} from "@ngx-formly/core";
+import {FormGroup} from '@angular/forms';
+import {FormlyFieldConfig} from '@ngx-formly/core';
 
 @Component({
   selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  templateUrl: './project-create.component.html',
+  styleUrls: ['./project-create.component.scss']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectCreateComponent implements OnInit {
 
   constructor() {
   }
