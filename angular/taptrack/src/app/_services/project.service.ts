@@ -19,10 +19,15 @@ export class ProjectService {
 
   createNewProject(project: IProjectQuery): Observable<any> {
     const formData = new FormData();
-    formData.append('file', project.logo[0], project.logo[0].name);
-    return this.httpClient.post<User>(`${environment.apiUrl}/project`, {
-      formDataContent: formData,
-      name: project.name
+    const keys = Object.getOwnPropertyNames(project);
+    keys.forEach((propertyName) => {
+      formData.append(propertyName, project[propertyName]);
     });
+
+    formData.set('logo', project.logo[0], project.logo[0].name);
+    // formData.append('logo', project.logo[0], project.logo[0].name);
+
+    return this.httpClient.post<User>(`${environment.apiUrl}/project`, formData);
   }
 }
+

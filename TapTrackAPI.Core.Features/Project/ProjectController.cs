@@ -29,15 +29,16 @@ namespace TapTrackAPI.Core.Features.Project
             return Ok(3);
         }
 
-        [HttpPost,DisableRequestSizeLimit]
-        public async Task<IActionResult> Post([FromBody] ProjectCreateQuery query)
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<IActionResult> Post([FromForm] ProjectCreateQuery query)
         {
-            var creatorId = _userManager.GetUserId(User);
-            //var link = await _imageUpload.UploadProjectLogoImageAsync(query.Logo, creatorId, query.IdVisible);
-            //var project = new Entities.Project(query.Name, query.IdVisible, query.Description, link,
-            //    Guid.Parse(creatorId));
-            //var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project);
-            //_dbContext.SaveChanges();
+            var creator = _userManager.GetUserId(User);
+            var link = await _imageUpload.UploadProjectLogoImageAsync(query.Logo, creator,
+                query.IdVisible);
+            var project = new Entities.Project(query.Name, query.IdVisible, query.Description, link,
+                Guid.Parse(creator));
+            var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project);
+            _dbContext.SaveChanges();
             return Ok();
         }
     }
