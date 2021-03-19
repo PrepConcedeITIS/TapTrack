@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Extensions;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Core.Records;
 
@@ -32,11 +33,10 @@ namespace TapTrackAPI.Core.Features.Project
         [HttpPost, DisableRequestSizeLimit]
         public async Task<IActionResult> Post([FromForm] ProjectCreateQuery query)
         {
-            var creator = _userManager.GetUserId(User);
-            var link = await _imageUpload.UploadProjectLogoImageAsync(query.Logo, creator,
+            var creatorId = _userManager.GetUserIdGuid(User);
+            var link = await _imageUpload.UploadProjectLogoImageAsync(query.Logo, creatorId.ToString(),
                 query.IdVisible);
-            var project = new Entities.Project(query.Name, query.IdVisible, query.Description, link,
-                Guid.Parse(creator));
+            var project = new Entities.Project(query.Name, query.IdVisible, query.Description, link, creatorId);
             var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project);
             _dbContext.SaveChanges();
             return Ok();

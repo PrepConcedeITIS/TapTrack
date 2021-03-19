@@ -35,7 +35,6 @@ namespace TapTrackAPI.Core.Services
             uploadRequestModel.Files.Add(new UploadImageRequest.File()
             {
                 Data = stream,
-                //FileName = $"logo.jpeg"
                 FileName = $"logo_{projectIdVisible}_{file.Name}___{file.FileName.GetHashCode()}"
             });
             var response = await _image4IoApi.UploadImageAsync(uploadRequestModel);
