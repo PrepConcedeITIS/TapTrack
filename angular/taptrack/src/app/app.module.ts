@@ -17,6 +17,7 @@ import {FileValueAccessor} from "./_extensions/file-value-accessor";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import {AgGridModule} from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     }),
     FormlyBootstrapModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    AgGridModule.withComponents([])
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
