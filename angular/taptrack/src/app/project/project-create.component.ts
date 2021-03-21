@@ -1,19 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup} from "@angular/forms";
-import {FormlyFieldConfig} from "@ngx-formly/core";
+import {FormGroup} from '@angular/forms';
+import {FormlyFieldConfig} from '@ngx-formly/core';
+import {ProjectService} from '../_services/project.service';
 
 @Component({
   selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  templateUrl: './project-create.component.html',
+  styleUrls: ['./project-create.component.scss']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectCreateComponent implements OnInit {
 
-  constructor() {
+  constructor(private projectService: ProjectService) {
   }
 
   form = new FormGroup({});
-  model = {};
+  model: IProjectQuery = {description: '', idVisible: '', logo: undefined, name: ''};
   fields: FormlyFieldConfig[] = [
     {
       key: 'name',
@@ -59,5 +60,13 @@ export class ProjectComponent implements OnInit {
 
   onSubmit() {
     console.log(this.model);
+    this.projectService.createNewProject(this.model).subscribe(x => console.log(x));
   }
+}
+
+export interface IProjectQuery {
+  name: string;
+  idVisible: string;
+  description: string;
+  logo: FileList;
 }

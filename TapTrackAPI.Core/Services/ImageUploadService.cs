@@ -23,31 +23,34 @@ namespace TapTrackAPI.Core.Services
             _image4IoApi = new Image4ioAPI(credentials["Key"], credentials["Secret"]);
         }
 
-        public async Task<string> UploadImage(IFormFile file, string userId, string projectId)
+        public async Task<string> UploadProjectLogoImageAsync(IFormFile file, string userId, string projectIdVisible)
         {
-            await using (var stream = file.OpenReadStream())
+            await using var stream = file.OpenReadStream();
+            var uploadRequestModel = new UploadImageRequest()
             {
-                var uploadRequestModel = new UploadImageRequest()
-                {
-                    Path = userId,
-                    UseFilename = false,
-                    Overwrite = false
-                };
-                uploadRequestModel.Files.Add(new UploadImageRequest.File()
-                {
-                    Data = stream,
-                    FileName = $"{file.Name}___{file.FileName.GetHashCode()}"
-                });
-                var response = await _image4IoApi.UploadImageAsync(uploadRequestModel);
-                if (response.Success)
-                {
-                    var imgName = response.UploadedFiles.FirstOrDefault()?.Name;
-                    var link = $"{BaseImgLink}{imgName}";
-                    return link;
-                }
+                Path = $"/projects/{userId}/{projectIdVisible}",
+                UseFilename = false,
+                Overwrite = false
+            };
+            uploadRequestModel.Files.Add(new UploadImageRequest.File()
+            {
+                Data = stream,
+                FileName = $"logo_{projectIdVisible}_{file.Name}___{file.FileName.GetHashCode()}"
+            });
+            var response = await _image4IoApi.UploadImageAsync(uploadRequestModel);
+            if (response.Success)
+            {
+                var imgName = response.UploadedFiles.FirstOrDefault()?.Name;
+                var link = $"{BaseImgLink}{imgName}";
+                return link;
             }
 
             return "";
+        }
+
+        public Task<string> UploadImage(IFormFile file, string userId, string projectId)
+        {
+            throw new System.NotImplementedException();
         }
 
         public Task<string> UploadUserProfileImage(IFormFile file, string userId)

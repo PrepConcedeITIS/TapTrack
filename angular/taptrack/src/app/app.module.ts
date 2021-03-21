@@ -7,23 +7,23 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
-import {ProjectComponent} from './project/project.component';
+import {ProjectCreateComponent} from './project/project-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
-
 import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import {FormlyFieldFileComponent} from "./_extensions/file-type.component";
 import {FileValueAccessor} from "./_extensions/file-value-accessor";
 import { ProfileComponent } from './profile/profile.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from "./_modules/material/material.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    ProjectComponent,
+    ProjectCreateComponent,
     FileValueAccessor,
     FormlyFieldFileComponent,
     ProfileComponent,
@@ -40,7 +40,9 @@ import {MaterialModule} from "./_modules/material/material.module";
       ],
     }),
     FormlyBootstrapModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

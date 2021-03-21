@@ -1,9 +1,7 @@
-﻿using System.Net.Mime;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Interfaces;
@@ -11,7 +9,7 @@ using TapTrackAPI.Data;
 
 namespace TapTrackAPI.Core.Features.Profile
 {
-    public record UserProfile(string ProfileImage, string UserName, string UserEmail);
+    public record UserProfile(string ProfileImageLink, string UserName, string UserEmail);
     public class ProfileController : AuthorizedApiController
     {
         private readonly UserManager<User> _userManager;
@@ -29,6 +27,10 @@ namespace TapTrackAPI.Core.Features.Profile
         public async Task<IActionResult> Get()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null)
+                return BadRequest("Пользователь не найден");
+            
             return Ok(new UserProfile("здесь должна быть ссылка на image", user.UserName, user.Email));
         }
 
@@ -42,8 +44,8 @@ namespace TapTrackAPI.Core.Features.Profile
             return Ok();
         }
 
-        [HttpPut("updateUserName")]
-        public async Task<IActionResult> UpdateUserName(string newName)
+        [HttpPost("updateUserName")]
+        public async Task<IActionResult> UpdateUserName([FromForm]string newName)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 

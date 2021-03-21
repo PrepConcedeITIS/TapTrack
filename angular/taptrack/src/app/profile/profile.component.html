@@ -2,28 +2,82 @@
 
   <div class="card">
 
-    <h4 class="card-header">TapTrack Profile</h4>
+    <div class="card-header">
+      <div>Profile</div>
+    </div>
 
-    <div class="card-body">
+    <div class="card-body color4 body">
 
-      <div class="outer-flex-container">
+      <mat-tab-group class="tab-group">
+        <mat-tab label="Общая">
 
-        <div class="outer-flex-item-column1 color1">
-          <img class="avatar" src="https://www.dealer.volvotrucks.co.uk/content/dam/volvo-media/list-icons/user.svg"
-               width="120" height="120">
-        </div>
+          <div class="tap-content">
+            <div class="outer-flex-container">
 
-        <div class="outer-flex-item-column2 color2">
+              <div class="outer-flex-item-column1 color1">
+                <div>
+                  <img class="avatar"
+                       src="https://www.dealer.volvotrucks.co.uk/content/dam/volvo-media/list-icons/user.svg"
+                       width="150" height="150">
+                </div>
+              </div>
 
-          <label>Username</label>
-          <input type="text" value="Test Testovich">
+              <div class="outer-flex-item-column2 color2">
+                <div class="inner-flex-container color3">
 
-          <label>Email</label>
-          <input type="text" value="test@pochta.com">
+                  <div class="form-element">
+                    <h4>Username
+                      <a href="javascript:void(0);" (click)="enableUserNameEdit()"><u>edit</u></a>
+                    </h4>
+                    <input id="userNameInput" type="text" class="form-control" placeholder="Имя пользователя"
+                           aria-label="Имя пользователя"
+                           aria-describedby="basic-addon1"
+                           value="{{userProfile.userName}}"
+                           [disabled]="!isNameEdit">
+                    <div *ngIf="isNameEdit">
+                      <button type="submit" class="edit-name-btn btn btn-primary btn-sm" (click)="saveUserNameEdit()">Save
+                      </button>
+                      <button type="submit" class="edit-name-btn btn btn-secondary btn-sm" (click)="cancelUserNameEdit()">
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
 
-        </div>
+                  <div class="form-element">
+                    <h4>Email</h4>
+                    <input type="text" class="form-control" placeholder="Почта пользователя"
+                           aria-label="Почта пользователя"
+                           value="{{userProfile.userEmail}}"
+                           aria-describedby="basic-addon1"
+                           [disabled]="true">
+                  </div>
 
-      </div>
+                  <div class="form-element">
+                    <label for="file">Upload avatar</label>
+                    <input type="file"
+                           id="file"
+                           (change)="handleFileInput($event.target.files)">
+                    <button [disabled]="!isFileLoaded" type="submit" class="upld-img btn btn-primary btn-sm">Save
+                      image
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Проекты">
+          <div class="tap-content">
+            Content 2
+          </div>
+        </mat-tab>
+        <mat-tab label="Контакная информация">
+          <div class="tap-content">Content 3</div>
+        </mat-tab>
+        <mat-tab label="Уведомления">
+          <div class="tap-content">Content 4</div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>
