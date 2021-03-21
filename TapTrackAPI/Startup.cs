@@ -37,8 +37,7 @@ namespace TapTrackAPI
                 .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
             services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<AppDbContext>()
-                .AddSignInManager()
-                ;
+                .AddSignInManager();
 
             services.AddControllers()
                 .AddApplicationPart(typeof(AuthController).Assembly)
