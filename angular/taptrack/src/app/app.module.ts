@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import {AgGridModule} from "ag-grid-angular";
+import { ArticleDetailsComponent } from './article/article-details.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {AgGridModule} from "ag-grid-angular";
     FileValueAccessor,
     FormlyFieldFileComponent,
     IssueListComponent,
+    ArticleDetailsComponent,
   ],
     imports: [
         BrowserModule,

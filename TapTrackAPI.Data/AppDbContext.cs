@@ -16,6 +16,7 @@ namespace TapTrackAPI.Data
         public DbSet<Comment> Comments { get; protected set; }
         public DbSet<TeamMember> TeamMembers { get; protected set; }
         public DbSet<Project> Projects { get; protected set; }
+        public DbSet<Article> Articles { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
