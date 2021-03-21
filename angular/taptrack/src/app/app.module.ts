@@ -17,6 +17,8 @@ import {FileValueAccessor} from "./_extensions/file-value-accessor";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { IssueListComponent } from './issue/issue-list/issue-list.component';
+import {AgGridModule} from "ag-grid-angular";
 
 @NgModule({
   declarations: [
@@ -26,21 +28,23 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ProjectCreateComponent,
     FileValueAccessor,
     FormlyFieldFileComponent,
+    IssueListComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormlyModule.forRoot({
-      types: [
-        { name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field'] },
-      ],
-    }),
-    FormlyBootstrapModule,
-    BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormlyModule.forRoot({
+            types: [
+                {name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field']},
+            ],
+        }),
+        FormlyBootstrapModule,
+        BrowserAnimationsModule,
+        BsDropdownModule.forRoot(),
+        AgGridModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],

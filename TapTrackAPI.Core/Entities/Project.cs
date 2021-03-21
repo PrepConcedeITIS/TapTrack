@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Records;
 
 namespace TapTrackAPI.Core.Entities
 {
