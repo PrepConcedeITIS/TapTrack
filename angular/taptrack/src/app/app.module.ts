@@ -17,6 +17,7 @@ import {FileValueAccessor} from "./_extensions/file-value-accessor";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ArticleDetailsComponent } from './article/article-details.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ProjectCreateComponent,
     FileValueAccessor,
     FormlyFieldFileComponent,
+    ArticleDetailsComponent,
   ],
   imports: [
     BrowserModule,
