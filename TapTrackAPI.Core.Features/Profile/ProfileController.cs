@@ -1,15 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Features.Profile.Records;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Data;
 
 namespace TapTrackAPI.Core.Features.Profile
 {
-    public record UserProfile(string ProfileImageLink, string UserName, string UserEmail);
     public class ProfileController : AuthorizedApiController
     {
         private readonly UserManager<User> _userManager;
@@ -43,16 +45,18 @@ namespace TapTrackAPI.Core.Features.Profile
 
             return Ok();
         }
-
-        [HttpPost("updateUserName")]
-        public async Task<IActionResult> UpdateUserName([FromForm]string newName)
+        
+        
+        [HttpPut("updateUserName")]
+        public async Task<IActionResult> UpdateUserName([FromBody]ChangeUserNameDto newUserName)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            if (string.IsNullOrEmpty(newName) || string.IsNullOrWhiteSpace(newName) || newName.Length > 25)
+            if (string.IsNullOrEmpty(newUserName.NewUserName) || string.IsNullOrWhiteSpace(newUserName.NewUserName) || newUserName.NewUserName.Length > 25)
                 return BadRequest("Некорректное имя пользователя");
-
-            user.UserName = newName;
+            
+            user.UserName = newUserName.NewUserName;
+            await _context.SaveChangesAsync();
 
             return Ok();
         }

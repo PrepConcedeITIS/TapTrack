@@ -56,19 +56,21 @@ export class ProfileComponent implements OnInit {
 
   saveUserNameEdit() {
     // @ts-ignore
-    const newUsername = document.getElementById("userNameInput").value;
+    const newUserName = document.getElementById("userNameInput").value;
 
-    if (newUsername === null || typeof newUsername === "undefined" || newUsername.startsWith(' ') || newUsername.length > 20) {
+    if (newUserName === null || typeof newUserName === "undefined" || newUserName.startsWith(' ') || newUserName.length > 20) {
       alert("Неверно введено новое имя");
       return;
     }
 
-    this.httpClient.post(environment.apiUrl + this.controllerName + "/updateUserName", {
-      newName: newUsername
+    console.log(newUserName);
+
+    this.httpClient.put(environment.apiUrl + this.controllerName + "/updateUserName", {
+      newUserName
     })
       .subscribe(data => {
         console.log(data);
-        this.router.navigate(['login']);
+        location.reload();
       });
   }
 }
