@@ -199,3 +199,4 @@ obj/
 .vscode/settings.json
 
 /metrics_database/
+angular/package-lock.json

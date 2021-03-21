@@ -21,6 +21,8 @@
     "@angular/router": "~11.2.3",
     "@ngx-formly/bootstrap": "^5.10.14",
     "@ngx-formly/core": "^5.10.14",
+    "ag-grid-angular": "^25.1.0",
+    "ag-grid-community": "^25.1.0",
     "ngx-bootstrap": "^6.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
