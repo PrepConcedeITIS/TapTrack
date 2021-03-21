@@ -18,12 +18,13 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
 
         public Task<List<IssueListDto>> Handle(GetIssueQuery input)
         {
-            var issues = _dbContext.Set<Entities.Issue>()
-                .Select(x => new IssueListDto()
-                {
-                    
-                })
-                .ToList();
+            // var issues = _dbContext.Set<Entities.Issue>()
+            //     .Select(x => new IssueListDto()
+            //     {
+            //         
+            //     })
+            //     .ToList();
+            var issues = new List<IssueListDto>();
             return Task.FromResult(issues);
         }
     }
