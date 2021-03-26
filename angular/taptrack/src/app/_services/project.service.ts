@@ -3,7 +3,7 @@ import {Observable, of} from 'rxjs';
 import {User} from './authentication.service';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {IProjectQuery} from '../project/create/project-create.component';
+import {ProjectQuery} from '../project/project-query';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ProjectService {
     return of(null);
   }
 
-  createNewProject(project: IProjectQuery): Observable<any> {
+  createNewProject(project: ProjectQuery): Observable<any> {
     const formData = new FormData();
     const keys = Object.getOwnPropertyNames(project);
     keys.forEach((propertyName) => {
@@ -25,9 +25,14 @@ export class ProjectService {
     });
 
     formData.set('logo', project.logo[0], project.logo[0].name);
-    // formData.append('logo', project.logo[0], project.logo[0].name);
 
     return this.httpClient.post<User>(`${environment.apiUrl}/project`, formData);
+  }
+
+  checkForShortIdAvailability(idVisible: string): Observable<boolean> {
+    console.log(idVisible, new Date().getSeconds());
+    return this.httpClient
+      .get<boolean>(`${environment.apiUrl}/project/idVisibleAvailability/${idVisible}`);
   }
 }
 

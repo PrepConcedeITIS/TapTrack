@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
 import {ProjectService} from '../../_services/project.service';
+import {ProjectQuery} from '../project-query';
 
 @Component({
   selector: 'app-project',
@@ -14,7 +15,7 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   form = new FormGroup({});
-  model: IProjectQuery = {description: '', idVisible: '', logo: undefined, name: ''};
+  model: ProjectQuery = {description: '', idVisible: '', logo: undefined, name: ''};
   fields: FormlyFieldConfig[] = [
     {
       key: 'name',
@@ -64,9 +65,3 @@ export class ProjectCreateComponent implements OnInit {
   }
 }
 
-export interface IProjectQuery {
-  name: string;
-  idVisible: string;
-  description: string;
-  logo: FileList;
-}

@@ -1,1 +1,9 @@
-<p>project-update works!</p>
+<div class="col-md-4 offset-md-4 pt-5 mt-5">
+  <div class="card">
+    <h4 class="card-header">Create Project</h4>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-4">
+      <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
