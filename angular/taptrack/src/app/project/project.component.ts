@@ -11,7 +11,6 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigate(['/project/list']);
   }
 
 }
