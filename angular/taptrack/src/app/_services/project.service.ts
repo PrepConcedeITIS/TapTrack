@@ -3,7 +3,7 @@ import {Observable, of} from 'rxjs';
 import {User} from './authentication.service';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {IProjectQuery} from '../project/project-create.component';
+import {IProjectQuery} from '../project/create/project-create.component';
 
 @Injectable({
   providedIn: 'root'
