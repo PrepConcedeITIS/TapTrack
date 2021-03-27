@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
-import {ProjectService} from '../_services/project.service';
+import {ProjectService} from '../../_services/project.service';
 
 @Component({
   selector: 'app-project',
