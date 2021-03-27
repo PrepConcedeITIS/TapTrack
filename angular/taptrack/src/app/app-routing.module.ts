@@ -10,8 +10,9 @@ const routes: Routes = [
   {path: '', component: ProjectCreateComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'issue/list', component: IssueListComponent, canActivate: [AuthGuard]},
-
+  {path: 'issue', canActivate: [AuthGuard], children: [
+      {path: 'list', component: IssueListComponent, canActivate: [AuthGuard]}
+    ]},
 ];
 
 @NgModule({

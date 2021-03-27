@@ -11,11 +11,31 @@ namespace TapTrackAPI.Core.Entities
         {
             
         }
+
+        public Issue(string title, string description, Guid creatorId, Guid assigneeId, Guid projectId, IssueType type,
+            Priority priority)
+        {
+            Title = title;
+            Description = description;
+            CreatorId = creatorId;
+            AssigneeId = assigneeId;
+            ProjectId = projectId;
+            Estimation = TimeSpan.Zero;
+            Spent = TimeSpan.Zero;
+            State = State.New;
+            IssueType = type;
+            Priority = priority;
+            Created = DateTime.Now;
+        }
         
         public string Title { get; protected set; }
         public string Description { get; protected set; }
         public virtual TeamMember Creator { get; protected set; }
+        public Guid CreatorId { get; set; }
         public virtual TeamMember Assignee { get; protected set; }
+        public Guid AssigneeId { get; set; }
+        public virtual Project Project { get; protected set; }
+        public Guid ProjectId { get; set; }
         public TimeSpan Estimation { get; protected set; }
         public TimeSpan Spent { get; protected set; }
         public State State { get; protected set; }
