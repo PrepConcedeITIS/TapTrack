@@ -73,6 +73,12 @@ namespace TapTrackAPI
                 options.AddPolicy(Policies.Admin, PoliciesExtensions.AdminPolicy());
                 options.AddPolicy(Policies.User, PoliciesExtensions.UserPolicy());
             });
+
+            services.AddAutoMapper(mc =>
+            {
+                mc.AddMaps(typeof(AuthController).Assembly);
+            });
+            
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
