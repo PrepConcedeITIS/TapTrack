@@ -12,19 +12,20 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
-import {FormlyFieldFileComponent} from "./_extensions/file-type.component";
-import {FileValueAccessor} from "./_extensions/file-value-accessor";
+import {FormlyFieldFileComponent} from './_extensions/file-type.component';
+import {FileValueAccessor} from './_extensions/file-value-accessor';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { IssueListComponent } from './issue/issue-list/issue-list.component';
-import {AgGridModule} from "ag-grid-angular";
-import { ArticleDetailsComponent } from './article/article-details.component';
-import { ProjectUpdateComponent } from './project/update/project-update.component';
-import { ProjectListComponent } from './project/list/project-list.component';
-import { ProjectDetailsComponent } from './project/details/project-details.component';
-import { ProjectComponent } from './project/project.component';
-import { ErrorComponent } from './error/error.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {IssueListComponent} from './issue/issue-list/issue-list.component';
+import {AgGridModule} from 'ag-grid-angular';
+import {ArticleDetailsComponent} from './article/article-details.component';
+import {ProjectUpdateComponent} from './project/update/project-update.component';
+import {ProjectListComponent} from './project/list/project-list.component';
+import {ProjectDetailsComponent} from './project/details/project-details.component';
+import {ProjectComponent} from './project/project.component';
+import {ErrorComponent} from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -42,21 +43,22 @@ import { ErrorComponent } from './error/error.component';
     ProjectComponent,
     ErrorComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormlyModule.forRoot({
-            types: [
-                {name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field']},
-            ],
-        }),
-        FormlyBootstrapModule,
-        BrowserAnimationsModule,
-        BsDropdownModule.forRoot(),
-        AgGridModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormlyModule.forRoot({
+      types: [
+        {name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field']},
+      ],
+    }),
+    FormlyBootstrapModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    AgGridModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
