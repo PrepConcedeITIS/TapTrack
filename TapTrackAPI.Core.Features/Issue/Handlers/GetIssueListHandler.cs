@@ -27,6 +27,7 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
                 new Guid("a85238d7-fc93-43f6-bdde-e8574a603c0b"),
                 IssueType.Task,
                 Priority.Normal));
+            _dbContext.SaveChanges();
             
             var issues = _dbContext.Set<Entities.Issue>()
                 .Select(x => new IssueListDto(x.Title, 

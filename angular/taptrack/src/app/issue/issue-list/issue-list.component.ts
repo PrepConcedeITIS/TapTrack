@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
+import {IssueDto} from "../issueDto";
 
 @Component({
   selector: 'app-issue-list',
@@ -7,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IssueListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+  baseUrl: string;
   columnDefs = [
     { field: 'title' },
     { field: 'project' },
@@ -19,10 +24,16 @@ export class IssueListComponent implements OnInit {
     { field: 'spent' }
   ];
 
-  rowData = [
+  /*rowData = [
     {title: 'Issue-1', project: 'Project1', priority: 'Major', state: 'New', creator: 'Anna', assignee: 'Anna', estimate: '1d', spent: '4h'}
-  ];
+  ];*/
+  rowData: Observable<IssueDto[]>;
 
   ngOnInit(): void {
+    this.baseUrl = `${environment.apiUrl}/issue`;
+    this.rowData = this.getIssues();
+  }
+  getIssues(): Observable<any>{
+    return this.httpClient.get(this.baseUrl);
   }
 }
