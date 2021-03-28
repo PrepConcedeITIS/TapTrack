@@ -12,7 +12,7 @@ namespace TapTrackAPI.Core.Entities
             
         }
 
-        public Issue(string title, string description, Guid creatorId, Guid assigneeId, Guid projectId, IssueType type,
+        public Issue(string title, string description, long creatorId, long assigneeId, Guid projectId, IssueType type,
             Priority priority)
         {
             Title = title;
@@ -31,9 +31,9 @@ namespace TapTrackAPI.Core.Entities
         public string Title { get; protected set; }
         public string Description { get; protected set; }
         public virtual TeamMember Creator { get; protected set; }
-        public Guid CreatorId { get; set; }
+        public long CreatorId { get; set; }
         public virtual TeamMember Assignee { get; protected set; }
-        public Guid AssigneeId { get; set; }
+        public long AssigneeId { get; set; }
         public virtual Project Project { get; protected set; }
         public Guid ProjectId { get; set; }
         public TimeSpan Estimation { get; protected set; }

@@ -23,10 +23,6 @@ export class IssueListComponent implements OnInit {
     { field: 'estimate' },
     { field: 'spent' }
   ];
-
-  /*rowData = [
-    {title: 'Issue-1', project: 'Project1', priority: 'Major', state: 'New', creator: 'Anna', assignee: 'Anna', estimate: '1d', spent: '4h'}
-  ];*/
   rowData: Observable<IssueDto[]>;
 
   ngOnInit(): void {
