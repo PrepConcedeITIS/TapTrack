@@ -18,6 +18,7 @@ namespace TapTrackAPI.Core.Entities
             LogoUrl = logoUrl;
             CreatorId = creatorId;
         }
+
         public Project(string name, string idVisible, string description, Guid creatorId) :
             base(idVisible)
         {
@@ -45,6 +46,14 @@ namespace TapTrackAPI.Core.Entities
 
         public void UpdateLogoUrl(string logoUrl)
         {
+            LogoUrl = logoUrl;
+        }
+
+        public void UpdateGeneralInfo(string name, string idVisible, string description, string logoUrl)
+        {
+            Name = name;
+            IdVisible = idVisible;
+            Description = description;
             LogoUrl = logoUrl;
         }
     }

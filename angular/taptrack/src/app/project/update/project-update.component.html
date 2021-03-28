@@ -1,1 +1,18 @@
-<p>project-update works!</p>
+<div class="col-md-6 offset-md-3 pt-5 mt-5">
+  <tabset>
+    <tab heading="General information" id="general-info-tab">
+
+      <div class="card">
+        <h4 class="card-header">Edit Project</h4>
+        <form [formGroup]="form" (ngSubmit)="projectGeneralInfoSubmit()" class="p-4">
+          <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </tab>
+    <tab heading="Team invitations" id="team-invitations-tab">
+      Invite team here
+    </tab>
+  </tabset>
+</div>
+

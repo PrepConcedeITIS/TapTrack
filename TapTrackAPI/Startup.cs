@@ -14,6 +14,8 @@ using TapTrackAPI.Core;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
+using TapTrackAPI.Core.Features.Issue;
+using TapTrackAPI.Core.Features.Project;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Core.Services;
 using TapTrackAPI.Data;
@@ -71,9 +73,18 @@ namespace TapTrackAPI
                 options.AddPolicy(Policies.Admin, PoliciesExtensions.AdminPolicy());
                 options.AddPolicy(Policies.User, PoliciesExtensions.UserPolicy());
             });
+
+            services.AddAutoMapper(mc =>
+            {
+                mc.AddMaps(typeof(AuthController).Assembly);
+            });
+            
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
+            
+            services.RegisterProject();
+            services.RegisterIssue();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
