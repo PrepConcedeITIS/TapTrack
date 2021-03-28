@@ -10,7 +10,7 @@ namespace TapTrackAPI.Core.Base
 
         public EntityBase(string idVisible)
         {
-            IdVisible = idVisible;
+            IdVisible = idVisible.ToUpperInvariant();
         }
 
         protected EntityBase()
