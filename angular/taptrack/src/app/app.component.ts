@@ -10,9 +10,11 @@ import {Router} from '@angular/router';
 export class AppComponent implements OnInit {
   isAuthPage = false;
   userEmail = '';
+  isCollapsed: boolean;
 
   constructor(private authService: AuthenticationService,
               private router: Router) {
+    this.isCollapsed = false;
   }
 
   ngOnInit(): void {
