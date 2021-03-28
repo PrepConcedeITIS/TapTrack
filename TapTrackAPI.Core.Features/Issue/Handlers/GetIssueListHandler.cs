@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Features.Issue.Dtos;
+using TapTrackAPI.Core.Base.Handlers;
 using Force.Cqrs;
 using TapTrackAPI.Core.Enums;
 
 namespace TapTrackAPI.Core.Features.Issue.Handlers
 {
-    public class GetIssueListHandler : IQueryHandler<GetIssueQuery, Task<List<IssueListDto>>>
+    public class GetIssueListHandler : IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>>
     {
         private readonly DbContext _dbContext;
 

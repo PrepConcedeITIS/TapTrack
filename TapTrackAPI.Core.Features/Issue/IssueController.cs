@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Force.Cqrs;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 
 namespace TapTrackAPI.Core.Features.Issue
 {
     public class IssueController : AuthorizedApiController
     {
-        private readonly IQueryHandler<GetIssueQuery, Task<List<IssueListDto>>> _getIssueHandler;
+        private readonly IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>> _getIssueHandler;
 
-        public IssueController(IQueryHandler<GetIssueQuery, Task<List<IssueListDto>>> getIssueHandler)
+        public IssueController(IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>> getIssueHandler)
         {
             _getIssueHandler = getIssueHandler;
         }
