@@ -7,11 +7,12 @@ namespace TapTrackAPI.Core.Features.Project
 {
     public static class ProjectRegistration
     {
-        public static void RegisterProject(this IServiceCollection serviceCollection)
+        public static void RegisterProject(this IServiceCollection services)
         {
-            serviceCollection.AddScoped<IAsyncQueryHandler<GetUniquenessOfIdQuery, bool>, GetUniquenessOfIdQueryHandler>();
-            serviceCollection.AddScoped<IAsyncCommandHandler<ProjectEditCommand, ProjectDto>, UpdateProjectInfoAsyncHandler>();
-            serviceCollection.AddScoped<IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto>, GetProjectByIdAsyncQueryHandler>();
+            services.AddScoped<IAsyncQueryHandler<GetUniquenessOfIdQuery, bool>, GetUniquenessOfIdQueryHandler>();
+            services.AddScoped<IAsyncCommandHandler<ProjectCreateCommand, ProjectDto>, CreateProjectAsyncHandler>();
+            services.AddScoped<IAsyncCommandHandler<ProjectEditCommand, ProjectDto>, UpdateProjectInfoAsyncHandler>();
+            services.AddScoped<IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto>, GetProjectByIdAsyncQueryHandler>();
         }
     }
 }

@@ -53,7 +53,6 @@ export class ProjectUpdateComponent implements OnInit {
       // validators: {
       //   unique: {
       //     expression: (c) => {
-      //       console.log('ya exp');
       //       return this.isUnique;
       //     },
       //     message: (e, f) => 'Project with same shortcut name already exist'
@@ -93,15 +92,13 @@ export class ProjectUpdateComponent implements OnInit {
       .subscribe(x => {
         this.projectService.checkForShortIdAvailability(x)
           .subscribe(isUnique => {
-            console.log(isUnique);
             return this.isUnique = isUnique;
           });
       });
   }
 
   projectGeneralInfoSubmit() {
-    console.log('on submit');
     this.projectService.updateProject(this.model, this.projectId)
-      .subscribe(x => console.log(x));
+      .subscribe();
   }
 }

@@ -13,7 +13,8 @@ namespace TapTrackAPI.Core.Features.Project.Handlers
         private readonly IImageUploadService _imageUploadService;
         private readonly IMapper _mapper;
 
-        public UpdateProjectInfoAsyncHandler(DbContext dbContext, IImageUploadService imageUploadService, IMapper mapper)
+        public UpdateProjectInfoAsyncHandler(DbContext dbContext, IImageUploadService imageUploadService,
+            IMapper mapper)
         {
             _dbContext = dbContext;
             _imageUploadService = imageUploadService;
@@ -22,7 +23,9 @@ namespace TapTrackAPI.Core.Features.Project.Handlers
 
         public async Task<ProjectDto> Handle(ProjectEditCommand input)
         {
-            var existingProject = await _dbContext.Set<Entities.Project>()
+            var projects = _dbContext.Set<Entities.Project>();
+
+            var existingProject = await projects
                 .FindAsync(input.Id);
             var logoUrl = existingProject.LogoUrl;
             if (input.Logo != null)
@@ -34,7 +37,7 @@ namespace TapTrackAPI.Core.Features.Project.Handlers
 
             existingProject.UpdateGeneralInfo(input.Name, input.IdVisible, input.Description, logoUrl);
 
-            var updated = _dbContext.Set<Entities.Project>().Update(existingProject);
+            var updated = projects.Update(existingProject);
             await _dbContext.SaveChangesAsync();
             var res = _mapper.Map<ProjectDto>(updated.Entity);
             return res;

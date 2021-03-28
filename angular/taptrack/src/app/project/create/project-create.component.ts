@@ -60,8 +60,7 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.model);
-    this.projectService.createNewProject(this.model).subscribe(x => console.log(x));
+    this.projectService.createNewProject(this.model).subscribe();
   }
 }
 
