@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
@@ -13,16 +14,25 @@ namespace TapTrackAPI.Core.Features.Project
         private readonly IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> _getProjectByIdHandler;
         private readonly IAsyncCommandHandler<ProjectEditCommand, ProjectDto> _editProjectHandler;
         private readonly IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> _createProjectHandler;
+        private readonly IAsyncQueryHandler<GetProjectsListQuery, List<ProjectDto>> _getProjectsListQuery;
 
         public ProjectController(IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> getUniquenessQueryHandler,
             IAsyncCommandHandler<ProjectEditCommand, ProjectDto> editProjectHandler,
             IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> getProjectByIdHandler,
-            IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> createProjectHandler)
+            IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> createProjectHandler,
+            IAsyncQueryHandler<GetProjectsListQuery, List<ProjectDto>> getProjectsListQuery)
         {
             _getUniquenessQueryHandler = getUniquenessQueryHandler;
             _editProjectHandler = editProjectHandler;
             _getProjectByIdHandler = getProjectByIdHandler;
             _createProjectHandler = createProjectHandler;
+            _getProjectsListQuery = getProjectsListQuery;
+        }
+
+        [HttpGet("get")]
+        public async Task<IActionResult> GetList()
+            {
+            return Ok(await _getProjectsListQuery.Handle(new GetProjectsListQuery()));
         }
 
         [HttpGet("idVisibleAvailability/{idVisible}")]
