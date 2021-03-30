@@ -22,11 +22,12 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.logout();
-
+    const passwordRegex = new RegExp('/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/');
     this.form = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]],
-      password: ['', Validators.required],
-      passwordRepeat: ['', Validators.required]
+      password: ['', Validators.required,
+        Validators.pattern(passwordRegex)],
+      passwordRepeat: ['', Validators.required, Validators.pattern(passwordRegex)]
     }, {
       validator: MustMatch('password', 'passwordRepeat')
     });
