@@ -35,9 +35,11 @@
                            value="{{userProfile.userName}}"
                            [disabled]="!isNameEdit">
                     <div *ngIf="isNameEdit">
-                      <button type="submit" class="edit-name-btn btn btn-primary btn-sm" (click)="saveUserNameEdit()">Save
+                      <button type="submit" class="edit-name-btn btn btn-primary btn-sm" (click)="saveUserNameEdit()">
+                        Save
                       </button>
-                      <button type="submit" class="edit-name-btn btn btn-secondary btn-sm" (click)="cancelUserNameEdit()">
+                      <button type="submit" class="edit-name-btn btn btn-secondary btn-sm"
+                              (click)="cancelUserNameEdit()">
                         Cancel
                       </button>
                     </div>
@@ -54,12 +56,15 @@
 
                   <div class="form-element">
                     <label for="file">Upload avatar</label>
-                    <input type="file"
-                           id="file"
-                           (change)="handleFileInput($event.target.files)">
-                    <button [disabled]="!isFileLoaded" type="submit" class="upld-img btn btn-primary btn-sm">Save
-                      image
-                    </button>
+                    <form [formGroup]="form" (ngSubmit)="saveNewProfileImage()">
+                      <input type="file"
+                             id="file"
+                             (change)="handleFileInput($event.target.files)">
+                      <button [disabled]="!isFileLoaded" type="submit" class="upld-img btn btn-primary btn-sm"
+                              (click)="saveNewProfileImage()">Save
+                        image
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>

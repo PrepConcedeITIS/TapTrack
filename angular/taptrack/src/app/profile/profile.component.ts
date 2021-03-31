@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Profile} from "./dto/profile";
 import {Router} from "@angular/router";
+import {FormGroup} from "@angular/forms";
+import {FormlyFieldConfig} from "@ngx-formly/core";
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,17 @@ export class ProfileComponent implements OnInit {
   isNameEdit: boolean;
   isFileLoaded: boolean;
   private controllerName = "/profile";
+
+  form = new FormGroup({});
+  fields: FormlyFieldConfig[] = [
+    {
+      key: 'image',
+      type: 'file',
+      templateOptions: {
+        label: 'Profile image'
+      }
+    }
+  ];
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -31,6 +44,19 @@ export class ProfileComponent implements OnInit {
     this.isFileLoaded = true;
     console.log("addedas");
     console.log(this.fileToUpload);
+  }
+
+  saveNewProfileImage() {
+    const formData = new FormData();
+
+    formData.set("Image", this.fileToUpload, this.fileToUpload.name);
+
+
+    this.httpClient.put(environment.apiUrl + this.controllerName + "/uploadProfileImage", formData)
+      .subscribe(data => {
+        console.log(data);
+        location.reload();
+      });
   }
 
   getProfile() {
