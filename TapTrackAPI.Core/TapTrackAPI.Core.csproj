@@ -8,6 +8,7 @@
       <PackageReference Include="AutoMapper" Version="10.1.1" />
       <PackageReference Include="Force" Version="3.1.0-netstandard2.0-alpha5" />
       <PackageReference Include="image4io.DotNet" Version="1.0.4" />
+      <PackageReference Include="MediatR" Version="9.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.3" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
