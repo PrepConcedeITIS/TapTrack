@@ -85,7 +85,7 @@ namespace TapTrackAPI
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
-
+            services.AddScoped<IMailSender, MailSender>();
             services.RegisterProject();
             services.RegisterIssue();
         }
