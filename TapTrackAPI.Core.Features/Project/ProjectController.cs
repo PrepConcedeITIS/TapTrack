@@ -1,45 +1,58 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Extensions;
-using TapTrackAPI.Core.Interfaces;
-using TapTrackAPI.Core.Records;
+using TapTrackAPI.Core.Base.Handlers;
+using TapTrackAPI.Core.Features.Project.Records;
 
 namespace TapTrackAPI.Core.Features.Project
 {
     public class ProjectController : AuthorizedApiController
     {
-        private readonly IImageUploadService _imageUpload;
-        private readonly UserManager<User> _userManager;
-        private readonly DbContext _dbContext;
+        private readonly IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> _getUniquenessQueryHandler;
+        private readonly IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> _getProjectByIdHandler;
+        private readonly IAsyncCommandHandler<ProjectEditCommand, ProjectDto> _editProjectHandler;
+        private readonly IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> _createProjectHandler;
 
-        public ProjectController(IImageUploadService imageUpload, UserManager<User> userManager, DbContext dbContext)
+        public ProjectController(IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> getUniquenessQueryHandler,
+            IAsyncCommandHandler<ProjectEditCommand, ProjectDto> editProjectHandler,
+            IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> getProjectByIdHandler,
+            IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> createProjectHandler)
         {
-            _imageUpload = imageUpload;
-            _userManager = userManager;
-            _dbContext = dbContext;
+            _getUniquenessQueryHandler = getUniquenessQueryHandler;
+            _editProjectHandler = editProjectHandler;
+            _getProjectByIdHandler = getProjectByIdHandler;
+            _createProjectHandler = createProjectHandler;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("idVisibleAvailability/{idVisible}")]
+        public async Task<IActionResult> Get(string idVisible)
         {
-            return Ok(3);
+            return Ok(await _getUniquenessQueryHandler.Handle(new GetUniquenessOfIdQuery(idVisible)));
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<IActionResult> Post([FromForm] ProjectCreateQuery query)
+        public async Task<IActionResult> Post([FromForm] ProjectCreateCommand command)
         {
-            var creatorId = _userManager.GetUserIdGuid(User);
-            var link = await _imageUpload.UploadProjectLogoImageAsync(query.Logo, creatorId.ToString(),
-                query.IdVisible);
-            var project = new Entities.Project(query.Name, query.IdVisible, query.Description, link, creatorId);
-            var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project);
-            _dbContext.SaveChanges();
-            return Ok();
+            var commandWithUser = command with {Claims = User};
+            var projectDto = await _createProjectHandler.Handle(commandWithUser);
+            return Ok(projectDto);
+        }
+
+        [HttpPut("{projectId}/edit")]
+        public async Task<IActionResult> UpdateProject([FromForm] ProjectCreateCommand command, Guid projectId)
+        {
+            var editCommand = new ProjectEditCommand(projectId, command.Name, command.IdVisible, command.Description,
+                command.Logo);
+            var projectDto = await _editProjectHandler.Handle(editCommand);
+            return Ok(projectDto);
+        }
+
+        [HttpGet("{projectId}/edit")]
+        public async Task<IActionResult> GetProjectForEdit(Guid projectId)
+        {
+            var result = await _getProjectByIdHandler.Handle(new GetProjectByIdQuery(projectId));
+            return Ok(result);
         }
     }
 }

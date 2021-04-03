@@ -1,6 +1,0 @@
-using Microsoft.AspNetCore.Http;
-
-namespace TapTrackAPI.Core.Records
-{
-    public record ProjectCreateQuery(string Name, string IdVisible, string Description, IFormFile Logo);
-}

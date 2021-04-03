@@ -1,0 +1,14 @@
+<div class="container" *ngIf="article | async as article">
+  <div class="row">
+    {{article.title}}
+    <div class="row">
+      {{article.createdBy.username}}{{article.createdBy.email}}{{article.createdAt}}
+    </div>
+    <div class="row" *ngIf="article.updatedBy != null">
+      {{article.updatedBy.username}}{{article.updatedBy.email}}{{article.updatedAt}}
+    </div>
+    <div class="row">
+      {{article.content}}
+    </div>
+  </div>
+</div>

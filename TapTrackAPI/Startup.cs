@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,8 +13,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TapTrackAPI.Core;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Features;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
+using TapTrackAPI.Core.Features.Issue;
+using TapTrackAPI.Core.Features.Project;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Core.Services;
 using TapTrackAPI.Data;
@@ -37,8 +41,7 @@ namespace TapTrackAPI
                 .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
             services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<AppDbContext>()
-                .AddSignInManager()
-                ;
+                .AddSignInManager();
 
             services.AddControllers()
                 .AddApplicationPart(typeof(AuthController).Assembly)
@@ -72,9 +75,19 @@ namespace TapTrackAPI
                 options.AddPolicy(Policies.Admin, PoliciesExtensions.AdminPolicy());
                 options.AddPolicy(Policies.User, PoliciesExtensions.UserPolicy());
             });
+
+            services.AddAutoMapper(mc =>
+            {
+                mc.AddMaps(typeof(AuthController).Assembly);
+            });
+            services.AddMediatR(typeof(AuthController).Assembly);
+
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
+            services.AddScoped<IMailSender, MailSender>();
+            services.RegisterProject();
+            services.RegisterIssue();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

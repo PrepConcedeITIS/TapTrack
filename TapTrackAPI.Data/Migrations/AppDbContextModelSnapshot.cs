@@ -147,10 +147,52 @@ namespace TapTrackAPI.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.Article", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long>("CreatedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("IdVisible")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long>("UpdatedById")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("IdVisible")
+                        .IsUnique();
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("Articles");
+                });
+
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Comment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ArticleId")
                         .HasColumnType("uuid");
 
                     b.Property<long?>("AuthorId")
@@ -175,6 +217,8 @@ namespace TapTrackAPI.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
 
                     b.HasIndex("AuthorId");
 
@@ -417,8 +461,31 @@ namespace TapTrackAPI.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.Article", b =>
+                {
+                    b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("UpdatedBy");
+                });
+
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Comment", b =>
                 {
+                    b.HasOne("TapTrackAPI.Core.Entities.Article", null)
+                        .WithMany("Comment")
+                        .HasForeignKey("ArticleId");
+
                     b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
@@ -477,6 +544,11 @@ namespace TapTrackAPI.Data.Migrations
                     b.Navigation("Project");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.Article", b =>
+                {
+                    b.Navigation("Comment");
                 });
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Issue", b =>
