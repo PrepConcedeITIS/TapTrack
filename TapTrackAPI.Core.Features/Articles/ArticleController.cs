@@ -1,4 +1,5 @@
 using System;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
@@ -10,7 +11,8 @@ namespace TapTrackAPI.Core.Features.Articles
     {
         private DbContext Context { get; }
 
-        public ArticleController(DbContext context)
+        public ArticleController(DbContext context, IMediator mediator)
+            : base(mediator)
         {
             Context = context;
         }
