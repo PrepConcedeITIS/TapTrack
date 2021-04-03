@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.Handlers;
@@ -11,7 +12,9 @@ namespace TapTrackAPI.Core.Features.Issue
     {
         private readonly IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>> _getIssueHandler;
 
-        public IssueController(IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>> getIssueHandler)
+        public IssueController(IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>> getIssueHandler,
+            IMediator mediator)
+            : base(mediator)
         {
             _getIssueHandler = getIssueHandler;
         }
