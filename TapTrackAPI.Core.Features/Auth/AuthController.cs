@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using TapTrackAPI.Core.Interfaces;
 namespace TapTrackAPI.Core.Features.Auth
 {
     public record UserInput(string Email, string Password);
+
     [AllowAnonymous]
     public class AuthController : ApiBaseController
     {
@@ -17,7 +19,9 @@ namespace TapTrackAPI.Core.Features.Auth
         private readonly SignInManager<User> _signInManager;
         private readonly IJwtTokenGenerator _tokenGenerator;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtTokenGenerator tokenGenerator)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager,
+            IJwtTokenGenerator tokenGenerator, IMediator mediator)
+            : base(mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
