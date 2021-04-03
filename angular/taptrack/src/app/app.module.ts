@@ -26,6 +26,7 @@ import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectDetailsComponent} from './project/details/project-details.component';
 import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {ErrorComponent} from './error/error.component';
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    AgGridModule
+    AgGridModule,
+    CollapseModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
