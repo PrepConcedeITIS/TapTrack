@@ -7,9 +7,10 @@ using TapTrackAPI.Core.Features.Issue.Dtos;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Enums;
 
+
 namespace TapTrackAPI.Core.Features.Issue.Handlers
 {
-    public class GetIssueListHandler : IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>>
+    public class GetIssueListHandler : IAsyncQueryHandler<GetListIssueQuery, List<IssueListDto>>
     {
         private readonly DbContext _dbContext;
 
@@ -18,7 +19,7 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
             _dbContext = dbContext;
         }
 
-        public Task<List<IssueListDto>> Handle(GetIssueQuery input)
+        public Task<List<IssueListDto>> Handle(GetListIssueQuery input)
         {
             var issues = _dbContext.Set<Entities.Issue>()
                 .Select(x => new IssueListDto(x.Title, 

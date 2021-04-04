@@ -1,1 +1,19 @@
-<h1>LIST</h1>
+<div style="text-align: center;">
+    <h2>
+            Проекты
+    </h2>
+</div>
+<div>
+    <div *ngIf="projects" class='newsContainer'>
+            <div *ngFor="let project of projects" class='projects'>
+                    <div class="project">
+                        <div class="projectBox">
+                            <img class="projectLogo" [src]="project.logoUrl">
+                            <p class="projectName">{{ project.name }}</p>
+                            <p class="projectDescr">{{ project.description }}</p>
+                        </div>
+                        <button style="margin-left: auto;">Agile board</button>
+                    </div>
+            </div>
+    </div>
+</div>

@@ -14,8 +14,7 @@ import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import {FormlyFieldFileComponent} from './_extensions/file-type.component';
 import {FileValueAccessor} from './_extensions/file-value-accessor';
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {IssueListComponent} from './issue/issue-list/issue-list.component';
@@ -27,6 +26,7 @@ import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectDetailsComponent} from './project/details/project-details.component';
 import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
+import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
 
@@ -39,6 +39,7 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     FileValueAccessor,
     FormlyFieldFileComponent,
     IssueListComponent,
+    IssueDetailsComponent,
     ArticleComponent,
     ArticleDetailsComponent,
     ProjectUpdateComponent,
@@ -60,6 +61,7 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     FormlyBootstrapModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    AgGridModule.withComponents([]),
     TabsModule.forRoot(),
     AgGridModule,
     CollapseModule,

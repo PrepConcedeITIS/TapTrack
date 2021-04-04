@@ -10,7 +10,7 @@ namespace TapTrackAPI.Core.Features.Issue
     {
         public static void RegisterIssue(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>>, GetIssueListHandler>();
+            serviceCollection.AddScoped<IAsyncQueryHandler<GetListIssueQuery, List<IssueListDto>>, GetIssueListHandler>();
         }
     }
 }
