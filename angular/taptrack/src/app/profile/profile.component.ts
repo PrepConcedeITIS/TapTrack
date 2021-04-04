@@ -17,6 +17,11 @@ export class ProfileComponent implements OnInit {
   isNameEdit: boolean;
   isFileLoaded: boolean;
   private controllerName = "/profile";
+  userProjects: Record<string, string>;
+
+  rowData = [];
+
+  displayedColumns: string[] = ['project', 'position'];
 
   form = new FormGroup({});
 
@@ -28,6 +33,8 @@ export class ProfileComponent implements OnInit {
     this.isFileLoaded = false;
     console.log("hello");
     this.getProfile();
+    this.getUserProjects();
+    console.log(this.userProjects);
   }
 
   handleFileInput(files: FileList) {
@@ -57,6 +64,30 @@ export class ProfileComponent implements OnInit {
         this.userProfile = data;
         console.log(data);
       });
+  }
+
+  getUserProjects() {
+    console.log("проекты");
+
+    this.httpClient.get(environment.apiUrl + this.controllerName + "/projects")
+      .subscribe(data => {
+        console.log(data);
+        // @ts-ignore
+        this.userProjects = data.projectPosition;
+
+        // @ts-ignore
+        // tslint:disable-next-line:forin
+        for (const key in data.projectPosition) {
+          // @ts-ignore
+          const keyValue = data.projectPosition[key];
+
+          this.rowData.push({
+            project: key, position: keyValue
+          });
+        }
+      });
+
+    console.log("проекты");
   }
 
   enableUserNameEdit() {
