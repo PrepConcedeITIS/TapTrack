@@ -14,7 +14,7 @@ namespace TapTrackAPI.Core.Entities
 
         public string Role { get; protected set; }
 
-        protected TeamMember(Guid userId, Guid projectId, Role role)
+        public TeamMember(Guid userId, Guid projectId, Role role)
         {
             UserId = userId;
             ProjectId = projectId;
