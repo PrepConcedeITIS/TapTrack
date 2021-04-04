@@ -27,6 +27,7 @@ import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectDetailsComponent} from './project/details/project-details.component';
 import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
+import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
 
@@ -39,6 +40,7 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     FileValueAccessor,
     FormlyFieldFileComponent,
     IssueListComponent,
+    IssueDetailsComponent,
     ArticleComponent,
     ArticleDetailsComponent,
     ProjectUpdateComponent,

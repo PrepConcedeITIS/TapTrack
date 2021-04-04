@@ -1,0 +1,55 @@
+<div class="form-group" *ngIf="issueData | async as issueData">
+  <table width="100%" style="margin-top: 2%; margin-left: 2%">
+    <tr>
+      <td valign="top" width="50%" >
+        <div style="margin-left: 2%; font-size: 30px">
+          {{issueData.title}}
+        </div>
+        <div style="margin-left: 5%; margin-top: 2%; font-size: 20px">
+          <div>
+            {{issueData.description}}
+          </div>
+        </div>
+      </td>
+      <td width="35%">
+        <div class="container" style="border: solid 1px; width: 30%; margin-top: 10%">
+          <div class="div1">
+            Project: {{issueData.project}}
+          </div>
+          <div class="div1">
+            Assignee: {{issueData.assignee}}
+          </div>
+          <div class="div1">
+            Creator: {{issueData.creator}}
+          </div>
+          <div class="div1" >
+            Spent time:
+            <div *ngIf="issueData.spentHours > 0" >
+              {{issueData.spentHours}} h.
+            </div>
+            <div *ngIf="issueData.spentHours == 0 || issueData.spentMinutes > 0"> {{issueData.spentMinutes}} m.</div>
+          </div>
+          <div class="div1">
+            Estimation:
+            <div *ngIf="issueData.estimationHours > 0">
+              {{issueData.estimationHours}} h.
+            </div>
+            <div *ngIf="issueData.estimationHours == 0 || issueData.estimationMinutes > 0"> {{issueData.estimationMinutes}} m.</div>
+          </div>
+          <div class="div1">
+            Priority: {{issueData.priority}}
+          </div>
+          <div class="div1">
+            State: {{issueData.state}}
+          </div>
+          <div class="div1">
+            CreationDate: {{issueData.created}}
+          </div>
+          <div class="div1">
+            IssueType: {{issueData.issueType}}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
