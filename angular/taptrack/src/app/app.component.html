@@ -18,8 +18,8 @@
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/project/list']">Projects</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Knowledge base</a>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/article']">Knowledge Base</a>
           </li>
         </ul>
       </div>
@@ -38,5 +38,4 @@
   </nav>
   <!-- Navbar -->
 </header>
-<router-outlet>
-</router-outlet>
+<router-outlet></router-outlet>

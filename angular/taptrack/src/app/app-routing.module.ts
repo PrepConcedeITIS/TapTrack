@@ -10,6 +10,8 @@ import {ProjectUpdateComponent} from './project/update/project-update.component'
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
+import {ArticleComponent} from "./article/article.component";
+import {ArticleDetailsComponent} from "./article-details/article-details.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
@@ -27,8 +29,9 @@ const routes: Routes = [
       {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
     ]
   },
-
-
+  {path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
+      {path: 'details/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard]}
+    ]},
   {path: '**', component: ErrorComponent}
 ];
 
