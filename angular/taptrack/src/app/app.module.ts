@@ -19,12 +19,15 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {IssueListComponent} from './issue/issue-list/issue-list.component';
 import {AgGridModule} from 'ag-grid-angular';
-import {ArticleDetailsComponent} from './article/article-details.component';
+import {ArticleComponent} from "./article/article.component";
+import {ArticleDetailsComponent} from './article-details/article-details.component';
 import {ProjectUpdateComponent} from './project/update/project-update.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectDetailsComponent} from './project/details/project-details.component';
 import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {AccordionModule} from "ngx-bootstrap/accordion";
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import {ErrorComponent} from './error/error.component';
     FileValueAccessor,
     FormlyFieldFileComponent,
     IssueListComponent,
+    ArticleComponent,
     ArticleDetailsComponent,
     ProjectUpdateComponent,
     ProjectListComponent,
@@ -57,7 +61,9 @@ import {ErrorComponent} from './error/error.component';
     BsDropdownModule.forRoot(),
     AgGridModule.withComponents([]),
     TabsModule.forRoot(),
-    AgGridModule
+    AgGridModule,
+    CollapseModule,
+    AccordionModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

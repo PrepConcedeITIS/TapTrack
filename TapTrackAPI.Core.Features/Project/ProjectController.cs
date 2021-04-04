@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.Handlers;
@@ -20,7 +21,9 @@ namespace TapTrackAPI.Core.Features.Project
             IAsyncCommandHandler<ProjectEditCommand, ProjectDto> editProjectHandler,
             IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> getProjectByIdHandler,
             IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> createProjectHandler,
-            IAsyncQueryHandler<GetProjectsListQuery, List<ProjectDto>> getProjectsListQuery)
+            IAsyncQueryHandler<GetProjectsListQuery, List<ProjectDto>> getProjectsListQuery,
+            IMediator mediator)
+            : base(mediator)
         {
             _getUniquenessQueryHandler = getUniquenessQueryHandler;
             _editProjectHandler = editProjectHandler;

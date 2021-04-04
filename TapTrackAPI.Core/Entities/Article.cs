@@ -6,6 +6,8 @@ namespace TapTrackAPI.Core.Entities
 {
     public class Article : EntityBase
     {
+        public virtual Project BelongsTo { get; protected set; }
+        public Guid BelongsToId { get; protected set; }
         public string Title { get; protected set; }
         public virtual TeamMember CreatedBy { get; protected set; }
         public long CreatedById { get; protected set; }
