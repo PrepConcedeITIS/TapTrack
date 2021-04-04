@@ -14,7 +14,6 @@ namespace TapTrackAPI.Core.Features.Project
             services.AddScoped<IAsyncCommandHandler<ProjectCreateCommand, ProjectDto>, CreateProjectAsyncHandler>();
             services.AddScoped<IAsyncCommandHandler<ProjectEditCommand, ProjectDto>, UpdateProjectInfoAsyncHandler>();
             services.AddScoped<IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto>, GetProjectByIdAsyncQueryHandler>();
-            services.AddScoped<IAsyncQueryHandler<GetProjectsListQuery, List<ProjectDto>>, GetProjectsListAsyncHandler>(); 
         }
     }
 }
