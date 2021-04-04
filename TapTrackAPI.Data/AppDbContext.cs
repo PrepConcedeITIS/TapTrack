@@ -11,15 +11,23 @@ namespace TapTrackAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-        
+
         public DbSet<Issue> Issues { get; protected set; }
         public DbSet<Comment> Comments { get; protected set; }
         public DbSet<TeamMember> TeamMembers { get; protected set; }
         public DbSet<Project> Projects { get; protected set; }
         public DbSet<Article> Articles { get; protected set; }
+        public DbSet<UserContact> UserContacts { get; protected set; }
+        public DbSet<ContactType> ContactTypes { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ContactType>().HasData(
+                new ContactType("Telegram"),
+                new ContactType("Skype"),
+                new ContactType("Discord"), 
+                new ContactType("GitHub"));
+
             /*builder.Entity<User>().HasData(new []
             {
                 new User("admin@tpk.com"){PasswordHash = }
