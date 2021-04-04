@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,20 @@ namespace TapTrackAPI.Core.Features.Project
         public ProjectController(IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> getUniquenessQueryHandler,
             IAsyncCommandHandler<ProjectEditCommand, ProjectDto> editProjectHandler,
             IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> getProjectByIdHandler,
-            IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> createProjectHandler, IMediator mediator)
+            IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> createProjectHandler,
+            IMediator mediator)
             : base(mediator)
         {
             _getUniquenessQueryHandler = getUniquenessQueryHandler;
             _editProjectHandler = editProjectHandler;
             _getProjectByIdHandler = getProjectByIdHandler;
             _createProjectHandler = createProjectHandler;
+        }
+
+        [HttpGet("get")]
+        public async Task<IActionResult> GetList()
+        {
+            return Ok(await Mediator.Send(new GetProjectsListQuery()));
         }
 
         [HttpGet("idVisibleAvailability/{idVisible}")]
