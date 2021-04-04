@@ -17,6 +17,7 @@ using TapTrackAPI.Core.Features;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
 using TapTrackAPI.Core.Features.Issue;
+using TapTrackAPI.Core.Features.Profile;
 using TapTrackAPI.Core.Features.Project;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Core.Services;
@@ -88,6 +89,7 @@ namespace TapTrackAPI
             services.AddScoped<IMailSender, MailSender>();
             services.RegisterProject();
             services.RegisterIssue();
+            services.RegisterProfileHandlers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

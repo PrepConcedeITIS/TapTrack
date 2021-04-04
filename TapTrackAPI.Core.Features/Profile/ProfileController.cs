@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Profile.Records;
+using TapTrackAPI.Core.Features.Profile.Records.CQRS;
+using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Data;
 
@@ -17,9 +18,11 @@ namespace TapTrackAPI.Core.Features.Profile
     {
         private readonly UserManager<User> _userManager;
         private readonly IImageUploadService _imageService;
-        private readonly AppDbContext _context;
+        private readonly DbContext _context;
 
-        public ProfileController(UserManager<User> userManager, AppDbContext context, IImageUploadService imageService)
+        public ProfileController(UserManager<User> userManager, DbContext context, IImageUploadService imageService,
+            IMediator mediator)
+            : base(mediator)
         {
             _userManager = userManager;
             _context = context;
@@ -34,7 +37,7 @@ namespace TapTrackAPI.Core.Features.Profile
             if (user == null)
                 return BadRequest("Пользователь не найден");
 
-            return Ok(new UserProfile("здесь должна быть ссылка на image", user.UserName, user.Email));
+            return Ok(new GetUserProfileDto("здесь должна быть ссылка на image", user.UserName, user.Email));
         }
 
         [HttpGet("projects")]
@@ -49,24 +52,24 @@ namespace TapTrackAPI.Core.Features.Profile
             };
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            /*var userProject = _context.Projects
+            var userProject = _context.Set<Entities.Project>()
                 .Where(x => x.Team
                     .Select(y => y.User).Contains(user))
                 .Select(x => new
                 {
                     Project = x.Name,
                     Position = x.Team.First(y => y.User == user).Role
-                });*/
+                });
 
             return Ok(mock);
         }
 
         [HttpPut("uploadProfileImage"), DisableRequestSizeLimit]
-        public async Task<IActionResult> UploadProfileImage([FromForm] UpdateProfileImageQuery updateProfileImageQuery)
+        public async Task<IActionResult> UploadProfileImage([FromForm] UpdateProfileImageCommand updateProfileImageCommand)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            await _imageService.UploadUserProfileImage(updateProfileImageQuery.Image, user.Id.ToString());
+            await _imageService.UploadUserProfileImage(updateProfileImageCommand.Image, user.Id.ToString());
 
             //TODO: добавить поля для пользователя
 
@@ -75,7 +78,7 @@ namespace TapTrackAPI.Core.Features.Profile
 
 
         [HttpPut("updateUserName")]
-        public async Task<IActionResult> UpdateUserName([FromBody] ChangeUserNameDto newUserName)
+        public async Task<IActionResult> UpdateUserName([FromBody] ChangeUserNameCommand newUserName)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 

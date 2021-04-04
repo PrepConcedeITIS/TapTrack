@@ -19,15 +19,6 @@ export class ProfileComponent implements OnInit {
   private controllerName = "/profile";
 
   form = new FormGroup({});
-  fields: FormlyFieldConfig[] = [
-    {
-      key: 'image',
-      type: 'file',
-      templateOptions: {
-        label: 'Profile image'
-      }
-    }
-  ];
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
