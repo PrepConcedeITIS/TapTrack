@@ -39,19 +39,6 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
                     Position = x.Team.First(y => y.User == user).Role
                 });*/
 
-            var userProject = DbContext.Set<Entities.Project>()
-                .Where(x => x.Team
-                    .Select(y => y.User).Contains(user))
-                .Select(x => new
-                {
-                    Project = x.Name,
-                    Position = x.Team.First(y => y.User == user).Role
-                });
-
-            var x = DbContext.Set<Entities.Project>()
-                .AsQueryable()
-                .Where(x => x.Team.AsQueryable().Select(y => y.User).Contains<User>(user));
-
             return new GetUserProjectsDto(mock);
         }
     }

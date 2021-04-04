@@ -19,9 +19,13 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
             _imageUploadService = imageUploadService;
         }
 
-        public override Task<bool> Handle(UpdateProfileImageCommand input)
+        public override async Task<bool> Handle(UpdateProfileImageCommand command)
         {
-            throw new System.NotImplementedException();
+            var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
+
+            //await _imageUploadService.UploadUserProfileImage(command.Image, user.Id.ToString());
+            
+            return true;
         }
     }
 }

@@ -25,6 +25,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
                 return false; //уберу этот позор когда разберусь с валидаторами
 
             user.UserName = command.NewUserName;
+            DbContext.Set<User>().Update(user);
             await DbContext.SaveChangesAsync();
 
             return true; //уберу этот позор когда разберусь с валидаторами
