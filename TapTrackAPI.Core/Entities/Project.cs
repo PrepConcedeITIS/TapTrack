@@ -41,6 +41,8 @@ namespace TapTrackAPI.Core.Entities
         public virtual ICollection<Issue> Issues { get; protected set; }
 
         public virtual ICollection<TeamMember> Team { get; protected set; }
+        
+        public virtual ICollection<Article> Articles { get; protected set; }
 
         #endregion
 
