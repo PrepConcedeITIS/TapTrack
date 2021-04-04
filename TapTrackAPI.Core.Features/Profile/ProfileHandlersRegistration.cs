@@ -15,6 +15,9 @@ namespace TapTrackAPI.Core.Features.Profile
             services.AddScoped<IAsyncQueryHandler<GetUserProjectsQuery, GetUserProjectsDto>, GetUserProjectsHandler>();
             services.AddScoped<IAsyncQueryHandler<ChangeUserNameCommand, bool>, ChangeUserNameHandler>();
             services.AddScoped<IAsyncQueryHandler<UpdateProfileImageCommand, bool>, UpdateProfileImageHandler>();
+            services.AddScoped<IAsyncQueryHandler<GetContactInfoQuery, GetContactInformationDto>,
+                    GetContactInfoHandler>();
+            services.AddScoped<IAsyncQueryHandler<UpdateContactInfoCommand, bool>, UpdateContactsInfoHandler>();
         }
     }
 }

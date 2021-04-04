@@ -22,11 +22,11 @@ namespace TapTrackAPI.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ContactType>().HasData(
-                new ContactType("Telegram"),
-                new ContactType("Skype"),
-                new ContactType("Discord"), 
-                new ContactType("GitHub"));
+            /*builder.Entity<ContactType>().HasData(
+                new ContactType("Telegram", Guid.NewGuid()),
+                new ContactType("Skype", Guid.NewGuid()),
+                new ContactType("Discord", Guid.NewGuid()), 
+                new ContactType("GitHub"), Guid.NewGuid());*/
 
             /*builder.Entity<User>().HasData(new []
             {

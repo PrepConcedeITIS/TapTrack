@@ -29,5 +29,10 @@ namespace TapTrackAPI.Core.Entities
         {
             ContactInfo = info;
         }
+
+        public void ChangeNotificationOption(bool option)
+        {
+            NotificationEnabled = option;
+        }
     }
 }

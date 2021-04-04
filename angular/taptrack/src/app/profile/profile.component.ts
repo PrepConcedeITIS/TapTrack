@@ -5,6 +5,7 @@ import {Profile} from "./dto/profile";
 import {Router} from "@angular/router";
 import {FormGroup} from "@angular/forms";
 import {FormlyFieldConfig} from "@ngx-formly/core";
+import {ProjectQuery} from "../project/_interfaces/project-query";
 
 @Component({
   selector: 'app-profile',
@@ -15,15 +16,18 @@ export class ProfileComponent implements OnInit {
   fileToUpload: File = null;
   userProfile: Profile;
   isNameEdit: boolean;
+  isContactInfoEdit: boolean;
   isFileLoaded: boolean;
   private controllerName = "/profile";
   userProjects: Record<string, string>;
 
-  rowData = [];
+  userProjectsRowData = [];
+  userContactsRowData = [];
 
   displayedColumns: string[] = ['project', 'position'];
 
   form = new FormGroup({});
+  contactsForm = new FormGroup({});
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -31,9 +35,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.isNameEdit = false;
     this.isFileLoaded = false;
+    this.isContactInfoEdit = false;
     console.log("hello");
     this.getProfile();
     this.getUserProjects();
+    this.getContactsInformation();
     console.log(this.userProjects);
   }
 
@@ -48,6 +54,7 @@ export class ProfileComponent implements OnInit {
     const formData = new FormData();
 
     formData.set("Image", this.fileToUpload, this.fileToUpload.name);
+    formData.set("ClaimsPrincipal", null);
 
 
     this.httpClient.put(environment.apiUrl + this.controllerName + "/uploadProfileImage", formData)
@@ -81,7 +88,7 @@ export class ProfileComponent implements OnInit {
           // @ts-ignore
           const keyValue = data.projectPosition[key];
 
-          this.rowData.push({
+          this.userProjectsRowData.push({
             project: key, position: keyValue
           });
         }
@@ -90,9 +97,29 @@ export class ProfileComponent implements OnInit {
     console.log("проекты");
   }
 
+  getContactsInformation() {
+    this.httpClient.get(environment.apiUrl + this.controllerName + "/contacts")
+      .subscribe(data => {
+        // @ts-ignore
+        // tslint:disable-next-line:forin
+        for (const key in data.contacts) {
+          // @ts-ignore
+          const keyValue = data.contacts[key];
+
+          this.userContactsRowData.push({
+            name: key, value: keyValue
+          });
+        }
+      });
+  }
+
   enableUserNameEdit() {
     this.isNameEdit = true;
     console.log(this.isNameEdit);
+  }
+
+  enableContactInformationEdit() {
+    this.isContactInfoEdit = true;
   }
 
   cancelUserNameEdit() {
@@ -116,6 +143,29 @@ export class ProfileComponent implements OnInit {
     this.httpClient.put(environment.apiUrl + this.controllerName + "/updateUserName", {
       newUserName
     })
+      .subscribe(data => {
+        console.log(data);
+        location.reload();
+      });
+  }
+
+  cancelContactsEdit() {
+    this.isContactInfoEdit = false;
+  }
+
+  saveUserContactsEdit() {
+    console.log(this.contactsForm);
+    const formData = new FormData();
+
+    /*// tslint:disable-next-line:forin
+    for (let pair in this.userContactsRowData) {
+      formData.set(pair, this.userContactsRowData[pair]);
+    }*/
+
+    formData.set("Ping","ping");
+    formData.set("ClaimsPrincipal", null);
+
+    this.httpClient.put(environment.apiUrl + this.controllerName + "/updateContactsInfo", formData)
       .subscribe(data => {
         console.log(data);
         location.reload();

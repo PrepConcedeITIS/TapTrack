@@ -22,13 +22,13 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
 
             if (string.IsNullOrEmpty(command.NewUserName) || string.IsNullOrWhiteSpace(command.NewUserName) ||
                 command.NewUserName.Length > 25)
-                return false; //уберу этот позор когда разберусь с валидаторами
+                return false; //уберу когда разберусь с валидаторами
 
             user.UserName = command.NewUserName;
             DbContext.Set<User>().Update(user);
             await DbContext.SaveChangesAsync();
 
-            return true; //уберу этот позор когда разберусь с валидаторами
+            return true; //уберу когда разберусь с валидаторами
         }
     }
 }

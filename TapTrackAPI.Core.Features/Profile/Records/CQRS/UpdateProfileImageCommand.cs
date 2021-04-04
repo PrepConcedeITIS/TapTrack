@@ -4,6 +4,6 @@ using TapTrackAPI.Core.Features.Profile.Base;
 
 namespace TapTrackAPI.Core.Features.Profile.Records.CQRS
 {
-    public record UpdateProfileImageCommand(IFormFile Image, ClaimsPrincipal ClaimsPrincipal) : 
+    public record UpdateProfileImageCommand(IFormFile Image, ClaimsPrincipal ClaimsPrincipal = null) : 
         RecordBase<bool>(ClaimsPrincipal);
 }
