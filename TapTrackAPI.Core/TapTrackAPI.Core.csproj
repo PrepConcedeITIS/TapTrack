@@ -15,8 +15,4 @@
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Interfaces\Handlers" />
-    </ItemGroup>
-
 </Project>
