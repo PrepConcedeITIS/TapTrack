@@ -9,6 +9,6 @@ namespace TapTrackAPI.Core.Interfaces
 {
     public interface IMailSender
     {
-        public Task SendMessageAsync(MailAddress mailFrom, MailAddress mailTo, MailMessage message);
+        public Task SendMessageAsync(MailMessage message);
     }
 }
