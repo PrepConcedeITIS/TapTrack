@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Features.Profile.Handlers;
@@ -13,9 +14,9 @@ namespace TapTrackAPI.Core.Features.Profile
         {
             services.AddScoped<IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto>, GetUserProfileHandler>();
             services.AddScoped<IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto>, GetUserProjectsHandler>();
-            services.AddScoped<IAsyncQueryHandler<ChangeUserNameCommand, bool>, ChangeUserNameHandler>();
-            services.AddScoped<IAsyncQueryHandler<UpdateProfileImageCommand, bool>, UpdateProfileImageHandler>();
-            services.AddScoped<IAsyncQueryHandler<GetContactInfoQuery, ContactInformationDto>,
+            services.AddScoped<IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto>, ChangeUserNameHandler>();
+            services.AddScoped<IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto>, UpdateProfileImageHandler>();
+            services.AddScoped<IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>>,
                     GetContactInfoHandler>();
             services.AddScoped<IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto>, UpdateContactsInfoHandler>();
         }

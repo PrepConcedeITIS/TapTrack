@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TapTrackAPI.Core.Features.Profile.Records.Dtos
 {
-    public record ContactInformationDto(Dictionary<string, string> Contacts);
+    public record ContactInformationDto(string ResourceName, string ResourceInfo, Guid ResourceId);
 }

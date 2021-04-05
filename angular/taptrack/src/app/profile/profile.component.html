@@ -94,12 +94,13 @@
                   <a href="javascript:void(0);" (click)="enableContactInformationEdit()"><u>edit</u></a>
                 </h4>
 
-                <form [formGroup]="contactsForm">
+                <form>
                   <div *ngFor="let item of userContactsRowData" class="form-padding-bottom">
-                    <h4>{{item.name}}</h4>
+                    <h4>{{item.resourceName}}</h4>
                     <input type="text" class="form-control"
                            [disabled]="!isContactInfoEdit"
-                           value="{{item.value}}">
+                           [(ngModel)]="item.resourceInfo"
+                           name="{{item.resourceName}}">
                   </div>
                   <div *ngIf="isContactInfoEdit">
                     <button type="submit" class="edit-name-btn btn btn-primary btn-sm" (click)="saveUserContactsEdit()">

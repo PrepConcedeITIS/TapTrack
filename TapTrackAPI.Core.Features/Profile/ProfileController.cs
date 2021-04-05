@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
@@ -12,19 +13,18 @@ namespace TapTrackAPI.Core.Features.Profile
     {
         private readonly IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> _getUserProfileHandler;
         private readonly IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto> _getUserProjectsHandler;
-        private readonly IAsyncQueryHandler<ChangeUserNameCommand, bool> _changeUserNameHandler;
-        private readonly IAsyncQueryHandler<UpdateProfileImageCommand, bool> _updateProfileImageHandler;
+        private readonly IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto> _changeUserNameHandler;
+        private readonly IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto> _updateProfileImageHandler;
         private readonly IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto> _updateContactInfoHandler;
-
-        private readonly IAsyncQueryHandler<GetContactInfoQuery, ContactInformationDto>
+        private readonly IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>>
             _getContactInformationHandler;
 
         public ProfileController(
             IMediator mediator, IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> getUserProfileHandler,
             IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto> getUserProjectsHandler,
-            IAsyncQueryHandler<ChangeUserNameCommand, bool> changeUserNameHandler,
-            IAsyncQueryHandler<UpdateProfileImageCommand, bool> updateProfileImageHandler,
-            IAsyncQueryHandler<GetContactInfoQuery, ContactInformationDto> getContactInformationHandler, 
+            IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto> changeUserNameHandler,
+            IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto> updateProfileImageHandler,
+            IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>> getContactInformationHandler, 
             IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto> updateContactInfoHandler)
             : base(mediator)
         {
@@ -55,7 +55,7 @@ namespace TapTrackAPI.Core.Features.Profile
         }
 
         [HttpPut("updateContactsInfo")]
-        public async Task<IActionResult> UpdateContactInfo([FromForm] UpdateContactInfoCommand updateContactInfoCommand)
+        public async Task<IActionResult> UpdateContactInfo([FromBody]UpdateContactInfoCommand updateContactInfoCommand)
         {
             var command = updateContactInfoCommand with {ClaimsPrincipal = HttpContext.User};
 

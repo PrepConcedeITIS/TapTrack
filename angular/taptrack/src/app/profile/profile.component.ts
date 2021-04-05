@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Profile} from "./dto/profile";
@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {FormGroup} from "@angular/forms";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {ProjectQuery} from "../project/_interfaces/project-query";
+import {ContactInfo} from "./dto/contact-info";
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,7 @@ export class ProfileComponent implements OnInit {
   userProjects: Record<string, string>;
 
   userProjectsRowData = [];
-  userContactsRowData = [];
+  userContactsRowData: ContactInfo[];
 
   displayedColumns: string[] = ['project', 'position'];
 
@@ -59,8 +60,8 @@ export class ProfileComponent implements OnInit {
 
     this.httpClient.put(environment.apiUrl + this.controllerName + "/uploadProfileImage", formData)
       .subscribe(data => {
+        this.userProfile = <Profile> data;
         console.log(data);
-        location.reload();
       });
   }
 
@@ -100,16 +101,9 @@ export class ProfileComponent implements OnInit {
   getContactsInformation() {
     this.httpClient.get(environment.apiUrl + this.controllerName + "/contacts")
       .subscribe(data => {
-        // @ts-ignore
-        // tslint:disable-next-line:forin
-        for (const key in data.contacts) {
-          // @ts-ignore
-          const keyValue = data.contacts[key];
 
-          this.userContactsRowData.push({
-            name: key, value: keyValue
-          });
-        }
+        this.userContactsRowData = <ContactInfo[]> data;
+        console.log(this.userContactsRowData);
       });
   }
 
@@ -144,8 +138,9 @@ export class ProfileComponent implements OnInit {
       newUserName
     })
       .subscribe(data => {
+        this.userProfile = <Profile> data;
         console.log(data);
-        location.reload();
+        this.isNameEdit = false;
       });
   }
 
@@ -154,18 +149,9 @@ export class ProfileComponent implements OnInit {
   }
 
   saveUserContactsEdit() {
-    console.log(this.contactsForm);
-    const formData = new FormData();
-
-    /*// tslint:disable-next-line:forin
-    for (let pair in this.userContactsRowData) {
-      formData.set(pair, this.userContactsRowData[pair]);
-    }*/
-
-    formData.set("Ping","ping");
-    formData.set("ClaimsPrincipal", null);
-
-    this.httpClient.put(environment.apiUrl + this.controllerName + "/updateContactsInfo", formData)
+    this.httpClient.put(environment.apiUrl + this.controllerName + "/updateContactsInfo", {
+      Contacts: this.userContactsRowData,
+    })
       .subscribe(data => {
         console.log(data);
         location.reload();

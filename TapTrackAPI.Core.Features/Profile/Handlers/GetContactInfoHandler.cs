@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -11,24 +12,20 @@ using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 namespace TapTrackAPI.Core.Features.Profile.Handlers
 {
     public class GetContactInfoHandler : ProfileHandlerWithDbContextBase<GetContactInfoQuery,
-            ContactInformationDto>
+        List<ContactInformationDto>>
     {
         public GetContactInfoHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager,
             dbContext)
         {
         }
 
-        public override async Task<ContactInformationDto> Handle(GetContactInfoQuery query)
+        public override async Task<List<ContactInformationDto>> Handle(GetContactInfoQuery query)
         {
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
-            /*var userContacts = user.UserContacts
-                .Select(x => new
-                {
-                    ContactName = x.ContactType.Name,
-                    ContactInfo = x.ContactInfo
-                })
-                .ToDictionary(x => x.ContactName, x => x.ContactInfo);*/
+            /*var userContactsList = user.UserContacts
+                .Select(x => new ContactInformationDto(x.ContactType.Name, x.ContactInfo, x.Id))
+                .ToList();*/
 
 
             var mock = new Dictionary<string, string>()
@@ -39,7 +36,14 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
                 {"Github", "@test"},
             };
 
-            return new ContactInformationDto(mock);
+            var result = new List<ContactInformationDto>();
+
+            foreach (var pair in mock)
+            {
+                result.Add(new ContactInformationDto(pair.Key, pair.Value, Guid.NewGuid()));
+            }
+
+            return result;
         }
     }
 }

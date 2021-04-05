@@ -7,7 +7,7 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {ProjectCreateComponent} from './project/create/project-create.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import {FormlyFieldFileComponent} from "./_extensions/file-type.component";
@@ -44,25 +44,26 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
     ProjectComponent,
     ErrorComponent,
   ],
-  imports: [
-    BrowserModule,
-    MaterialModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormlyModule.forRoot({
-      types: [
-        {name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field']},
-      ],
-    }),
-    FormlyBootstrapModule,
-    BrowserAnimationsModule,
-    BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    AgGridModule,
-    CollapseModule
-  ],
+    imports: [
+        BrowserModule,
+        MaterialModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormlyModule.forRoot({
+            types: [
+                {name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field']},
+            ],
+        }),
+        FormlyBootstrapModule,
+        BrowserAnimationsModule,
+        BrowserAnimationsModule,
+        BsDropdownModule.forRoot(),
+        TabsModule.forRoot(),
+        AgGridModule,
+        CollapseModule,
+        FormsModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
