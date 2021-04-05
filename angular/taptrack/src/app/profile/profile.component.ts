@@ -73,8 +73,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         this.userProjectsRowData = <UserProject[]> data;
       });
-
-    console.log("проекты");
   }
 
   getContactsInformation() {
@@ -82,13 +80,11 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
 
         this.userContactsRowData = <ContactInfo[]> data;
-        console.log(this.userContactsRowData);
       });
   }
 
   enableUserNameEdit() {
     this.isNameEdit = true;
-    console.log(this.isNameEdit);
   }
 
   enableContactInformationEdit() {
@@ -97,7 +93,6 @@ export class ProfileComponent implements OnInit {
 
   cancelUserNameEdit() {
     this.isNameEdit = false;
-    console.log(this.userProfile.userName);
     // @ts-ignore
     document.getElementById("userNameInput").value = this.userProfile.userName;
   }
@@ -111,14 +106,11 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    console.log(newUserName);
-
     this.httpClient.put(environment.apiUrl + this.controllerName + "/updateUserName", {
       newUserName
     })
       .subscribe(data => {
         this.userProfile = <Profile> data;
-        console.log(data);
         this.isNameEdit = false;
       });
   }
@@ -132,7 +124,6 @@ export class ProfileComponent implements OnInit {
       Contacts: this.userContactsRowData,
     })
       .subscribe(data => {
-        console.log(data);
         location.reload();
       });
   }
