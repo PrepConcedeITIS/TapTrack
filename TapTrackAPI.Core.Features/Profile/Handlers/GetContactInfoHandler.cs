@@ -11,14 +11,14 @@ using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 namespace TapTrackAPI.Core.Features.Profile.Handlers
 {
     public class GetContactInfoHandler : ProfileHandlerWithDbContextBase<GetContactInfoQuery,
-            GetContactInformationDto>
+            ContactInformationDto>
     {
         public GetContactInfoHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager,
             dbContext)
         {
         }
 
-        public override async Task<GetContactInformationDto> Handle(GetContactInfoQuery query)
+        public override async Task<ContactInformationDto> Handle(GetContactInfoQuery query)
         {
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
@@ -39,7 +39,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
                 {"Github", "@test"},
             };
 
-            return new GetContactInformationDto(mock);
+            return new ContactInformationDto(mock);
         }
     }
 }

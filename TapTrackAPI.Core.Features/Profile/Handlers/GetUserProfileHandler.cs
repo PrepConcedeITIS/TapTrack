@@ -8,22 +8,22 @@ using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 
 namespace TapTrackAPI.Core.Features.Profile.Handlers
 {
-    public class GetUserProfileHandler : ProfileHandlerBase<GetUserProfileQuery, GetUserProfileDto>
+    public class GetUserProfileHandler : ProfileHandlerBase<GetUserProfileQuery, UserProfileDto>
     {
 
         public GetUserProfileHandler(UserManager<User> userManager) : base(userManager)
         {
         }
 
-        public override async Task<GetUserProfileDto> Handle(GetUserProfileQuery query)
+        public override async Task<UserProfileDto> Handle(GetUserProfileQuery query)
         {
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
             if (user == null)
-                return new GetUserProfileDto(null, null, null);
+                return new UserProfileDto(null, null, null);
             
             //TODO: поменять ProfileImageLink на нормальный
-            return new GetUserProfileDto("null", user.UserName, user.Email);
+            return new UserProfileDto("null", user.UserName, user.Email);
         }
     }
 }

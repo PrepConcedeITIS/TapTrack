@@ -11,13 +11,13 @@ using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 
 namespace TapTrackAPI.Core.Features.Profile.Handlers
 {
-    public class GetUserProjectsHandler : ProfileHandlerWithDbContextBase<GetUserProjectsQuery, GetUserProjectsDto>
+    public class GetUserProjectsHandler : ProfileHandlerWithDbContextBase<GetUserProjectsQuery, UserProjectsDto>
     {
         public GetUserProjectsHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager, dbContext)
         {
         }
 
-        public override async Task<GetUserProjectsDto> Handle(GetUserProjectsQuery query)
+        public override async Task<UserProjectsDto> Handle(GetUserProjectsQuery query)
         {
             var mock = new Dictionary<string, string>()
             {
@@ -39,7 +39,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
                     Position = x.Team.First(y => y.User == user).Role
                 });*/
 
-            return new GetUserProjectsDto(mock);
+            return new UserProjectsDto(mock);
         }
     }
 }

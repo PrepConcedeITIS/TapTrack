@@ -5,5 +5,5 @@ using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 namespace TapTrackAPI.Core.Features.Profile.Records.CQRS
 {
     public record GetUserProjectsQuery(ClaimsPrincipal ClaimsPrincipal) : 
-        RecordBase<GetUserProjectsDto>(ClaimsPrincipal);
+        RecordBase<UserProjectsDto>(ClaimsPrincipal);
 }

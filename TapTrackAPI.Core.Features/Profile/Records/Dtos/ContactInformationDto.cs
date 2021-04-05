@@ -2,5 +2,5 @@
 
 namespace TapTrackAPI.Core.Features.Profile.Records.Dtos
 {
-    public record GetContactInformationDto(Dictionary<string, string> Contacts);
+    public record ContactInformationDto(Dictionary<string, string> Contacts);
 }

@@ -10,21 +10,22 @@ namespace TapTrackAPI.Core.Features.Profile
 {
     public class ProfileController : AuthorizedApiController
     {
-        private readonly IAsyncQueryHandler<GetUserProfileQuery, GetUserProfileDto> _getUserProfileHandler;
-        private readonly IAsyncQueryHandler<GetUserProjectsQuery, GetUserProjectsDto> _getUserProjectsHandler;
+        private readonly IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> _getUserProfileHandler;
+        private readonly IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto> _getUserProjectsHandler;
         private readonly IAsyncQueryHandler<ChangeUserNameCommand, bool> _changeUserNameHandler;
         private readonly IAsyncQueryHandler<UpdateProfileImageCommand, bool> _updateProfileImageHandler;
-        private readonly IAsyncQueryHandler<UpdateContactInfoCommand, bool> _updateContactInfoHandler;
+        private readonly IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto> _updateContactInfoHandler;
 
-        private readonly IAsyncQueryHandler<GetContactInfoQuery, GetContactInformationDto>
+        private readonly IAsyncQueryHandler<GetContactInfoQuery, ContactInformationDto>
             _getContactInformationHandler;
 
         public ProfileController(
-            IMediator mediator, IAsyncQueryHandler<GetUserProfileQuery, GetUserProfileDto> getUserProfileHandler,
-            IAsyncQueryHandler<GetUserProjectsQuery, GetUserProjectsDto> getUserProjectsHandler,
+            IMediator mediator, IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> getUserProfileHandler,
+            IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto> getUserProjectsHandler,
             IAsyncQueryHandler<ChangeUserNameCommand, bool> changeUserNameHandler,
             IAsyncQueryHandler<UpdateProfileImageCommand, bool> updateProfileImageHandler,
-            IAsyncQueryHandler<GetContactInfoQuery, GetContactInformationDto> getContactInformationHandler, IAsyncQueryHandler<UpdateContactInfoCommand, bool> updateContactInfoHandler)
+            IAsyncQueryHandler<GetContactInfoQuery, ContactInformationDto> getContactInformationHandler, 
+            IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto> updateContactInfoHandler)
             : base(mediator)
         {
             _getUserProfileHandler = getUserProfileHandler;

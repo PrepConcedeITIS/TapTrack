@@ -11,13 +11,13 @@ namespace TapTrackAPI.Core.Features.Profile
     {
         public static void RegisterProfileHandlers(this IServiceCollection services)
         {
-            services.AddScoped<IAsyncQueryHandler<GetUserProfileQuery, GetUserProfileDto>, GetUserProfileHandler>();
-            services.AddScoped<IAsyncQueryHandler<GetUserProjectsQuery, GetUserProjectsDto>, GetUserProjectsHandler>();
+            services.AddScoped<IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto>, GetUserProfileHandler>();
+            services.AddScoped<IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto>, GetUserProjectsHandler>();
             services.AddScoped<IAsyncQueryHandler<ChangeUserNameCommand, bool>, ChangeUserNameHandler>();
             services.AddScoped<IAsyncQueryHandler<UpdateProfileImageCommand, bool>, UpdateProfileImageHandler>();
-            services.AddScoped<IAsyncQueryHandler<GetContactInfoQuery, GetContactInformationDto>,
+            services.AddScoped<IAsyncQueryHandler<GetContactInfoQuery, ContactInformationDto>,
                     GetContactInfoHandler>();
-            services.AddScoped<IAsyncQueryHandler<UpdateContactInfoCommand, bool>, UpdateContactsInfoHandler>();
+            services.AddScoped<IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto>, UpdateContactsInfoHandler>();
         }
     }
 }
