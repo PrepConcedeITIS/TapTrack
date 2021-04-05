@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
   isContactInfoEdit: boolean;
   isFileLoaded: boolean;
   private controllerName = "/profile";
-  userProjects: Record<string, string>;
 
   userProjectsRowData: UserProject[];
   userContactsRowData: ContactInfo[];
@@ -51,10 +50,10 @@ export class ProfileComponent implements OnInit {
     const formData = new FormData();
 
     formData.set("Image", this.fileToUpload, this.fileToUpload.name);
-    formData.set("ClaimsPrincipal", null);
 
-
-    this.httpClient.put(environment.apiUrl + this.controllerName + "/uploadProfileImage", formData)
+    this.httpClient.put(environment.apiUrl + this.controllerName + "/uploadProfileImage", {
+      Image: this.fileToUpload
+    })
       .subscribe(data => {
         this.userProfile = <Profile> data;
       });
@@ -124,7 +123,7 @@ export class ProfileComponent implements OnInit {
       Contacts: this.userContactsRowData,
     })
       .subscribe(data => {
-        location.reload();
+        this.userContactsRowData = <ContactInfo[]> data;
       });
   }
 }

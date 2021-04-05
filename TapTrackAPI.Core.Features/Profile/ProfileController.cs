@@ -64,9 +64,8 @@ namespace TapTrackAPI.Core.Features.Profile
 
         [HttpPut("uploadProfileImage"), DisableRequestSizeLimit]
         public async Task<IActionResult> UploadProfileImage(
-            [FromForm] UpdateProfileImageCommand updateProfileImageCommand)
+            [FromBody] UpdateProfileImageCommand updateProfileImageCommand)
         {
-            //TODO: заменить command            
             return Ok(await _updateProfileImageHandler.Handle(
                 new UpdateProfileImageCommand(updateProfileImageCommand.Image, HttpContext.User)));
         }
