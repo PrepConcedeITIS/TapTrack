@@ -12,20 +12,20 @@ namespace TapTrackAPI.Core.Features.Profile
     public class ProfileController : AuthorizedApiController
     {
         private readonly IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> _getUserProfileHandler;
-        private readonly IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto> _getUserProjectsHandler;
+        private readonly IAsyncQueryHandler<GetUserProjectsQuery, List<UserProjectDto>> _getUserProjectsHandler;
         private readonly IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto> _changeUserNameHandler;
         private readonly IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto> _updateProfileImageHandler;
-        private readonly IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto> _updateContactInfoHandler;
+        private readonly IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>> _updateContactInfoHandler;
         private readonly IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>>
             _getContactInformationHandler;
 
         public ProfileController(
             IMediator mediator, IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> getUserProfileHandler,
-            IAsyncQueryHandler<GetUserProjectsQuery, UserProjectsDto> getUserProjectsHandler,
+            IAsyncQueryHandler<GetUserProjectsQuery, List<UserProjectDto>> getUserProjectsHandler,
             IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto> changeUserNameHandler,
             IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto> updateProfileImageHandler,
             IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>> getContactInformationHandler, 
-            IAsyncQueryHandler<UpdateContactInfoCommand, ContactInformationDto> updateContactInfoHandler)
+            IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>> updateContactInfoHandler)
             : base(mediator)
         {
             _getUserProfileHandler = getUserProfileHandler;

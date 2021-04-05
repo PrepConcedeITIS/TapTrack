@@ -2,5 +2,5 @@
 
 namespace TapTrackAPI.Core.Features.Profile.Records.Dtos
 {
-    public record UserProjectsDto(Dictionary<string, string> ProjectPosition);
+    public record UserProjectDto(string ProjectName, string UserPosition);
 }

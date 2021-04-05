@@ -6,6 +6,6 @@ using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 namespace TapTrackAPI.Core.Features.Profile.Records.CQRS
 {
     public record UpdateContactInfoCommand(List<ContactInformationDto> Contacts, ClaimsPrincipal ClaimsPrincipal = null) :
-        RecordBase<ContactInformationDto>(
+        RecordBase<List<ContactInformationDto>>(
             ClaimsPrincipal);
 }

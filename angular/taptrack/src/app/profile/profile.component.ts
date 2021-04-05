@@ -7,6 +7,7 @@ import {FormGroup} from "@angular/forms";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {ProjectQuery} from "../project/_interfaces/project-query";
 import {ContactInfo} from "./dto/contact-info";
+import {UserProject} from "./dto/user-project";
 
 @Component({
   selector: 'app-profile',
@@ -22,13 +23,12 @@ export class ProfileComponent implements OnInit {
   private controllerName = "/profile";
   userProjects: Record<string, string>;
 
-  userProjectsRowData = [];
+  userProjectsRowData: UserProject[];
   userContactsRowData: ContactInfo[];
 
-  displayedColumns: string[] = ['project', 'position'];
+  displayedColumns: string[] = ['projectName', 'userPosition'];
 
   form = new FormGroup({});
-  contactsForm = new FormGroup({});
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -37,18 +37,14 @@ export class ProfileComponent implements OnInit {
     this.isNameEdit = false;
     this.isFileLoaded = false;
     this.isContactInfoEdit = false;
-    console.log("hello");
     this.getProfile();
     this.getUserProjects();
     this.getContactsInformation();
-    console.log(this.userProjects);
   }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.isFileLoaded = true;
-    console.log("addedas");
-    console.log(this.fileToUpload);
   }
 
   saveNewProfileImage() {
@@ -61,7 +57,6 @@ export class ProfileComponent implements OnInit {
     this.httpClient.put(environment.apiUrl + this.controllerName + "/uploadProfileImage", formData)
       .subscribe(data => {
         this.userProfile = <Profile> data;
-        console.log(data);
       });
   }
 
@@ -70,29 +65,13 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         // @ts-ignore
         this.userProfile = data;
-        console.log(data);
       });
   }
 
   getUserProjects() {
-    console.log("проекты");
-
     this.httpClient.get(environment.apiUrl + this.controllerName + "/projects")
       .subscribe(data => {
-        console.log(data);
-        // @ts-ignore
-        this.userProjects = data.projectPosition;
-
-        // @ts-ignore
-        // tslint:disable-next-line:forin
-        for (const key in data.projectPosition) {
-          // @ts-ignore
-          const keyValue = data.projectPosition[key];
-
-          this.userProjectsRowData.push({
-            project: key, position: keyValue
-          });
-        }
+        this.userProjectsRowData = <UserProject[]> data;
       });
 
     console.log("проекты");
