@@ -124,6 +124,7 @@ export class ProfileComponent implements OnInit {
     })
       .subscribe(data => {
         this.userContactsRowData = <ContactInfo[]> data;
+        this.isContactInfoEdit = false;
       });
   }
 }
