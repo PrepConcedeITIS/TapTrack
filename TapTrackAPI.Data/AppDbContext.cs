@@ -18,7 +18,6 @@ namespace TapTrackAPI.Data
         public DbSet<Project> Projects { get; protected set; }
         public DbSet<Article> Articles { get; protected set; }
         public DbSet<UserContact> UserContacts { get; protected set; }
-        public DbSet<ContactType> ContactTypes { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

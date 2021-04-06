@@ -31,7 +31,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
                 foreach (var contact in userContactsList)
                 {
                     var newContact = command.Contacts
-                        .FirstOrDefault(x => x.ResourceId == contact.Id);
+                        .FirstOrDefault(x => x.ResourceName == contact.ContactType.ToString("G"));
 
                     if (newContact != null)
                     {

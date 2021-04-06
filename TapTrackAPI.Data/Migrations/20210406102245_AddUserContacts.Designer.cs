@@ -10,8 +10,8 @@ using TapTrackAPI.Data;
 namespace TapTrackAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210404144157_AddUserContactInformation")]
-    partial class AddUserContactInformation
+    [Migration("20210406102245_AddUserContacts")]
+    partial class AddUserContacts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -232,26 +232,6 @@ namespace TapTrackAPI.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.ContactType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("IdVisible")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdVisible")
-                        .IsUnique();
-
-                    b.ToTable("ContactTypes");
-                });
-
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Issue", b =>
                 {
                     b.Property<Guid>("Id")
@@ -444,8 +424,8 @@ namespace TapTrackAPI.Data.Migrations
                     b.Property<string>("ContactInfo")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ContactTypeId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ContactType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("IdVisible")
                         .HasColumnType("text");
@@ -457,8 +437,6 @@ namespace TapTrackAPI.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ContactTypeId");
 
                     b.HasIndex("IdVisible")
                         .IsUnique();
@@ -606,19 +584,11 @@ namespace TapTrackAPI.Data.Migrations
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.UserContact", b =>
                 {
-                    b.HasOne("TapTrackAPI.Core.Entities.ContactType", "ContactType")
-                        .WithMany("UserContacts")
-                        .HasForeignKey("ContactTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TapTrackAPI.Core.Entities.User", "User")
                         .WithMany("UserContacts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ContactType");
 
                     b.Navigation("User");
                 });
@@ -626,11 +596,6 @@ namespace TapTrackAPI.Data.Migrations
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Article", b =>
                 {
                     b.Navigation("Comment");
-                });
-
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.ContactType", b =>
-                {
-                    b.Navigation("UserContacts");
                 });
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Issue", b =>

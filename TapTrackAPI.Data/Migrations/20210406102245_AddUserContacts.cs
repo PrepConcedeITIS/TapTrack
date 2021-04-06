@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TapTrackAPI.Data.Migrations
 {
-    public partial class AddUserContactInformation : Migration
+    public partial class AddUserContacts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,27 +14,14 @@ namespace TapTrackAPI.Data.Migrations
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "ContactTypes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    IdVisible = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserContacts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ContactTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     ContactInfo = table.Column<string>(type: "text", nullable: true),
                     NotificationEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    ContactType = table.Column<int>(type: "integer", nullable: false),
                     IdVisible = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -46,24 +33,7 @@ namespace TapTrackAPI.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserContacts_ContactTypes_ContactTypeId",
-                        column: x => x.ContactTypeId,
-                        principalTable: "ContactTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContactTypes_IdVisible",
-                table: "ContactTypes",
-                column: "IdVisible",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserContacts_ContactTypeId",
-                table: "UserContacts",
-                column: "ContactTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserContacts_IdVisible",
@@ -81,9 +51,6 @@ namespace TapTrackAPI.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "UserContacts");
-
-            migrationBuilder.DropTable(
-                name: "ContactTypes");
 
             migrationBuilder.DropColumn(
                 name: "ProfileImageUrl",
