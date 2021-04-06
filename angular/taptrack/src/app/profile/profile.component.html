@@ -117,7 +117,9 @@
           </div>
         </mat-tab>
         <mat-tab label="Уведомления">
-          <div class="tap-content">Content 4</div>
+          <div class="tap-content">
+            <mat-slide-toggle class="togle" [(ngModel)]="isTelegramNotificationsEnabled" >Получать уведомления через Telegram-бота</mat-slide-toggle>
+          </div>
         </mat-tab>
       </mat-tab-group>
     </div>

@@ -13,12 +13,20 @@ namespace TapTrackAPI.Core.Features.Profile
         public static void RegisterProfileHandlers(this IServiceCollection services)
         {
             services.AddScoped<IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto>, GetUserProfileHandler>();
-            services.AddScoped<IAsyncQueryHandler<GetUserProjectsQuery, List<UserProjectDto>>, GetUserProjectsHandler>();
+            services
+                .AddScoped<IAsyncQueryHandler<GetUserProjectsQuery, List<UserProjectDto>>, GetUserProjectsHandler>();
             services.AddScoped<IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto>, ChangeUserNameHandler>();
-            services.AddScoped<IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto>, UpdateProfileImageHandler>();
+            services
+                .AddScoped<IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto>, UpdateProfileImageHandler>();
             services.AddScoped<IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>>,
-                    GetContactInfoHandler>();
-            services.AddScoped<IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>>, UpdateContactsInfoHandler>();
+                GetContactInfoHandler>();
+            services
+                .AddScoped<IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>>,
+                    UpdateContactsInfoHandler>();
+            services
+                .AddScoped<IAsyncQueryHandler<ChangeNotificationOptionsCommand, bool>, ChangeNotificationOptionHandler
+                >();
+            services.AddScoped<IAsyncQueryHandler<GetNotificationOptionsQuery, bool>, GetNotificationsOptionsHandler>();
         }
     }
 }

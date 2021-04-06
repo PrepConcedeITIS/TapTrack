@@ -18,6 +18,8 @@ namespace TapTrackAPI.Core.Features.Profile
         private readonly IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>> _updateContactInfoHandler;
         private readonly IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>>
             _getContactInformationHandler;
+        private readonly IAsyncQueryHandler<ChangeNotificationOptionsCommand, bool> _changeNotificationOptionHandler;
+        private readonly IAsyncQueryHandler<GetNotificationOptionsQuery, bool> _getNotificationOptionHandler;
 
         public ProfileController(
             IMediator mediator, IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> getUserProfileHandler,
@@ -25,7 +27,7 @@ namespace TapTrackAPI.Core.Features.Profile
             IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto> changeUserNameHandler,
             IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto> updateProfileImageHandler,
             IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>> getContactInformationHandler, 
-            IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>> updateContactInfoHandler)
+            IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>> updateContactInfoHandler, IAsyncQueryHandler<ChangeNotificationOptionsCommand, bool> changeNotificationOptionHandler, IAsyncQueryHandler<GetNotificationOptionsQuery, bool> getNotificationOptionHandler)
             : base(mediator)
         {
             _getUserProfileHandler = getUserProfileHandler;
@@ -34,6 +36,8 @@ namespace TapTrackAPI.Core.Features.Profile
             _updateProfileImageHandler = updateProfileImageHandler;
             _getContactInformationHandler = getContactInformationHandler;
             _updateContactInfoHandler = updateContactInfoHandler;
+            _changeNotificationOptionHandler = changeNotificationOptionHandler;
+            _getNotificationOptionHandler = getNotificationOptionHandler;
         }
 
         [HttpGet]
@@ -53,6 +57,12 @@ namespace TapTrackAPI.Core.Features.Profile
         {
             return Ok(await _getContactInformationHandler.Handle(new GetContactInfoQuery(HttpContext.User)));
         }
+        
+        [HttpGet("notificationOptions")]
+        public async Task<IActionResult> GetUserNotificationOptions()
+        {
+            return Ok(await _getNotificationOptionHandler.Handle(new GetNotificationOptionsQuery(HttpContext.User)));
+        }
 
         [HttpPut("updateContactsInfo")]
         public async Task<IActionResult> UpdateContactInfo([FromBody]UpdateContactInfoCommand updateContactInfoCommand)
@@ -70,6 +80,14 @@ namespace TapTrackAPI.Core.Features.Profile
                 new UpdateProfileImageCommand(updateProfileImageCommand.Image, HttpContext.User)));
         }
 
+        [HttpPut("changeNotificationOption")]
+        public async Task<IActionResult> ChangeNotificationOption(
+            [FromBody] ChangeNotificationOptionsCommand changeNotificationOptionsCommand)
+        {
+            var command = changeNotificationOptionsCommand with {ClaimsPrincipal = HttpContext.User};
+
+            return Ok(await _changeNotificationOptionHandler.Handle(command));
+        }
 
         [HttpPut("updateUserName")]
         public async Task<IActionResult> UpdateUserName([FromBody] ChangeUserNameCommand changeUserNameCommand)

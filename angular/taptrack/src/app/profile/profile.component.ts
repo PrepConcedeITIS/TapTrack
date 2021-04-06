@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   isNameEdit: boolean;
   isContactInfoEdit: boolean;
   isFileLoaded: boolean;
+  isTelegramNotificationsEnabled: boolean;
   private controllerName = "/profile";
 
   userProjectsRowData: UserProject[];
@@ -39,6 +40,7 @@ export class ProfileComponent implements OnInit {
     this.getProfile();
     this.getUserProjects();
     this.getContactsInformation();
+    this.getNotificationOptions();
   }
 
   handleFileInput(files: FileList) {
@@ -80,6 +82,13 @@ export class ProfileComponent implements OnInit {
 
         this.userContactsRowData = <ContactInfo[]> data;
       });
+  }
+
+  getNotificationOptions() {
+    this.httpClient.get(environment.apiUrl + this.controllerName + "/notificationOptions")
+      .subscribe(data => {
+        this.isTelegramNotificationsEnabled = <boolean> data;
+      })
   }
 
   enableUserNameEdit() {
@@ -126,5 +135,13 @@ export class ProfileComponent implements OnInit {
         this.userContactsRowData = <ContactInfo[]> data;
         this.isContactInfoEdit = false;
       });
+  }
+
+  changeNotificationOption() {
+    this.httpClient.put(environment.apiUrl + this.controllerName + "/changeNotificationOption", {
+      option: this.isTelegramNotificationsEnabled
+    }).subscribe(data => {
+      this.isTelegramNotificationsEnabled = <boolean> data;
+    })
   }
 }
