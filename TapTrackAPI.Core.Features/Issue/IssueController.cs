@@ -10,26 +10,16 @@ namespace TapTrackAPI.Core.Features.Issue
 {
     public class IssueController : AuthorizedApiController
     {
-        private readonly IAsyncQueryHandler<GetListIssueQuery, List<IssueListDto>> _getListIssueHandler;
-
-        public IssueController(IAsyncQueryHandler<GetListIssueQuery, List<IssueListDto>> getIssueHandler,
-            IMediator mediator)
-            : base(mediator)
+        public IssueController(IMediator mediator) : base(mediator)
         {
-            _getListIssueHandler = getIssueHandler;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<IssueListDto>>> Get([FromQuery] GetListIssueQuery query)
-        {
-            var issues = await _getListIssueHandler.Handle(query);
-            return Ok(issues);
-        }
+            => Ok(await Mediator.Send(query));
 
         [HttpGet("{Id}")]
         public async Task<ActionResult<Entities.Issue>> Get([FromRoute] GetIssueQuery query)
-        {
-            return Ok(await Mediator.Send(query));
-        }
+            => Ok(await Mediator.Send(query));
     }
 }
