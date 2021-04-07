@@ -11,6 +11,9 @@ import {ProjectUpdateComponent} from './project/update/project-update.component'
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
+import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
+import {ArticleComponent} from "./article/article.component";
+import {ArticleDetailsComponent} from "./article-details/article-details.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
@@ -18,6 +21,11 @@ const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'issue/list', component: IssueListComponent, canActivate: [AuthGuard]},
+  {path: 'issue', canActivate: [AuthGuard], children: [
+    {path: 'list', component: IssueListComponent, canActivate: [AuthGuard]},
+      {path: ':id', component: IssueDetailsComponent, canActivate: [AuthGuard]}
+    ]
+  },
   {
     path: 'project', component: ProjectComponent, canActivate: [AuthGuard],
     children: [
@@ -27,8 +35,9 @@ const routes: Routes = [
       {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
     ]
   },
-
-
+  {path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
+      {path: 'details/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard]}
+    ]},
   {path: '**', component: ErrorComponent}
 ];
 

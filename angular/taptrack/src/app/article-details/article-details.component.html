@@ -1,0 +1,15 @@
+<div *ngIf="article | async as fullArticle">
+  <h1>{{fullArticle.projectTitle}}</h1>
+  <h2>{{fullArticle.title}}</h2>
+  <p *ngIf="fullArticle.createdBy != null">
+    CreatedBy: {{fullArticle.createdBy.username}}
+    Email: {{fullArticle.createdBy.email}}
+    CreatedAt: {{fullArticle.createdAt}}
+  </p>
+  <p *ngIf="fullArticle.updatedBy != null">
+    UpdatedBy: {{fullArticle.updatedBy.username}}
+    Email: {{fullArticle.updatedBy.email}}
+    UpdatedAt: {{fullArticle.updatedAt}}
+  </p>
+  <p>{{fullArticle.content}}</p>
+</div>

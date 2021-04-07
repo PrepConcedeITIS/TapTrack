@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TapTrackAPI.Data;
@@ -9,9 +10,10 @@ using TapTrackAPI.Data;
 namespace TapTrackAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210402210316_ProjectArticles")]
+    partial class ProjectArticles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,9 +395,6 @@ namespace TapTrackAPI.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("ProfileImageUrl")
-                        .HasColumnType("text");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -416,37 +415,6 @@ namespace TapTrackAPI.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.UserContact", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ContactInfo")
-                        .HasColumnType("text");
-
-                    b.Property<int>("ContactType")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("IdVisible")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("NotificationEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdVisible")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserContacts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -593,17 +561,6 @@ namespace TapTrackAPI.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.UserContact", b =>
-                {
-                    b.HasOne("TapTrackAPI.Core.Entities.User", "User")
-                        .WithMany("UserContacts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Article", b =>
                 {
                     b.Navigation("Comment");
@@ -621,11 +578,6 @@ namespace TapTrackAPI.Data.Migrations
                     b.Navigation("Issues");
 
                     b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.User", b =>
-                {
-                    b.Navigation("UserContacts");
                 });
 #pragma warning restore 612, 618
         }

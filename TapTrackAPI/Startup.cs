@@ -36,10 +36,10 @@ namespace TapTrackAPI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddCors();
+        { 
+            //services.AddCors();
             services.AddDbContext<AppDbContext>(builder => builder
-                .UseNpgsql(Configuration.GetConnectionString("PostgresLocal")));
+                .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
             services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddSignInManager();
@@ -87,6 +87,7 @@ namespace TapTrackAPI
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
             services.AddScoped<IMailSender, MailSender>();
+
             services.RegisterProject();
             services.RegisterIssue();
             services.RegisterProfileHandlers();

@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2 pt-2 mt-3 h-100">
+      <accordion [isAnimated]="true" *ngFor="let project of projectsWithArticles | async as projects">
+        <accordion-group heading="{{project.name}}">
+          <ul class="nav flex-column flex-nowrap" *ngIf="project.articles.length > 0; else no">
+            <li class="nav-item text-dark" *ngFor="let article of project.articles" [routerLinkActive]="['active']">
+              <a class="nav-link text-dark" [routerLink]="['details', article.id]">{{article.title}}</a>
+            </li>
+          </ul>
+          <ng-template #no>
+            <p>Не написано ни одной статьи</p>
+          </ng-template>
+        </accordion-group>
+      </accordion>
+    </div>
+    <div class="col-lg-10 pt-2">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
