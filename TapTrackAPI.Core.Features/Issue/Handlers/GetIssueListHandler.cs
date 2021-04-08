@@ -23,13 +23,13 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
             _dbContext = dbContext;
         }
 
-        public Task<List<IssueListDto>> Handle(GetListIssueQuery input, CancellationToken cancellationToken)
+        public async Task<List<IssueListDto>> Handle(GetListIssueQuery input, CancellationToken cancellationToken)
         {
-            var issues = _dbContext
+            var issues = await _dbContext
                 .Set<Entities.Issue>()
                 .ProjectTo<IssueListDto>(Mapper.ConfigurationProvider)
-                .ToList();
-            return Task.FromResult(issues);
+                .ToListAsync();
+            return issues;
         }
     }
 }
