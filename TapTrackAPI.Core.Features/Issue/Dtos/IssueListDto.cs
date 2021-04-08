@@ -1,5 +1,14 @@
 namespace TapTrackAPI.Core.Features.Issue.Dtos
 {
-    public record IssueListDto(string Title, string Project, string Priority, string State, string Creator,
-        string Assignee, string Estimate, string Spent);
+    public class IssueListDto
+    {
+        public string Title { get; set; }
+        public string Project { get; set; }
+        public string Priority { get; set; }
+        public string State { get; set; }
+        public string Creator { get; set; }
+        public string Assignee { get; set; }
+        public string Estimate { get; set; }
+        public string Spent { get; set; }
+    }
 }

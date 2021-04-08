@@ -15,9 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Issue\GetIssueQuery.cs">
-        <DependentUpon>IssueController.cs</DependentUpon>
-      </Compile>
       <Compile Update="Issue\Handlers\IssueDetailsProfile.cs">
         <DependentUpon>GetIssueHandler.cs</DependentUpon>
       </Compile>

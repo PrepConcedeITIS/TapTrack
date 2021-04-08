@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Features.Issue.Dtos;
+using TapTrackAPI.Core.Features.Issue.Queries;
 
 namespace TapTrackAPI.Core.Features.Issue
 {
