@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -12,8 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TapTrackAPI.Core;
+using TapTrackAPI.Core.Base.ValidationBase;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
 using TapTrackAPI.Core.Features.Issue;
@@ -81,7 +82,9 @@ namespace TapTrackAPI
                 mc.AddMaps(typeof(AuthController).Assembly);
             });
             services.AddMediatR(typeof(AuthController).Assembly);
-
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssemblies(new []{typeof(AuthController).Assembly});
+            
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();

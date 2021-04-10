@@ -1,5 +1,7 @@
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base.Handlers;
@@ -10,7 +12,7 @@ using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Project.Handlers
 {
-    public class CreateProjectAsyncHandler : IAsyncCommandHandler<ProjectCreateCommand, ProjectDto>
+    public class CreateProjectAsyncHandler : IAsyncCommandHandler<ProjectCreateCommand, ProjectDto>, IRequestHandler<ProjectCreateCommand, ProjectDto>
     {
         private readonly IImageUploadService _imageUpload;
         private readonly UserManager<User> _userManager;
@@ -35,6 +37,11 @@ namespace TapTrackAPI.Core.Features.Project.Handlers
             var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project);
             await _dbContext.SaveChangesAsync();
             return _mapper.Map<ProjectDto>(entityEntry.Entity);
+        }
+
+        public Task<ProjectDto> Handle(ProjectCreateCommand request, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

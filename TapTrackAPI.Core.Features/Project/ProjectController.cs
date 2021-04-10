@@ -45,6 +45,7 @@ namespace TapTrackAPI.Core.Features.Project
         public async Task<IActionResult> Post([FromForm] ProjectCreateCommand command)
         {
             var commandWithUser = command with {Claims = User};
+            var r = await Mediator.Send(commandWithUser);
             var projectDto = await _createProjectHandler.Handle(commandWithUser);
             return Ok(projectDto);
         }
