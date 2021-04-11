@@ -14,7 +14,7 @@ using TapTrackAPI.Core.Features.Issue.Queries;
 namespace TapTrackAPI.Core.Features.Issue.Handlers
 {
     public class GetIssueListHandler : RequestHandlerBase,
-        IRequestHandler<GetListIssueQuery, List<IssueListDto>>
+        IRequestHandler<GetIssueListQuery, List<IssueListItemDto>>
     {
         private readonly DbContext _dbContext;
 
@@ -23,11 +23,11 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<List<IssueListDto>> Handle(GetListIssueQuery input, CancellationToken cancellationToken)
+        public async Task<List<IssueListItemDto>> Handle(GetIssueListQuery input, CancellationToken cancellationToken)
         {
             var issues = await _dbContext
                 .Set<Entities.Issue>()
-                .ProjectTo<IssueListDto>(Mapper.ConfigurationProvider)
+                .ProjectTo<IssueListItemDto>(Mapper.ConfigurationProvider)
                 .ToListAsync();
             return issues;
         }

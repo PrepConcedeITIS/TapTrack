@@ -7,7 +7,7 @@ namespace TapTrackAPI.Core.Features.Issue
     {
         public IssueProfile()
         {
-            CreateMap<Entities.Issue, IssueListDto>()
+            CreateMap<Entities.Issue, IssueListItemDto>()
                 .ForMember(dto => dto.Project, e =>
                     e.MapFrom(m => m.Project.Name))
                 .ForMember(dto => dto.Priority, e =>
