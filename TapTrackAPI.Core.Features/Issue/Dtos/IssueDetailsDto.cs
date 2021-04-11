@@ -1,6 +1,3 @@
-using System;
-using MediatR;
-
 namespace TapTrackAPI.Core.Features.Issue.Dtos
 {
     public record IssueDetailsDto(string Title, string Description, string Creator, string Assignee,

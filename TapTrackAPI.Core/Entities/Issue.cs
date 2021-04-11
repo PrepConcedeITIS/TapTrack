@@ -55,7 +55,7 @@ namespace TapTrackAPI.Core.Entities
             Title = title;
             Description = description;
             AssigneeId = assignee.Id;
-            //ProjectId = project.Id;
+            ProjectId = project.Id;
             Estimation = estimation;
             Spent = spent;
             State = state;
