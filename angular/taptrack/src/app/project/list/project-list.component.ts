@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {ProjectService} from '../../_services/project.service'
+import { ProjectService } from '../../_services/project.service';
+import { Observable } from "rxjs";
+import { ThrowStmt } from '@angular/compiler';
+import { ImageFormatterService } from 'src/app/_services/image-formatter.service';
 
-export interface IProjectItem {
+export interface IProject {
+  id: string;
   name: string;
   description: string;
+  idVisible: string;
   logoUrl: string;
 }
 
@@ -19,16 +24,28 @@ export interface IGrouped<TItem> {
 })
 export class ProjectListComponent implements OnInit {
 
+  public projectsList: IProject[] = [];
+
   constructor(private projectService: ProjectService) { }
 
-  public projects: IProjectItem[];
+  columnDefs = [
+    { headerName: '',
+      width: 250,
+      field: 'logoUrl',
+      cellRendererFramework: ImageFormatterService},
+    { headerName: 'Имя',
+      width: 300,
+      field: 'name' },
+    { headerName: 'Описание',
+      width: 600,
+      field: 'description' }
+  ];
+
+  rowData: Observable<any[]>;
 
   ngOnInit(): void {
-
-    this.projectService.getProjectsList()
-      .subscribe((projects: IProjectItem[]) => {
-      this.projects = projects;
-  }); 
+    this.rowData = this.projectService.getProjectsList()
   }
-
 }
+
+
