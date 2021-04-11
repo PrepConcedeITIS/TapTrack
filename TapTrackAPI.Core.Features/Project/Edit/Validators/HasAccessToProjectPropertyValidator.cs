@@ -34,7 +34,7 @@ namespace TapTrackAPI.Core.Features.Project.Edit.Validators
             var projectCreator = (await _dbContext.Set<Entities.Project>()
                     .FirstOrDefaultAsync(x => x.Id == projectId, cancellationToken: cancellation))
                 ?.CreatorId;
-            var hasAccess = teamMember != null || projectCreator != null;
+            var hasAccess = teamMember != null || (projectCreator == userId);
 
             return hasAccess;
         }

@@ -36,7 +36,7 @@ namespace TapTrackAPI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        { 
+        {
             //services.AddCors();
             services.AddDbContext<AppDbContext>(builder => builder
                 .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
@@ -77,13 +77,10 @@ namespace TapTrackAPI
                 options.AddPolicy(Policies.User, PoliciesExtensions.UserPolicy());
             });
 
-            services.AddAutoMapper(mc =>
-            {
-                mc.AddMaps(typeof(AuthController).Assembly);
-            });
-            
+            services.AddAutoMapper(mc => { mc.AddMaps(typeof(AuthController).Assembly); });
+
             RegisterMediaR(services);
-            
+
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
@@ -96,9 +93,9 @@ namespace TapTrackAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            #warning
+#warning
             //app.UseCors(builder => builder.WithOrigins("paste url from prod front").AllowAnyHeader().AllowAnyMethod());
-            
+
             if (env.IsDevelopment())
             {
                 app.UseCors(builder =>
@@ -108,6 +105,7 @@ namespace TapTrackAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TapTrackAPI v1"));
             }
 
+            app.UseMiddleware<ValidationExceptionMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -122,7 +120,7 @@ namespace TapTrackAPI
         {
             services.AddMediatR(typeof(AuthController).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddValidatorsFromAssemblies(new []{typeof(AuthController).Assembly});
+            services.AddValidatorsFromAssemblies(new[] {typeof(AuthController).Assembly});
         }
     }
 }
