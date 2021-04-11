@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using TapTrackAPI.Core;
+using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.ValidationBase;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Auth;
@@ -81,9 +81,8 @@ namespace TapTrackAPI
             {
                 mc.AddMaps(typeof(AuthController).Assembly);
             });
-            services.AddMediatR(typeof(AuthController).Assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddValidatorsFromAssemblies(new []{typeof(AuthController).Assembly});
+            
+            RegisterMediaR(services);
             
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
@@ -117,6 +116,13 @@ namespace TapTrackAPI
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        private void RegisterMediaR(IServiceCollection services)
+        {
+            services.AddMediatR(typeof(AuthController).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssemblies(new []{typeof(AuthController).Assembly});
         }
     }
 }
