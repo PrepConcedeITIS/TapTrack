@@ -1,10 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.Handlers;
+using TapTrackAPI.Core.Features.Project.Create;
+using TapTrackAPI.Core.Features.Project.Edit;
 using TapTrackAPI.Core.Features.Project.Records;
 
 namespace TapTrackAPI.Core.Features.Project
@@ -13,20 +14,14 @@ namespace TapTrackAPI.Core.Features.Project
     {
         private readonly IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> _getUniquenessQueryHandler;
         private readonly IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> _getProjectByIdHandler;
-        private readonly IAsyncCommandHandler<ProjectEditCommand, ProjectDto> _editProjectHandler;
-        private readonly IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> _createProjectHandler;
 
         public ProjectController(IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> getUniquenessQueryHandler,
-            IAsyncCommandHandler<ProjectEditCommand, ProjectDto> editProjectHandler,
             IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> getProjectByIdHandler,
-            IAsyncCommandHandler<ProjectCreateCommand, ProjectDto> createProjectHandler,
             IMediator mediator)
             : base(mediator)
         {
             _getUniquenessQueryHandler = getUniquenessQueryHandler;
-            _editProjectHandler = editProjectHandler;
             _getProjectByIdHandler = getProjectByIdHandler;
-            _createProjectHandler = createProjectHandler;
         }
 
         [HttpGet("get")]
@@ -41,20 +36,25 @@ namespace TapTrackAPI.Core.Features.Project
             return Ok(await _getUniquenessQueryHandler.Handle(new GetUniquenessOfIdQuery(idVisible)));
         }
 
+        #region Create
+
         [HttpPost, DisableRequestSizeLimit]
         public async Task<IActionResult> Post([FromForm] ProjectCreateCommand command)
         {
-            var commandWithUser = command with {Claims = User};
-            var projectDto = await _createProjectHandler.Handle(commandWithUser);
+            var commandWithUser = command with {ClaimsPrincipal = User};
+            var projectDto = await Mediator.Send(commandWithUser);
             return Ok(projectDto);
         }
 
+        #endregion
+
+        #region Edit
+
         [HttpPut("{projectId}/edit")]
-        public async Task<IActionResult> UpdateProject([FromForm] ProjectCreateCommand command, Guid projectId)
+        public async Task<IActionResult> UpdateProject([FromForm] ProjectEditCommand command, Guid projectId)
         {
-            var editCommand = new ProjectEditCommand(projectId, command.Name, command.IdVisible, command.Description,
-                command.Logo);
-            var projectDto = await _editProjectHandler.Handle(editCommand);
+            var editCommand = command with {ClaimsPrincipal = User, ProjectId = projectId};
+            var projectDto = await Mediator.Send(editCommand);
             return Ok(projectDto);
         }
 
@@ -64,5 +64,7 @@ namespace TapTrackAPI.Core.Features.Project
             var result = await _getProjectByIdHandler.Handle(new GetProjectByIdQuery(projectId));
             return Ok(result);
         }
+
+        #endregion
     }
 }

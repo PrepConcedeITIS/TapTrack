@@ -1,5 +1,3 @@
-using System;
-
 namespace TapTrackAPI.Core.Features.Issue.Dtos
 {
     public class IssueDetailsDto
