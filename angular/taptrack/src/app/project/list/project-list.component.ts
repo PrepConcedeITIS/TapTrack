@@ -33,10 +33,10 @@ export class ProjectListComponent implements OnInit {
       width: 250,
       field: 'logoUrl',
       cellRendererFramework: ImageFormatterService},
-    { headerName: 'Имя',
+    { headerName: 'Name',
       width: 300,
       field: 'name' },
-    { headerName: 'Описание',
+    { headerName: 'Description',
       width: 600,
       field: 'description' }
   ];
