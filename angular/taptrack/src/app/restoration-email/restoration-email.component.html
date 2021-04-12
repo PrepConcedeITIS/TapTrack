@@ -1,1 +1,22 @@
-<p>restoration-email works!</p>
+<div class="col-md-4 offset-md-4 mt-5 pt-5">
+  <div class="card">
+    <h4 class="card-header">TapTrack Restoration</h4>
+    <div class="card-body">
+      <form [formGroup]="form" (submit)="submit()">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="email" formControlName="email">
+          <div class="validation" *ngIf="emailControl.touched && emailControl.invalid">
+            <small *ngIf="emailControl.errors.required" class="form-text text-muted">
+              Email is required
+            </small>
+            <small *ngIf="emailControl.errors.email" class="form-text text-muted">
+              Incorrect email
+            </small>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid" >Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

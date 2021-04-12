@@ -13,10 +13,12 @@ import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {ArticleComponent} from "./article/article.component";
 import {ArticleDetailsComponent} from "./article-details/article-details.component";
+import {RestorationEmailComponent} from "./restoration-email/restoration-email.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'restoration-email', component: RestorationEmailComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'issue', canActivate: [AuthGuard], children: [
     {path: 'list', component: IssueListComponent, canActivate: [AuthGuard]},
