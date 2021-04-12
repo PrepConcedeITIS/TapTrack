@@ -1,4 +1,4 @@
-namespace TapTrackAPI.Core
+namespace TapTrackAPI.Core.Base
 {
     public class Policies
     {

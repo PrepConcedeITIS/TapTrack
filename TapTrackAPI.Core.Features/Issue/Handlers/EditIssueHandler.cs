@@ -7,7 +7,7 @@ using TapTrackAPI.Core.Features.Issue.Dtos;
 
 namespace TapTrackAPI.Core.Features.Issue.Handlers
 {
-    public class EditIssueHandler : IRequestHandler<EditIssueCommand, Entities.Issue>
+    public class EditIssueHandler : IRequestHandler<EditIssueCommand>
     {
         private readonly DbContext _dbContext;
 
@@ -16,18 +16,19 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<Entities.Issue> Handle(EditIssueCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(EditIssueCommand request, CancellationToken cancellationToken)
         {
             var issue = await _dbContext.Set<Entities.Issue>().FindAsync(request.Id);
             var assignee = await _dbContext.Set<TeamMember>().FirstOrDefaultAsync(
                 x => x.User.UserName == request.Assignee,
                 cancellationToken: cancellationToken);
-            var project = await _dbContext.Set<Entities.Project>().FirstOrDefaultAsync(x => x.Name == request.Project);
+            var project = await _dbContext.Set<Entities.Project>()
+                .FirstOrDefaultAsync(x => x.Name == request.Project, cancellationToken: cancellationToken);
             issue.Update(request.Title, request.Description, assignee, project, request.Estimation, request.Spent,
                 request.State, request.IssueType, request.Priority);
             _dbContext.Set<Entities.Issue>().Update(issue);
-            await _dbContext.SaveChangesAsync();
-            return issue;
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return default;
         }
     }
 }

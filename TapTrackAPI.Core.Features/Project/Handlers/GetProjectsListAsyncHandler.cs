@@ -2,13 +2,9 @@
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Features.Project.Records;
 
 namespace TapTrackAPI.Core.Features.Project.Handlers

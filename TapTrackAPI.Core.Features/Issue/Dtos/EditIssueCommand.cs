@@ -5,7 +5,7 @@ using TapTrackAPI.Core.Enums;
 
 namespace TapTrackAPI.Core.Features.Issue.Dtos
 {
-    public class EditIssueCommand : IRequest<Entities.Issue>
+    public class EditIssueCommand : IRequest
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
