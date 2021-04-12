@@ -29,6 +29,7 @@ import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
+import { RestorationEmailComponent } from './restoration-email/restoration-email.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     ProjectDetailsComponent,
     ProjectComponent,
     ErrorComponent,
+    RestorationEmailComponent,
   ],
   imports: [
     BrowserModule,
