@@ -15,10 +15,15 @@ export class RestorationService {
   SendEmail(userCredentials): Observable<RestorationCode> {
     return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration`, userCredentials);
   }
+
+  SendCode(userCredentials): Observable<RestorationCode> {
+    return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration`, userCredentials);
+  }
 }
 
 export interface RestorationCode{
   UserMail: string;
+  Code: number;
 }
 
 

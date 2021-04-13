@@ -30,6 +30,7 @@ import {IssueDetailsComponent} from "./issue/issue-details/issue-details.compone
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
 import { RestorationEmailComponent } from './restoration-email/restoration-email.component';
+import { RestorationCodeComponent } from './restoration-code/restoration-code.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { RestorationEmailComponent } from './restoration-email/restoration-email
     ProjectComponent,
     ErrorComponent,
     RestorationEmailComponent,
+    RestorationCodeComponent,
   ],
   imports: [
     BrowserModule,
