@@ -29,6 +29,7 @@ import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
+import { ImageFormatterService } from './_services/image-formatter.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     ProjectDetailsComponent,
     ProjectComponent,
     ErrorComponent,
+    ImageFormatterService
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     FormlyBootstrapModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([ImageFormatterService]),
     TabsModule.forRoot(),
     AgGridModule,
     CollapseModule,
