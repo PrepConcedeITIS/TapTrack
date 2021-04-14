@@ -6,6 +6,7 @@ using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Features.Project.Create;
 using TapTrackAPI.Core.Features.Project.Edit;
+using TapTrackAPI.Core.Features.Project.Get;
 using TapTrackAPI.Core.Features.Project.Records;
 
 namespace TapTrackAPI.Core.Features.Project
@@ -13,15 +14,12 @@ namespace TapTrackAPI.Core.Features.Project
     public class ProjectController : AuthorizedApiController
     {
         private readonly IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> _getUniquenessQueryHandler;
-        private readonly IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> _getProjectByIdHandler;
 
         public ProjectController(IAsyncQueryHandler<GetUniquenessOfIdQuery, bool> getUniquenessQueryHandler,
-            IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto> getProjectByIdHandler,
             IMediator mediator)
             : base(mediator)
         {
             _getUniquenessQueryHandler = getUniquenessQueryHandler;
-            _getProjectByIdHandler = getProjectByIdHandler;
         }
 
         [HttpGet("get")]
@@ -36,8 +34,6 @@ namespace TapTrackAPI.Core.Features.Project
             return Ok(await _getUniquenessQueryHandler.Handle(new GetUniquenessOfIdQuery(idVisible)));
         }
 
-        #region Create
-
         [HttpPost, DisableRequestSizeLimit]
         public async Task<IActionResult> Post([FromForm] ProjectCreateCommand command)
         {
@@ -46,9 +42,6 @@ namespace TapTrackAPI.Core.Features.Project
             return Ok(projectDto);
         }
 
-        #endregion
-
-        #region Edit
 
         [HttpPut("{projectId}/edit")]
         public async Task<IActionResult> UpdateProject([FromForm] ProjectEditCommand command, Guid projectId)
@@ -58,13 +51,11 @@ namespace TapTrackAPI.Core.Features.Project
             return Ok(projectDto);
         }
 
-        [HttpGet("{projectId}/edit")]
+        [HttpGet("{projectId}")]
         public async Task<IActionResult> GetProjectForEdit(Guid projectId)
         {
-            var result = await _getProjectByIdHandler.Handle(new GetProjectByIdQuery(projectId));
-            return Ok(result);
+            var getProjectByIdQuery = new GetProjectByIdQuery(projectId){ClaimsPrincipal = User};
+            return Ok(await Mediator.Send(getProjectByIdQuery));
         }
-
-        #endregion
     }
 }

@@ -1,10 +1,13 @@
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FluentValidation;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 
 namespace TapTrackAPI.Core.Base
 {
+    [UsedImplicitly]
     public class ValidationExceptionMiddleware
     {
         private readonly RequestDelegate _next;
@@ -30,11 +33,19 @@ namespace TapTrackAPI.Core.Base
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int) HttpStatusCode.UnprocessableEntity;
+            var exceptionMessage = exception.Message;
+            
+            var hasForbiddenCode = exception.Errors.FirstOrDefault(x => x.ErrorCode== "403");
+            if (hasForbiddenCode != null)
+            {
+                context.Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                exceptionMessage = hasForbiddenCode.ErrorMessage;
+            }
 
             return context.Response.WriteAsync(new
             {
                 StatusCode = context.Response.StatusCode,
-                Message = exception.Message
+                Message = exceptionMessage
             }.ToString());
         }
     }

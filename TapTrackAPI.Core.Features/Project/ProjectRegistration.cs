@@ -10,7 +10,6 @@ namespace TapTrackAPI.Core.Features.Project
         public static void RegisterProject(this IServiceCollection services)
         {
             services.AddScoped<IAsyncQueryHandler<GetUniquenessOfIdQuery, bool>, GetUniquenessOfIdQueryHandler>();
-            services.AddScoped<IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto>, GetProjectByIdAsyncQueryHandler>();
         }
     }
 }

@@ -24,12 +24,12 @@ import {ArticleDetailsComponent} from './article-details/article-details.compone
 import {ProjectUpdateComponent} from './project/update/project-update.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectDetailsComponent} from './project/details/project-details.component';
-import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
 import { ImageFormatterService } from './_services/image-formatter.service';
+import { ForbiddenErrorComponent } from './error/forbidden-error/forbidden-error.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +46,9 @@ import { ImageFormatterService } from './_services/image-formatter.service';
     ProjectUpdateComponent,
     ProjectListComponent,
     ProjectDetailsComponent,
-    ProjectComponent,
     ErrorComponent,
-    ImageFormatterService
+    ImageFormatterService,
+    ForbiddenErrorComponent
   ],
   imports: [
     BrowserModule,
