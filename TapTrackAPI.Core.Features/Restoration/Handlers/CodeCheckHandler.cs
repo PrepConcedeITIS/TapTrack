@@ -19,7 +19,7 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
         {
         }
 
-        public Task<Unit> Handle(CheckCodeQuery request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CheckCodeQuery request, CancellationToken cancellationToken)
         {
             var dbCode = Context.Set<Entities.RestorationCode>()
                 .Where(x => x.Email == request.UserMail)
@@ -30,7 +30,7 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
             {
                 dbCode.CodeIsUsed();
             }
-            Context.SaveChanges();
+            await Context.SaveChangesAsync(cancellationToken);
             return default;
         }
     }

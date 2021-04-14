@@ -26,7 +26,7 @@ export class RestorationCodeComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.logout();
     this.form = this.formBuilder.group({
-      code:[]
+      code: []
     }, {});
     this.codeControl = this.form.get('code').value;
   }

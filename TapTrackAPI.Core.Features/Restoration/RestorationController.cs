@@ -21,7 +21,8 @@ namespace TapTrackAPI.Core.Features.Restoration
         
         public async Task<IActionResult> SendCode([FromBody] SendCodeQuery query)
         {
-            return Ok(await Mediator.Send(query));
+            var a = await Mediator.Send(query);
+            return Ok(a);
         }
 
         [HttpPost("CheckCode")]

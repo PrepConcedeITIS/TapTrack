@@ -30,7 +30,7 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
         {
             var userMail = request.UserMail;
             var rnd = new Random();
-            int code = rnd.Next(100000, 999999);            
+            var code = rnd.Next(100000, 999999);            
             var curDate = DateTime.Now;
             var expDate = curDate.AddHours(1);
             var restoreEnt = new RestorationCode(userMail, curDate, expDate, code);
