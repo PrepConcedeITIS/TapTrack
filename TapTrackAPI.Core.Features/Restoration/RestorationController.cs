@@ -33,5 +33,13 @@ namespace TapTrackAPI.Core.Features.Restoration
             return Ok(a);
         }
 
+        [HttpPost("Password")]
+
+        public async Task<IActionResult> SendNewPassword([FromBody] NewPasswordQuery query)
+        {
+            var a = await Mediator.Send(query);
+            return Ok(a);
+        }
+
     }
 }
