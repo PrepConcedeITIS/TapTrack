@@ -34,6 +34,7 @@ export class ProjectUpdateComponent implements OnInit {
         label: 'Project Name',
         placeholder: 'Enter your new project name',
         required: true,
+        maxLength: 30,
         hideRequiredMarker: true
       }
     },
@@ -45,19 +46,11 @@ export class ProjectUpdateComponent implements OnInit {
         label: 'Project Shortcut Name',
         placeholder: 'Enter your new project shortcut name',
         required: true,
+        maxLength: 7,
         hideRequiredMarker: true,
-        keyup: (field, event) => {
-          this.idVisibleSubject.next(event.target.value);
-        }
+        // todo: discuss
+        // keyup: (field, event) => {this.idVisibleSubject.next(event.target.value);}
       },
-      // validators: {
-      //   unique: {
-      //     expression: (c) => {
-      //       return this.isUnique;
-      //     },
-      //     message: (e, f) => 'Project with same shortcut name already exist'
-      //   }
-      // }
     },
     {
       key: 'description',
@@ -65,7 +58,8 @@ export class ProjectUpdateComponent implements OnInit {
       templateOptions: {
         label: 'Project Description',
         placeholder: 'Your project description',
-        required: false
+        required: false,
+        maxLength: 500
       }
     },
     {
@@ -98,6 +92,7 @@ export class ProjectUpdateComponent implements OnInit {
   }
 
   projectGeneralInfoSubmit() {
+    // todo: redirect to details
     this.projectService.updateProject(this.model, this.projectId)
       .subscribe();
   }

@@ -3,6 +3,7 @@ import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
 import {ProjectService} from '../../_services/project.service';
 import {ProjectQuery} from '../_interfaces/project-query';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -11,7 +12,7 @@ import {ProjectQuery} from '../_interfaces/project-query';
 })
 export class ProjectCreateComponent implements OnInit {
 
-  constructor(private projectService: ProjectService) {
+  constructor(private projectService: ProjectService, private router: Router) {
   }
 
   form = new FormGroup({});
@@ -25,6 +26,7 @@ export class ProjectCreateComponent implements OnInit {
         label: 'Project Name',
         placeholder: 'Enter your new project name',
         required: true,
+        maxLength: 30,
         hideRequiredMarker: true
       }
     },
@@ -35,6 +37,7 @@ export class ProjectCreateComponent implements OnInit {
         label: 'Project Shortcut Name',
         placeholder: 'Enter your new project shortcut name',
         required: true,
+        maxLength: 7,
         hideRequiredMarker: true
       }
     },
@@ -44,7 +47,8 @@ export class ProjectCreateComponent implements OnInit {
       templateOptions: {
         label: 'Project Description',
         placeholder: 'Your project description',
-        required: false
+        required: false,
+        maxLength: 500
       }
     },
     {
@@ -60,6 +64,7 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    // todo: redirect to details
     this.projectService.createNewProject(this.model).subscribe();
   }
 }
