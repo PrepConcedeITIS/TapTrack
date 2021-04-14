@@ -1,14 +1,14 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestorationService {
-
+  sbj = new BehaviorSubject<string>("");
   constructor(private httpClient: HttpClient) {
   }
 
@@ -17,13 +17,13 @@ export class RestorationService {
   }
 
   SendCode(userCredentials): Observable<RestorationCode> {
-    return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration`, userCredentials);
+    return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration/CheckCode`, userCredentials);
   }
 }
 
 export interface RestorationCode{
   UserMail: string;
-  Code: number;
+  UserCode: number;
 }
 
 

@@ -15,18 +15,18 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
     public class CodeCheckHandler : RequestHandlerBase, IRequestHandler<CheckCodeQuery>
     {
 
-        public CodeCheckHandler(DbContext dbContext, IMapper _mapper) : base(dbContext, _mapper)
+        public CodeCheckHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
         public Task<Unit> Handle(CheckCodeQuery request, CancellationToken cancellationToken)
         {
             var dbCode = Context.Set<Entities.RestorationCode>()
-                .Where(x => x.Email == request.UserEmail)
+                .Where(x => x.Email == request.UserMail)
                 .OrderBy(x => x.CreationDate)
                 .FirstOrDefault();
             var userCode = request.UserCode;
-            if (dbCode.Code == userCode)
+            if (dbCode != null && dbCode.Code == userCode)
             {
                 dbCode.CodeIsUsed();
             }

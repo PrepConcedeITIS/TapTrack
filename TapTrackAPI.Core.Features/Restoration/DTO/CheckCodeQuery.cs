@@ -9,7 +9,7 @@ namespace TapTrackAPI.Core.Features.Restoration.DTO
 {
     public class CheckCodeQuery : IRequest
     {
-        public string UserEmail { get; set; }
+        public string UserMail { get; set; }
         public int UserCode { get; set; }
     }
 }

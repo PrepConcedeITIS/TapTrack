@@ -13,7 +13,8 @@ import {RestorationService} from "../_services/restoration.service";
 })
 export class RestorationCodeComponent implements OnInit {
   form: FormGroup;
-  emailControl: AbstractControl;
+  codeControl: AbstractControl;
+  Email: string;
   // tslint:disable-next-line:new-parens
   constructor(private registrationService: RegistrationService,
               private authenticationService: AuthenticationService,
@@ -25,15 +26,15 @@ export class RestorationCodeComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.logout();
     this.form = this.formBuilder.group({
-      email: ['', [Validators.email, Validators.required]]
-    }, {
-    });
-    this.emailControl = this.form.get('email');
+      code:[]
+    }, {});
+    this.codeControl = this.form.get('code').value;
   }
 
   submit() {
     if (!this.form.invalid){
-      this.restorationService.SendCode({UserMail: this.form.get('email').value, Code: this.form.get('code').value})
+      this.restorationService.sbj.subscribe((mail) => this.Email = mail);
+      this.restorationService.SendCode({UserMail: this.Email, UserCode: this.form.get('code').value})
         .subscribe();
     }
   }
