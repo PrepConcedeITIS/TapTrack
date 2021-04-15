@@ -28,6 +28,10 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddPasswordAsync(user, request.Password);
+                    if (result.Succeeded)
+                    {
+                        return default;
+                    }
                 }
             }
             return default;

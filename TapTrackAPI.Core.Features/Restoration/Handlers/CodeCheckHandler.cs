@@ -23,7 +23,7 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
         {
             var dbCode = Context.Set<Entities.RestorationCode>()
                 .Where(x => x.Email == request.UserMail)
-                .OrderBy(x => x.CreationDate)
+                .OrderByDescending(x => x.CreationDate)
                 .FirstOrDefault();
             var userCode = request.UserCode;
             if (dbCode != null && dbCode.Code == userCode)
