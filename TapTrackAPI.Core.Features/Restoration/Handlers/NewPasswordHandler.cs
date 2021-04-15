@@ -24,8 +24,11 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
             var user = await _userManager.FindByEmailAsync(request.UserMail);
             if (user != null)
             {
-                var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                await _userManager.ResetPasswordAsync(user, resetToken, request.Password);
+                var result = await _userManager.RemovePasswordAsync(user);
+                if (result.Succeeded)
+                {
+                    result = await _userManager.AddPasswordAsync(user, request.Password);
+                }
             }
             return default;
         }
