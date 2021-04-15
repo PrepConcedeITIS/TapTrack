@@ -15,12 +15,14 @@ import {ArticleComponent} from "./article/article.component";
 import {ArticleDetailsComponent} from "./article-details/article-details.component";
 import {RestorationEmailComponent} from "./restoration-email/restoration-email.component";
 import {RestorationCodeComponent} from "./restoration-code/restoration-code.component";
+import {RestorationPasswordComponent} from "./restoration-password/restoration-password.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'restoration-email', component: RestorationEmailComponent},
   {path: 'restoration-code', component: RestorationCodeComponent},
+  {path: 'restoration-password', component: RestorationPasswordComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'issue', canActivate: [AuthGuard], children: [
     {path: 'list', component: IssueListComponent, canActivate: [AuthGuard]},

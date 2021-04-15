@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Features.Restoration.DTO;
 
@@ -14,7 +15,6 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
 {
     public class CodeCheckHandler : RequestHandlerBase, IRequestHandler<CheckCodeQuery>
     {
-
         public CodeCheckHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
@@ -26,7 +26,7 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
                 .OrderByDescending(x => x.CreationDate)
                 .FirstOrDefault();
             var userCode = request.UserCode;
-            if (dbCode != null && dbCode.Code == userCode)
+            if (dbCode != null && dbCode.Code == userCode && DateTime.Compare(dbCode.ExpirationDate,DateTime.Now) > 0)
             {
                 dbCode.CodeIsUsed();
             }

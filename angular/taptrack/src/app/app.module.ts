@@ -31,6 +31,7 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
 import { RestorationEmailComponent } from './restoration-email/restoration-email.component';
 import { RestorationCodeComponent } from './restoration-code/restoration-code.component';
+import { RestorationPasswordComponent } from './restoration-password/restoration-password.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { RestorationCodeComponent } from './restoration-code/restoration-code.co
     ErrorComponent,
     RestorationEmailComponent,
     RestorationCodeComponent,
+    RestorationPasswordComponent,
   ],
   imports: [
     BrowserModule,
