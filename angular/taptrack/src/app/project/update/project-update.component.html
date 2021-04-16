@@ -6,7 +6,7 @@
         <h4 class="card-header">Edit Project</h4>
         <form [formGroup]="form" (ngSubmit)="projectGeneralInfoSubmit()" (change)="removeServerErrors()" class="p-4">
           <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-          <button type="submit" class="btn btn-primary" >Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
         </form>
         <app-project-server-errors [serverValidationErrors]="serverValidationErrors"></app-project-server-errors>
       </div>
