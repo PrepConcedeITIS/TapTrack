@@ -36,8 +36,18 @@ export class RestorationPasswordComponent implements OnInit {
   submit() {
     if (!this.form.invalid) {
       this.restorationService.sbjcode.subscribe((code) => this.Code = code);
+      console.log(this.Code);
       this.restorationService.sbjemail.subscribe((Email) => this.Email = Email);
-      this.restorationService.SendPassword({UserMail: this.Email, UserCode: this.Code, UserPassword: this.form.get('password').value});
+      console.log(this.Email);
+      this.restorationService.SendPassword({UserMail: this.Email, UserCode: this.Code, UserPassword: this.form.get('password').value})
+        .subscribe((response) => {
+            console.log('Correct');
+            this.router.navigate(['login']);
+          },
+          (error) => {
+            alert('Неправильный пароль');
+          }
+        );
     }
   }
 }

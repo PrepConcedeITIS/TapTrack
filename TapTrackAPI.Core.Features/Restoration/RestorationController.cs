@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Restoration.DTO;
 
 namespace TapTrackAPI.Core.Features.Restoration
@@ -31,8 +32,11 @@ namespace TapTrackAPI.Core.Features.Restoration
         {
             var a = await Mediator.Send(query);
             if (a != null)
+            {
                 return Ok(a);
-            return 
+            }
+
+            return BadRequest();
         }
 
         [HttpPost("Password")]
@@ -40,7 +44,12 @@ namespace TapTrackAPI.Core.Features.Restoration
         public async Task<IActionResult> SendNewPassword([FromBody] NewPasswordQuery query)
         {
             var a = await Mediator.Send(query);
-            return Ok(a);
+            if (a != null)
+            {
+                return Ok(a);
+            }
+
+            return BadRequest();
         }
 
     }

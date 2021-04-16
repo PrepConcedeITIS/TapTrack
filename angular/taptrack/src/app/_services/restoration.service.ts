@@ -22,7 +22,7 @@ export class RestorationService {
   }
 
   SendPassword(userCredentials): Observable<RestorationCode>{
-    return this.httpClient.post<RestorationCode>('$environment.apiUrl/Restoration/Password', userCredentials);
+    return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration/Password`, userCredentials);
   }
 }
 
