@@ -29,9 +29,12 @@ import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
+
 import { RestorationEmailComponent } from './restoration-email/restoration-email.component';
 import { RestorationCodeComponent } from './restoration-code/restoration-code.component';
 import { RestorationPasswordComponent } from './restoration-password/restoration-password.component';
+import { ImageFormatterService } from './_services/image-formatter.service';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +56,8 @@ import { RestorationPasswordComponent } from './restoration-password/restoration
     RestorationEmailComponent,
     RestorationCodeComponent,
     RestorationPasswordComponent,
+    ImageFormatterService
+
   ],
   imports: [
     BrowserModule,
@@ -67,7 +72,7 @@ import { RestorationPasswordComponent } from './restoration-password/restoration
     FormlyBootstrapModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([ImageFormatterService]),
     TabsModule.forRoot(),
     AgGridModule,
     CollapseModule,
