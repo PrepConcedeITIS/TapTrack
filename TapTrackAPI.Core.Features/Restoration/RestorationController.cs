@@ -30,7 +30,9 @@ namespace TapTrackAPI.Core.Features.Restoration
         public async Task<IActionResult> CheckCode([FromBody] CheckCodeQuery query)
         {
             var a = await Mediator.Send(query);
-            return Ok(a);
+            if (a != null)
+                return Ok(a);
+            return 
         }
 
         [HttpPost("Password")]

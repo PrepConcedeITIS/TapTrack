@@ -16,8 +16,7 @@ export class RestorationCodeComponent implements OnInit {
   codeControl: AbstractControl;
   Email: string;
   // tslint:disable-next-line:new-parens
-  constructor(private registrationService: RegistrationService,
-              private authenticationService: AuthenticationService,
+  constructor(private authenticationService: AuthenticationService,
               private restorationService: RestorationService,
               private formBuilder: FormBuilder,
               private router: Router) {
@@ -33,9 +32,11 @@ export class RestorationCodeComponent implements OnInit {
 
   submit() {
     if (!this.form.invalid){
-      this.restorationService.sbj.subscribe((mail) => this.Email = mail);
+      this.restorationService.sbjemail.subscribe((mail) => this.Email = mail);
+      this.restorationService.sbjcode.next(this.form.get('code').value);
       this.restorationService.SendCode({UserMail: this.Email, UserCode: this.form.get('code').value})
-        .subscribe();
+        .subscribe(x =>
+          this.router.navigate(['restoration-password']));
     }
   }
 }

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from "../_services/authentication.service";
+import {RestorationService} from "../_services/restoration.service";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {MustMatch} from "../_helpers/must-match.validator";
 
 @Component({
   selector: 'app-restoration-password',
@@ -6,10 +11,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./restoration-password.component.scss']
 })
 export class RestorationPasswordComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  form: FormGroup;
+  passwordControl: AbstractControl;
+  Email: string;
+  Code: number;
+  Password: string;
+  constructor(private authenticationService: AuthenticationService,
+              private restorationService: RestorationService,
+              private formBuilder: FormBuilder,
+              private router: Router) {
   }
 
+  ngOnInit(): void {
+    this.authenticationService.logout();
+    this.form = this.formBuilder.group({
+      password: ['', Validators.required],
+      passwordRepeat: ['', Validators.required]
+    }, {
+      validator: MustMatch('password', 'passwordRepeat')
+    });
+    this.passwordControl = this.form.get('password').value;
+  }
+
+  submit() {
+    if (!this.form.invalid) {
+      this.restorationService.sbjcode.subscribe((code) => this.Code = code);
+      this.restorationService.sbjemail.subscribe((Email) => this.Email = Email);
+      this.restorationService.SendPassword({UserMail: this.Email, UserCode: this.Code, UserPassword: this.form.get('password').value});
+    }
+  }
 }

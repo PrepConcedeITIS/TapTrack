@@ -8,7 +8,8 @@ import {User} from './authentication.service';
   providedIn: 'root'
 })
 export class RestorationService {
-  sbj = new BehaviorSubject<string>("");
+  sbjemail = new BehaviorSubject<string>("");
+  sbjcode = new BehaviorSubject<number>(0);
   constructor(private httpClient: HttpClient) {
   }
 
@@ -19,11 +20,16 @@ export class RestorationService {
   SendCode(userCredentials): Observable<RestorationCode> {
     return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration/CheckCode`, userCredentials);
   }
+
+  SendPassword(userCredentials): Observable<RestorationCode>{
+    return this.httpClient.post<RestorationCode>('$environment.apiUrl/Restoration/Password', userCredentials);
+  }
 }
 
 export interface RestorationCode{
   UserMail: string;
   UserCode: number;
+  UserPassword: string;
 }
 
 

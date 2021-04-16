@@ -34,8 +34,8 @@ export class RestorationEmailComponent implements OnInit {
 
   submit() {
     if (!this.form.invalid) {
-      this.restorationService.sbj.next(this.form.get('email').value);
-      this.restorationService.sbj.subscribe((v1) => console.log(v1));
+      this.restorationService.sbjemail.next(this.form.get('email').value);
+      this.restorationService.sbjemail.subscribe((v1) => console.log(v1));
       this.restorationService.SendEmail({UserMail: this.form.get('email').value})
         .subscribe(x =>
           this.router.navigate(['restoration-code']));

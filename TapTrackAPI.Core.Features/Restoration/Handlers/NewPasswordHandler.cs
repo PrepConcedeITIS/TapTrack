@@ -27,7 +27,7 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
                 var result = await _userManager.RemovePasswordAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddPasswordAsync(user, request.Password);
+                    result = await _userManager.AddPasswordAsync(user, request.UserPassword);
                     if (result.Succeeded)
                     {
                         return default;
