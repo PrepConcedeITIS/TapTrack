@@ -4,6 +4,8 @@ import {FormlyFieldConfig} from '@ngx-formly/core';
 import {ProjectService} from '../../_services/project.service';
 import {ProjectQuery} from '../_interfaces/project-query';
 import {Router} from '@angular/router';
+import {tap} from 'rxjs/operators';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-project',
@@ -11,6 +13,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./project-create.component.scss']
 })
 export class ProjectCreateComponent implements OnInit {
+
+  serverValidationErrors: string;
 
   constructor(private projectService: ProjectService, private router: Router) {
   }
@@ -64,8 +68,18 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // todo: redirect to details
-    this.projectService.createNewProject(this.model).subscribe();
+    this.projectService.createNewProject(this.model)
+      .pipe(tap(() => {
+          // todo: redirect to details
+        },
+        (err: HttpErrorResponse) => {
+          switch (err.status) {
+            case 422: {
+              this.serverValidationErrors = err.error;
+            }
+          }
+        }))
+      .subscribe();
   }
 }
 
