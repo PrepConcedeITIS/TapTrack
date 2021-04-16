@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Features.Project.Base;
 using TapTrackAPI.Core.Features.Project.Validators;
 
 namespace TapTrackAPI.Core.Features.Project.Edit
@@ -25,20 +26,6 @@ namespace TapTrackAPI.Core.Features.Project.Edit
                 .SetAsyncValidator(new HasAccessToProjectPropertyValidator<ProjectEditCommand>(dbContext, userManager))
                 .WithErrorCode("403")
                 .WithMessage("You can't touch this project");
-        }
-    }
-
-    public class ProjectValidatorBase<TProjectCommand> : AbstractValidator<TProjectCommand>
-        where TProjectCommand : ProjectCommandBase
-    {
-        public ProjectValidatorBase()
-        {
-            RuleFor(x => x.Name).NotEmpty().MaximumLength(30)
-                .WithMessage("Length for project name is 1-30 characters");
-            RuleFor(x => x.IdVisible).NotEmpty().MaximumLength(7)
-                .WithMessage("Length for project shortcut name is 1-7 characters");
-            RuleFor(x => x.Description).MaximumLength(500)
-                .WithMessage("Max length for project description is 500 characters");
         }
     }
 }

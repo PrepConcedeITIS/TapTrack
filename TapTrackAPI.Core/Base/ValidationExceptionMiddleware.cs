@@ -42,11 +42,7 @@ namespace TapTrackAPI.Core.Base
                 exceptionMessage = hasForbiddenCode.ErrorMessage;
             }
 
-            return context.Response.WriteAsync(new
-            {
-                StatusCode = context.Response.StatusCode,
-                Message = exceptionMessage
-            }.ToString());
+            return context.Response.WriteAsync(exceptionMessage);
         }
     }
 }
