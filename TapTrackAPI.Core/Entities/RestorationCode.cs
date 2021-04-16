@@ -19,11 +19,11 @@ namespace TapTrackAPI.Core.Entities
 
         }
 
-        public RestorationCode (string mail, DateTime creTime, DateTime expDate, int code)
+        public RestorationCode (string mail, DateTime creationTime, DateTime expirationDate, int code)
         {
             Email = mail;
-            CreationDate = creTime;
-            ExpirationDate = expDate;
+            CreationDate = creationTime;
+            ExpirationDate = expirationDate;
             Code = code;
         }
 

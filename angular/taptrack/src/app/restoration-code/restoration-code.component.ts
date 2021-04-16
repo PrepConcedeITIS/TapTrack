@@ -6,7 +6,6 @@ import {AuthenticationService} from '../_services/authentication.service';
 import {RegistrationService} from '../_services/registration.service';
 import {RestorationService} from "../_services/restoration.service";
 import {pipe} from "rxjs";
-import {Response} from '@angular/http';
 import {HttpRequest} from "@angular/common/http";
 
 @Component({
@@ -18,7 +17,7 @@ export class RestorationCodeComponent implements OnInit {
   form: FormGroup;
   codeControl: AbstractControl;
   Email: string;
-  // tslint:disable-next-line:new-parens
+  Exception: string;
   constructor(private authenticationService: AuthenticationService,
               private restorationService: RestorationService,
               private formBuilder: FormBuilder,
@@ -39,11 +38,10 @@ export class RestorationCodeComponent implements OnInit {
       this.restorationService.sbjcode.next(this.form.get('code').value);
       this.restorationService.SendCode({UserMail: this.Email, UserCode: this.form.get('code').value})
       .subscribe((response) => {
-        console.log('Correct');
         this.router.navigate(['restoration-password']);
       },
       (error) => {
-        alert('Неправильный код');
+        this.Exception = 'Неправильный код';
       }
       );
     }

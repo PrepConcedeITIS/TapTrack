@@ -15,7 +15,7 @@ export class RestorationPasswordComponent implements OnInit {
   passwordControl: AbstractControl;
   Email: string;
   Code: number;
-  Password: string;
+  Exception: string;
   constructor(private authenticationService: AuthenticationService,
               private restorationService: RestorationService,
               private formBuilder: FormBuilder,
@@ -41,11 +41,10 @@ export class RestorationPasswordComponent implements OnInit {
       console.log(this.Email);
       this.restorationService.SendPassword({UserMail: this.Email, UserCode: this.Code, UserPassword: this.form.get('password').value})
         .subscribe((response) => {
-            console.log('Correct');
             this.router.navigate(['login']);
           },
           (error) => {
-            alert('Неправильный пароль');
+            this.Exception = 'Неправильный пароль';
           }
         );
     }

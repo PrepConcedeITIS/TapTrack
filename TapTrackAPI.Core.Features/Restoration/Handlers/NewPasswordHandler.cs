@@ -32,19 +32,13 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
             {
                 dbCode.CodeIsUsed();
                 var user = await _userManager.FindByEmailAsync(request.UserMail);
-                if (user != null)
-                {
-                    var result = await _userManager.RemovePasswordAsync(user);
-                    if (result.Succeeded)
-                    {
-                        result = await _userManager.AddPasswordAsync(user, request.UserPassword);
-                        if (result.Succeeded)
-                        {
-                            await Context.SaveChangesAsync(cancellationToken);
-                            return dbCode;
-                        }
-                    }
-                }
+                if (user == null) return default;
+                var result = await _userManager.RemovePasswordAsync(user);
+                if (!result.Succeeded) return default;
+                result = await _userManager.AddPasswordAsync(user, request.UserPassword);
+                if (!result.Succeeded) return default;
+                await Context.SaveChangesAsync(cancellationToken);
+                return dbCode;
             }
             return default;
         }

@@ -32,24 +32,22 @@ namespace TapTrackAPI.Core.Features.Restoration.Handlers
         public async Task<Unit> Handle(SendCodeQuery request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.UserMail);
-            if (user != null)
+            if (user == null) return default;
+            var userMail = request.UserMail;
+            var rnd = new Random();
+            var code = rnd.Next(100000, 999999);            
+            var curDate = DateTime.Now;
+            var expDate = curDate.AddHours(1);
+            var restoreEnt = new RestorationCode(userMail, curDate, expDate, code);
+            var mailFrom = new MailAddress(_configuration.GetSection("Credentials").GetSection("Mail").Value);
+            var mailTo = new MailAddress(userMail);
+            var message = new MailMessage(mailFrom, mailTo)
             {
-                var userMail = request.UserMail;
-                var rnd = new Random();
-                var code = rnd.Next(100000, 999999);            
-                var curDate = DateTime.Now;
-                var expDate = curDate.AddHours(1);
-                var restoreEnt = new RestorationCode(userMail, curDate, expDate, code);
-                var mailFrom = new MailAddress(_configuration.GetSection("Credentials").GetSection("Mail").Value);
-                var mailTo = new MailAddress(userMail);
-                var message = new MailMessage(mailFrom, mailTo)
-                {
-                    Subject = "Your restoration code on one hour", Body = code.ToString()
-                };
-                await _mailSender.SendMessageAsync(message);
-                Context.Add(restoreEnt);
-                await Context.SaveChangesAsync(cancellationToken);
-            }
+                Subject = "Your restoration code on one hour", Body = code.ToString()
+            };
+            await _mailSender.SendMessageAsync(message);
+            Context.Add(restoreEnt);
+            await Context.SaveChangesAsync(cancellationToken);
             return default;
         }        
     }
