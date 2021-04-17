@@ -2,9 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TapTrackAPI.Data;
 
 namespace TapTrackAPI.Data.Migrations
 {
@@ -153,6 +151,9 @@ namespace TapTrackAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("BelongsToId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
@@ -175,6 +176,8 @@ namespace TapTrackAPI.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BelongsToId");
 
                     b.HasIndex("CreatedById");
 
@@ -463,6 +466,12 @@ namespace TapTrackAPI.Data.Migrations
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Article", b =>
                 {
+                    b.HasOne("TapTrackAPI.Core.Entities.Project", "BelongsTo")
+                        .WithMany("Articles")
+                        .HasForeignKey("BelongsToId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
@@ -474,6 +483,8 @@ namespace TapTrackAPI.Data.Migrations
                         .HasForeignKey("UpdatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("BelongsTo");
 
                     b.Navigation("CreatedBy");
 
@@ -558,6 +569,8 @@ namespace TapTrackAPI.Data.Migrations
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Project", b =>
                 {
+                    b.Navigation("Articles");
+
                     b.Navigation("Issues");
 
                     b.Navigation("Team");

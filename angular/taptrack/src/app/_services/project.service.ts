@@ -10,6 +10,7 @@ import {Project} from '../project/_interfaces/project';
 })
 export class ProjectService {
 
+  public projects:ProjectQuery[]
   private baseUrl = `${environment.apiUrl}/project/`;
 
   constructor(private httpClient: HttpClient) {
@@ -17,6 +18,10 @@ export class ProjectService {
 
   getSchema(): Observable<any> {
     return of(null);
+  }
+
+  getProjectsList(): Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + `get`);
   }
 
   createNewProject(project: ProjectQuery): Observable<any> {
@@ -54,7 +59,7 @@ export class ProjectService {
   }
 
   getProjectById(projectId: string): Observable<Project> {
-    return this.httpClient.get<Project>(this.baseUrl + `${projectId}/edit`);
+    return this.httpClient.get<Project>(this.baseUrl + `${projectId}`);
   }
 }
 

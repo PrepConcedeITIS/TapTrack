@@ -3,27 +3,23 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Features.Issue.Dtos;
+using TapTrackAPI.Core.Features.Issue.Queries;
 
 namespace TapTrackAPI.Core.Features.Issue
 {
     public class IssueController : AuthorizedApiController
     {
-        private readonly IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>> _getIssueHandler;
-
-        public IssueController(IAsyncQueryHandler<GetIssueQuery, List<IssueListDto>> getIssueHandler,
-            IMediator mediator)
-            : base(mediator)
+        public IssueController(IMediator mediator) : base(mediator)
         {
-            _getIssueHandler = getIssueHandler;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<IssueListDto>>> Get([FromQuery] GetIssueQuery query)
-        {
-            var issues = await _getIssueHandler.Handle(query);
-            return Ok(issues);
-        }
+        public async Task<ActionResult<List<IssueListItemDto>>> Get([FromQuery] GetIssueListQuery query)
+            => Ok(await Mediator.Send(query));
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<Entities.Issue>> Get([FromRoute] GetIssueQuery query)
+            => Ok(await Mediator.Send(query));
     }
 }

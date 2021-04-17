@@ -14,19 +14,24 @@ import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import {FormlyFieldFileComponent} from './_extensions/file-type.component';
 import {FileValueAccessor} from './_extensions/file-value-accessor';
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {IssueListComponent} from './issue/issue-list/issue-list.component';
 import {AgGridModule} from 'ag-grid-angular';
-import {ArticleDetailsComponent} from './article/article-details.component';
+import {ArticleComponent} from './article/article.component';
+import {ArticleDetailsComponent} from './article-details/article-details.component';
 import {ProjectUpdateComponent} from './project/update/project-update.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ProjectDetailsComponent} from './project/details/project-details.component';
-import {ProjectComponent} from './project/project.component';
 import {ErrorComponent} from './error/error.component';
+import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {ImageFormatterService} from './_services/image-formatter.service';
+import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
+import {CommonModule} from '@angular/common';
+import { ProjectServerErrorsComponent } from './project/project-server-errors/project-server-errors.component';
 
 @NgModule({
   declarations: [
@@ -37,19 +42,30 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
     FileValueAccessor,
     FormlyFieldFileComponent,
     IssueListComponent,
+    IssueDetailsComponent,
+    ArticleComponent,
     ArticleDetailsComponent,
     ProjectUpdateComponent,
     ProjectListComponent,
     ProjectDetailsComponent,
-    ProjectComponent,
     ErrorComponent,
+    ImageFormatterService,
+    ForbiddenErrorComponent,
+    ProjectServerErrorsComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormlyModule.forRoot({
+      validationMessages: [
+        {
+          name: 'required',
+          message: 'Field is required'
+        }
+      ],
       types: [
         {name: 'file', component: FormlyFieldFileComponent, wrappers: ['form-field']},
       ],
@@ -57,9 +73,11 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
     FormlyBootstrapModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    AgGridModule.withComponents([ImageFormatterService]),
     TabsModule.forRoot(),
     AgGridModule,
-    CollapseModule
+    CollapseModule,
+    AccordionModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

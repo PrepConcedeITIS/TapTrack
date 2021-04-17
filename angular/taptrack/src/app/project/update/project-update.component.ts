@@ -3,9 +3,10 @@ import {FormlyFieldConfig} from '@ngx-formly/core';
 import {FormGroup} from '@angular/forms';
 import {ProjectQuery} from '../_interfaces/project-query';
 import {BehaviorSubject, timer} from 'rxjs';
-import {debounce, skip} from 'rxjs/operators';
+import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-project-update',
@@ -16,6 +17,7 @@ export class ProjectUpdateComponent implements OnInit {
 
   idVisibleSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isUnique = true;
+  serverValidationErrors: string = null;
 
   private projectId: string;
 
@@ -34,6 +36,7 @@ export class ProjectUpdateComponent implements OnInit {
         label: 'Project Name',
         placeholder: 'Enter your new project name',
         required: true,
+        maxLength: 30,
         hideRequiredMarker: true
       }
     },
@@ -45,19 +48,11 @@ export class ProjectUpdateComponent implements OnInit {
         label: 'Project Shortcut Name',
         placeholder: 'Enter your new project shortcut name',
         required: true,
+        maxLength: 7,
         hideRequiredMarker: true,
-        keyup: (field, event) => {
-          this.idVisibleSubject.next(event.target.value);
-        }
+        // todo: discuss
+        // keyup: (field, event) => {this.idVisibleSubject.next(event.target.value);}
       },
-      // validators: {
-      //   unique: {
-      //     expression: (c) => {
-      //       return this.isUnique;
-      //     },
-      //     message: (e, f) => 'Project with same shortcut name already exist'
-      //   }
-      // }
     },
     {
       key: 'description',
@@ -65,7 +60,8 @@ export class ProjectUpdateComponent implements OnInit {
       templateOptions: {
         label: 'Project Description',
         placeholder: 'Your project description',
-        required: false
+        required: false,
+        maxLength: 500
       }
     },
     {
@@ -99,6 +95,22 @@ export class ProjectUpdateComponent implements OnInit {
 
   projectGeneralInfoSubmit() {
     this.projectService.updateProject(this.model, this.projectId)
+      .pipe(tap(() => {
+        // todo: redirect to details
+      }, (err: HttpErrorResponse) => {
+        switch (err.status) {
+          case 422: {
+            this.serverValidationErrors = err.error;
+          }
+        }
+      }))
       .subscribe();
+  }
+
+  removeServerErrors() {
+    if (this.form.invalid) {
+      return;
+    }
+    this.serverValidationErrors = undefined;
   }
 }

@@ -12,14 +12,14 @@
               <b>ТапТрек</b>
             </a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" href="#">Issues</a>
+          <li class="nav-item" routerLinkActive="active text-dark">
+            <a class="nav-link" [routerLink]="['/issue/list']">Issues</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item" routerLinkActive="active text-dark">
             <a class="nav-link" [routerLink]="['/project/list']">Projects</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Knowledge base</a>
+          <li class="nav-item" routerLinkActive="link-active text-dark">
+            <a class="nav-link" [routerLink]="['/article']">Knowledge Base</a>
           </li>
         </ul>
       </div>
@@ -38,5 +38,4 @@
   </nav>
   <!-- Navbar -->
 </header>
-<router-outlet>
-</router-outlet>
+<router-outlet></router-outlet>
