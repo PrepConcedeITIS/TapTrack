@@ -1,5 +1,4 @@
 using AutoMapper;
-using TapTrackAPI.Core.Features.Project.Records;
 
 namespace TapTrackAPI.Core.Features.Project
 {

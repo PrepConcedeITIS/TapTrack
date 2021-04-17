@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -11,12 +13,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using TapTrackAPI.Core;
+using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Base.ValidationBase;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
-using TapTrackAPI.Core.Features.Issue;
 using TapTrackAPI.Core.Features.Profile;
 using TapTrackAPI.Core.Features.Project;
 using TapTrackAPI.Core.Interfaces;
@@ -36,7 +37,7 @@ namespace TapTrackAPI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        { 
+        {
             //services.AddCors();
             services.AddDbContext<AppDbContext>(builder => builder
                 .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
@@ -50,6 +51,35 @@ namespace TapTrackAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TapTrackAPI", Version = "v1"});
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -77,11 +107,9 @@ namespace TapTrackAPI
                 options.AddPolicy(Policies.User, PoliciesExtensions.UserPolicy());
             });
 
-            services.AddAutoMapper(mc =>
-            {
-                mc.AddMaps(typeof(AuthController).Assembly);
-            });
-            services.AddMediatR(typeof(AuthController).Assembly);
+            services.AddAutoMapper(mc => { mc.AddMaps(typeof(AuthController).Assembly); });
+
+            RegisterMediaR(services);
 
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
@@ -89,16 +117,16 @@ namespace TapTrackAPI
             services.AddScoped<IMailSender, MailSender>();
 
             services.RegisterProject();
-            services.RegisterIssue();
+            //services.RegisterIssue(); // TODO: В проекту нету register issue
             services.RegisterProfileHandlers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            #warning
+#warning
             //app.UseCors(builder => builder.WithOrigins("paste url from prod front").AllowAnyHeader().AllowAnyMethod());
-            
+
             if (env.IsDevelopment())
             {
                 app.UseCors(builder =>
@@ -108,6 +136,7 @@ namespace TapTrackAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TapTrackAPI v1"));
             }
 
+            app.UseMiddleware<ValidationExceptionMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -116,6 +145,13 @@ namespace TapTrackAPI
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        private void RegisterMediaR(IServiceCollection services)
+        {
+            services.AddMediatR(typeof(AuthController).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssemblies(new[] {typeof(AuthController).Assembly});
         }
     }
 }

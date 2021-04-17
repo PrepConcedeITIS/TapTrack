@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
-using TapTrackAPI.Core;
+using TapTrackAPI.Core.Base;
 
 namespace TapTrackAPI
 {

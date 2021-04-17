@@ -1,16 +1,16 @@
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
-using TapTrackAPI.Core.Features.Project.Records;
 using TapTrackAPI.Core.Interfaces;
 
-namespace TapTrackAPI.Core.Features.Project.Handlers
+namespace TapTrackAPI.Core.Features.Project.Create
 {
-    public class CreateProjectAsyncHandler : IAsyncCommandHandler<ProjectCreateCommand, ProjectDto>
+    public class CreateProjectAsyncHandler : IRequestHandler<ProjectCreateCommand, ProjectDto>
     {
         private readonly IImageUploadService _imageUpload;
         private readonly UserManager<User> _userManager;
@@ -26,14 +26,14 @@ namespace TapTrackAPI.Core.Features.Project.Handlers
             _mapper = mapper;
         }
 
-        public async Task<ProjectDto> Handle(ProjectCreateCommand command)
+        public async Task<ProjectDto> Handle(ProjectCreateCommand command, CancellationToken cancellationToken)
         {
-            var creatorId = _userManager.GetUserIdGuid(command.Claims);
+            var creatorId = _userManager.GetUserIdGuid(command.ClaimsPrincipal);
             var link = await _imageUpload.UploadProjectLogoImageAsync(command.Logo, creatorId.ToString(),
                 command.IdVisible);
             var project = new Entities.Project(command.Name, command.IdVisible, command.Description, link, creatorId);
-            var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project);
-            await _dbContext.SaveChangesAsync();
+            var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return _mapper.Map<ProjectDto>(entityEntry.Entity);
         }
     }
