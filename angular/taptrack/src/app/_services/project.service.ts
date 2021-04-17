@@ -59,7 +59,7 @@ export class ProjectService {
   }
 
   getProjectById(projectId: string): Observable<Project> {
-    return this.httpClient.get<Project>(this.baseUrl + `${projectId}/edit`);
+    return this.httpClient.get<Project>(this.baseUrl + `${projectId}`);
   }
 }
 
