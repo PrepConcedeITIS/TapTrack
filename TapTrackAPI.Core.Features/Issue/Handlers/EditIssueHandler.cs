@@ -1,36 +1,43 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 using TapTrackAPI.Core.Features.Issue.Queries;
 
 namespace TapTrackAPI.Core.Features.Issue.Handlers
 {
-    public class EditIssueHandler : IRequestHandler<EditIssueCommand, Entities.Issue>
+    public class EditIssueHandler : RequestHandlerBase, IRequestHandler<EditIssueCommand, IssueDetailsDto>
     {
-        private readonly DbContext _dbContext;
+        private readonly IMediator _mediator;
 
-        public EditIssueHandler(DbContext dbContext)
+        public EditIssueHandler(DbContext dbContext, IMediator mediator, IMapper mapper) : base(dbContext, mapper)
         {
-            _dbContext = dbContext;
+            _mediator = mediator;
         }
 
-        public async Task<Entities.Issue> Handle(EditIssueCommand request, CancellationToken cancellationToken)
+        public async Task<IssueDetailsDto> Handle(EditIssueCommand request, CancellationToken cancellationToken)
         {
-            var issues = _dbContext.Set<Entities.Issue>();
+            var issues = Context.Set<Entities.Issue>();
             var issue = await issues.FindAsync(request.Id);
-            var assignee = await _dbContext.Set<TeamMember>().FirstOrDefaultAsync(
+            var assignee = await Context.Set<TeamMember>().FirstOrDefaultAsync(
                 x => x.User.UserName == request.Assignee,
                 cancellationToken: cancellationToken);
-            var project = await _dbContext.Set<Entities.Project>()
+            var project = await Context.Set<Entities.Project>()
                 .FirstOrDefaultAsync(x => x.Name == request.Project, cancellationToken: cancellationToken);
             issue.Update(request.Title, request.Description, assignee, project, request.Estimation, request.Spent,
                 request.State, request.IssueType, request.Priority);
             issues.Update(issue);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            return issue;
+            await Context.SaveChangesAsync(cancellationToken);
+            var issueDto = await _mediator.Send(new GetIssueQuery
+            {
+                Id = request
+                    .Id
+            });
+            return issueDto;
         }
     }
 }
