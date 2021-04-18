@@ -13,6 +13,9 @@
             <small *ngIf="emailControl.errors.email" class="form-text text-muted">
               Incorrect email
             </small>
+            <small *ngIf="emailControl.errors.unique" class="form-text text-muted">
+              This email is already used
+            </small>
           </div>
         </div>
         <div class="form-group">
@@ -24,7 +27,7 @@
             </small>
             <small *ngIf="(!form.controls.password.errors.required) && form.controls.password.errors.pattern"
                    class="form-text text-muted">
-              Password doesn't match pattern //todo: list with params
+              Password doesn't match pattern
             </small>
           </div>
         </div>
@@ -38,13 +41,13 @@
             </small>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+        <div class="form-inline">
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary mr-2" [disabled]="form.invalid">Submit</button>
           </div>
-          <div class="col-md-5">
-            <button type="button" class="btn btn-outline-primary" (click)="redirectToLoginPage()">Already have an
-              account? Login here
+          <div class="form-group">
+            <button type="button" class="btn btn-outline-primary" (click)="redirectToLoginPage()">
+              Already have an account? Login here
             </button>
           </div>
         </div>
