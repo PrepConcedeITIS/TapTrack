@@ -1,11 +1,15 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Auth
@@ -18,21 +22,36 @@ namespace TapTrackAPI.Core.Features.Auth
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IJwtTokenGenerator _tokenGenerator;
+        private readonly DbContext _dbContext;
 
         public AuthController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IJwtTokenGenerator tokenGenerator, IMediator mediator)
+            IJwtTokenGenerator tokenGenerator, IMediator mediator, DbContext dbContext)
             : base(mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenGenerator = tokenGenerator;
+            _dbContext = dbContext;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserInput input)
         {
             var user = new User(input.Email);
+
             var result = await _userManager.CreateAsync(user, input.Password);
+            var userId = await _userManager.GetUserIdAsync(user);
+            var guidUserId = new Guid(userId);
+
+
+            await _dbContext.Set<UserContact>().AddRangeAsync(
+                new UserContact(guidUserId, String.Empty, false, ContactType.Telegram),
+                new UserContact(guidUserId, String.Empty, false, ContactType.Discord),
+                new UserContact(guidUserId, String.Empty, false, ContactType.GitHub),
+                new UserContact(guidUserId, String.Empty, false, ContactType.Skype));
+
+            await _dbContext.SaveChangesAsync();
+
             if (result.Succeeded)
             {
                 return Ok(new {User = user, Token = _tokenGenerator.GenerateToken(user)});

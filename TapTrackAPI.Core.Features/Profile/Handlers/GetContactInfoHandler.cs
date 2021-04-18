@@ -24,28 +24,13 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
         public override async Task<List<ContactInformationDto>> Handle(GetContactInfoQuery query)
         {
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
-
-            /*var userContactsList = user.UserContacts
+            
+            var userContactsList = DbContext.Set<UserContact>()
+                .Where(x => x.UserId == user.Id)
                 .Select(x => new ContactInformationDto(x.ContactType.ToString("G"), x.ContactInfo))
-                .ToList();*/
+                .ToList();
 
-
-            var mock = new Dictionary<ContactType, string>()
-            {
-                {ContactType.Telegram, "@test"},
-                {ContactType.Discord, "@test"},
-                {ContactType.Skype, "@test"},
-                {ContactType.GitHub, "@test"},
-            };
-
-            var result = new List<ContactInformationDto>();
-
-            foreach (var pair in mock)
-            {
-                result.Add(new ContactInformationDto(pair.Key.ToString("G"), pair.Value));
-            }
-
-            return result;
+            return userContactsList;
         }
     }
 }
