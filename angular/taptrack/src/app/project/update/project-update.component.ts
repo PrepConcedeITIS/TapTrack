@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormlyFieldConfig} from '@ngx-formly/core';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectQuery} from '../_interfaces/project-query';
-import {BehaviorSubject, timer} from 'rxjs';
+import {BehaviorSubject, Observable, of, timer} from 'rxjs';
 import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -26,6 +26,9 @@ export class ProjectUpdateComponent implements OnInit {
   }
 
   form = new FormGroup({});
+  emailFormControl = new FormControl('', [
+    Validators.email,
+  ]);
   model: ProjectQuery = {description: '', idVisible: '', logo: undefined, name: ''};
   fields: FormlyFieldConfig[] = [
     {
@@ -73,6 +76,16 @@ export class ProjectUpdateComponent implements OnInit {
     }
   ];
 
+  columnDefs = [
+    { field: 'Email' },
+    { field: 'Status'}
+  ];
+
+  defaultColDef = {
+    resizable: false,
+  };
+  rowData: Observable<any>;
+
   ngOnInit(): void {
 
     this.route.params.subscribe((params: Params) => {
@@ -91,6 +104,11 @@ export class ProjectUpdateComponent implements OnInit {
             return this.isUnique = isUnique;
           });
       });
+    this.rowData = of([]);
+  }
+
+  onGridReady(params){
+    params.columnApi.sizeColumnsToFit();
   }
 
   projectGeneralInfoSubmit() {

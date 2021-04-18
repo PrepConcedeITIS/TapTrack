@@ -12,7 +12,37 @@
       </div>
     </tab>
     <tab heading="Team invitations" id="team-invitations-tab">
-      Invite team here
+      <div class="card">
+        <h4 class="card-header">Invite User</h4>
+        <div style="padding: 10px">
+          <form [formControl]="emailFormControl" class="email-form">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+              </div>
+              <input
+                [formControl]="emailFormControl"
+                type="email"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1">
+            </div>
+            <div *ngIf="emailFormControl.invalid" class="text-danger">Invalid email</div>
+            <button type="submit" class="btn btn-primary" [disabled]="emailFormControl.invalid">Invite</button>
+          </form>
+          <h5> Invited Users </h5>
+          <ag-grid-angular
+            style="width: 100%; height: 200px; margin-top: 10px;"
+            class="ag-theme-alpine"
+            [rowData]="rowData | async"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            (gridReady)="onGridReady($event)">
+          </ag-grid-angular>
+        </div>
+
+      </div>
     </tab>
   </tabset>
 </div>
