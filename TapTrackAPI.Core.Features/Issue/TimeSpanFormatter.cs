@@ -10,8 +10,8 @@ namespace TapTrackAPI.Core.Features.Issue
     {
         public string Formatter(TimeSpan date)
         {
-            var weeks = date.Days / 7;
-            var days = date.Days % 7;
+            var weeks = date.Days / 5;
+            var days = date.Days % 5;
             var hours = date.Hours;
             var output = weeks + "w " + days + "d " + hours + "h ";
             return output;
