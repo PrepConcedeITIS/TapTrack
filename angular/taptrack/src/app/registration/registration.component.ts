@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.logout();
-    const passwordRegex = new RegExp('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{6,}$');
+    const passwordRegex = new RegExp('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{7,}$');
     this.form = this.formBuilder.group({
         email: ['', [Validators.email, Validators.required]],
         password: ['', [Validators.required,
