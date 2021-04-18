@@ -1,11 +1,10 @@
 using System;
 using MediatR;
-using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
 
-namespace TapTrackAPI.Core.Features.Issue.Dtos
+namespace TapTrackAPI.Core.Features.Issue.Queries
 {
-    public class EditIssueCommand : IRequest
+    public class EditIssueCommand : IRequest<Entities.Issue>
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -36,7 +35,6 @@ namespace TapTrackAPI.Core.Features.Issue.Dtos
 
         public EditIssueCommand()
         {
-            
         }
     }
 }
