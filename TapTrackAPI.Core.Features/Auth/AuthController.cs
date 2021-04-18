@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -20,32 +19,16 @@ namespace TapTrackAPI.Core.Features.Auth
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IJwtTokenGenerator _tokenGenerator;
-        private readonly IMailSender _test;
 
         public AuthController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IJwtTokenGenerator tokenGenerator, IMediator mediator, IMailSender test)
+            IJwtTokenGenerator tokenGenerator, IMediator mediator)
             : base(mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenGenerator = tokenGenerator;
-            _test = test;
         }
-        [HttpGet("test")]
-        public async Task<IActionResult> MailSend()
-        {
-            var mailFrom = new MailAddress("taptrackproject@gmail.com");
-            var mailTo = new MailAddress("rnasybullin2013@litsey2.ru");
-            var message = new MailMessage(mailFrom, mailTo);
-            message.Body = "ssss";
-            await _test.SendMessageAsync(message);
-            DateTime date1 = new DateTime(2010, 1, 10, 4, 4, 4);
-            DateTime date2 = new DateTime(2010, 1, 12, 9, 6, 40);
-            TimeSpan a = date2 - date1;
-            var jopa = a.Days + " days, " + a.Hours + " hours";
-            return Ok(a);
-
-        }
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserInput input)
         {
