@@ -25,17 +25,33 @@ namespace TapTrackAPI.Core.Services
 
         public async Task<string> UploadProjectLogoImageAsync(IFormFile file, string userId, string projectIdVisible)
         {
+            var path = $"/projects/{userId}/{projectIdVisible}";
+            var fileName = $"logo_{projectIdVisible}_{file.Name}___{file.FileName.GetHashCode()}";
+
+            return await UploadImage(file, path, fileName);
+        }
+
+        public async Task<string> UploadUserProfileImage(IFormFile file, string userId)
+        {
+            var path = $"/path/{userId}";
+            var fileName = $"profile_image_{userId}_{file.Name}___{file.FileName.GetHashCode()}";
+
+            return await UploadImage(file, path, fileName);
+        }
+
+        private async Task<string> UploadImage(IFormFile file, string path, string fileName)
+        {
             await using var stream = file.OpenReadStream();
             var uploadRequestModel = new UploadImageRequest()
             {
-                Path = $"/projects/{userId}/{projectIdVisible}",
+                Path = path,
                 UseFilename = false,
                 Overwrite = false
             };
             uploadRequestModel.Files.Add(new UploadImageRequest.File()
             {
                 Data = stream,
-                FileName = $"logo_{projectIdVisible}_{file.Name}___{file.FileName.GetHashCode()}"
+                FileName = fileName
             });
             var response = await _image4IoApi.UploadImageAsync(uploadRequestModel);
             if (response.Success)
@@ -46,16 +62,6 @@ namespace TapTrackAPI.Core.Services
             }
 
             return "";
-        }
-
-        public Task<string> UploadImage(IFormFile file, string userId, string projectId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<string> UploadUserProfileImage(IFormFile file, string userId)
-        {
-            return UploadImage(file, userId, null);
         }
     }
 }

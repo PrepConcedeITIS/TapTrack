@@ -22,8 +22,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
             if (user == null)
                 return new UserProfileDto(null, null, null);
             
-            //TODO: поменять ProfileImageLink на нормальный
-            return new UserProfileDto("null", user.UserName, user.Email);
+            return new UserProfileDto(user.ProfileImageUrl, user.UserName, user.Email);
         }
     }
 }

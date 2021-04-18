@@ -34,13 +34,16 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("helo");
     this.isNameEdit = false;
     this.isFileLoaded = false;
     this.isContactInfoEdit = false;
     this.getProfile();
     this.getUserProjects();
     this.getContactsInformation();
-    this.getNotificationOptions();
+    //this.getNotificationOptions();
+
+    console.log(this.userProfile.profileImageLink);
   }
 
   handleFileInput(files: FileList) {
@@ -51,11 +54,10 @@ export class ProfileComponent implements OnInit {
   saveNewProfileImage() {
     const formData = new FormData();
 
-    formData.set("Image", this.fileToUpload, this.fileToUpload.name);
+    formData.append("Image", this.fileToUpload);
+    formData.append("ClaimsPrincipal",null)
 
-    this.httpClient.put(environment.apiUrl + this.controllerName + "/uploadProfileImage", {
-      Image: this.fileToUpload
-    })
+    this.httpClient.post(environment.apiUrl + this.controllerName + "/uploadProfileImage", formData)
       .subscribe(data => {
         this.userProfile = <Profile> data;
       });
@@ -65,7 +67,8 @@ export class ProfileComponent implements OnInit {
     this.httpClient.get(environment.apiUrl + this.controllerName)
       .subscribe(data => {
         // @ts-ignore
-        this.userProfile = data;
+        this.userProfile = <Profile> data;
+        console.log(data);
       });
   }
 

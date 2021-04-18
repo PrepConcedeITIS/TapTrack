@@ -15,11 +15,17 @@
             <div class="outer-flex-container">
 
               <div class="outer-flex-item-column1 color1">
-                <div>
-                  <img class="avatar"
-                       src="https://www.dealer.volvotrucks.co.uk/content/dam/volvo-media/list-icons/user.svg"
-                       width="150" height="150">
+                <div *ngIf="userProfile.profileImageLink;else alter">
+                    <img class="avatar"
+                         src="{{userProfile.profileImageLink}}"
+                         width="150" height="150">
                 </div>
+                <ng-template #alter>
+                  <img class="avatar"
+                       width="150"
+                       height="150"
+                       src="https://www.dealer.volvotrucks.co.uk/content/dam/volvo-media/list-icons/user.svg">
+                </ng-template>
               </div>
 
               <div class="outer-flex-item-column2 color2">
@@ -118,7 +124,9 @@
         </mat-tab>
         <mat-tab label="Уведомления">
           <div class="tap-content">
-            <mat-slide-toggle class="togle" [(ngModel)]="isTelegramNotificationsEnabled" >Получать уведомления через Telegram-бота</mat-slide-toggle>
+            <mat-slide-toggle class="togle" [(ngModel)]="isTelegramNotificationsEnabled">Получать уведомления через
+              Telegram-бота
+            </mat-slide-toggle>
           </div>
         </mat-tab>
       </mat-tab-group>

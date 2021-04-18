@@ -72,12 +72,13 @@ namespace TapTrackAPI.Core.Features.Profile
             return Ok(await _updateContactInfoHandler.Handle(command));
         }
 
-        [HttpPut("uploadProfileImage"), DisableRequestSizeLimit]
+        [HttpPost("uploadProfileImage"), DisableRequestSizeLimit]
         public async Task<IActionResult> UploadProfileImage(
-            [FromBody] UpdateProfileImageCommand updateProfileImageCommand)
+            [FromForm] UpdateProfileImageCommand updateProfileImageCommand)
         {
-            return Ok(await _updateProfileImageHandler.Handle(
-                new UpdateProfileImageCommand(updateProfileImageCommand.Image, HttpContext.User)));
+            updateProfileImageCommand.ClaimsPrincipal = HttpContext.User;
+            
+            return Ok(await _updateProfileImageHandler.Handle(updateProfileImageCommand));
         }
 
         [HttpPut("changeNotificationOption")]

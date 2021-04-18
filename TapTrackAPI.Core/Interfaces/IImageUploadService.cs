@@ -5,7 +5,6 @@ namespace TapTrackAPI.Core.Interfaces
 {
     public interface IImageUploadService
     {
-        public Task<string> UploadImage(IFormFile file, string userId, string projectId);
         public Task<string> UploadUserProfileImage(IFormFile file, string userId);
         public Task<string> UploadProjectLogoImageAsync(IFormFile file, string userId, string projectIdVisible);
     }
