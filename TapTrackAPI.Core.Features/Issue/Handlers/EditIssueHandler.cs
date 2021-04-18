@@ -23,20 +23,20 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
         {
             var issues = Context.Set<Entities.Issue>();
             var issue = await issues.FindAsync(request.Id);
+
             var assignee = await Context.Set<TeamMember>().FirstOrDefaultAsync(
                 x => x.User.UserName == request.Assignee,
                 cancellationToken: cancellationToken);
+
             var project = await Context.Set<Entities.Project>()
                 .FirstOrDefaultAsync(x => x.Name == request.Project, cancellationToken: cancellationToken);
+
             issue.Update(request.Title, request.Description, assignee, project, request.Estimation, request.Spent,
                 request.State, request.IssueType, request.Priority);
             issues.Update(issue);
             await Context.SaveChangesAsync(cancellationToken);
-            var issueDto = await _mediator.Send(new GetIssueQuery
-            {
-                Id = request
-                    .Id
-            });
+
+            var issueDto = await _mediator.Send(new GetIssueQuery {Id = request.Id}, cancellationToken);
             return issueDto;
         }
     }
