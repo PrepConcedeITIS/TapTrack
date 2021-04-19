@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MustMatch} from '../_helpers/must-match.validator';
+import {MustMatch} from '../../_helpers/must-match.validator';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../_services/authentication.service';
-import {RegistrationService} from '../_services/registration.service';
+import {AuthenticationService} from '../../_services/authentication.service';
+import {RegistrationService} from '../../_services/registration.service';
 import {tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 

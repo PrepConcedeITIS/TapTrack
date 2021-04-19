@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
+import {UserWithToken} from '../auth/userWithToken';
 
 @Injectable({
   providedIn: 'root'
@@ -40,17 +41,4 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
-}
-
-export interface UserWithToken {
-  token: string;
-  user: User;
-}
-
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
 }

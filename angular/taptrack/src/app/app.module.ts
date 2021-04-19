@@ -5,8 +5,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
-import {LoginComponent} from './login/login.component';
-import {RegistrationComponent} from './registration/registration.component';
+import {LoginComponent} from './auth/login/login.component';
+import {RegistrationComponent} from './auth/registration/registration.component';
 import {ProjectCreateComponent} from './project/create/project-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
