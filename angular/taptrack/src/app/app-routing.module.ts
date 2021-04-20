@@ -9,9 +9,10 @@ import {ProjectDetailsComponent} from './project/details/project-details.compone
 import {ProjectUpdateComponent} from './project/update/project-update.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ErrorComponent} from './error/error.component';
-import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
-import {ArticleComponent} from './article/article.component';
-import {ArticleDetailsComponent} from './article-details/article-details.component';
+import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
+import {ArticleComponent} from "./knowledge-base/article/article.component";
+import {ArticleDetailsComponent} from "./knowledge-base/article-details/article-details.component";
+import {ArticleCreateComponent} from "./knowledge-base/article-create/article-create.component";
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 
 const routes: Routes = [
@@ -33,8 +34,8 @@ const routes: Routes = [
       {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
     ]
   },
-  {
-    path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
+  {path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
+      {path: 'create', component: ArticleCreateComponent, canActivate: [AuthGuard]},
       {path: 'details/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard]}
     ]
   },

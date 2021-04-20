@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-article',
@@ -15,7 +15,7 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectsWithArticles = this.http.get<ProjectWithArticles[]>(environment.apiUrl + '/article');
+    this.projectsWithArticles = this.http.get<ProjectWithArticles[]>(environment.apiUrl + '/articles');
   }
 }
 

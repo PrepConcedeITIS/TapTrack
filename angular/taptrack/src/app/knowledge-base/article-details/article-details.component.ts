@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-article-details',
@@ -18,7 +18,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
-      this.article = this.http.get<FullArticle>(environment.apiUrl + `/article/${params.id}`);
+      this.article = this.http.get<FullArticle>(environment.apiUrl + `/articles/${params.id}`);
     });
   }
 

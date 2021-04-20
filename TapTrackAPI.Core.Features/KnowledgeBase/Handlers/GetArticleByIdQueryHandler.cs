@@ -6,14 +6,14 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.KnowledgeBase.Dtos;
+using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 using TapTrackAPI.Core.Features.KnowledgeBase.Queries;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
 {
-    public class GetArticleByIdHandler : RequestHandlerBase, IRequestHandler<GetArticleByIdQuery, FullArticleDto>
+    public class GetArticleByIdQueryHandler : RequestHandlerBase, IRequestHandler<GetArticleByIdQuery, FullArticleDto>
     {
-        public GetArticleByIdHandler(DbContext context, IMapper mapper) : base(context, mapper)
+        public GetArticleByIdQueryHandler(DbContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
