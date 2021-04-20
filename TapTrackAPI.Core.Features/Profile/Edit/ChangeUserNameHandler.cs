@@ -1,14 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Profile.Base;
-using TapTrackAPI.Core.Features.Profile.Records.CQRS;
-using TapTrackAPI.Core.Features.Profile.Records.Dtos;
+using TapTrackAPI.Core.Features.Profile.Dto;
 
-namespace TapTrackAPI.Core.Features.Profile.Handlers
+namespace TapTrackAPI.Core.Features.Profile.Edit
 {
     public class ChangeUserNameHandler : ProfileHandlerWithDbContextBase<ChangeUserNameCommand, UserProfileDto>
     {
@@ -17,7 +15,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
         {
         }
 
-        public override async Task<UserProfileDto> Handle(ChangeUserNameCommand command)
+        public override async Task<UserProfileDto> Handle(ChangeUserNameCommand command, CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 

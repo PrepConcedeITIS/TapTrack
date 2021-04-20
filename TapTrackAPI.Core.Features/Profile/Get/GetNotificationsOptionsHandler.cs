@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Profile.Base;
-using TapTrackAPI.Core.Features.Profile.Records.CQRS;
 
-namespace TapTrackAPI.Core.Features.Profile.Handlers
+namespace TapTrackAPI.Core.Features.Profile.Get
 {
+    [UsedImplicitly]
     public class GetNotificationsOptionsHandler : ProfileHandlerWithDbContextBase<GetNotificationOptionsQuery, bool>
     {
         public GetNotificationsOptionsHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager,
@@ -17,15 +19,14 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
         {
         }
 
-        public override async Task<bool> Handle(GetNotificationOptionsQuery query)
+        public override async Task<bool> Handle(GetNotificationOptionsQuery query, CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
-            var notificationOption = user.UserContacts
+            var notificationOption = DbContext.Set<UserContact>()
+                .Where(x => x.User == user)
                 .FirstOrDefault(x => x.ContactType == ContactType.Telegram);
-
-            if (notificationOption == null)
-                throw new Exception();
+            
 
             return notificationOption.NotificationEnabled;
         }

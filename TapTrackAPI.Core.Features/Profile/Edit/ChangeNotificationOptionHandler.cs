@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
         {
         }
 
-        public override async Task<bool> Handle(ChangeNotificationOptionsCommand command)
+        public override async Task<bool> Handle(ChangeNotificationOptionsCommand command, CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 
@@ -28,7 +29,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
             {
                 userContact.ChangeNotificationOption(command.Option);
                 DbContext.Set<UserContact>().Update(userContact);
-                await DbContext.SaveChangesAsync();
+                await DbContext.SaveChangesAsync(cancellationToken);
             }
 
             return command.Option;

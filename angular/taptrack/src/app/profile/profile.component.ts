@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
     this.getProfile();
     this.getUserProjects();
     this.getContactsInformation();
-    //this.getNotificationOptions();
+    this.getNotificationOptions();
 
     console.log(this.userProfile.profileImageLink);
   }

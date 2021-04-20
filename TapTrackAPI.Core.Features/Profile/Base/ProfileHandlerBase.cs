@@ -1,13 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Force.Cqrs;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 
 namespace TapTrackAPI.Core.Features.Profile.Base
 {
-    public abstract class ProfileHandlerBase<TIn,TOut> : 
-        IAsyncQueryHandler<TIn,TOut> where TIn : IQuery<Task<TOut>>
+    public abstract class ProfileHandlerBase<TIn, TOut> :
+        IRequestHandler<TIn, TOut> where TIn : IRequest<TOut>
     {
         protected readonly UserManager<User> UserManager;
 
@@ -16,6 +18,6 @@ namespace TapTrackAPI.Core.Features.Profile.Base
             UserManager = userManager;
         }
 
-        public abstract Task<TOut> Handle(TIn input);
+        public abstract Task<TOut> Handle(TIn request, CancellationToken cancellationToken);
     }
 }

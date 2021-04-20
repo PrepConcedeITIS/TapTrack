@@ -4,72 +4,49 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.Handlers;
+using TapTrackAPI.Core.Features.Profile.Edit;
+using TapTrackAPI.Core.Features.Profile.Get;
 using TapTrackAPI.Core.Features.Profile.Records.CQRS;
-using TapTrackAPI.Core.Features.Profile.Records.Dtos;
 
 namespace TapTrackAPI.Core.Features.Profile
 {
     public class ProfileController : AuthorizedApiController
     {
-        private readonly IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> _getUserProfileHandler;
-        private readonly IAsyncQueryHandler<GetUserProjectsQuery, List<UserProjectDto>> _getUserProjectsHandler;
-        private readonly IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto> _changeUserNameHandler;
-        private readonly IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto> _updateProfileImageHandler;
-        private readonly IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>> _updateContactInfoHandler;
-        private readonly IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>>
-            _getContactInformationHandler;
-        private readonly IAsyncQueryHandler<ChangeNotificationOptionsCommand, bool> _changeNotificationOptionHandler;
-        private readonly IAsyncQueryHandler<GetNotificationOptionsQuery, bool> _getNotificationOptionHandler;
-
-        public ProfileController(
-            IMediator mediator, IAsyncQueryHandler<GetUserProfileQuery, UserProfileDto> getUserProfileHandler,
-            IAsyncQueryHandler<GetUserProjectsQuery, List<UserProjectDto>> getUserProjectsHandler,
-            IAsyncQueryHandler<ChangeUserNameCommand, UserProfileDto> changeUserNameHandler,
-            IAsyncQueryHandler<UpdateProfileImageCommand, UserProfileDto> updateProfileImageHandler,
-            IAsyncQueryHandler<GetContactInfoQuery, List<ContactInformationDto>> getContactInformationHandler, 
-            IAsyncQueryHandler<UpdateContactInfoCommand, List<ContactInformationDto>> updateContactInfoHandler, IAsyncQueryHandler<ChangeNotificationOptionsCommand, bool> changeNotificationOptionHandler, IAsyncQueryHandler<GetNotificationOptionsQuery, bool> getNotificationOptionHandler)
+        public ProfileController(IMediator mediator)
             : base(mediator)
         {
-            _getUserProfileHandler = getUserProfileHandler;
-            _getUserProjectsHandler = getUserProjectsHandler;
-            _changeUserNameHandler = changeUserNameHandler;
-            _updateProfileImageHandler = updateProfileImageHandler;
-            _getContactInformationHandler = getContactInformationHandler;
-            _updateContactInfoHandler = updateContactInfoHandler;
-            _changeNotificationOptionHandler = changeNotificationOptionHandler;
-            _getNotificationOptionHandler = getNotificationOptionHandler;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _getUserProfileHandler.Handle(new GetUserProfileQuery(HttpContext.User)));
+            return Ok(await Mediator.Send(new GetUserProfileQuery {ClaimsPrincipal = HttpContext.User}));
         }
 
         [HttpGet("projects")]
         public async Task<IActionResult> GetUserProjects()
         {
-            return Ok(await _getUserProjectsHandler.Handle(new GetUserProjectsQuery(HttpContext.User)));
+            return Ok(await Mediator.Send(new GetUserProjectsQuery {ClaimsPrincipal = HttpContext.User}));
         }
 
         [HttpGet("contacts")]
         public async Task<IActionResult> GetUserContactInformation()
         {
-            return Ok(await _getContactInformationHandler.Handle(new GetContactInfoQuery(HttpContext.User)));
+            return Ok(await Mediator.Send(new GetContactInfoQuery {ClaimsPrincipal = HttpContext.User}));
         }
-        
+
         [HttpGet("notificationOptions")]
         public async Task<IActionResult> GetUserNotificationOptions()
         {
-            return Ok(await _getNotificationOptionHandler.Handle(new GetNotificationOptionsQuery(HttpContext.User)));
+            return Ok(await Mediator.Send(new GetNotificationOptionsQuery {ClaimsPrincipal = HttpContext.User}));
         }
 
         [HttpPut("updateContactsInfo")]
-        public async Task<IActionResult> UpdateContactInfo([FromBody]UpdateContactInfoCommand updateContactInfoCommand)
+        public async Task<IActionResult> UpdateContactInfo([FromBody] UpdateContactInfoCommand updateContactInfoCommand)
         {
             var command = updateContactInfoCommand with {ClaimsPrincipal = HttpContext.User};
 
-            return Ok(await _updateContactInfoHandler.Handle(command));
+            return Ok(await Mediator.Send(command));
         }
 
         [HttpPost("uploadProfileImage"), DisableRequestSizeLimit]
@@ -77,8 +54,8 @@ namespace TapTrackAPI.Core.Features.Profile
             [FromForm] UpdateProfileImageCommand updateProfileImageCommand)
         {
             updateProfileImageCommand.ClaimsPrincipal = HttpContext.User;
-            
-            return Ok(await _updateProfileImageHandler.Handle(updateProfileImageCommand));
+
+            return Ok(await Mediator.Send(updateProfileImageCommand));
         }
 
         [HttpPut("changeNotificationOption")]
@@ -87,14 +64,15 @@ namespace TapTrackAPI.Core.Features.Profile
         {
             var command = changeNotificationOptionsCommand with {ClaimsPrincipal = HttpContext.User};
 
-            return Ok(await _changeNotificationOptionHandler.Handle(command));
+            return Ok(await Mediator.Send(command));
         }
 
         [HttpPut("updateUserName")]
         public async Task<IActionResult> UpdateUserName([FromBody] ChangeUserNameCommand changeUserNameCommand)
         {
-            return Ok(await _changeUserNameHandler.Handle(new ChangeUserNameCommand(changeUserNameCommand.NewUserName,
-                HttpContext.User)));
+            var command = changeUserNameCommand with {ClaimsPrincipal = HttpContext.User};
+
+            return Ok(await Mediator.Send(command));
         }
     }
 }

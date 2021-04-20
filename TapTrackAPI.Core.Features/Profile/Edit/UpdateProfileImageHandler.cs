@@ -1,15 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Profile.Base;
-using TapTrackAPI.Core.Features.Profile.Records.CQRS;
-using TapTrackAPI.Core.Features.Profile.Records.Dtos;
+using TapTrackAPI.Core.Features.Profile.Dto;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Data;
 
-namespace TapTrackAPI.Core.Features.Profile.Handlers
+namespace TapTrackAPI.Core.Features.Profile.Edit
 {
     public class UpdateProfileImageHandler : ProfileHandlerWithDbContextBase<UpdateProfileImageCommand, UserProfileDto>
     {
@@ -21,7 +19,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
             _imageUploadService = imageUploadService;
         }
 
-        public override async Task<UserProfileDto> Handle(UpdateProfileImageCommand command)
+        public override async Task<UserProfileDto> Handle(UpdateProfileImageCommand command, CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 

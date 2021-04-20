@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Profile.Base;
-using TapTrackAPI.Core.Features.Profile.Records.CQRS;
-using TapTrackAPI.Core.Features.Profile.Records.Dtos;
+using TapTrackAPI.Core.Features.Profile.Dto;
 
-namespace TapTrackAPI.Core.Features.Profile.Handlers
+namespace TapTrackAPI.Core.Features.Profile.Get
 {
     public class GetUserProjectsHandler : ProfileHandlerWithDbContextBase<GetUserProjectsQuery, List<UserProjectDto>>
     {
@@ -17,7 +15,7 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
         {
         }
 
-        public override async Task< List<UserProjectDto>> Handle(GetUserProjectsQuery query)
+        public override async Task< List<UserProjectDto>> Handle(GetUserProjectsQuery query, CancellationToken cancellationToken)
         {
             var mock = new Dictionary<string, string>()
             {
