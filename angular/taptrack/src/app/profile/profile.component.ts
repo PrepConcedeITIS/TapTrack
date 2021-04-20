@@ -68,7 +68,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         // @ts-ignore
         this.userProfile = <Profile> data;
-        console.log(data);
       });
   }
 

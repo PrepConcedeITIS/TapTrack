@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -15,36 +16,20 @@ namespace TapTrackAPI.Core.Features.Profile.Get
         {
         }
 
-        public override async Task< List<UserProjectDto>> Handle(GetUserProjectsQuery query, CancellationToken cancellationToken)
+        public override async Task<List<UserProjectDto>> Handle(GetUserProjectsQuery query,
+            CancellationToken cancellationToken)
         {
-            var mock = new Dictionary<string, string>()
-            {
-                {"Project 1", "developer"},
-                {"Project 2", "developer"},
-                {"Project 3", "developer"},
-                {"Project 4", "developer"},
-            };
+            var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
-            var result = new List<UserProjectDto>();
-
-            foreach (var pair in mock)
-            {
-                result.Add(new UserProjectDto(pair.Key, pair.Value));
-            }
-
-            var user = UserManager.GetUserAsync(query.ClaimsPrincipal);
-
-            /*var userProject = DbContext.Set<Entities.Project>()
+            var userProject = DbContext.Set<Entities.Project>()
                 .AsQueryable()
                 .Where(x => x.Team
                     .Select(y => y.User).Contains(user))
-                .Select(x => new
-                {
-                    Project = x.Name,
-                    Position = x.Team.First(y => y.User == user).Role
-                });*/
+                .Select(x => new UserProjectDto(x.Name,
+                        x.Team.First(y => y.User == user).Role)
+                );
 
-            return result;
+            return userProject.ToList();
         }
     }
 }

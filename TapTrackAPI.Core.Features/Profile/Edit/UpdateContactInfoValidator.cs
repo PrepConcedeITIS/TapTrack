@@ -12,7 +12,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
         {
             RuleForEach(x => x.Contacts)
                 .Must(x => IsValidStringInput(x.ResourceInfo, 4, 50))
-                .WithMessage($"Incorrect input");
+                .WithMessage("Incorrect input");
         }
     }
 }

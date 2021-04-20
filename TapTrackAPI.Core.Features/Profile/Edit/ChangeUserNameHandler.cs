@@ -25,7 +25,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
 
             user.UserName = command.NewUserName;
             DbContext.Set<User>().Update(user);
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync(cancellationToken);
 
             return new UserProfileDto(user.ProfileImageUrl,user.UserName, user.Email);
         }
