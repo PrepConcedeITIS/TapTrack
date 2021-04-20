@@ -29,6 +29,10 @@ import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from "ngx-bootstrap/accordion";
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {DragDropModule} from '@angular/cdk/drag-drop'
+import { AgileBoardComponent } from './agile-board/agile-board.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,7 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     ProjectDetailsComponent,
     ProjectComponent,
     ErrorComponent,
+    AgileBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,10 @@ import {AccordionModule} from "ngx-bootstrap/accordion";
     TabsModule.forRoot(),
     AgGridModule,
     CollapseModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    MatCardModule,
+    MatIconModule,
+    DragDropModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

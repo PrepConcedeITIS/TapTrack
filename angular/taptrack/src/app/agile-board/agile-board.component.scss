@@ -1,0 +1,43 @@
+.content-wrapper{
+    max-width: 1400px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.container-wrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+.container{
+    width: 400px;
+    margin: 0 25px 25px 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    outline: 1px solid #000;
+}
+
+.task{
+    margin-bottom: 30px;
+}
+
+.empty-label{
+    font-size: 2em;
+    padding-top: 10px;
+    text-align: center;
+    opacity: 0.2;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms;
+}
+
+.item {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    outline: 1px solid #000;
+    margin-bottom: 10px;
+    cursor: pointer;
+}

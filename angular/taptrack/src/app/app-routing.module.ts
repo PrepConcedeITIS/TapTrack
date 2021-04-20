@@ -13,6 +13,7 @@ import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
 import {ArticleComponent} from "./article/article.component";
 import {ArticleDetailsComponent} from "./article-details/article-details.component";
+import { AgileBoardComponent } from './agile-board/agile-board.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
@@ -30,6 +31,7 @@ const routes: Routes = [
       {path: 'details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
       {path: 'create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
       {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
+      {path: 'board', component: AgileBoardComponent, canActivate: [AuthGuard]},
     ]
   },
   {path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
