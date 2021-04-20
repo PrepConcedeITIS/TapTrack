@@ -1,11 +1,8 @@
 using System;
 using MediatR;
-using TapTrackAPI.Core.Features.KnowledgeBase.Dtos;
+using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.Queries
 {
-    public class GetArticleByIdQuery : IRequest<FullArticleDto>
-    {
-        public Guid Id { get; set; }
-    }
+    public record GetArticleByIdQuery(Guid Id) : IRequest<FullArticleDto>;
 }

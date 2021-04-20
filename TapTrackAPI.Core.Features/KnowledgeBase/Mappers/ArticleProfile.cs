@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.KnowledgeBase.Dtos;
+using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.Mappers
 {
@@ -17,7 +17,9 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Mappers
             CreateMap<TeamMember, TeamMemberDto>()
                 .ForMember(dto => dto.Email, expression => expression.MapFrom(member => member.User.Email))
                 .ForMember(dto => dto.Username, expression => expression.MapFrom(member => member.User.UserName));
-            CreateMap<Entities.Project, ShortProjectDto>();
+            CreateMap<Entities.Project, OptionDto>()
+                .ForMember(dto => dto.Value, expression => expression.MapFrom(project => project.Id))
+                .ForMember(dto => dto.Label, expression => expression.MapFrom(project => project.Name));
         }
     }
 }

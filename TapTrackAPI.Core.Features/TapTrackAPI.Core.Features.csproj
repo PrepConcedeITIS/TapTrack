@@ -15,11 +15,44 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Issue\GetIssueQuery.cs">
-        <DependentUpon>IssueController.cs</DependentUpon>
-      </Compile>
       <Compile Update="Issue\Handlers\IssueDetailsProfile.cs">
         <DependentUpon>GetIssueHandler.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Edit\ProjectEditValidator.cs">
+        <DependentUpon>ProjectEditCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Edit\UpdateProjectInfoAsyncHandler.cs">
+        <DependentUpon>ProjectEditValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Create\ProjectCreateValidator.cs">
+        <DependentUpon>ProjectCreateCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Create\CreateProjectAsyncHandler.cs">
+        <DependentUpon>ProjectCreateValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Get\ProjectGetByIdValidator.cs">
+        <DependentUpon>GetProjectByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Get\GetProjectByIdAsyncQueryHandler.cs">
+        <DependentUpon>ProjectGetByIdValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\IdVisibleUnique\GetUniquenessOfIdQueryHandler.cs">
+        <DependentUpon>GetUniquenessOfIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\List\GetProjectsListAsyncHandler.cs">
+        <DependentUpon>GetProjectsListQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Login\LoginValidator.cs">
+        <DependentUpon>LoginCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Login\LoginHandler.cs">
+        <DependentUpon>LoginValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Registration\RegistrationValidator.cs">
+        <DependentUpon>RegistrationCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Registration\RegistrationHandler.cs">
+        <DependentUpon>RegistrationValidator.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

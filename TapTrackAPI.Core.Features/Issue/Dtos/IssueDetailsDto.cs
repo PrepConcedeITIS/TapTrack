@@ -1,8 +1,19 @@
-using System;
-
 namespace TapTrackAPI.Core.Features.Issue.Dtos
 {
-    public record IssueDetailsDto(string Title, string Description, string Creator, string Assignee,
-        string IssueType, string Priority, string Project, string State, int EstimationHours,int EstimationMinutes, string Created,
-        int SpentHours,int SpentMinutes);
+    public class IssueDetailsDto
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Creator { get; set; }
+        public string Assignee { get; set; }
+        public string IssueType { get; set; }
+        public string Priority { get; set; }
+        public string Project { get; set; }
+        public string State { get; set; }
+        public int EstimationHours { get; set; }
+        public int EstimationMinutes { get; set; }
+        public string Created { get; set; }
+        public int SpentHours { get; set; }
+        public int SpentMinutes { get; set; }
+    }
 }

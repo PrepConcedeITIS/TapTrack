@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using MediatR;
-using TapTrackAPI.Core.Features.KnowledgeBase.Dtos;
+using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.Queries
 {
-    public class GetAllArticlesQuery : IRequest<List<ProjectWithArticlesDto>>
-    {
-    }
+    public record GetAllArticlesQuery() : IRequest<List<ProjectWithArticlesDto>>;
 }
