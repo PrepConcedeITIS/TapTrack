@@ -19,7 +19,7 @@
             <div *ngIf="formControls.password.errors.required">Password is required</div>
           </div>
         </div>
-        <button [disabled]="loading" class="btn btn-primary" type="submit">
+        <button [disabled]="loading || loginForm.invalid" class="btn btn-primary" type="submit">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Login
         </button>

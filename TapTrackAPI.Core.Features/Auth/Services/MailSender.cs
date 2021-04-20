@@ -2,10 +2,10 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using TapTrackAPI.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
+using TapTrackAPI.Core.Interfaces;
 
-namespace TapTrackAPI.Core.Features.Auth
+namespace TapTrackAPI.Core.Features.Auth.Services
 {
     public class MailSender : IMailSender
     {

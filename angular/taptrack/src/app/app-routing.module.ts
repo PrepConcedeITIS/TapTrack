@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './_helpers/auth.guard';
-import {LoginComponent} from './login/login.component';
-import {RegistrationComponent} from './registration/registration.component';
+import {LoginComponent} from './auth/login/login.component';
+import {RegistrationComponent} from './auth/registration/registration.component';
 import {ProjectCreateComponent} from './project/create/project-create.component';
 import {IssueListComponent} from './issue/issue-list/issue-list.component';
 import {ProjectDetailsComponent} from './project/details/project-details.component';

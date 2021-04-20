@@ -42,6 +42,18 @@
       <Compile Update="Project\List\GetProjectsListAsyncHandler.cs">
         <DependentUpon>GetProjectsListQuery.cs</DependentUpon>
       </Compile>
+      <Compile Update="Auth\Login\LoginValidator.cs">
+        <DependentUpon>LoginCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Login\LoginHandler.cs">
+        <DependentUpon>LoginValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Registration\RegistrationValidator.cs">
+        <DependentUpon>RegistrationCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Registration\RegistrationHandler.cs">
+        <DependentUpon>RegistrationValidator.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
