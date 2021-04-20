@@ -1,6 +1,6 @@
 using System;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Dtos
+namespace TapTrackAPI.Core.Features.KnowledgeBase.DTOs
 {
     public record FullArticleDto
     {

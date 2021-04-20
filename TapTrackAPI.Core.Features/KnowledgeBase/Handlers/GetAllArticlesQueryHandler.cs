@@ -6,15 +6,15 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Features.KnowledgeBase.Dtos;
+using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 using TapTrackAPI.Core.Features.KnowledgeBase.Queries;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
 {
-    public class GetAllArticlesHandler : RequestHandlerBase,
+    public class GetAllArticlesQueryHandler : RequestHandlerBase,
         IRequestHandler<GetAllArticlesQuery, List<ProjectWithArticlesDto>>
     {
-        public GetAllArticlesHandler(DbContext context, IMapper mapper) : base(context, mapper)
+        public GetAllArticlesQueryHandler(DbContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

@@ -16,12 +16,12 @@ namespace TapTrackAPI.Core.Entities
         public long UpdatedById { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
         public string Content { get; protected set; }
-        
         public virtual ICollection<Comment> Comment { get; protected set; }
 
-        public Article(string title, long createdById, DateTime createdAt, long updatedById, DateTime updatedAt,
-            string content)
+        public Article(Guid belongsToId, string title, long createdById, DateTime createdAt, long updatedById,
+            DateTime updatedAt, string content)
         {
+            BelongsToId = belongsToId;
             Title = title;
             CreatedById = createdById;
             CreatedAt = createdAt;

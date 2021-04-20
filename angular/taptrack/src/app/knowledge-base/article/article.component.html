@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-2 pt-2 mt-3 h-100">
+    <div class="col-lg-2 bg-light pt-2 h-100">
       <accordion [isAnimated]="true" *ngFor="let project of projectsWithArticles | async as projects">
         <accordion-group heading="{{project.name}}">
           <ul class="nav flex-column flex-nowrap" *ngIf="project.articles.length > 0; else no">
