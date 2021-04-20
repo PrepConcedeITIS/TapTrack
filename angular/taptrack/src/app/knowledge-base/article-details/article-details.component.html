@@ -11,5 +11,5 @@
     Email: {{fullArticle.updatedBy.email}}
     UpdatedAt: {{fullArticle.updatedAt}}
   </p>
-  <p>{{fullArticle.content}}</p>
+  <md-editor height="100%" mode="preview" [ngModel]="fullArticle.content"></md-editor>
 </div>
