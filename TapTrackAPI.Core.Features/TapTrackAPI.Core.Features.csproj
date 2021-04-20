@@ -76,6 +76,9 @@
       <Compile Update="Profile\Edit\UpdateContactInfoValidator.cs">
         <DependentUpon>UpdateContactInfoCommand.cs</DependentUpon>
       </Compile>
+      <Compile Update="Profile\Get\GetUserProfileHandler.cs">
+        <DependentUpon>GetUserProfileQuery.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

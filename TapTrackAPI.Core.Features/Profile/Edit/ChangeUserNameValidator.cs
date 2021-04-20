@@ -14,7 +14,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
         public ChangeUserNameValidator(DbContext dbContext, UserManager<User> userManager)
         {
             RuleFor(x => x.NewUserName)
-                .Must(x => IsValidStringInput(x, 4, 20))
+                .Must(x => IsValidStringInput(x, 4, 25))
                 .WithMessage("Invalid name specified");
         }
     }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
@@ -10,6 +11,7 @@ using TapTrackAPI.Core.Features.Profile.Dto;
 
 namespace TapTrackAPI.Core.Features.Profile.Edit
 {
+    [UsedImplicitly]
     public class
         UpdateContactsInfoHandler : ProfileHandlerWithDbContextBase<UpdateContactInfoCommand,
             List<ContactInformationDto>>
@@ -40,7 +42,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
                 }
 
                 DbContext.Set<UserContact>().UpdateRange(userContactsList);
-                await DbContext.SaveChangesAsync();
+                await DbContext.SaveChangesAsync(cancellationToken);
             }
 
             return command.Contacts;

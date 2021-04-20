@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
@@ -10,6 +11,7 @@ using TapTrackAPI.Core.Features.Profile.Records.CQRS;
 
 namespace TapTrackAPI.Core.Features.Profile.Handlers
 {
+    [UsedImplicitly]
     public class ChangeNotificationOptionHandler : ProfileHandlerWithDbContextBase<ChangeNotificationOptionsCommand, bool>
     {
         public ChangeNotificationOptionHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager,
@@ -21,7 +23,8 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 
-            var userContact = user.UserContacts
+            var userContact = DbContext.Set<UserContact>()
+                .Where(x => x.User.Id == user.Id)
                 .FirstOrDefault(x => x.ContactType == ContactType.Telegram);
 
 

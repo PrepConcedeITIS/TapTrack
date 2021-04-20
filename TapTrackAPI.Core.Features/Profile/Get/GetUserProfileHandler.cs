@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Profile.Base;
@@ -7,6 +8,7 @@ using TapTrackAPI.Core.Features.Profile.Dto;
 
 namespace TapTrackAPI.Core.Features.Profile.Get
 {
+    [UsedImplicitly]
     public class GetUserProfileHandler : ProfileHandlerBase<GetUserProfileQuery, UserProfileDto>
     {
 

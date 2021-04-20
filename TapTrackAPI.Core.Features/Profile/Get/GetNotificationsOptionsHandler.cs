@@ -24,7 +24,7 @@ namespace TapTrackAPI.Core.Features.Profile.Get
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
             var notificationOption = DbContext.Set<UserContact>()
-                .Where(x => x.User == user)
+                .Where(x => x.User.Id == user.Id)
                 .FirstOrDefault(x => x.ContactType == ContactType.Telegram);
             
 

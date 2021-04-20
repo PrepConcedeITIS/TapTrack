@@ -10,9 +10,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
     {
         public UpdateContactInfoValidator(DbContext dbContext, UserManager<User> userManager)
         {
-            RuleForEach(x => x.Contacts)
-                .Must(x => IsValidStringInput(x.ResourceInfo, 4, 50))
-                .WithMessage("Incorrect input");
+            
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
@@ -10,6 +11,7 @@ using TapTrackAPI.Core.Features.Profile.Dto;
 
 namespace TapTrackAPI.Core.Features.Profile.Get
 {
+    [UsedImplicitly]
     public class GetUserProjectsHandler : ProfileHandlerWithDbContextBase<GetUserProjectsQuery, List<UserProjectDto>>
     {
         public GetUserProjectsHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager, dbContext)

@@ -18,11 +18,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
         public override async Task<UserProfileDto> Handle(ChangeUserNameCommand command, CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
-
-            if (string.IsNullOrEmpty(command.NewUserName) || string.IsNullOrWhiteSpace(command.NewUserName) ||
-                command.NewUserName.Length > 25)
-                return new UserProfileDto(null,null,null); //уберу когда разберусь с валидаторами
-
+            
             user.UserName = command.NewUserName;
             DbContext.Set<User>().Update(user);
             await DbContext.SaveChangesAsync(cancellationToken);
