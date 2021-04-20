@@ -1,14 +1,16 @@
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using JetBrains.Annotations;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base.Handlers;
-using TapTrackAPI.Core.Features.Project.Records;
 
-namespace TapTrackAPI.Core.Features.Project.Handlers
+namespace TapTrackAPI.Core.Features.Project.Get
 {
-    public class GetProjectByIdAsyncQueryHandler : IAsyncQueryHandler<GetProjectByIdQuery, ProjectDto>
+    [UsedImplicitly]
+    public class GetProjectByIdAsyncQueryHandler : IRequestHandler<GetProjectByIdQuery, ProjectDto>
     {
         private readonly DbContext _dbContext;
         private readonly IMapper _mapper;
@@ -19,12 +21,12 @@ namespace TapTrackAPI.Core.Features.Project.Handlers
             _mapper = mapper;
         }
 
-        public async Task<ProjectDto> Handle(GetProjectByIdQuery input)
+        public async Task<ProjectDto> Handle(GetProjectByIdQuery input, CancellationToken cancellationToken)
         {
             var result = await _dbContext.Set<Entities.Project>()
                 .Where(x => x.Id == input.ProjectId)
                 .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             return result;
         }
     }

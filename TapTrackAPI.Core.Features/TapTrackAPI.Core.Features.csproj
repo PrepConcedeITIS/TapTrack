@@ -31,6 +31,18 @@
       <Compile Update="Project\Create\CreateProjectAsyncHandler.cs">
         <DependentUpon>ProjectCreateValidator.cs</DependentUpon>
       </Compile>
+      <Compile Update="Project\Get\ProjectGetByIdValidator.cs">
+        <DependentUpon>GetProjectByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Get\GetProjectByIdAsyncQueryHandler.cs">
+        <DependentUpon>ProjectGetByIdValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\IdVisibleUnique\GetUniquenessOfIdQueryHandler.cs">
+        <DependentUpon>GetUniquenessOfIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\List\GetProjectsListAsyncHandler.cs">
+        <DependentUpon>GetProjectsListQuery.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

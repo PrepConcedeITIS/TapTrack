@@ -6,11 +6,15 @@ using FluentValidation.Validators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Extensions;
+using TapTrackAPI.Core.Features.Project.Base;
 
-namespace TapTrackAPI.Core.Features.Project.Edit.Validators
+namespace TapTrackAPI.Core.Features.Project.Validators
 {
-    public class HasAccessToProjectPropertyValidator : AsyncPropertyValidator<ProjectEditCommand, ClaimsPrincipal>
+    public class HasAccessToProjectPropertyValidator<TProjectCommand>
+        : AsyncPropertyValidator<TProjectCommand, ClaimsPrincipal>
+        where TProjectCommand : IHasProjectId
     {
         private readonly DbContext _dbContext;
         private readonly UserManager<User> _userManager;
@@ -22,14 +26,14 @@ namespace TapTrackAPI.Core.Features.Project.Edit.Validators
             Name = "Access to this project is denied";
         }
 
-        public override async Task<bool> IsValidAsync(ValidationContext<ProjectEditCommand> context,
+        public override async Task<bool> IsValidAsync(ValidationContext<TProjectCommand> context,
             ClaimsPrincipal value,
             CancellationToken cancellation)
         {
             var projectId = context.InstanceToValidate.ProjectId;
             var userId = _userManager.GetUserIdGuid(value);
             var teamMember = await _dbContext.Set<TeamMember>()
-                .FirstOrDefaultAsync(x => x.UserId == userId && x.ProjectId == projectId,
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.ProjectId == projectId && x.Role == Role.Admin.ToString(),
                     cancellationToken: cancellation);
             var projectCreator = (await _dbContext.Set<Entities.Project>()
                     .FirstOrDefaultAsync(x => x.Id == projectId, cancellationToken: cancellation))
