@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Profile.Base;
 using TapTrackAPI.Core.Features.Profile.Dto;
 using TapTrackAPI.Core.Interfaces;
-using TapTrackAPI.Data;
 
 namespace TapTrackAPI.Core.Features.Profile.Edit
 {
@@ -15,7 +15,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
     {
         private readonly IImageUploadService _imageUploadService;
 
-        public UpdateProfileImageHandler(UserManager<User> userManager, AppDbContext dbContext,
+        public UpdateProfileImageHandler(UserManager<User> userManager, DbContext dbContext,
             IImageUploadService imageUploadService) : base(userManager, dbContext)
         {
             _imageUploadService = imageUploadService;
