@@ -62,7 +62,7 @@
         <DependentUpon>ChangeUserNameValidator.cs</DependentUpon>
       </Compile>
       <Compile Update="Profile\Edit\UpdateContactsInfoHandler.cs">
-        <DependentUpon>UpdateContactInfoValidator.cs</DependentUpon>
+        <DependentUpon>UpdateContactInfoCommand.cs</DependentUpon>
       </Compile>
       <Compile Update="Profile\Edit\UpdateProfileImageHandler.cs">
         <DependentUpon>UpdateProfileImageCommand.cs</DependentUpon>
@@ -72,9 +72,6 @@
       </Compile>
       <Compile Update="Profile\Edit\ChangeUserNameValidator.cs">
         <DependentUpon>ChangeUserNameCommand.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Profile\Edit\UpdateContactInfoValidator.cs">
-        <DependentUpon>UpdateContactInfoCommand.cs</DependentUpon>
       </Compile>
       <Compile Update="Profile\Get\GetUserProfileHandler.cs">
         <DependentUpon>GetUserProfileQuery.cs</DependentUpon>

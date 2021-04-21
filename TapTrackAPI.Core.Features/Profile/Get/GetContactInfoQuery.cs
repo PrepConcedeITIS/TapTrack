@@ -7,5 +7,5 @@ using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Profile.Get
 {
-    public record GetContactInfoQuery : ProfileRecordBase<List<ContactInformationDto>>;
+    public record GetContactInfoQuery : ProfileRecordBase<List<ContactInformationListItemDto>>;
 }

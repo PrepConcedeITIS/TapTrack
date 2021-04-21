@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Constants;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Interfaces;
@@ -43,12 +44,17 @@ namespace TapTrackAPI.Core.Features.Auth
             var userId = await _userManager.GetUserIdAsync(user);
             var guidUserId = new Guid(userId);
 
+            var contactTypes = _dbContext.Set<ContactType>().AsQueryable();
 
             await _dbContext.Set<UserContact>().AddRangeAsync(
-                new UserContact(guidUserId, String.Empty, false, ContactType.Telegram),
-                new UserContact(guidUserId, String.Empty, false, ContactType.Discord),
-                new UserContact(guidUserId, String.Empty, false, ContactType.GitHub),
-                new UserContact(guidUserId, String.Empty, false, ContactType.Skype));
+                new UserContact(guidUserId, String.Empty, false,
+                    contactTypes.First(x => x.Name == ContactTypeConstants.TelegramName).Id),
+                new UserContact(guidUserId, String.Empty, false, 
+                    contactTypes.First(x => x.Name == ContactTypeConstants.DiscordName).Id),
+                new UserContact(guidUserId, String.Empty, false, 
+                    contactTypes.First(x => x.Name == ContactTypeConstants.SkypeName).Id),
+                new UserContact(guidUserId, String.Empty, false, 
+                    contactTypes.First(x => x.Name == ContactTypeConstants.GitHubName).Id));
 
             await _dbContext.SaveChangesAsync();
 

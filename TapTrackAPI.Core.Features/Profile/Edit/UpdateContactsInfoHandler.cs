@@ -14,36 +14,36 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
     [UsedImplicitly]
     public class
         UpdateContactsInfoHandler : ProfileHandlerWithDbContextBase<UpdateContactInfoCommand,
-            List<ContactInformationDto>>
+            List<ContactInformationListItemDto>>
     {
         public UpdateContactsInfoHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager,
             dbContext)
         {
         }
 
-        public override async Task<List<ContactInformationDto>> Handle(UpdateContactInfoCommand command, CancellationToken cancellationToken)
+        public override async Task<List<ContactInformationListItemDto>> Handle(UpdateContactInfoCommand command, CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 
 
-            var userContactsList = user.UserContacts;
+            var userContactsList = await DbContext.Set<UserContact>()
+                .Where(x => x.UserId == user.Id)
+                .Include(x => x.ContactType)
+                .ToListAsync(cancellationToken: cancellationToken);
 
-            if (userContactsList != null)
+            foreach (var contact in userContactsList)
             {
-                foreach (var contact in userContactsList)
+                var newContact = command.Contacts
+                    .FirstOrDefault(x => x.ResourceName == contact.ContactType.Name );
+
+                if (newContact != null)
                 {
-                    var newContact = command.Contacts
-                        .FirstOrDefault(x => x.ResourceName == contact.ContactType.ToString("G"));
-
-                    if (newContact != null)
-                    {
-                        contact.UpdateContactInfo(newContact.ResourceInfo);
-                    }
+                    contact.UpdateContactInfo(newContact.ResourceInfo);
                 }
-
-                DbContext.Set<UserContact>().UpdateRange(userContactsList);
-                await DbContext.SaveChangesAsync(cancellationToken);
             }
+
+            DbContext.Set<UserContact>().UpdateRange(userContactsList);
+            await DbContext.SaveChangesAsync(cancellationToken);
 
             return command.Contacts;
         }

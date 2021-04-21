@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -14,20 +16,23 @@ namespace TapTrackAPI.Core.Features.Profile.Get
 {
     [UsedImplicitly]
     public class GetContactInfoHandler : ProfileHandlerWithDbContextBase<GetContactInfoQuery,
-        List<ContactInformationDto>>
+        List<ContactInformationListItemDto>>
     {
-        public GetContactInfoHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager, dbContext)
+        private readonly IMapper _mapper;
+        
+        public GetContactInfoHandler(UserManager<User> userManager, DbContext dbContext, IMapper mapper) : base(userManager, dbContext)
         {
+            _mapper = mapper;
         }
 
-        public override async Task<List<ContactInformationDto>> Handle(GetContactInfoQuery request,
+        public override async Task<List<ContactInformationListItemDto>> Handle(GetContactInfoQuery request,
             CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(request.ClaimsPrincipal);
 
             var userContactsList = DbContext.Set<UserContact>()
                 .Where(x => x.UserId == user.Id)
-                .Select(x => new ContactInformationDto(x.ContactType.ToString("G"), x.ContactInfo))
+                .ProjectTo<ContactInformationListItemDto>(_mapper.ConfigurationProvider)
                 .ToList();
 
             return userContactsList;

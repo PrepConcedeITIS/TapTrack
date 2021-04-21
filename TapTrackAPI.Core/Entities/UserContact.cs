@@ -6,12 +6,12 @@ namespace TapTrackAPI.Core.Entities
 {
     public class UserContact : EntityBase
     {
-        public UserContact(Guid userId, string contactInfo, bool notificationEnabled, ContactType contactType)
+        public UserContact(Guid userId, string contactInfo, bool notificationEnabled, Guid contactTypeId)
         {
             UserId = userId;
             ContactInfo = contactInfo;
             NotificationEnabled = notificationEnabled;
-            ContactType = contactType;
+            ContactTypeId = contactTypeId;
         }
 
         #region Properties
@@ -19,9 +19,10 @@ namespace TapTrackAPI.Core.Entities
         public Guid UserId { get; protected set; }
         public string ContactInfo { get; protected set; }
         public bool NotificationEnabled { get; protected set; }
-        public ContactType ContactType { get; protected set; }
+        public Guid ContactTypeId { get; protected set; }
 
         public virtual User User { get; set; }
+        public virtual ContactType ContactType { get; set; }
 
         #endregion
 
