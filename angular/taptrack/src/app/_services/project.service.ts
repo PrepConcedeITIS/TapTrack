@@ -39,7 +39,6 @@ export class ProjectService {
   }
 
   checkForShortIdAvailability(idVisible: string): Observable<boolean> {
-    console.log(idVisible, new Date().getSeconds());
     return this.httpClient
       .get<boolean>(`${environment.apiUrl}/project/idVisibleAvailability/${idVisible}`);
   }

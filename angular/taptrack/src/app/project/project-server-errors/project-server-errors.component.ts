@@ -26,7 +26,6 @@ export class ProjectServerErrorsComponent implements OnInit {
       const error = value.split(':')[1];
       message.push(error);
     }));
-    console.log(message);
     return message;
   }
 }

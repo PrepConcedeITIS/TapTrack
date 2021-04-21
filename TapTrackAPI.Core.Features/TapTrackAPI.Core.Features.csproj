@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TapTrackAPI.Core\TapTrackAPI.Core.csproj" />
-      <ProjectReference Include="..\TapTrackAPI.Data\TapTrackAPI.Data.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -76,6 +75,17 @@
       <Compile Update="Profile\Get\GetUserProfileHandler.cs">
         <DependentUpon>GetUserProfileQuery.cs</DependentUpon>
       </Compile>
+      <Compile Update="Auth\Login\LoginValidator.cs">
+        <DependentUpon>LoginCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Login\LoginHandler.cs">
+        <DependentUpon>LoginValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Registration\RegistrationValidator.cs">
+        <DependentUpon>RegistrationCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth\Registration\RegistrationHandler.cs">
+        <DependentUpon>RegistrationValidator.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
-
 </Project>
