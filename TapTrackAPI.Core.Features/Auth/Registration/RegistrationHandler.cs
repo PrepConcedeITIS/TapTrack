@@ -22,7 +22,8 @@ namespace TapTrackAPI.Core.Features.Auth.Registration
         private readonly IJwtTokenGenerator _tokenGenerator;
         private readonly DbContext _dbContext;
 
-        public RegistrationHandler(UserManager<User> userManager, IMapper mapper, IJwtTokenGenerator tokenGenerator, DbContext dbContext)
+        public RegistrationHandler(UserManager<User> userManager, IMapper mapper, IJwtTokenGenerator tokenGenerator,
+            DbContext dbContext)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -36,24 +37,28 @@ namespace TapTrackAPI.Core.Features.Auth.Registration
             var user = new User(input.Email);
             var result = await _userManager.CreateAsync(user, input.Password);
             var userDto = _mapper.Map<AuthUserDto>(user);
-            
-            var guidUserId = user.Id;
 
-            var contactTypes = _dbContext.Set<ContactType>().AsQueryable();
+            if (result.Succeeded)
+            {
+                var userId = userDto.Id;
 
-            await _dbContext.Set<UserContact>().AddRangeAsync(
-                new UserContact(guidUserId, String.Empty, false,
-                    contactTypes.First(x => x.Name == ContactTypeConstants.TelegramName).Id),
-                new UserContact(guidUserId, String.Empty, false, 
-                    contactTypes.First(x => x.Name == ContactTypeConstants.DiscordName).Id),
-                new UserContact(guidUserId, String.Empty, false, 
-                    contactTypes.First(x => x.Name == ContactTypeConstants.SkypeName).Id),
-                new UserContact(guidUserId, String.Empty, false, 
-                    contactTypes.First(x => x.Name == ContactTypeConstants.GitHubName).Id));
+                var contactTypes = _dbContext.Set<ContactType>().AsQueryable();
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            
-            return new RegistrationResponse(userDto, _tokenGenerator.GenerateToken(user), result.Errors.ToArray(), input);
+                await _dbContext.Set<UserContact>().AddRangeAsync(
+                    new UserContact(userId, String.Empty, false,
+                        contactTypes.First(x => x.Name == ContactTypeConstants.TelegramName).Id),
+                    new UserContact(userId, String.Empty, false,
+                        contactTypes.First(x => x.Name == ContactTypeConstants.DiscordName).Id),
+                    new UserContact(userId, String.Empty, false,
+                        contactTypes.First(x => x.Name == ContactTypeConstants.SkypeName).Id),
+                    new UserContact(userId, String.Empty, false,
+                        contactTypes.First(x => x.Name == ContactTypeConstants.GitHubName).Id));
+
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+
+            return new RegistrationResponse(userDto, _tokenGenerator.GenerateToken(user), result.Errors.ToArray(),
+                input);
         }
     }
 }
