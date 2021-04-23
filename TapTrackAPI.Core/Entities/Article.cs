@@ -33,5 +33,13 @@ namespace TapTrackAPI.Core.Entities
         protected Article()
         {
         }
+
+        public void Update(string title, long teamMemberId, string content)
+        {
+            Title = title;
+            UpdatedById = teamMemberId;
+            UpdatedAt = DateTime.Now;
+            Content = content;
+        }
     }
 }

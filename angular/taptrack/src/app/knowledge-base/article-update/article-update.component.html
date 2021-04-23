@@ -1,0 +1,5 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(model)">
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  <button type="submit" class="btn btn-default" [disabled]="!form.valid">Submit</button>
+</form>
+<button type="button" class="btn btn-default" (click)="goBack()">Cancel</button>
