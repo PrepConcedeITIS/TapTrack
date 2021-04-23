@@ -1,15 +1,16 @@
-<div *ngIf="article | async as fullArticle">
-  <h1>{{fullArticle.projectTitle}}</h1>
-  <h2>{{fullArticle.title}}</h2>
-  <p *ngIf="fullArticle.createdBy != null">
-    CreatedBy: {{fullArticle.createdBy.username}}
-    Email: {{fullArticle.createdBy.email}}
-    CreatedAt: {{fullArticle.createdAt}}
+<div *ngIf="article">
+  <h1>{{article.projectTitle}}</h1>
+  <h2>{{article.title}}</h2>
+  <p>
+    CreatedBy: {{article.createdBy.username}}
+    Email: {{article.createdBy.email}}
+    CreatedAt: {{article.createdAt}}
   </p>
-  <p *ngIf="fullArticle.updatedBy != null">
-    UpdatedBy: {{fullArticle.updatedBy.username}}
-    Email: {{fullArticle.updatedBy.email}}
-    UpdatedAt: {{fullArticle.updatedAt}}
+  <p>
+    UpdatedBy: {{article.updatedBy.username}}
+    Email: {{article.updatedBy.email}}
+    UpdatedAt: {{article.updatedAt}}
   </p>
-  <p>{{fullArticle.content}}</p>
+  <md-editor height="100%" mode="preview" [ngModel]="article.content"></md-editor>
+  <button type="button" class="btn btn-default" (click)="goToEdit(article.id)">Edit</button>
 </div>

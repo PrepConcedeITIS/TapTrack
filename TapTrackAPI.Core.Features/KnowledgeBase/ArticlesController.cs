@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Extensions;
 using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 using TapTrackAPI.Core.Features.KnowledgeBase.Queries;
@@ -12,8 +15,11 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase
 {
     public class ArticlesController : AuthorizedApiController
     {
-        public ArticlesController(IMediator mediator) : base(mediator)
+        protected UserManager<User> UserManager { get; }
+
+        public ArticlesController(IMediator mediator, UserManager<User> userManager) : base(mediator)
         {
+            UserManager = userManager;
         }
 
         [HttpGet]
@@ -41,6 +47,12 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase
         public async Task<ActionResult<Guid>> Create(CreateArticleCommand command)
         {
             return Ok(await Mediator.Send(command with {AppUser = User}));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateArticleCommand command)
+        {
+            return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
         }
     }
 }

@@ -35,6 +35,7 @@ import {ImageFormatterService} from './_services/image-formatter.service';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
+import { ArticleUpdateComponent } from './knowledge-base/article-update/article-update.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {ProjectServerErrorsComponent} from './project/project-server-errors/proj
     FormlyFieldMdEditorComponent,
     ImageFormatterService,
     ForbiddenErrorComponent,
-    ProjectServerErrorsComponent
+    ProjectServerErrorsComponent,
+    ArticleUpdateComponent
   ],
   imports: [
     CommonModule,

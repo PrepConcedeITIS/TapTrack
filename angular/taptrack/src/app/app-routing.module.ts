@@ -15,6 +15,7 @@ import {ArticleDetailsComponent} from "./knowledge-base/article-details/article-
 import {ArticleCreateComponent} from "./knowledge-base/article-create/article-create.component";
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 import {ProfileComponent} from "./profile/profile.component";
+import {ArticleUpdateComponent} from "./knowledge-base/article-update/article-update.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
@@ -38,10 +39,10 @@ const routes: Routes = [
   },
   {path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
       {path: 'create', component: ArticleCreateComponent, canActivate: [AuthGuard]},
-      {path: 'details/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard]}
+      {path: 'details/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard]},
+      {path: 'edit/:id', component: ArticleUpdateComponent, canActivate: [AuthGuard]}
     ]
   },
-
   {path: 'access-error', component: ForbiddenErrorComponent},
   {path: '**', component: ErrorComponent}
 ];
