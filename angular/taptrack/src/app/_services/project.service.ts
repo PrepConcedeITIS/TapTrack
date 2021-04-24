@@ -24,7 +24,7 @@ export class ProjectService {
     return this.httpClient.get<any>(this.baseUrl + `get`);
   }
 
-  createNewProject(project: ProjectQuery): Observable<any> {
+  createNewProject(project: ProjectQuery): Observable<Project> {
     const formData = new FormData();
     const keys = Object.getOwnPropertyNames(project);
     keys.forEach((propertyName) => {
@@ -35,7 +35,7 @@ export class ProjectService {
       formData.set('logo', project.logo[0], project.logo[0].name);
     }
 
-    return this.httpClient.post(this.baseUrl, formData);
+    return this.httpClient.post<Project>(this.baseUrl, formData);
   }
 
   checkForShortIdAvailability(idVisible: string): Observable<boolean> {
@@ -43,7 +43,7 @@ export class ProjectService {
       .get<boolean>(`${environment.apiUrl}/project/idVisibleAvailability/${idVisible}`);
   }
 
-  updateProject(project: ProjectQuery, projectId: string): Observable<any> {
+  updateProject(project: ProjectQuery, projectId: string): Observable<Project> {
     const formData = new FormData();
     const keys = Object.getOwnPropertyNames(project);
     keys.forEach((propertyName) => {
@@ -54,7 +54,7 @@ export class ProjectService {
       formData.set('logo', project.logo[0], project.logo[0].name);
     }
 
-    return this.httpClient.put(this.baseUrl + `${projectId}/edit`, formData);
+    return this.httpClient.put<Project>(this.baseUrl + `${projectId}/edit`, formData);
   }
 
   getProjectById(projectId: string): Observable<Project> {
