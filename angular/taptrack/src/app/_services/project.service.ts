@@ -10,7 +10,7 @@ import {Project} from '../project/_interfaces/project';
 })
 export class ProjectService {
 
-  public projects:ProjectQuery[]
+  public projects: ProjectQuery[];
   private baseUrl = `${environment.apiUrl}/project/`;
 
   constructor(private httpClient: HttpClient) {
@@ -20,7 +20,7 @@ export class ProjectService {
     return of(null);
   }
 
-  getProjectsList(): Observable<any>{
+  getProjectsList(): Observable<any> {
     return this.httpClient.get<any>(this.baseUrl + `get`);
   }
 
