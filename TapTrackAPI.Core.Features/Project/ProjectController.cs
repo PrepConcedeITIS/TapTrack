@@ -55,5 +55,11 @@ namespace TapTrackAPI.Core.Features.Project
             var getProjectByIdQuery = new GetProjectByIdQuery(projectId) {ClaimsPrincipal = User};
             return Ok(await Mediator.Send(getProjectByIdQuery));
         }
+
+        [HttpDelete("projectId")]
+        public async Task<IActionResult> Delete(Guid projectId)
+        {
+            
+        }
     }
 }
