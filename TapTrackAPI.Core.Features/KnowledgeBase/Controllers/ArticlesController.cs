@@ -54,5 +54,11 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase
         {
             return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(DeleteArticleCommand command)
+        {
+            return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
+        }
     }
 }
