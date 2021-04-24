@@ -44,19 +44,19 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create(CreateArticleCommand command)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateArticleCommand command)
         {
             return Ok(await Mediator.Send(command with {AppUser = User}));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateArticleCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateArticleCommand command)
         {
             return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(DeleteArticleCommand command)
+        public async Task<IActionResult> Delete([FromBody] DeleteArticleCommand command)
         {
             return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
         }

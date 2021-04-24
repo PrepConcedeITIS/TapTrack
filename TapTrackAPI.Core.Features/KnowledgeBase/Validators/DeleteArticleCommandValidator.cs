@@ -13,9 +13,11 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Validators
         public DeleteArticleCommandValidator(DbContext dbContext)
         {
             var projectId = Guid.Empty;
+            var articleId = Guid.Empty;
             RuleFor(x => x.Id)
                 .MustAsync(async (x, token) =>
                 {
+                    articleId = x;
                     return await dbContext
                         .Set<Article>()
                         .AnyAsync(y => y.Id == x, token);
@@ -45,9 +47,10 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Validators
                                         return false;
                                     if (teamMember.Role == "Admin")
                                         return true;
-                                    return await dbContext
+                                    var article = await dbContext
                                         .Set<Article>()
-                                        .AnyAsync(y => y.CreatedById == teamMember.Id, token);
+                                        .FindAsync(new object[] {articleId}, token);
+                                    return article.CreatedById == teamMember.Id;
                                 })
                                 .WithMessage("Current user is neither project admin nor article creator")
                                 .WithErrorCode("403");

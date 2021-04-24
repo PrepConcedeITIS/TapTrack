@@ -15,6 +15,7 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('init');
     this.projectsWithArticles = this.http.get<ProjectWithArticles[]>(environment.apiUrl + '/articles');
   }
 }

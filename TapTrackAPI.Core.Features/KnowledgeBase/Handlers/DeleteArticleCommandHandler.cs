@@ -18,7 +18,7 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
 
         public async Task<Unit> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
         {
-            var article = DbContext
+            var article = await DbContext
                 .Set<Article>()
                 .FindAsync(new object[] {request.Id}, cancellationToken);
             DbContext.Entry(article).State = EntityState.Deleted;

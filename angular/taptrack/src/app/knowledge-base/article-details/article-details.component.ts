@@ -11,6 +11,7 @@ import {FullArticle} from "../_interfaces/full-article";
 })
 export class ArticleDetailsComponent implements OnInit {
   article: FullArticle;
+  command: DeleteArticleCommand = {id: '', belongsToId: ''};
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
   }
@@ -28,4 +29,22 @@ export class ArticleDetailsComponent implements OnInit {
       .navigate(['article/edit', id], {state: this.article})
       .then();
   }
+
+  deleteArticle() {
+    this.command.id = this.article.id;
+    this.command.belongsToId = this.article.belongsToId;
+    console.log(this.command);
+    this.http
+      .request('delete', environment.apiUrl + '/articles', {body: this.command})
+      .subscribe(() => {
+        this.router
+          .navigate(['article'])
+          .then();
+      });
+  }
+}
+
+interface DeleteArticleCommand {
+  id: string;
+  belongsToId: string;
 }
