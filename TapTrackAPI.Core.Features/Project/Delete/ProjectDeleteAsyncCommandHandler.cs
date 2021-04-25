@@ -39,7 +39,7 @@ namespace TapTrackAPI.Core.Features.Project.Delete
                 .FirstOrDefaultAsync(x => x.Project.Id == request.ProjectId, cancellationToken: cancellationToken);
 
             _dbContext.Set<Entities.Project>().Remove(projectWithTeam.Project);
-
+            await _dbContext.SaveChangesAsync(cancellationToken);
             var needToSendEmail = Convert.ToBoolean(_configuration[ConfigurationConstants.EmailNotificationsEnabled]);
             if (needToSendEmail)
             {
@@ -49,7 +49,7 @@ namespace TapTrackAPI.Core.Features.Project.Delete
             return Unit.Value;
         }
 
-        public async Task SendScopeOfEmails(IEnumerable<string> emails, string projectName)
+        private async Task SendScopeOfEmails(IEnumerable<string> emails, string projectName)
         {
             var tasks = new List<Task>();
             foreach (var email in emails)
@@ -57,7 +57,7 @@ namespace TapTrackAPI.Core.Features.Project.Delete
                 var message = new MailMessage(new MailAddress("taptrack@noreply.com", "ТапТрек"),
                     new MailAddress(email))
                 {
-                    Body = $"<p>{projectName} has been deleted by creator</p>",
+                    Body = $"{projectName} has been deleted by creator",
                     Subject = "Project has been deleted"
                 };
 

@@ -41,7 +41,7 @@ namespace TapTrackAPI.Core.Features.Project
         }
 
 
-        [HttpPut("{projectId}/edit")]
+        [HttpPut("{projectId}")]
         public async Task<IActionResult> UpdateProject([FromForm] ProjectEditCommand command, Guid projectId)
         {
             var editCommand = new ProjectEditCommand(projectId, command.Name, command.IdVisible, command.Description,

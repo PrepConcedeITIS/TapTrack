@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectService} from '../../_services/project.service';
 import {Project} from '../_interfaces/project';
@@ -6,6 +6,7 @@ import {tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-project-details',
@@ -14,6 +15,7 @@ import {FormlyFieldConfig} from '@ngx-formly/core';
 })
 export class ProjectDetailsComponent implements OnInit {
 
+  modalRef: BsModalRef;
   project: Project;
 
   form = new FormGroup({});
@@ -60,7 +62,8 @@ export class ProjectDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private projectService: ProjectService,
-              private router: Router) {
+              private router: Router,
+              private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
@@ -82,5 +85,17 @@ export class ProjectDetailsComponent implements OnInit {
 
   goToEdit() {
     this.router.navigate([`project/edit/${this.project.id}`]);
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  deleteProject() {
+    this.projectService.deleteProjectById(this.project.id)
+      .subscribe(() => {
+        this.modalRef.hide();
+        this.router.navigate([`project/list`]);
+      });
   }
 }

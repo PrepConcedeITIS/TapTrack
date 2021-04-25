@@ -32,8 +32,10 @@ namespace TapTrackAPI.Core.Features.Project.Create
         public async Task<ProjectDto> Handle(ProjectCreateCommand command, CancellationToken cancellationToken)
         {
             var creatorId = _userManager.GetUserIdGuid(command.ClaimsPrincipal);
-            var link = await _imageUpload.UploadProjectLogoImageAsync(command.Logo, creatorId.ToString(),
-                command.IdVisible);
+            string link = null;
+            if (command.Logo != null)
+                link = await _imageUpload.UploadProjectLogoImageAsync(command.Logo, creatorId.ToString(),
+                    command.IdVisible);
             var project = new Entities.Project(command.Name, command.IdVisible, command.Description, link, creatorId);
             var entityEntry = await _dbContext.Set<Entities.Project>().AddAsync(project, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
