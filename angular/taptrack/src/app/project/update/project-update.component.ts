@@ -97,7 +97,6 @@ export class ProjectUpdateComponent implements OnInit {
   projectGeneralInfoSubmit() {
     this.projectService.updateProject(this.model, this.projectId)
       .pipe(tap((project) => {
-        // todo: redirect to details
         this.router.navigate([`project/details/${project.id}`]);
       }, (err: HttpErrorResponse) => {
         switch (err.status) {
