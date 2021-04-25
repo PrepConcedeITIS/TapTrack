@@ -1,16 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../_services/project.service';
-import { Observable } from "rxjs";
-import { ThrowStmt } from '@angular/compiler';
-import { ImageFormatterService } from 'src/app/_services/image-formatter.service';
+import {Component, OnInit} from '@angular/core';
+import {ProjectService} from '../../_services/project.service';
+import {Observable} from 'rxjs';
+import {ImageFormatterService} from 'src/app/_services/image-formatter.service';
+import {Project} from '../_interfaces/project';
+import {Router} from '@angular/router';
 
-export interface IProject {
-  id: string;
-  name: string;
-  description: string;
-  idVisible: string;
-  logoUrl: string;
-}
 
 export interface IGrouped<TItem> {
   groupLength: number;
@@ -24,27 +18,39 @@ export interface IGrouped<TItem> {
 })
 export class ProjectListComponent implements OnInit {
 
-  public projectsList: IProject[] = [];
+  public projectsList: Project[] = [];
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService,
+              private router: Router) {
+  }
 
   columnDefs = [
-    { headerName: '',
+    {
+      headerName: '',
       width: 250,
       field: 'logoUrl',
-      cellRendererFramework: ImageFormatterService},
-    { headerName: 'Name',
+      cellRendererFramework: ImageFormatterService
+    },
+    {
+      headerName: 'Name',
       width: 300,
-      field: 'name' },
-    { headerName: 'Description',
+      field: 'name'
+    },
+    {
+      headerName: 'Description',
       width: 600,
-      field: 'description' }
+      field: 'description'
+    }
   ];
 
   rowData: Observable<any[]>;
 
   ngOnInit(): void {
-    this.rowData = this.projectService.getProjectsList()
+    this.rowData = this.projectService.getProjectsList();
+  }
+
+  goToDetails($event: any) {
+    this.router.navigate([`project/details/${$event.data.id}`]);
   }
 }
 
