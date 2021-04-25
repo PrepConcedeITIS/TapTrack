@@ -33,11 +33,12 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
 
             issue.Update(request.Title, request.Description, assignee, project, request.Estimation, request.Spent,
                 request.State, request.IssueType, request.Priority);
-            issues.Update(issue);
+            
+            var issueEntry = issues.Update(issue);
             await Context.SaveChangesAsync(cancellationToken);
-
-            var issueDto = await _mediator.Send(new GetIssueQuery {Id = request.Id}, cancellationToken);
-            return issueDto;
+            var issueUpdated = issueEntry.Entity;
+            
+            return Mapper.Map<IssueDetailsDto>(issueUpdated);;
         }
     }
 }
