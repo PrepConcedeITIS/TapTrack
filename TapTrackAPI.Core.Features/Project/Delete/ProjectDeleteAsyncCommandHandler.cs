@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,36 +13,58 @@ using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Project.Delete
 {
-    public class ProjectDeleteAsyncCommandHandler: IRequestHandler<ProjectDeleteCommand>
+    [UsedImplicitly]
+    public class ProjectDeleteAsyncCommandHandler : IRequestHandler<ProjectDeleteCommand>
     {
-        private IMailSender _mailSender;
-        private IConfiguration _configuration;
-        private DbContext _dbContext;
-        public ProjectDeleteAsyncCommandHandler(IMailSender mailSender, IConfiguration configuration, DbContext dbContext)
+        private readonly IMailSender _mailSender;
+        private readonly IConfiguration _configuration;
+        private readonly DbContext _dbContext;
+
+        public ProjectDeleteAsyncCommandHandler(IMailSender mailSender, IConfiguration configuration,
+            DbContext dbContext)
         {
             _mailSender = mailSender;
             _configuration = configuration;
             _dbContext = dbContext;
         }
+
         public async Task<Unit> Handle(ProjectDeleteCommand request, CancellationToken cancellationToken)
         {
-            var project = await _dbContext.Set<Entities.Project>()
-                .FirstOrDefaultAsync(x => x.Id == request.ProjectId, cancellationToken: cancellationToken);
+            var projectWithTeam = await _dbContext.Set<Entities.Project>()
+                .Select(p => new
+                {
+                    Team = p.Team.Select(x => x.User.Email),
+                    Project = p
+                })
+                .FirstOrDefaultAsync(x => x.Project.Id == request.ProjectId, cancellationToken: cancellationToken);
 
-            _dbContext.Set<Entities.Project>().Remove(project);
+            _dbContext.Set<Entities.Project>().Remove(projectWithTeam.Project);
 
             var needToSendEmail = Convert.ToBoolean(_configuration[ConfigurationConstants.EmailNotificationsEnabled]);
-            if (!needToSendEmail)
+            if (needToSendEmail)
             {
-                return Unit.Value;
+                await SendScopeOfEmails(projectWithTeam.Team, projectWithTeam.Project.Name);
             }
 
-            await SendScopeOfEmails(project.Team.Select(x => x.User.Email));
+            return Unit.Value;
         }
 
-        public async Task SendScopeOfEmails(IEnumerable<string> emails)
+        public async Task SendScopeOfEmails(IEnumerable<string> emails, string projectName)
         {
-            
+            var tasks = new List<Task>();
+            foreach (var email in emails)
+            {
+                var message = new MailMessage(new MailAddress("taptrack@noreply.com", "ТапТрек"),
+                    new MailAddress(email))
+                {
+                    Body = $"<p>{projectName} has been deleted by creator</p>",
+                    Subject = "Project has been deleted"
+                };
+
+                tasks.Add(_mailSender.SendMessageAsync(message));
+            }
+
+            await Task.WhenAll(tasks);
         }
     }
 }

@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Features.Project.Create;
+using TapTrackAPI.Core.Features.Project.Delete;
 using TapTrackAPI.Core.Features.Project.Edit;
 using TapTrackAPI.Core.Features.Project.Get;
 using TapTrackAPI.Core.Features.Project.IdVisibleUnique;
@@ -56,10 +57,10 @@ namespace TapTrackAPI.Core.Features.Project
             return Ok(await Mediator.Send(getProjectByIdQuery));
         }
 
-        [HttpDelete("projectId")]
+        [HttpDelete("{projectId}")]
         public async Task<IActionResult> Delete(Guid projectId)
         {
-            
+            return Ok(await Mediator.Send(new ProjectDeleteCommand(User, projectId)));
         }
     }
 }
