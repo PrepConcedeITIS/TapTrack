@@ -14,7 +14,7 @@ export interface Task {
 })
 
 export class AgileBoardComponent implements OnInit {
-
+    new: Task[] = [];
     todo: Task[] = [
         {title: "TestTitle1", description: "Test Description1 Test Description1 Test Description1"},
         {title: "TestTitle2", description: "Test Description2"},
@@ -22,6 +22,7 @@ export class AgileBoardComponent implements OnInit {
     ]
     inProgress: Task[] = [];
     inTest: Task[] = [];
+    review: Task[] = [];
     done: Task[] = [];
 
     drop(event: CdkDragDrop<Task[]>): void {
@@ -36,11 +37,7 @@ export class AgileBoardComponent implements OnInit {
         );
     }
 
-    edit(list: string, task: Task): void{
-
-    }
-
     ngOnInit(): void {
-        debugger;
+        
     }
 }
