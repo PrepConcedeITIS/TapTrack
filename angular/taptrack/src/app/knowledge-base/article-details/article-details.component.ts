@@ -33,7 +33,6 @@ export class ArticleDetailsComponent implements OnInit {
   deleteArticle() {
     this.command.id = this.article.id;
     this.command.belongsToId = this.article.belongsToId;
-    console.log(this.command);
     this.http
       .request('delete', environment.apiUrl + '/articles', {body: this.command})
       .subscribe(() => {
