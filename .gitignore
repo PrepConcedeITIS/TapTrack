@@ -200,4 +200,3 @@ obj/
 
 /metrics_database/
 angular/package-lock.json
-TapTrackAPI.Core.Features/Auth/AuthController.cs
