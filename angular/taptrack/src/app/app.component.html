@@ -21,6 +21,15 @@
           <li class="nav-item" routerLinkActive="link-active text-dark">
             <a class="nav-link" [routerLink]="['/article']">Knowledge Base</a>
           </li>
+          <li *ngIf = "router.url == '/project/list'" class="nav-item" routerLinkActive="link-active text-dark">
+            <a class="nav-link" [routerLink]="['/project/create']">New Project</a>
+          </li>
+          <li *ngIf = "router.url == '/issue/list'" class="nav-item" routerLinkActive="link-active text-dark">
+            <a class="nav-link" [routerLink]="['/issue/create ']">New Issue</a>
+          </li>
+          <li *ngIf = "router.url == '/article'" class="nav-item" routerLinkActive="link-active text-dark">
+            <a class="nav-link" [routerLink]="['/article/create']">New Article</a>
+          </li>
         </ul>
       </div>
       <div class="btn-group" dropdown>
