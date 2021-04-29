@@ -54,11 +54,15 @@ export class ProjectService {
       formData.set('logo', project.logo[0], project.logo[0].name);
     }
 
-    return this.httpClient.put<Project>(this.baseUrl + `${projectId}/edit`, formData);
+    return this.httpClient.put<Project>(this.baseUrl + `${projectId}`, formData);
   }
 
   getProjectById(projectId: string): Observable<Project> {
     return this.httpClient.get<Project>(this.baseUrl + `${projectId}`);
+  }
+
+  deleteProjectById(projectId: string): Observable<any> {
+    return this.httpClient.delete<any>(this.baseUrl + `${projectId}`);
   }
 }
 
