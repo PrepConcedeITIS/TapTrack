@@ -10,7 +10,7 @@ import {Project} from '../project/_interfaces/project';
 })
 export class ProjectService {
 
-  public projects:ProjectQuery[]
+  public projects: ProjectQuery[];
   private baseUrl = `${environment.apiUrl}/project/`;
 
   constructor(private httpClient: HttpClient) {
@@ -20,11 +20,11 @@ export class ProjectService {
     return of(null);
   }
 
-  getProjectsList(): Observable<any>{
+  getProjectsList(): Observable<any> {
     return this.httpClient.get<any>(this.baseUrl + `get`);
   }
 
-  createNewProject(project: ProjectQuery): Observable<any> {
+  createNewProject(project: ProjectQuery): Observable<Project> {
     const formData = new FormData();
     const keys = Object.getOwnPropertyNames(project);
     keys.forEach((propertyName) => {
@@ -35,7 +35,7 @@ export class ProjectService {
       formData.set('logo', project.logo[0], project.logo[0].name);
     }
 
-    return this.httpClient.post(this.baseUrl, formData);
+    return this.httpClient.post<Project>(this.baseUrl, formData);
   }
 
   checkForShortIdAvailability(idVisible: string): Observable<boolean> {
@@ -43,7 +43,7 @@ export class ProjectService {
       .get<boolean>(`${environment.apiUrl}/project/idVisibleAvailability/${idVisible}`);
   }
 
-  updateProject(project: ProjectQuery, projectId: string): Observable<any> {
+  updateProject(project: ProjectQuery, projectId: string): Observable<Project> {
     const formData = new FormData();
     const keys = Object.getOwnPropertyNames(project);
     keys.forEach((propertyName) => {
@@ -54,11 +54,15 @@ export class ProjectService {
       formData.set('logo', project.logo[0], project.logo[0].name);
     }
 
-    return this.httpClient.put(this.baseUrl + `${projectId}/edit`, formData);
+    return this.httpClient.put<Project>(this.baseUrl + `${projectId}`, formData);
   }
 
   getProjectById(projectId: string): Observable<Project> {
     return this.httpClient.get<Project>(this.baseUrl + `${projectId}`);
+  }
+
+  deleteProjectById(projectId: string): Observable<any> {
+    return this.httpClient.delete<any>(this.baseUrl + `${projectId}`);
   }
 }
 

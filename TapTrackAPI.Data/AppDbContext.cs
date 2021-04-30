@@ -38,6 +38,12 @@ namespace TapTrackAPI.Data
                 new User("admin@tpk.com"){PasswordHash = }
             })*/
             base.OnModelCreating(builder);
+
+            builder
+                .Entity<Project>()
+                .HasMany(t => t.Issues)
+                .WithOne(t => t.Project)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

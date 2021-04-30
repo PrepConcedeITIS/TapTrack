@@ -20,6 +20,14 @@ namespace TapTrackAPI.Core.Features.Issue
 
         [HttpGet("{Id}")]
         public async Task<ActionResult<Entities.Issue>> Get([FromRoute] GetIssueQuery query)
-            => Ok(await Mediator.Send(query));
+        {
+            return Ok(await Mediator.Send(query));
+        }
+
+        [HttpPost("{Id}")]
+        public async Task<IActionResult> Edit([FromQuery] EditIssueCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
     }
 }

@@ -36,6 +36,7 @@ import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.c
 import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
 import { ArticleUpdateComponent } from './knowledge-base/article-update/article-update.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { ArticleUpdateComponent } from './knowledge-base/article-update/article-
     AccordionModule.forRoot(),
     FormsModule,
     LMarkdownEditorModule,
+    ModalModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

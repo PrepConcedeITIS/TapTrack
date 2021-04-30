@@ -69,8 +69,8 @@ export class ProjectCreateComponent implements OnInit {
 
   onSubmit() {
     this.projectService.createNewProject(this.model)
-      .pipe(tap(() => {
-          // todo: redirect to details
+      .pipe(tap((project) => {
+          this.router.navigate([`project/details/${project.id}`]);
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
