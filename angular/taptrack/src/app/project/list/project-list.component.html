@@ -8,6 +8,8 @@
       style="width: 100%; height: 500px; margin-top: 30px;"
       class="ag-theme-alpine"
       [rowData]="rowData | async"
-      [columnDefs]="columnDefs">
+      [columnDefs]="columnDefs"
+      (rowClicked)="goToDetails($event)"
+    >
     </ag-grid-angular>
   </div>

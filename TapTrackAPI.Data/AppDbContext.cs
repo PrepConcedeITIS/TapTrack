@@ -12,7 +12,7 @@ namespace TapTrackAPI.Data
         {
         }
         
-        public DbSet<RestorationCode> restorationCodes { get; protected set; }
+        public DbSet<RestorationCode> RestorationCodes { get; protected set; }
         public DbSet<Issue> Issues { get; protected set; }
         public DbSet<Comment> Comments { get; protected set; }
         public DbSet<TeamMember> TeamMembers { get; protected set; }
@@ -26,6 +26,12 @@ namespace TapTrackAPI.Data
                 new User("admin@tpk.com"){PasswordHash = }
             })*/
             base.OnModelCreating(builder);
+
+            builder
+                .Entity<Project>()
+                .HasMany(t => t.Issues)
+                .WithOne(t => t.Project)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

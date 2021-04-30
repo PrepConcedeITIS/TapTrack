@@ -1,16 +1,13 @@
-using FluentValidation;
 using JetBrains.Annotations;
+using TapTrackAPI.Core.Features.Project.Base;
 
 namespace TapTrackAPI.Core.Features.Project.Create
 {
     [UsedImplicitly]
-    public class ProjectCreateValidator: AbstractValidator<ProjectCreateCommand>
+    public class ProjectCreateValidator: ProjectValidatorBase<ProjectCreateCommand>
     {
-        public ProjectCreateValidator()
+        public ProjectCreateValidator(): base()
         {
-            RuleFor(x => x.Name).NotEmpty().MaximumLength(30);
-            RuleFor(x => x.IdVisible).NotEmpty().MaximumLength(7);
-            RuleFor(x => x.Description).MaximumLength(500);
         }
     }
 }

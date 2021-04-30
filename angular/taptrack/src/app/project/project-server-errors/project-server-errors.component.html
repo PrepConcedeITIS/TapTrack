@@ -1,0 +1,5 @@
+<div class="pl-4 pb-3" *ngIf="serverValidationErrors !== null && serverValidationErrors !== undefined">
+  <div class="row" *ngFor="let error of parseErrors(serverValidationErrors)">
+    <small  class="text-danger">{{error}}</small>
+  </div>
+</div>
