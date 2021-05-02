@@ -35,6 +35,8 @@ import {ImageFormatterService} from './_services/image-formatter.service';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
+import { ArticleUpdateComponent } from './knowledge-base/article-update/article-update.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import {ProjectServerErrorsComponent} from './project/project-server-errors/proj
     FormlyFieldMdEditorComponent,
     ImageFormatterService,
     ForbiddenErrorComponent,
-    ProjectServerErrorsComponent
+    ProjectServerErrorsComponent,
+    ArticleUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -86,6 +89,7 @@ import {ProjectServerErrorsComponent} from './project/project-server-errors/proj
     AccordionModule.forRoot(),
     FormsModule,
     LMarkdownEditorModule,
+    ModalModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

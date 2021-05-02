@@ -5,7 +5,7 @@ import {ProjectQuery} from '../_interfaces/project-query';
 import {BehaviorSubject, timer} from 'rxjs';
 import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
@@ -22,7 +22,8 @@ export class ProjectUpdateComponent implements OnInit {
   private projectId: string;
 
   constructor(private projectService: ProjectService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   form = new FormGroup({});
@@ -95,8 +96,8 @@ export class ProjectUpdateComponent implements OnInit {
 
   projectGeneralInfoSubmit() {
     this.projectService.updateProject(this.model, this.projectId)
-      .pipe(tap(() => {
-        // todo: redirect to details
+      .pipe(tap((project) => {
+        this.router.navigate([`project/details/${project.id}`]);
       }, (err: HttpErrorResponse) => {
         switch (err.status) {
           case 422: {

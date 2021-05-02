@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Features.Project.Create;
+using TapTrackAPI.Core.Features.Project.Delete;
 using TapTrackAPI.Core.Features.Project.Edit;
 using TapTrackAPI.Core.Features.Project.Get;
 using TapTrackAPI.Core.Features.Project.IdVisibleUnique;
@@ -40,7 +41,7 @@ namespace TapTrackAPI.Core.Features.Project
         }
 
 
-        [HttpPut("{projectId}/edit")]
+        [HttpPut("{projectId}")]
         public async Task<IActionResult> UpdateProject([FromForm] ProjectEditCommand command, Guid projectId)
         {
             var editCommand = new ProjectEditCommand(projectId, command.Name, command.IdVisible, command.Description,
@@ -54,6 +55,12 @@ namespace TapTrackAPI.Core.Features.Project
         {
             var getProjectByIdQuery = new GetProjectByIdQuery(projectId) {ClaimsPrincipal = User};
             return Ok(await Mediator.Send(getProjectByIdQuery));
+        }
+
+        [HttpDelete("{projectId}")]
+        public async Task<IActionResult> Delete(Guid projectId)
+        {
+            return Ok(await Mediator.Send(new ProjectDeleteCommand(User, projectId)));
         }
     }
 }

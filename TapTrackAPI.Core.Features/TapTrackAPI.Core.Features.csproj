@@ -57,6 +57,12 @@
       <Compile Update="Auth\Registration\RegistrationHandler.cs">
         <DependentUpon>RegistrationValidator.cs</DependentUpon>
       </Compile>
+      <Compile Update="Project\Delete\ProjectDeleteValidator.cs">
+        <DependentUpon>ProjectDeleteCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Project\Delete\ProjectDeleteAsyncCommandHandler.cs">
+        <DependentUpon>ProjectDeleteValidator.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
