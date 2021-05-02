@@ -1,5 +1,4 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 as base
-WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 as build
@@ -12,12 +11,18 @@ COPY TapTrackAPI.Data/TapTrackAPI.Data.csproj ./TapTrackAPI.Data/
 
 WORKDIR /src/TapTrackAPI/
 RUN dotnet restore TapTrackAPI.csproj
-COPY . . 
+
+WORKDIR /src
+COPY TapTrackAPI/ ./TapTrackAPI/
+COPY TapTrackAPI.Core/ ./TapTrackAPI.Core/
+COPY TapTrackAPI.Core.Features/ ./TapTrackAPI.Core.Features/
+COPY TapTrackAPI.Data/ ./TapTrackAPI.Data
+
 WORKDIR /src/TapTrackAPI/
 RUN dotnet build TapTrackAPI.csproj -c Release -o /app
 
 FROM build as publish
-RUN dotnet publish  TapTrackAPI.csproj -c Release -o /app
+RUN dotnet publish TapTrackAPI.csproj /property:PublishWithAspNetCoreTargetManifest=false -c Release -o /app
 
 FROM base as final
 WORKDIR /app
