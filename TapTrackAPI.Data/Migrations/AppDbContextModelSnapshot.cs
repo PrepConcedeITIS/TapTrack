@@ -351,7 +351,7 @@ namespace TapTrackAPI.Data.Migrations
                     b.HasIndex("IdVisible")
                         .IsUnique();
 
-                    b.ToTable("restorationCodes");
+                    b.ToTable("RestorationCodes");
                 });
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.TeamMember", b =>

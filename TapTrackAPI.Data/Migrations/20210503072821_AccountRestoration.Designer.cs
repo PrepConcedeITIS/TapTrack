@@ -10,8 +10,8 @@ using TapTrackAPI.Data;
 namespace TapTrackAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210412190446_Code added")]
-    partial class Codeadded
+    [Migration("20210503072821_AccountRestoration")]
+    partial class AccountRestoration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -353,7 +353,7 @@ namespace TapTrackAPI.Data.Migrations
                     b.HasIndex("IdVisible")
                         .IsUnique();
 
-                    b.ToTable("restorationCodes");
+                    b.ToTable("RestorationCodes");
                 });
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.TeamMember", b =>
