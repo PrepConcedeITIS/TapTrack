@@ -1,12 +1,12 @@
 <div class="col-md-4 offset-md-4 mt-5 pt-5">
   <div class="card">
-    <h4 class="card-header">TapTrack Restoration</h4>
+    <h4 class="card-header">Enter your restoration code</h4>
     <div class="card-body">
       <form [formGroup]="form" (submit)="submit()">
         <div class="form-group">
           <label>Enter your code here</label>
           <input type="text" class="form-control" name="code" formControlName="code">
-          <small>{{Exception}}</small>
+          <small>{{exception}}</small>
         </div>
         <button type="submit" class="btn btn-primary" >Submit</button>
       </form>

@@ -1,14 +1,11 @@
 ﻿using MediatR;
-using TapTrackAPI.Core.Entities;
 
-namespace TapTrackAPI.Core.Features.Restoration.DTO
+namespace TapTrackAPI.Core.Features.Restoration.PasswordReset
 {
-    public class NewPasswordQuery : IRequest<RestorationCode>
+    public class PasswordResetCommand : IRequest<Unit?>
     {
         public string UserMail { get; set; }
         public int UserCode { get; set; }
-        
         public string UserPassword { get; set; }
-        
     }
 }

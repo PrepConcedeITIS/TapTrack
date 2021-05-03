@@ -10,9 +10,9 @@ import {ProjectUpdateComponent} from './project/update/project-update.component'
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
-import {RestorationEmailComponent} from "./restoration-email/restoration-email.component";
-import {RestorationCodeComponent} from "./restoration-code/restoration-code.component";
-import {RestorationPasswordComponent} from "./restoration-password/restoration-password.component";
+import {RestorationEmailComponent} from "./auth/password-restoration/restoration-email/restoration-email.component";
+import {RestorationCodeComponent} from "./auth/password-restoration/restoration-code/restoration-code.component";
+import {RestorationPasswordComponent} from "./auth/password-restoration/restoration-password/restoration-password.component";
 import {ArticleComponent} from "./knowledge-base/article/article.component";
 import {ArticleDetailsComponent} from "./knowledge-base/article-details/article-details.component";
 import {ArticleCreateComponent} from "./knowledge-base/article-create/article-create.component";

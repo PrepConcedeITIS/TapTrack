@@ -1,35 +1,35 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestorationService {
-  sbjemail = new BehaviorSubject<string>("");
-  sbjcode = new BehaviorSubject<number>(0);
+  emailBehaviorSubject = new BehaviorSubject<string>('');
+  codeBehaviorSubject = new BehaviorSubject<number>(0);
+
   constructor(private httpClient: HttpClient) {
   }
 
-  SendEmail(userCredentials): Observable<RestorationCode> {
-    return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration`, userCredentials);
+  sendEmail(userCredentials): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}/Restoration`, userCredentials);
   }
 
-  SendCode(userCredentials): Observable<RestorationCode> {
-    return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration/CheckCode`, userCredentials);
+  sendCode(userCredentials): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}/Restoration/CheckCode`, userCredentials);
   }
 
-  SendPassword(userCredentials): Observable<RestorationCode>{
-    return this.httpClient.post<RestorationCode>(`${environment.apiUrl}/Restoration/Password`, userCredentials);
+  sendPassword(userCredentials): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}/Restoration/Password`, userCredentials);
   }
 }
 
-export interface RestorationCode{
-  UserMail: string;
-  UserCode: number;
-  UserPassword: string;
+export interface RestorationCode {
+  userMail: string;
+  userCode: number;
+  userPassword: string;
 }
 
 

@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MustMatch} from '../_helpers/must-match.validator';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../_services/authentication.service';
-import {RegistrationService} from '../_services/registration.service';
-import {RestorationService} from "../_services/restoration.service";
+import {AuthenticationService} from '../../../_services/authentication.service';
+import {RegistrationService} from '../../../_services/registration.service';
+import {RestorationService} from "../../../_services/restoration.service";
 
 @Component({
   selector: 'app-restoration',
@@ -15,7 +14,6 @@ import {RestorationService} from "../_services/restoration.service";
 export class RestorationEmailComponent implements OnInit {
   form: FormGroup;
   emailControl: AbstractControl;
-  @Input() UserMail: string;
 
   constructor(private registrationService: RegistrationService,
               private authenticationService: AuthenticationService,
@@ -34,8 +32,8 @@ export class RestorationEmailComponent implements OnInit {
 
   submit() {
     if (!this.form.invalid) {
-      this.restorationService.sbjemail.next(this.form.get('email').value);
-      this.restorationService.SendEmail({UserMail: this.form.get('email').value})
+      this.restorationService.emailBehaviorSubject.next(this.form.get('email').value);
+      this.restorationService.sendEmail({userMail: this.form.get('email').value})
         .subscribe(x =>
           this.router.navigate(['restoration-code']));
     }
