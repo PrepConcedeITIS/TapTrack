@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {IssueDto} from "../issueDto";
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-issue-list',
@@ -11,7 +13,7 @@ import {IssueDto} from "../issueDto";
 })
 export class IssueListComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
   baseUrl: string;
   columnDefs = [
     { field: 'title' },
@@ -31,5 +33,8 @@ export class IssueListComponent implements OnInit {
   }
   getIssues(): Observable<any>{
     return this.httpClient.get(this.baseUrl);
+  }
+  goToDetails($event: any) {
+    this.router.navigate([`issue/${$event.data.id}`]);
   }
 }
