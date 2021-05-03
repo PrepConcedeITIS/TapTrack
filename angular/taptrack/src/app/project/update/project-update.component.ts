@@ -18,6 +18,7 @@ export class ProjectUpdateComponent implements OnInit {
   idVisibleSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isUnique = true;
   serverValidationErrors: string = null;
+  imageSrcOnUpdate = undefined;
 
   private projectId: string;
 
@@ -69,10 +70,20 @@ export class ProjectUpdateComponent implements OnInit {
       key: 'logo',
       type: 'file',
       templateOptions: {
-        label: 'Project logo'
+        label: 'Project logo',
+        change: ((field, event) => this.showLogo(field, event))
       }
     }
   ];
+
+  showLogo(field: FormlyFieldConfig, event: any) {
+    console.log(event.target.files[0]);
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.imageSrcOnUpdate = fileReader.result;
+    };
+    fileReader.readAsDataURL(event.target.files[0]);
+  }
 
   ngOnInit(): void {
 
@@ -83,6 +94,8 @@ export class ProjectUpdateComponent implements OnInit {
     this.projectService.getProjectById(this.projectId)
       .subscribe(x => {
         this.model = {description: x.description, idVisible: x.idVisible, logo: undefined, name: x.name};
+        this.imageSrcOnUpdate = x.logoUrl;
+        console.log('1', x.logoUrl);
       });
 
     this.idVisibleSubject.pipe(skip(1), debounce(() => timer(2000)))
