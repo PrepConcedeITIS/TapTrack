@@ -28,6 +28,9 @@ import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
+import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
+import {RestorationPasswordComponent} from './auth/password-restoration/restoration-password/restoration-password.component';
 import {ArticleCreateComponent} from './knowledge-base/article-create/article-create.component';
 import {LMarkdownEditorModule, MarkdownEditorComponent} from 'ngx-markdown-editor';
 import {FormlyFieldMdEditorComponent} from './_extensions/formly-field-md-editor.component';
@@ -35,7 +38,7 @@ import {ImageFormatterService} from './_services/image-formatter.service';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
-import { ArticleUpdateComponent } from './knowledge-base/article-update/article-update.component';
+import {ArticleUpdateComponent} from './knowledge-base/article-update/article-update.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
@@ -54,6 +57,10 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     ProjectListComponent,
     ProjectDetailsComponent,
     ErrorComponent,
+    RestorationEmailComponent,
+    RestorationCodeComponent,
+    RestorationPasswordComponent,
+    ImageFormatterService,
     ArticleCreateComponent,
     FormlyFieldMdEditorComponent,
     ImageFormatterService,

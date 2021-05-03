@@ -11,7 +11,7 @@ using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 using TapTrackAPI.Core.Features.KnowledgeBase.Queries;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase
+namespace TapTrackAPI.Core.Features.KnowledgeBase.Controllers
 {
     public class ArticlesController : AuthorizedApiController
     {
