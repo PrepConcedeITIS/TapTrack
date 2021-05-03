@@ -27,7 +27,7 @@ import {ProjectDetailsComponent} from './project/details/project-details.compone
 import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
-import {AccordionModule} from "ngx-bootstrap/accordion";
+import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {RestorationEmailComponent} from './restoration-email/restoration-email.component';
 import {RestorationCodeComponent} from './restoration-code/restoration-code.component';
 import {RestorationPasswordComponent} from './restoration-password/restoration-password.component';
@@ -39,7 +39,7 @@ import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.c
 import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
 import {ArticleUpdateComponent} from './knowledge-base/article-update/article-update.component';
-
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -96,6 +96,7 @@ import {ArticleUpdateComponent} from './knowledge-base/article-update/article-up
     AccordionModule.forRoot(),
     FormsModule,
     LMarkdownEditorModule,
+    ModalModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
