@@ -34,9 +34,9 @@ export class RestorationCodeComponent implements OnInit {
     if (!this.form.invalid) {
       this.restorationService.emailBehaviorSubject.subscribe((mail) => this.email = mail);
       this.restorationService.codeBehaviorSubject.next(this.form.get('code').value);
-      this.restorationService.sendCode({userEmail: this.email, userCode: this.form.get('code').value})
+      this.restorationService.sendCode({userMail: this.email, userCode: this.form.get('code').value as number, userPassword: null})
         .subscribe(_ => {
-            this.router.navigate(['restoration-password']);
+            this.router.navigate(['restoration/password']);
           },
           (error: HttpErrorResponse) => {
             this.exception = 'Incorrect code';

@@ -33,9 +33,9 @@ export class RestorationEmailComponent implements OnInit {
   submit() {
     if (!this.form.invalid) {
       this.restorationService.emailBehaviorSubject.next(this.form.get('email').value);
-      this.restorationService.sendEmail({userMail: this.form.get('email').value})
+      this.restorationService.sendEmail({userCode: 0, userPassword: '', userMail: this.form.get('email').value})
         .subscribe(x =>
-          this.router.navigate(['restoration-code']));
+          this.router.navigate(['restoration/code']));
     }
   }
 }
