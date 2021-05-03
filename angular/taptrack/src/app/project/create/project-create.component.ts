@@ -68,7 +68,6 @@ export class ProjectCreateComponent implements OnInit {
   ];
 
   showLogo(field: FormlyFieldConfig, event: any) {
-    console.log(event.target.files[0]);
     const fileReader = new FileReader();
     fileReader.onload = () => {
       this.imageSrc = fileReader.result;

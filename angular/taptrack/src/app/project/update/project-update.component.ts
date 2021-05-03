@@ -77,7 +77,6 @@ export class ProjectUpdateComponent implements OnInit {
   ];
 
   showLogo(field: FormlyFieldConfig, event: any) {
-    console.log(event.target.files[0]);
     const fileReader = new FileReader();
     fileReader.onload = () => {
       this.imageSrcOnUpdate = fileReader.result;
@@ -95,7 +94,6 @@ export class ProjectUpdateComponent implements OnInit {
       .subscribe(x => {
         this.model = {description: x.description, idVisible: x.idVisible, logo: undefined, name: x.name};
         this.imageSrcOnUpdate = x.logoUrl;
-        console.log('1', x.logoUrl);
       });
 
     this.idVisibleSubject.pipe(skip(1), debounce(() => timer(2000)))
