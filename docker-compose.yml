@@ -1,0 +1,11 @@
+version: "3.2"
+
+services:
+  taptrack-web-api:
+    image: taptrack_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    

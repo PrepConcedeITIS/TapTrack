@@ -1,5 +1,4 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 as base
-EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 as build
 WORKDIR /src
