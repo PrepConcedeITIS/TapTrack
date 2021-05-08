@@ -235,6 +235,48 @@ namespace TapTrackAPI.Data.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.ContactType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("IdVisible")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdVisible")
+                        .IsUnique();
+
+                    b.ToTable("ContactTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("90ebd5b2-100c-4437-8e02-dd88b8798af5"),
+                            Name = "Telegram"
+                        },
+                        new
+                        {
+                            Id = new Guid("b09f894e-db3a-4be1-a147-6efe5c154149"),
+                            Name = "Discord"
+                        },
+                        new
+                        {
+                            Id = new Guid("e22ec568-f17f-446c-8765-de2de54a8de2"),
+                            Name = "Skype"
+                        },
+                        new
+                        {
+                            Id = new Guid("325b38a1-494c-478f-a6f4-5a8ee5f12b36"),
+                            Name = "GitHub"
+                        });
+                });
+
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Issue", b =>
                 {
                     b.Property<Guid>("Id")
@@ -422,6 +464,9 @@ namespace TapTrackAPI.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("ProfileImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -442,6 +487,39 @@ namespace TapTrackAPI.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.UserContact", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ContactInfo")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ContactTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("IdVisible")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("NotificationEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContactTypeId");
+
+                    b.HasIndex("IdVisible")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserContacts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -596,6 +674,25 @@ namespace TapTrackAPI.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.UserContact", b =>
+                {
+                    b.HasOne("TapTrackAPI.Core.Entities.ContactType", "ContactType")
+                        .WithMany()
+                        .HasForeignKey("ContactTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TapTrackAPI.Core.Entities.User", "User")
+                        .WithMany("UserContacts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContactType");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Article", b =>
                 {
                     b.Navigation("Comment");
@@ -613,6 +710,11 @@ namespace TapTrackAPI.Data.Migrations
                     b.Navigation("Issues");
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.User", b =>
+                {
+                    b.Navigation("UserContacts");
                 });
 #pragma warning restore 612, 618
         }

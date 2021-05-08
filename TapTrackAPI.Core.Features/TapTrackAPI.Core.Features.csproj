@@ -43,6 +43,39 @@
       <Compile Update="Project\List\GetProjectsListAsyncHandler.cs">
         <DependentUpon>GetProjectsListQuery.cs</DependentUpon>
       </Compile>
+      <Compile Update="Profile\GetUserProfile\GetUserProfileHandler.cs">
+        <DependentUpon>GetUserProfileQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetContactInfoHandler.cs">
+        <DependentUpon>GetContactInfoQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetUserProjectsHandler.cs">
+        <DependentUpon>GetUserProjectsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetNotificationsOptionsHandler.cs">
+        <DependentUpon>GetNotificationOptionsValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\ChangeNotificationOptionHandler.cs">
+        <DependentUpon>ChangeNotificationOptionsCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\ChangeUserNameHandler.cs">
+        <DependentUpon>ChangeUserNameValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\UpdateContactsInfoHandler.cs">
+        <DependentUpon>UpdateContactInfoCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\UpdateProfileImageHandler.cs">
+        <DependentUpon>UpdateProfileImageCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetNotificationOptionsValidator.cs">
+        <DependentUpon>GetNotificationOptionsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\ChangeUserNameValidator.cs">
+        <DependentUpon>ChangeUserNameCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetUserProfileHandler.cs">
+        <DependentUpon>GetUserProfileQuery.cs</DependentUpon>
+      </Compile>
       <Compile Update="Auth\Login\LoginValidator.cs">
         <DependentUpon>LoginCommand.cs</DependentUpon>
       </Compile>
@@ -71,5 +104,4 @@
         <DependentUpon>PasswordResetCommand.cs</DependentUpon>
       </Compile>
     </ItemGroup>
-
 </Project>
