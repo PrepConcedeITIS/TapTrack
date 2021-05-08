@@ -8,8 +8,8 @@
 
     <div class="card-body color4 body">
 
-      <mat-tab-group class="tab-group">
-        <mat-tab label="Общая" (click)="getProfile()">
+      <mat-tab-group dynamicHeight class="tab-group ">
+        <mat-tab label="General" (click)="getProfile()">
 
           <div class="tap-content">
             <div class="outer-flex-container">
@@ -35,8 +35,8 @@
                     <h4>Username
                       <a (click)="enableUserNameEdit()"><u>edit</u></a>
                     </h4>
-                    <input id="userNameInput" type="text" class="form-control" placeholder="Имя пользователя"
-                           aria-label="Имя пользователя"
+                    <input id="userNameInput" type="text" class="form-control" placeholder="Username"
+                           aria-label="Username"
                            aria-describedby="basic-addon1"
                            value="{{userProfile ? userProfile.userName : ''}}"
                            [disabled]="!isNameEdit">
@@ -53,8 +53,8 @@
 
                   <div class="form-element">
                     <h4>Email</h4>
-                    <input type="text" class="form-control" placeholder="Почта пользователя"
-                           aria-label="Почта пользователя"
+                    <input type="text" class="form-control" placeholder="Email"
+                           aria-label="Email"
                            value="{{userProfile ? userProfile.userEmail : ''}}"
                            aria-describedby="basic-addon1"
                            [disabled]="true">
@@ -75,7 +75,7 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Проекты">
+        <mat-tab label="Projects">
           <div *ngIf="userProjectsRowData && userProjectsRowData.length !==0; else alterProject">
             <table mat-table [dataSource]="userProjectsRowData" class="mat-elevation-z8">
               <ng-container matColumnDef="projectName">
@@ -97,13 +97,13 @@
             </span>
           </ng-template>
         </mat-tab>
-        <mat-tab label="Контакная информация">
+        <mat-tab label="Contact information">
           <div class="tap-content">
             <div *ngIf="userContactsRowData && userContactsRowData.length !== 0; else alterContact">
               <div class="inner-flex-container">
                 <div class="form-element">
                   <h4>Contact Information
-                    <a href="javascript:void(0);" (click)="enableContactInformationEdit()"><u>edit</u></a>
+                    <a (click)="enableContactInformationEdit()"><u>edit</u></a>
                   </h4>
 
                   <form>
@@ -137,11 +137,11 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Уведомления">
+        <mat-tab label="Notifications">
           <div class="tap-content notifications">
-            <mat-slide-toggle class="togle" (change)="changeNotificationOption()"
+            <mat-slide-toggle class="toggle" (change)="changeNotificationOption()"
                               [(ngModel)]="isTelegramNotificationsEnabled">
-              Получать уведомления через Telegram-бота
+              Get notifications from Telegram bot
             </mat-slide-toggle>
           </div>
         </mat-tab>
