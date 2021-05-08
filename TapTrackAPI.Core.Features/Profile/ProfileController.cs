@@ -70,7 +70,7 @@ namespace TapTrackAPI.Core.Features.Profile
         [HttpPut("updateUserName")]
         public async Task<IActionResult> UpdateUserName([FromBody] ChangeUserNameCommand changeUserNameCommand)
         {
-            var command = changeUserNameCommand with {ClaimsPrincipal = HttpContext.User};
+            var command = changeUserNameCommand with {ClaimsPrincipal = User};
 
             return Ok(await Mediator.Send(command));
         }

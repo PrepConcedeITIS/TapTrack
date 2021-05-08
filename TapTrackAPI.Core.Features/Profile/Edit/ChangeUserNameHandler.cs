@@ -18,10 +18,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
         public override async Task<UserProfileDto> Handle(ChangeUserNameCommand command, CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
-            
-            user.UserName = command.NewUserName;
-            DbContext.Set<User>().Update(user);
-            await DbContext.SaveChangesAsync(cancellationToken);
+            await UserManager.SetUserNameAsync(user, command.NewUserName);
 
             return new UserProfileDto(user.ProfileImageUrl,user.UserName, user.Email);
         }
