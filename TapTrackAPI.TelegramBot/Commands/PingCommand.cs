@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TapTrackAPI.TelegramBot.Commands
 {
@@ -10,7 +11,7 @@ namespace TapTrackAPI.TelegramBot.Commands
 
         public bool InternalCommand => false;
 
-        public async Task Execute(IChatService chatService, long chatId, int userId, int messageId, string? commandText)
+        public async Task Execute(IChatService chatService, DbContext? dbContext, long chatId, int userId, int messageId, string? commandText)
         {
             await chatService.SendMessage(chatId, "pong");
         }

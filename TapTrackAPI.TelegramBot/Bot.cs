@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -69,7 +70,9 @@ namespace TapTrackAPI.TelegramBot
                     $"/{x.Command}".Equals(chatMessageArgs.Command, StringComparison.InvariantCultureIgnoreCase));
                 if (command != null)
                 {
+                    var dbContext = _serviceProvider.GetService<DbContext>();
                     await command.Execute(chatService,
+                        dbContext,
                         chatMessageArgs.ChatId,
                         chatMessageArgs.UserId,
                         chatMessageArgs.MessageId,
@@ -94,7 +97,9 @@ namespace TapTrackAPI.TelegramBot
 
                 if (command != null && !string.IsNullOrEmpty(commandText))
                 {
+                    var dbContext = _serviceProvider.GetService<DbContext>();
                     await command.Execute(chatService,
+                        dbContext,
                         callbackEventArgs.ChatId,
                         callbackEventArgs.UserId,
                         callbackEventArgs.MessageId,

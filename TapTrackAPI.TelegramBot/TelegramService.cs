@@ -57,7 +57,7 @@ namespace TapTrackAPI.TelegramBot
         {
             _logger.LogTrace("Message received from '{Username}': '{Message}'", e.Message.From.Username ?? e.Message.From.FirstName, e.Message.Text);
 
-            if (e.Message.Entities == null || !e.Message.Entities.Any(x => x.Type == MessageEntityType.BotCommand))
+            if (e.Message.Entities == null || e.Message.Entities.All(x => x.Type != MessageEntityType.BotCommand))
             {
                 _logger.LogTrace("No command was specified");
                 return;
