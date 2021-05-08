@@ -1,11 +1,24 @@
 version: "3.2"
 
 services:
-  taptrack-web-api:
-    image: taptrack_api
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    ports:
+    - 80:80
+    restart: always
+  
+  web-api:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:80"
+      - 5000:80
     
+  client:
+    build:
+      context: angular/taptrack
+      dockerfile: Dockerfile
+    ports:
+    - 3000:80
