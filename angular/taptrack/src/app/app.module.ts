@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -9,10 +8,11 @@ import {LoginComponent} from './auth/login/login.component';
 import {RegistrationComponent} from './auth/registration/registration.component';
 import {ProjectCreateComponent} from './project/create/project-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
-import {FormlyFieldFileComponent} from './_extensions/file-type.component';
+import {FormlyFieldFileComponent} from "./_extensions/file-type.component";
+import {ProfileComponent} from './profile/profile.component';
+import {MaterialModule} from "./_modules/material/material.module";
 import {FileValueAccessor} from './_extensions/file-value-accessor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
@@ -49,6 +49,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     ProjectCreateComponent,
     FileValueAccessor,
     FormlyFieldFileComponent,
+    ProfileComponent,
     IssueListComponent,
     IssueDetailsComponent,
     ArticleComponent,
@@ -71,6 +72,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
   imports: [
     CommonModule,
     BrowserModule,
+    MaterialModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -91,8 +93,10 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     BsDropdownModule.forRoot(),
     AgGridModule.withComponents([ImageFormatterService]),
     TabsModule.forRoot(),
-    AgGridModule,
     CollapseModule,
+    FormsModule,
+    AgGridModule.withComponents([]),
+    AgGridModule,
     AccordionModule.forRoot(),
     FormsModule,
     LMarkdownEditorModule,

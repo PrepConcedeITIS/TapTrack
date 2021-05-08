@@ -1,9 +1,8 @@
-using AutoMapper;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 
 namespace TapTrackAPI.Core.Features.Issue.Handlers
 {
-    public class IssueDetailsProfile : Profile
+    public class IssueDetailsProfile : AutoMapper.Profile
     {
         public IssueDetailsProfile()
         {

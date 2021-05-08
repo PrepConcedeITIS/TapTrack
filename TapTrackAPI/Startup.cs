@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Text;
 using FluentValidation;
 using MediatR;
@@ -20,7 +18,6 @@ using TapTrackAPI.Core.Base.ValidationBase;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
-using TapTrackAPI.Core.Features.Project;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Core.Services;
 using TapTrackAPI.Data;

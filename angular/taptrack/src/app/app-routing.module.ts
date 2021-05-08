@@ -17,11 +17,13 @@ import {ArticleComponent} from './knowledge-base/article/article.component';
 import {ArticleDetailsComponent} from './knowledge-base/article-details/article-details.component';
 import {ArticleCreateComponent} from './knowledge-base/article-create/article-create.component';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
-import {ArticleUpdateComponent} from './knowledge-base/article-update/article-update.component';
+import {ProfileComponent} from "./profile/profile.component";
+import {ArticleUpdateComponent} from "./knowledge-base/article-update/article-update.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {
     path: 'restoration', children: [
       {path: 'email', component: RestorationEmailComponent},

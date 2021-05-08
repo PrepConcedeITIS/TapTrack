@@ -25,11 +25,11 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ProjectWithArticlesDto>>> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllArticlesQuery()));
+            return Ok(await Mediator.Send(new GetAllArticlesQuery(UserManager.GetUserIdGuid(User))));
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FullArticleDto>> GetById(Guid id)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<FullArticleDto>> GetById([FromRoute] Guid id)
         {
             var article = await Mediator.Send(new GetArticleByIdQuery(id));
             if (article != null)

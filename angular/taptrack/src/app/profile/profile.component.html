@@ -1,0 +1,151 @@
+<div class="col-md-6 offset-md-3 mt-5 pt-5">
+
+  <div class="card">
+
+    <div class="card-header">
+      <div>Profile</div>
+    </div>
+
+    <div class="card-body color4 body">
+
+      <mat-tab-group dynamicHeight class="tab-group ">
+        <mat-tab label="General" (click)="getProfile()">
+
+          <div class="tap-content">
+            <div class="outer-flex-container">
+
+              <div class="outer-flex-item-column1 color1">
+                <div *ngIf="userProfile && userProfile.profileImageLink;else alter">
+                  <img class="avatar"
+                       src="{{userProfile.profileImageLink}}"
+                       width="150" height="150">
+                </div>
+                <ng-template #alter>
+                  <img class="avatar"
+                       width="150"
+                       height="150"
+                       src="https://www.dealer.volvotrucks.co.uk/content/dam/volvo-media/list-icons/user.svg">
+                </ng-template>
+              </div>
+
+              <div class="outer-flex-item-column2 color2">
+                <div class="inner-flex-container color3">
+
+                  <div class="form-element">
+                    <h4>Username
+                      <a (click)="enableUserNameEdit()"><u>edit</u></a>
+                    </h4>
+                    <input id="userNameInput" type="text" class="form-control" placeholder="Username"
+                           aria-label="Username"
+                           aria-describedby="basic-addon1"
+                           value="{{userProfile ? userProfile.userName : ''}}"
+                           [disabled]="!isNameEdit">
+                    <div *ngIf="isNameEdit">
+                      <button type="submit" class="edit-name-btn btn btn-primary btn-sm" (click)="saveUserNameEdit()">
+                        Save
+                      </button>
+                      <button type="submit" class="edit-name-btn btn btn-secondary btn-sm"
+                              (click)="cancelUserNameEdit()">
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="form-element">
+                    <h4>Email</h4>
+                    <input type="text" class="form-control" placeholder="Email"
+                           aria-label="Email"
+                           value="{{userProfile ? userProfile.userEmail : ''}}"
+                           aria-describedby="basic-addon1"
+                           [disabled]="true">
+                  </div>
+                  <div class="form-element">
+                    <label for="file">Upload avatar</label>
+                    <form [formGroup]="form" (ngSubmit)="saveNewProfileImage()">
+                      <input type="file"
+                             id="file"
+                             (change)="handleFileInput($event.target.files)">
+                      <button [disabled]="!isFileLoaded" type="submit" class="upld-img btn btn-primary btn-sm">
+                        Save image
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Projects">
+          <div *ngIf="userProjectsRowData && userProjectsRowData.length !==0; else alterProject">
+            <table mat-table [dataSource]="userProjectsRowData" class="mat-elevation-z8">
+              <ng-container matColumnDef="projectName">
+                <th mat-header-cell *matHeaderCellDef>Project</th>
+                <td mat-cell *matCellDef="let element">{{element.projectName}}</td>
+              </ng-container>
+              <ng-container matColumnDef="userPosition">
+                <th mat-header-cell *matHeaderCellDef>Position</th>
+                <td mat-cell *matCellDef="let element">{{element.userPosition}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+          <ng-template #alterProject>
+            <span class="alter">
+                  <button mat-button disabled>Nothing to show </button>
+            </span>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Contact information">
+          <div class="tap-content">
+            <div *ngIf="userContactsRowData && userContactsRowData.length !== 0; else alterContact">
+              <div class="inner-flex-container">
+                <div class="form-element">
+                  <h4>Contact Information
+                    <a (click)="enableContactInformationEdit()"><u>edit</u></a>
+                  </h4>
+
+                  <form>
+                    <div *ngFor="let item of userContactsRowData" class="form-padding-bottom">
+                      <h4>{{item.resourceName}}</h4>
+                      <input type="text" class="form-control"
+                             [disabled]="!isContactInfoEdit"
+                             [(ngModel)]="item.resourceInfo"
+                             name="{{item.resourceName}}">
+                    </div>
+                    <div *ngIf="isContactInfoEdit">
+                      <button type="submit" class="edit-name-btn btn btn-primary btn-sm"
+                              (click)="saveUserContactsEdit()">
+                        Save
+                      </button>
+                      <button type="submit" class="edit-name-btn btn btn-secondary btn-sm"
+                              (click)="cancelContactsEdit()">
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div>
+              <ng-template #alterContact>
+                <span class="alter">
+                  <button mat-button disabled>Nothing to show </button>
+                </span>
+              </ng-template>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Notifications">
+          <div class="tap-content notifications">
+            <mat-slide-toggle class="toggle" (change)="changeNotificationOption()"
+                              [(ngModel)]="isTelegramNotificationsEnabled">
+              Get notifications from Telegram bot
+            </mat-slide-toggle>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
