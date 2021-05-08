@@ -16,7 +16,7 @@ namespace TapTrackAPI.Core.Entities
         public long UpdatedById { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
         public string Content { get; protected set; }
-        public virtual ICollection<Comment> Comment { get; protected set; }
+        public virtual ICollection<Comment> Comments { get; protected set; }
 
         public Article(Guid belongsToId, string title, long createdById, DateTime createdAt, long updatedById,
             DateTime updatedAt, string content)
