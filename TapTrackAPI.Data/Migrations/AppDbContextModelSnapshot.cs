@@ -367,6 +367,35 @@ namespace TapTrackAPI.Data.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.RestorationCode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("IdVisible")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdVisible")
+                        .IsUnique();
+
+                    b.ToTable("RestorationCodes");
+                });
+
             modelBuilder.Entity("TapTrackAPI.Core.Entities.TeamMember", b =>
                 {
                     b.Property<long>("Id")

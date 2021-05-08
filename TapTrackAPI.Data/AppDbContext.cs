@@ -12,7 +12,8 @@ namespace TapTrackAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-
+        
+        public DbSet<RestorationCode> RestorationCodes { get; protected set; }
         public DbSet<Issue> Issues { get; protected set; }
         public DbSet<Comment> Comments { get; protected set; }
         public DbSet<TeamMember> TeamMembers { get; protected set; }

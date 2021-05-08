@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="GravatarSharp.Core" Version="0.9.0.2" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
       <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.7.1" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
@@ -92,6 +93,15 @@
       </Compile>
       <Compile Update="Project\Delete\ProjectDeleteAsyncCommandHandler.cs">
         <DependentUpon>ProjectDeleteValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Restoration\SendCode\SendCodeHandler.cs">
+        <DependentUpon>SendCodeCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Restoration\VerifyCode\VerifyCodeHandler.cs">
+        <DependentUpon>VerifyCodeCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Restoration\PasswordReset\PasswordResetHandler.cs">
+        <DependentUpon>PasswordResetCommand.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>
