@@ -1,4 +1,3 @@
-using AutoMapper;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 
 namespace TapTrackAPI.Core.Features.Issue.Handlers

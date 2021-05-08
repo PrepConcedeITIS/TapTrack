@@ -1,5 +1,3 @@
-using AutoMapper;
-
 namespace TapTrackAPI.Core.Features.Project
 {
     public class ProjectProfile: AutoMapper.Profile

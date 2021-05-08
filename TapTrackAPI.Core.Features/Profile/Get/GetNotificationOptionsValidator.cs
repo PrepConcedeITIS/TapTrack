@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Constants;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Enums;
 
 namespace TapTrackAPI.Core.Features.Profile.Get
 {

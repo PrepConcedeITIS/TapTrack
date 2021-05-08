@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Force.Cqrs;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;

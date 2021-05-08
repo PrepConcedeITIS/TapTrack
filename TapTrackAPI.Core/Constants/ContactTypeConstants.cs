@@ -1,6 +1,6 @@
 ﻿namespace TapTrackAPI.Core.Constants
 {
-    public class ContactTypeConstants
+    public static class ContactTypeConstants
     {
         public const string TelegramName = "Telegram";
         public const string DiscordName = "Discord";

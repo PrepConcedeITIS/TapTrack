@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AutoMapper;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 

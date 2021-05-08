@@ -15,7 +15,7 @@
             <div class="outer-flex-container">
 
               <div class="outer-flex-item-column1 color1">
-                <div *ngIf="userProfile.profileImageLink;else alter">
+                <div *ngIf="userProfile && userProfile.profileImageLink;else alter">
                   <img class="avatar"
                        src="{{userProfile.profileImageLink}}"
                        width="150" height="150">
@@ -33,12 +33,12 @@
 
                   <div class="form-element">
                     <h4>Username
-                      <a href="javascript:void(0);" (click)="enableUserNameEdit()"><u>edit</u></a>
+                      <a (click)="enableUserNameEdit()"><u>edit</u></a>
                     </h4>
                     <input id="userNameInput" type="text" class="form-control" placeholder="Имя пользователя"
                            aria-label="Имя пользователя"
                            aria-describedby="basic-addon1"
-                           value="{{userProfile.userName}}"
+                           value="{{userProfile ? userProfile.userName : ''}}"
                            [disabled]="!isNameEdit">
                     <div *ngIf="isNameEdit">
                       <button type="submit" class="edit-name-btn btn btn-primary btn-sm" (click)="saveUserNameEdit()">
@@ -55,7 +55,7 @@
                     <h4>Email</h4>
                     <input type="text" class="form-control" placeholder="Почта пользователя"
                            aria-label="Почта пользователя"
-                           value="{{userProfile.userEmail}}"
+                           value="{{userProfile ? userProfile.userEmail : ''}}"
                            aria-describedby="basic-addon1"
                            [disabled]="true">
                   </div>
@@ -65,9 +65,8 @@
                       <input type="file"
                              id="file"
                              (change)="handleFileInput($event.target.files)">
-                      <button [disabled]="!isFileLoaded" type="submit" class="upld-img btn btn-primary btn-sm"
-                              (click)="saveNewProfileImage()">Save
-                        image
+                      <button [disabled]="!isFileLoaded" type="submit" class="upld-img btn btn-primary btn-sm">
+                        Save image
                       </button>
                     </form>
                   </div>
@@ -77,7 +76,7 @@
           </div>
         </mat-tab>
         <mat-tab label="Проекты">
-          <div *ngIf="userProjectsRowData.length !==0; else alterProject">
+          <div *ngIf="userProjectsRowData && userProjectsRowData.length !==0; else alterProject">
             <table mat-table [dataSource]="userProjectsRowData" class="mat-elevation-z8">
               <ng-container matColumnDef="projectName">
                 <th mat-header-cell *matHeaderCellDef>Project</th>
@@ -100,7 +99,7 @@
         </mat-tab>
         <mat-tab label="Контакная информация">
           <div class="tap-content">
-            <div *ngIf="userContactsRowData.length !== 0; else alterContact">
+            <div *ngIf="userContactsRowData && userContactsRowData.length !== 0; else alterContact">
               <div class="inner-flex-container">
                 <div class="form-element">
                   <h4>Contact Information

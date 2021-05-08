@@ -3,7 +3,6 @@ using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.Validators

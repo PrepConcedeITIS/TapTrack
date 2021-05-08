@@ -1,11 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Profile} from "./dto/profile";
 import {Router} from "@angular/router";
 import {FormGroup} from "@angular/forms";
-import {FormlyFieldConfig} from "@ngx-formly/core";
-import {ProjectQuery} from "../project/_interfaces/project-query";
 import {ContactInfo} from "./dto/contact-info";
 import {UserProject} from "./dto/user-project";
 
@@ -34,7 +32,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("helo");
     this.isNameEdit = false;
     this.isFileLoaded = false;
     this.isContactInfoEdit = false;
@@ -42,8 +39,6 @@ export class ProfileComponent implements OnInit {
     this.getUserProjects();
     this.getContactsInformation();
     this.getNotificationOptions();
-
-    console.log(this.userProfile.profileImageLink);
   }
 
   handleFileInput(files: FileList) {
@@ -55,26 +50,24 @@ export class ProfileComponent implements OnInit {
     const formData = new FormData();
 
     formData.append("Image", this.fileToUpload);
-    formData.append("ClaimsPrincipal",null)
 
     this.httpClient.post(environment.apiUrl + this.controllerName + "/uploadProfileImage", formData)
       .subscribe(data => {
-        this.userProfile = <Profile> data;
+        this.userProfile = (data as Profile);
       });
   }
 
   getProfile() {
     this.httpClient.get(environment.apiUrl + this.controllerName)
       .subscribe(data => {
-        // @ts-ignore
-        this.userProfile = <Profile> data;
+        this.userProfile = (data as Profile);
       });
   }
 
   getUserProjects() {
     this.httpClient.get(environment.apiUrl + this.controllerName + "/projects")
       .subscribe(data => {
-        this.userProjectsRowData = <UserProject[]> data;
+        this.userProjectsRowData = (data as UserProject[]);
       });
   }
 
@@ -82,15 +75,15 @@ export class ProfileComponent implements OnInit {
     this.httpClient.get(environment.apiUrl + this.controllerName + "/contacts")
       .subscribe(data => {
 
-        this.userContactsRowData = <ContactInfo[]> data;
+        this.userContactsRowData = (data as ContactInfo[]);
       });
   }
 
   getNotificationOptions() {
     this.httpClient.get(environment.apiUrl + this.controllerName + "/notificationOptions")
       .subscribe(data => {
-        this.isTelegramNotificationsEnabled = <boolean> data;
-      })
+        this.isTelegramNotificationsEnabled = (data as boolean);
+      });
   }
 
   enableUserNameEdit() {
@@ -120,7 +113,7 @@ export class ProfileComponent implements OnInit {
       newUserName
     })
       .subscribe(data => {
-        this.userProfile = <Profile> data;
+        this.userProfile = (data as Profile);
         this.isNameEdit = false;
       });
   }
@@ -134,7 +127,7 @@ export class ProfileComponent implements OnInit {
       Contacts: this.userContactsRowData,
     })
       .subscribe(data => {
-        this.userContactsRowData = <ContactInfo[]> data;
+        this.userContactsRowData = (data as ContactInfo[]);
         this.isContactInfoEdit = false;
       });
   }
@@ -143,7 +136,7 @@ export class ProfileComponent implements OnInit {
     this.httpClient.put(environment.apiUrl + this.controllerName + "/changeNotificationOption", {
       option: this.isTelegramNotificationsEnabled
     }).subscribe(data => {
-      this.isTelegramNotificationsEnabled = <boolean> data;
-    })
+      this.isTelegramNotificationsEnabled = (data as boolean);
+    });
   }
 }

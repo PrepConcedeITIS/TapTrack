@@ -1,6 +1,4 @@
 ﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Force.Cqrs;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using TapTrackAPI.Core.Features.Profile.Dto;

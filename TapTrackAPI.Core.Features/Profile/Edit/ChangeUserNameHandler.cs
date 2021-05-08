@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
@@ -8,6 +9,7 @@ using TapTrackAPI.Core.Features.Profile.Dto;
 
 namespace TapTrackAPI.Core.Features.Profile.Edit
 {
+    [UsedImplicitly]
     public class ChangeUserNameHandler : ProfileHandlerWithDbContextBase<ChangeUserNameCommand, UserProfileDto>
     {
         

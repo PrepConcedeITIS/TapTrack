@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Features.Profile.Edit;
 using TapTrackAPI.Core.Features.Profile.Get;
-using TapTrackAPI.Core.Features.Profile.Records.CQRS;
 
 namespace TapTrackAPI.Core.Features.Profile
 {
@@ -20,31 +17,31 @@ namespace TapTrackAPI.Core.Features.Profile
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await Mediator.Send(new GetUserProfileQuery {ClaimsPrincipal = HttpContext.User}));
+            return Ok(await Mediator.Send(new GetUserProfileQuery {ClaimsPrincipal = User}));
         }
 
         [HttpGet("projects")]
         public async Task<IActionResult> GetUserProjects()
         {
-            return Ok(await Mediator.Send(new GetUserProjectsQuery {ClaimsPrincipal = HttpContext.User}));
+            return Ok(await Mediator.Send(new GetUserProjectsQuery {ClaimsPrincipal = User}));
         }
 
         [HttpGet("contacts")]
         public async Task<IActionResult> GetUserContactInformation()
         {
-            return Ok(await Mediator.Send(new GetContactInfoQuery {ClaimsPrincipal = HttpContext.User}));
+            return Ok(await Mediator.Send(new GetContactInfoQuery {ClaimsPrincipal = User}));
         }
 
         [HttpGet("notificationOptions")]
         public async Task<IActionResult> GetUserNotificationOptions()
         {
-            return Ok(await Mediator.Send(new GetNotificationOptionsQuery {ClaimsPrincipal = HttpContext.User}));
+            return Ok(await Mediator.Send(new GetNotificationOptionsQuery {ClaimsPrincipal = User}));
         }
 
         [HttpPut("updateContactsInfo")]
         public async Task<IActionResult> UpdateContactInfo([FromBody] UpdateContactInfoCommand updateContactInfoCommand)
         {
-            var command = updateContactInfoCommand with {ClaimsPrincipal = HttpContext.User};
+            var command = updateContactInfoCommand with {ClaimsPrincipal = User};
 
             return Ok(await Mediator.Send(command));
         }
@@ -53,7 +50,7 @@ namespace TapTrackAPI.Core.Features.Profile
         public async Task<IActionResult> UploadProfileImage(
             [FromForm] UpdateProfileImageCommand updateProfileImageCommand)
         {
-            updateProfileImageCommand.ClaimsPrincipal = HttpContext.User;
+            updateProfileImageCommand.ClaimsPrincipal = User;
 
             return Ok(await Mediator.Send(updateProfileImageCommand));
         }
@@ -62,7 +59,7 @@ namespace TapTrackAPI.Core.Features.Profile
         public async Task<IActionResult> ChangeNotificationOption(
             [FromBody] ChangeNotificationOptionsCommand changeNotificationOptionsCommand)
         {
-            var command = changeNotificationOptionsCommand with {ClaimsPrincipal = HttpContext.User};
+            var command = changeNotificationOptionsCommand with {ClaimsPrincipal = User};
 
             return Ok(await Mediator.Send(command));
         }

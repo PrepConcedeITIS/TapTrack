@@ -1,9 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Force.Cqrs;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 
 namespace TapTrackAPI.Core.Features.Profile.Base

@@ -6,21 +6,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Constants;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Profile.Base;
-using TapTrackAPI.Core.Features.Profile.Records.CQRS;
 
-namespace TapTrackAPI.Core.Features.Profile.Handlers
+namespace TapTrackAPI.Core.Features.Profile.Edit
 {
     [UsedImplicitly]
-    public class ChangeNotificationOptionHandler : ProfileHandlerWithDbContextBase<ChangeNotificationOptionsCommand, bool>
+    public class
+        ChangeNotificationOptionHandler : ProfileHandlerWithDbContextBase<ChangeNotificationOptionsCommand, bool>
     {
         public ChangeNotificationOptionHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager,
             dbContext)
         {
         }
 
-        public override async Task<bool> Handle(ChangeNotificationOptionsCommand command, CancellationToken cancellationToken)
+        public override async Task<bool> Handle(ChangeNotificationOptionsCommand command,
+            CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 
@@ -30,12 +30,12 @@ namespace TapTrackAPI.Core.Features.Profile.Handlers
                 .FirstOrDefault(x => x.ContactType.Name == ContactTypeConstants.TelegramName);
 
 
-            if (userContact != null)
-            {
-                userContact.ChangeNotificationOption(command.Option);
-                DbContext.Set<UserContact>().Update(userContact);
-                await DbContext.SaveChangesAsync(cancellationToken);
-            }
+            if (userContact == null) 
+                return command.Option;
+            
+            userContact.ChangeNotificationOption(command.Option);
+            DbContext.Set<UserContact>().Update(userContact);
+            await DbContext.SaveChangesAsync(cancellationToken);
 
             return command.Option;
         }

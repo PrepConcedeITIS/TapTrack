@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using TapTrackAPI.Core.Features.Profile.Base;
+﻿using TapTrackAPI.Core.Features.Profile.Base;
 
 namespace TapTrackAPI.Core.Features.Profile.Get
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Constants;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Profile.Base;
 
 namespace TapTrackAPI.Core.Features.Profile.Get
