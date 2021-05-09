@@ -16,4 +16,12 @@
     <ItemGroup>
       <ProjectReference Include="..\TapTrackAPI.Core\TapTrackAPI.Core.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Commands\Start\BindUserAsyncHandler.cs">
+        <DependentUpon>BindUserCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commands\Start\BindUserCommand.cs">
+        <DependentUpon>StartRequest.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

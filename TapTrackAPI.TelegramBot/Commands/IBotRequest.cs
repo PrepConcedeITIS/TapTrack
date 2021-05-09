@@ -1,15 +1,14 @@
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace TapTrackAPI.TelegramBot.Commands
 {
-    public interface IBotCommand
+    public interface IBotRequest
     {
         string Command { get; }
         string Description { get; }
         bool InternalCommand { get; }
 
-        Task Execute(IChatService chatService, DbContext? dbContext, long chatId, int userId, int messageId,
+        Task Execute(IChatService chatService, long chatId, int userId, int messageId,
             string? commandText);
     }
 }

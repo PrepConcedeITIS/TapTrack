@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace TapTrackAPI.TelegramBot.Commands
 {
-    public class HelpCommand : IBotCommand
+    public class HelpRequest : IBotRequest
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -14,12 +13,12 @@ namespace TapTrackAPI.TelegramBot.Commands
 
         public bool InternalCommand => false;
 
-        public HelpCommand(IServiceProvider serviceProvider)
+        public HelpRequest(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
 
-        public async Task Execute(IChatService chatService, DbContext? dbContext, long chatId, int userId, int messageId, string? commandText)
+        public async Task Execute(IChatService chatService, long chatId, int userId, int messageId, string? commandText)
         {
             await chatService.SendMessage(chatId, "TODO: Create a todo command");
         }

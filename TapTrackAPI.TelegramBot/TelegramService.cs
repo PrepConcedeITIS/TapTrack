@@ -43,7 +43,7 @@ namespace TapTrackAPI.TelegramBot
         private void RegisterCommands()
         {
             var commands = _serviceProvider
-                .GetServices<IBotCommand>()
+                .GetServices<IBotRequest>()
                 .Where(x => !x.InternalCommand)
                 .Select(x => new BotCommand
                 {

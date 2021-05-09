@@ -153,7 +153,7 @@ namespace TapTrackAPI
         private static void RegisterTelegramBot(IServiceCollection services)
         {
             services.AddSingleton<IChatService, TelegramService>();
-            services.AddBotCommands(typeof(IBotCommand).Assembly);
+            services.AddBotCommands(typeof(IBotRequest).Assembly);
             services.AddHostedService<Bot>();
         }
     }
