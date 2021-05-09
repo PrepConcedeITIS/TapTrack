@@ -430,6 +430,9 @@ namespace TapTrackAPI.Data.Migrations
                     b.Property<long>("ChatId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsNotificationsEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("TelegramUserId")
                         .HasColumnType("integer");
 
@@ -528,9 +531,6 @@ namespace TapTrackAPI.Data.Migrations
 
                     b.Property<string>("IdVisible")
                         .HasColumnType("text");
-
-                    b.Property<bool>("NotificationEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");

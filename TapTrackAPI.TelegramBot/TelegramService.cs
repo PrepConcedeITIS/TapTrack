@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TapTrackAPI.TelegramBot.Commands;
+using TapTrackAPI.TelegramBot.Base;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;

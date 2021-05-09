@@ -10,7 +10,7 @@ using TapTrackAPI.Data;
 namespace TapTrackAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210508223437_TelegramConnection")]
+    [Migration("20210509184557_TelegramConnection")]
     partial class TelegramConnection
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -432,6 +432,9 @@ namespace TapTrackAPI.Data.Migrations
                     b.Property<long>("ChatId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsNotificationsEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("TelegramUserId")
                         .HasColumnType("integer");
 
@@ -530,9 +533,6 @@ namespace TapTrackAPI.Data.Migrations
 
                     b.Property<string>("IdVisible")
                         .HasColumnType("text");
-
-                    b.Property<bool>("NotificationEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");

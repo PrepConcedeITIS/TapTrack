@@ -2,8 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Features.Profile.DeleteTelegramConnection;
 using TapTrackAPI.Core.Features.Profile.Edit;
 using TapTrackAPI.Core.Features.Profile.Get;
+using TapTrackAPI.Core.Features.Profile.GetTelegramInfo;
 
 namespace TapTrackAPI.Core.Features.Profile
 {
@@ -70,6 +72,19 @@ namespace TapTrackAPI.Core.Features.Profile
             var command = changeUserNameCommand with {ClaimsPrincipal = User};
 
             return Ok(await Mediator.Send(command));
+        }
+
+        [HttpGet("telegramInfo")]
+        public async Task<IActionResult> GetTelegramNotificationsInfo()
+        {
+            return Ok(await Mediator.Send(new GetTelegramInfoQuery(User)));
+        }
+
+        [HttpDelete("telegramInfo")]
+        public async Task<IActionResult> DeleteTelegramConnection()
+        {
+            var result = await Mediator.Send(new DeleteTelegramConnectionCommand(User));
+            return result == null ? BadRequest() : Ok();
         }
     }
 }

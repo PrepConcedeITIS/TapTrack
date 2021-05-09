@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Constants;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Profile.Base;
 
@@ -22,13 +21,12 @@ namespace TapTrackAPI.Core.Features.Profile.Get
         {
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
-            var notificationOption = DbContext.Set<UserContact>()
+            var notificationOption = await DbContext.Set<TelegramConnection>()
                 .Where(x => x.User.Id == user.Id)
-                .Include( x => x.ContactType)
-                .FirstOrDefault(x => x.ContactType.Name == ContactTypeConstants.TelegramName);
+                .SingleOrDefaultAsync(cancellationToken);
             
 
-            return notificationOption.NotificationEnabled;
+            return notificationOption?.IsNotificationsEnabled ?? false;
         }
     }
 }

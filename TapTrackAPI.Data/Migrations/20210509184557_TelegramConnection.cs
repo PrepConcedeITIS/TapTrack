@@ -7,6 +7,10 @@ namespace TapTrackAPI.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "NotificationEnabled",
+                table: "UserContacts");
+
             migrationBuilder.CreateTable(
                 name: "TelegramConnections",
                 columns: table => new
@@ -15,6 +19,7 @@ namespace TapTrackAPI.Data.Migrations
                     ChatId = table.Column<long>(type: "bigint", nullable: false),
                     TelegramUserId = table.Column<int>(type: "integer", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: true),
+                    IsNotificationsEnabled = table.Column<bool>(type: "boolean", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -38,6 +43,13 @@ namespace TapTrackAPI.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "TelegramConnections");
+
+            migrationBuilder.AddColumn<bool>(
+                name: "NotificationEnabled",
+                table: "UserContacts",
+                type: "boolean",
+                nullable: false,
+                defaultValue: false);
         }
     }
 }

@@ -40,6 +40,7 @@ import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
 import {ArticleUpdateComponent} from './knowledge-base/article-update/article-update.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { TelegramBindingComponent } from './profile/telegram-binding/telegram-binding.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     ImageFormatterService,
     ForbiddenErrorComponent,
     ProjectServerErrorsComponent,
-    ArticleUpdateComponent
+    ArticleUpdateComponent,
+    TelegramBindingComponent
   ],
   imports: [
     CommonModule,

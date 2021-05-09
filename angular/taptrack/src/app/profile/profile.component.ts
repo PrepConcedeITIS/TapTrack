@@ -6,6 +6,8 @@ import {Router} from "@angular/router";
 import {FormGroup} from "@angular/forms";
 import {ContactInfo} from "./dto/contact-info";
 import {UserProject} from "./dto/user-project";
+import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
+import {TelegramBindingComponent} from "./telegram-binding/telegram-binding.component";
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +21,7 @@ export class ProfileComponent implements OnInit {
   isContactInfoEdit: boolean;
   isFileLoaded: boolean;
   isTelegramNotificationsEnabled: boolean;
+  bsModalRef: BsModalRef;
   private controllerName = "/profile";
 
   userProjectsRowData: UserProject[];
@@ -28,7 +31,9 @@ export class ProfileComponent implements OnInit {
 
   form = new FormGroup({});
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient,
+              private router: Router,
+              private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
@@ -132,11 +137,9 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  changeNotificationOption() {
-    this.httpClient.put(environment.apiUrl + this.controllerName + "/changeNotificationOption", {
-      option: this.isTelegramNotificationsEnabled
-    }).subscribe(data => {
-      this.isTelegramNotificationsEnabled = (data as boolean);
-    });
+  openTelegramNotificationManagement() {
+    const initialState = {
+    };
+    this.bsModalRef = this.modalService.show(TelegramBindingComponent, {initialState});
   }
 }

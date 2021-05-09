@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using TapTrackAPI.Core.Entities;
-using TapTrackAPI.TelegramBot.Commands.Start;
+using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.TelegramBot.Base;
 
-namespace TapTrackAPI.TelegramBot.Commands
+namespace TapTrackAPI.TelegramBot.Commands.Start
 {
     [UsedImplicitly]
     public class StartRequest : IBotRequest
@@ -21,17 +20,14 @@ namespace TapTrackAPI.TelegramBot.Commands
         public string Description => "Start command";
         public bool InternalCommand => false;
 
-        public async Task Execute(IChatService chatService, long chatId, int userId, int messageId, string? commandText)
+        public async Task Execute(IChatService chatService, DbContext dbContext, long chatId, int userId, int messageId,
+            string? commandText)
         {
-            if (commandText == null)
-                await chatService.SendMessage(chatId, "Payload from TapTrack service was not passed, please try again");
+            var requestResponse = await _mediator.Send(new BindUserCommand(chatId, userId,
+                await chatService.GetChatMemberName(chatId, userId),
+                commandText!, dbContext));
 
-            var a = await _mediator.Send(new BindUserCommand(chatId, userId,
-                await chatService.GetChatMemberName(chatId, userId),
-                commandText!));
-            var tgConnection = new TelegramConnection(chatId, userId,
-                await chatService.GetChatMemberName(chatId, userId),
-                Guid.Parse(commandText!));
+            await chatService.SendMessage(chatId, requestResponse.Message);
         }
     }
 }

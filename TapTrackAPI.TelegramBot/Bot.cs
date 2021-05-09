@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using TapTrackAPI.TelegramBot.Commands;
+using TapTrackAPI.TelegramBot.Base;
 
 namespace TapTrackAPI.TelegramBot
 {
@@ -67,9 +68,11 @@ namespace TapTrackAPI.TelegramBot
             {
                 var command = _serviceProvider.GetServices<IBotRequest>().SingleOrDefault(x =>
                     $"/{x.Command}".Equals(chatMessageArgs.Command, StringComparison.InvariantCultureIgnoreCase));
+                using var serviceScope = _serviceProvider.CreateScope();
                 if (command != null)
                 {
                     await command.Execute(chatService,
+                        serviceScope.ServiceProvider.GetRequiredService<DbContext>(),
                         chatMessageArgs.ChatId,
                         chatMessageArgs.UserId,
                         chatMessageArgs.MessageId,
@@ -91,10 +94,11 @@ namespace TapTrackAPI.TelegramBot
                 var commandText = callbackEventArgs.Command?.Split(' ').First();
                 var command = _serviceProvider.GetServices<IBotRequest>().SingleOrDefault(x =>
                     $"/{x.Command}".Equals(commandText, StringComparison.InvariantCultureIgnoreCase));
+                using var serviceScope = _serviceProvider.CreateScope();
 
                 if (command != null && !string.IsNullOrEmpty(commandText))
                 {
-                    await command.Execute(chatService,
+                    await command.Execute(chatService, serviceScope.ServiceProvider.GetRequiredService<DbContext>(),
                         callbackEventArgs.ChatId,
                         callbackEventArgs.UserId,
                         callbackEventArgs.MessageId,
