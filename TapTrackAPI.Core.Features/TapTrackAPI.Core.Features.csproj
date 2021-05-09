@@ -103,5 +103,8 @@
       <Compile Update="Restoration\PasswordReset\PasswordResetHandler.cs">
         <DependentUpon>PasswordResetCommand.cs</DependentUpon>
       </Compile>
+      <Compile Update="Project\AddTeamMember\AddTeamMemberHandler.cs">
+        <DependentUpon>AddTeamMemberCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>
