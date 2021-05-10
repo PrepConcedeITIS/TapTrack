@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TapTrackAPI.Core\TapTrackAPI.Core.csproj" />
+      <ProjectReference Include="..\TapTrackAPI.TelegramBot\TapTrackAPI.TelegramBot.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -102,6 +103,15 @@
       </Compile>
       <Compile Update="Restoration\PasswordReset\PasswordResetHandler.cs">
         <DependentUpon>PasswordResetCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\GetTelegramInfo\GetTelegramInfoAsyncQueryHandler.cs">
+        <DependentUpon>GetTelegramInfoQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\GetTelegramInfo\TelegramInfo.cs">
+        <DependentUpon>GetTelegramInfoAsyncQueryHandler.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\DeleteTelegramConnection\DeleteTelegramConnectionAsyncCommandHandler.cs">
+        <DependentUpon>DeleteTelegramConnectionCommand.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

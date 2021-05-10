@@ -21,6 +21,9 @@ using TapTrackAPI.Core.Features.Auth.Services;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Core.Services;
 using TapTrackAPI.Data;
+using TapTrackAPI.TelegramBot;
+using TapTrackAPI.TelegramBot.Base;
+using TapTrackAPI.TelegramBot.Commands.Start;
 
 namespace TapTrackAPI
 {
@@ -42,7 +45,6 @@ namespace TapTrackAPI
             services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddSignInManager();
-
             services.AddControllers()
                 .AddApplicationPart(typeof(AuthController).Assembly)
                 .AddNewtonsoftJson();
@@ -105,13 +107,14 @@ namespace TapTrackAPI
             });
 
             services.AddAutoMapper(mc => { mc.AddMaps(typeof(AuthController).Assembly); });
-
-            RegisterMediaR(services);
-
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
             services.AddScoped<IMailSender, MailSender>();
+
+            RegisterMediaR(services);
+
+            RegisterTelegramBot(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -142,9 +145,18 @@ namespace TapTrackAPI
 
         private void RegisterMediaR(IServiceCollection services)
         {
-            services.AddMediatR(typeof(AuthController).Assembly);
+            services.AddMediatR(typeof(AuthController).Assembly, typeof(BindUserAsyncHandler).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddValidatorsFromAssemblies(new[] {typeof(AuthController).Assembly});
+            services.AddValidatorsFromAssemblies(new[]
+                {typeof(AuthController).Assembly, typeof(BindUserAsyncHandler).Assembly});
+        }
+
+        private static void RegisterTelegramBot(IServiceCollection services)
+        {
+            services.AddSingleton<IChatService, TelegramService>();
+            services.AddBotCommands(typeof(IBotRequest).Assembly);
+            services.AddHostedService<Bot>();
+            services.AddScoped<INotificationService, NotificationService>();
         }
     }
 }
