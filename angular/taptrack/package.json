@@ -28,6 +28,7 @@
     "ag-grid-angular": "^25.1.0",
     "ag-grid-community": "^25.1.0",
     "font-awesome": "^4.7.0",
+    "ng-sidebar": "^9.4.2",
     "ngx-bootstrap": "^6.2.0",
     "ngx-markdown-editor": "^3.3.2",
     "rxjs": "~6.6.0",

@@ -9,6 +9,8 @@ import {environment} from "../../../environments/environment";
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  opened = true;
+  selectedArticleId: string;
   projectsWithArticles: Observable<ProjectWithArticles[]>;
 
   constructor(private http: HttpClient) {
