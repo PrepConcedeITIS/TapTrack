@@ -29,5 +29,23 @@ namespace TapTrackAPI.Core.Features.Issue
         {
             return Ok(await Mediator.Send(command));
         }
+
+        [HttpGet("board/{ProjectId}")]
+        public async Task<ActionResult<IssueOnBoardDto>> GetByProjectId([FromRoute] GetIssuesByProjectIdQuery query)
+        {
+            return Ok(await Mediator.Send(query));
+        }
+
+        [HttpPut("priority")]
+        public async Task<IActionResult> EditPriority([FromBody] EditPriorityIssueCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpPut("state")]
+        public async Task<IActionResult> EditState([FromBody] EditStateIssueCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
     }
 }

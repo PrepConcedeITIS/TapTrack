@@ -46,7 +46,7 @@ const routes: Routes = [
       {path: 'details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
       {path: 'create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
       {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
-      {path: 'board', component: AgileBoardComponent, canActivate: [AuthGuard]},
+      {path: 'board/:id', component: AgileBoardComponent, canActivate: [AuthGuard]},
     ]
   },
   {
