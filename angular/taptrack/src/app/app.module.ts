@@ -40,6 +40,8 @@ import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
 import {ArticleUpdateComponent} from './knowledge-base/article-update/article-update.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {CommentsComponent} from "./commenting/comments/comments.component";
+import {PaginationModule} from "ngx-bootstrap/pagination";
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     ImageFormatterService,
     ForbiddenErrorComponent,
     ProjectServerErrorsComponent,
-    ArticleUpdateComponent
+    ArticleUpdateComponent,
+    CommentsComponent
   ],
   imports: [
     CommonModule,
@@ -100,7 +103,8 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     AccordionModule.forRoot(),
     FormsModule,
     LMarkdownEditorModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    PaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
