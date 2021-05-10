@@ -3,17 +3,17 @@
     <!-- Sidebar -->
     <ng-sidebar [opened]="true">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search..." aria-label="Search" style="min-width: 270px">
+        <input type="text" class="form-control" placeholder="Search..." aria-label="Search" style="min-width: 270px; margin-bottom: 1em">
       </div>
       <ul class="menu" *ngFor="let project of projectsWithArticles | async as projects">
         <button class="dropdown-btn">{{project.name}}</button>
         <ul class="nav" *ngIf="project.articles.length > 0; else no">
-          <li class="nav-item" *ngFor="let article of project.articles" [routerLinkActive]="['active']">
+          <li class="nav-item" *ngFor="let article of project.articles" [routerLinkActive]="['selected-article']">
             <a class="nav-link" [routerLink]="['details', article.id]" (click)="selectedArticleId = article.id">{{article.title}}</a>
           </li>
         </ul>
         <ng-template #no>
-          <p>Не написано ни одной статьи</p>
+          <p style="margin: 1em 0 0 1em">Не написано ни одной статьи</p>
         </ng-template>
       </ul>
     </ng-sidebar>
