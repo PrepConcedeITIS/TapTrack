@@ -17,7 +17,7 @@ namespace TapTrackAPI.Core.Features.Auth
             : base(mediator)
         {
         }
-
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserInput input)
         {

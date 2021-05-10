@@ -10,9 +10,9 @@ import {ProjectCreateComponent} from './project/create/project-create.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
-import {FormlyFieldFileComponent} from "./_extensions/file-type.component";
+import {FormlyFieldFileComponent} from './_extensions/file-type.component';
 import {ProfileComponent} from './profile/profile.component';
-import {MaterialModule} from "./_modules/material/material.module";
+import {MaterialModule} from './_modules/material/material.module';
 import {FileValueAccessor} from './_extensions/file-value-accessor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
@@ -40,7 +40,9 @@ import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
 import {ArticleUpdateComponent} from './knowledge-base/article-update/article-update.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import { TelegramBindingComponent } from './profile/telegram-binding/telegram-binding.component';
+import {TelegramBindingComponent} from './profile/telegram-binding/telegram-binding.component';
+import {CommentsComponent} from './commenting/comments/comments.component';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { TelegramBindingComponent } from './profile/telegram-binding/telegram-bi
     ForbiddenErrorComponent,
     ProjectServerErrorsComponent,
     ArticleUpdateComponent,
-    TelegramBindingComponent
+    TelegramBindingComponent,
+    CommentsComponent
   ],
   imports: [
     CommonModule,
@@ -102,7 +105,8 @@ import { TelegramBindingComponent } from './profile/telegram-binding/telegram-bi
     AccordionModule.forRoot(),
     FormsModule,
     LMarkdownEditorModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    PaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
