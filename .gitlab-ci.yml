@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - deploy
 
 before_script:
@@ -8,6 +9,7 @@ before_script:
   - nuget help | select-string Version
 
 dummy job on windows:
+  stage: test
   script: 
     - echo ok
   tags:
