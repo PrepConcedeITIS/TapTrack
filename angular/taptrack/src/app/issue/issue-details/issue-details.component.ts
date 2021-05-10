@@ -3,9 +3,10 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {IssueDetailsDto} from "./IssueDetailsDto";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {first} from "rxjs/operators";
+import {DropdownsSchemaDto} from "./dropdownsSchemaDto";
 
 @Component({
   selector: 'app-details-list',
@@ -15,21 +16,54 @@ import {first} from "rxjs/operators";
 export class IssueDetailsComponent implements OnInit {
 
   private issueId: string;
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
+  constructor(private httpClient: HttpClient,
+              private route: ActivatedRoute,
+              private router: Router) { }
   baseUrl: string;
   fields: FormlyFieldConfig[];
-  issueData: Observable<IssueDetailsDto>;
+  issueData: IssueDetailsDto;
+  dropdownsSchema: DropdownsSchemaDto;
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.issueId = params.id;
     });
-    this.baseUrl = `${environment.apiUrl}/issue/${this.issueId}`;
-    this.issueData = this.getIssue();
+    this.baseUrl = `${environment.apiUrl}/issue/`;
+    this.getIssue().subscribe(issueData => {
+      this.issueData = issueData;
+    });
+    this.httpClient.get<DropdownsSchemaDto>(`${this.baseUrl}Dropdowns/${this.issueId}`)
+      .subscribe(data => this.dropdownsSchema = data);
   }
 
   getIssue(): Observable<IssueDetailsDto>{
-    return this.httpClient.get<IssueDetailsDto>(this.baseUrl);
+    return this.httpClient.get<IssueDetailsDto>(this.baseUrl + this.issueId);
   }
 
+  changeIssueType(){
+    console.log('changeIssueType');
+  }
+
+  changePriority(){
+    console.log('changePriority');
+  }
+
+  changeAssignee(){
+    console.log('changeAssignee');
+  }
+  changeSpentTime(){
+    console.log('changeSpentTime');
+  }
+
+  changeEstimation(){
+    console.log('changeEstimation');
+  }
+
+  changeState(){
+    console.log('changeState');
+  }
+
+  redirectToProject(){
+    this.router.navigate([`project/details/${this.issueData.projectId}`]);
+  }
 }

@@ -43,6 +43,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {TelegramBindingComponent} from './profile/telegram-binding/telegram-binding.component';
 import {CommentsComponent} from './commenting/comments/comments.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
     FormsModule,
     LMarkdownEditorModule,
     ModalModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    NgSelectModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
