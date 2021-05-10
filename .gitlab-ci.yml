@@ -14,3 +14,17 @@ dummy job on windows:
     - echo ok
   tags:
     - windows
+
+build job:
+  script: 
+    - echo "building..."
+  tags:
+    - windows
+  stage: build
+  
+pack and deploy job:
+  script: 
+    - echo "deploing"
+  tags:
+    - windows
+  stage: deploy
