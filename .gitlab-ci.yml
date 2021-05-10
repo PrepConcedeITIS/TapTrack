@@ -19,11 +19,6 @@ build_solution:
   script: 
     - echo "building..."
     - msbuild -target:Build -r TapTrackAPI.sln
-  only: 
-    - master
-    - develop
-    - merge_requests
-    - ci-d
   tags:
     - powershell
   stage: build
