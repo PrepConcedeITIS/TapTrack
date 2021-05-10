@@ -1,6 +1,7 @@
 export interface IssueDetailsDto{
   title: string;
   project: string;
+  projectId: string;
   priority: string;
   state: string;
   creator: string;
@@ -12,4 +13,5 @@ export interface IssueDetailsDto{
   description: string;
   issueType: string;
   created: string;
+  idVisible: string;
 }
