@@ -2,7 +2,7 @@ ng-sidebar-container {
   background: #F8F9FA;
   min-width: 300px;
   max-width: 300px;
-  height: 100vh;
+  height: 100em;
   display: flex;
   box-shadow: 0px 10px 10px 0px rgba(34, 60, 80, 0.2);
 }
@@ -37,11 +37,13 @@ ng-sidebar-container a, .dropdown-btn {
 }
 
 ng-sidebar-container .nav {
-  padding-top: 8px;
+  margin-bottom: 1em;
 }
 
 ng-sidebar-container .nav-item {
-  padding-top: 4px;
+  padding: 0.1em 0 0.1em 0;
+  margin-top: 0.5em;
+  min-width: 100%;
 }
 
 ng-sidebar-container .nav-link {
@@ -53,11 +55,10 @@ ng-sidebar-container .nav-link {
   color: black;
 }
 
-.active {
-  background-color: #F8F9FA;
-  box-shadow: 0px 0px 15px 0px rgba(34, 60, 80, 0.2);
+.selected-article {
+  background-color: #4ca2ff;
+  box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
-  color: white;
   width: 100%;
 }
 
