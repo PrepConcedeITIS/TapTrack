@@ -6,7 +6,7 @@ services:
       context: nginx
       dockerfile: Dockerfile
     ports:
-    - 80:80
+    - 8080:8080
     restart: always
   
   web-api:
@@ -14,11 +14,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 5000:80
+      - 5000:8080
     
   client:
     build:
       context: angular/taptrack
       dockerfile: Dockerfile
     ports:
-    - 3000:80
+    - 3000:8080
