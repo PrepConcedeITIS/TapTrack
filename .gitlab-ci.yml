@@ -20,7 +20,7 @@ build_solution:
     - echo "building..."
     - msbuild -target:Build -r TapTrackAPI.sln
   tags:
-    - powershell
+    - windows
   stage: build
   
 pack and deploy job:
