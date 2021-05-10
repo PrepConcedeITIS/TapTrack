@@ -44,6 +44,7 @@ import {TelegramBindingComponent} from './profile/telegram-binding/telegram-bind
 import {CommentsComponent} from './commenting/comments/comments.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {SidebarModule} from "ng-sidebar";
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     LMarkdownEditorModule,
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+    SidebarModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
