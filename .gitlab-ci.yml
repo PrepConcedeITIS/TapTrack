@@ -15,16 +15,22 @@ dummy job on windows:
   tags:
     - windows
 
-build job:
+build_solution:
   script: 
     - echo "building..."
+    - msbuild -target:Build -r TapTrackAPI.sln
+  only: 
+    - master
+    - develop
+    - merge_requests
+    - ci-d
   tags:
-    - windows
+    - powershell
   stage: build
   
 pack and deploy job:
   script: 
-    - echo "deploing"
+    - echo "deploing.."
   tags:
     - windows
   stage: deploy
