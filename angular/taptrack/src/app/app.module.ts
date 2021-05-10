@@ -106,7 +106,7 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
     FormsModule,
     LMarkdownEditorModule,
     ModalModule.forRoot(),
-    PaginationModule
+    PaginationModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
