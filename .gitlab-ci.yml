@@ -1,0 +1,14 @@
+stages:
+  - build
+  - deploy
+
+before_script:
+  - $PSVersionTable.PSVersion
+  - dotnet --version
+  - nuget help | select-string Version
+
+dummy job:
+  script: 
+    - echo ok
+  tags:
+    - windows
