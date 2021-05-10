@@ -14,4 +14,5 @@
   <md-editor height="100%" mode="preview" [ngModel]="article.content"></md-editor>
   <button type="button" class="btn btn-default" (click)="goToEdit(article.id)">Edit</button>
   <button type="button" class="btn btn-danger" (click)="deleteArticle()">Delete</button>
+  <app-comments entityType="Article" [entityId]="article.id" [projectId]="article.belongsToId"></app-comments>
 </div>
