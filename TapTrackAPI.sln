@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapTrackAPI.Data", "TapTrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapTrackAPI.Core.Features", "TapTrackAPI.Core.Features\TapTrackAPI.Core.Features.csproj", "{041087A5-76E6-4E13-BEF7-827ABC7A2E7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapTrackAPI.TelegramBot", "TapTrackAPI.TelegramBot\TapTrackAPI.TelegramBot.csproj", "{83CC2253-056D-4E97-B88B-729FD6FDDF12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{041087A5-76E6-4E13-BEF7-827ABC7A2E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{041087A5-76E6-4E13-BEF7-827ABC7A2E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{041087A5-76E6-4E13-BEF7-827ABC7A2E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83CC2253-056D-4E97-B88B-729FD6FDDF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CC2253-056D-4E97-B88B-729FD6FDDF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CC2253-056D-4E97-B88B-729FD6FDDF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CC2253-056D-4E97-B88B-729FD6FDDF12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

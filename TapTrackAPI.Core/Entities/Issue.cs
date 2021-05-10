@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Enums;
 
@@ -9,7 +10,6 @@ namespace TapTrackAPI.Core.Entities
     {
         protected Issue()
         {
-            
         }
 
         public Issue(string title, string description, long creatorId, long assigneeId, Guid projectId, IssueType type,
@@ -27,13 +27,16 @@ namespace TapTrackAPI.Core.Entities
             Priority = priority;
             Created = DateTime.Now;
         }
-        
+
         public string Title { get; protected set; }
         public string Description { get; protected set; }
+        [JsonIgnore]
         public virtual TeamMember Creator { get; protected set; }
         public long CreatorId { get; set; }
+        [JsonIgnore]
         public virtual TeamMember Assignee { get; protected set; }
         public long AssigneeId { get; set; }
+        [JsonIgnore]
         public virtual Project Project { get; protected set; }
         public Guid ProjectId { get; set; }
         public TimeSpan Estimation { get; protected set; }
@@ -45,5 +48,20 @@ namespace TapTrackAPI.Core.Entities
         public DateTime LastUpdated { get; protected set; }
 
         public virtual ICollection<Comment> Comment { get; protected set; }
+
+        public void Update(string title, string description, TeamMember assignee, Project project, TimeSpan estimation,
+            TimeSpan spent, State state, IssueType issueType, Priority priority)
+        {
+            Title = title;
+            Description = description;
+            AssigneeId = assignee.Id;
+            ProjectId = project.Id;
+            Estimation = estimation;
+            Spent = spent;
+            State = state;
+            IssueType = issueType;
+            Priority = priority;
+            LastUpdated = DateTime.Now;
+        }
     }
 }

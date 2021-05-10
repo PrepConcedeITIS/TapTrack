@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,6 +24,7 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
         {
             var projectsWithArticles = await Context
                 .Set<Entities.Project>()
+                .Where(project => project.Team.Any(member => member.UserId == request.UserId))
                 .ProjectTo<ProjectWithArticlesDto>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
             return projectsWithArticles;

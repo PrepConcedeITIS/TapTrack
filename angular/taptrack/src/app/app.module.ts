@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -9,10 +8,11 @@ import {LoginComponent} from './auth/login/login.component';
 import {RegistrationComponent} from './auth/registration/registration.component';
 import {ProjectCreateComponent} from './project/create/project-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import {FormlyFieldFileComponent} from './_extensions/file-type.component';
+import {ProfileComponent} from './profile/profile.component';
+import {MaterialModule} from './_modules/material/material.module';
 import {FileValueAccessor} from './_extensions/file-value-accessor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
@@ -27,11 +27,14 @@ import {ProjectDetailsComponent} from './project/details/project-details.compone
 import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
-import {AccordionModule} from "ngx-bootstrap/accordion";
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {DragDropModule} from '@angular/cdk/drag-drop'
 import { AgileBoardComponent } from './agile-board/agile-board.component';
+import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
+import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
+import {RestorationPasswordComponent} from './auth/password-restoration/restoration-password/restoration-password.component';
 import {ArticleCreateComponent} from './knowledge-base/article-create/article-create.component';
 import {LMarkdownEditorModule, MarkdownEditorComponent} from 'ngx-markdown-editor';
 import {FormlyFieldMdEditorComponent} from './_extensions/formly-field-md-editor.component';
@@ -39,6 +42,11 @@ import {ImageFormatterService} from './_services/image-formatter.service';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 import {CommonModule} from '@angular/common';
 import {ProjectServerErrorsComponent} from './project/project-server-errors/project-server-errors.component';
+import {ArticleUpdateComponent} from './knowledge-base/article-update/article-update.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {TelegramBindingComponent} from './profile/telegram-binding/telegram-binding.component';
+import {CommentsComponent} from './commenting/comments/comments.component';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -48,6 +56,7 @@ import {ProjectServerErrorsComponent} from './project/project-server-errors/proj
     ProjectCreateComponent,
     FileValueAccessor,
     FormlyFieldFileComponent,
+    ProfileComponent,
     IssueListComponent,
     IssueDetailsComponent,
     ArticleComponent,
@@ -57,15 +66,23 @@ import {ProjectServerErrorsComponent} from './project/project-server-errors/proj
     ProjectDetailsComponent,
     ErrorComponent,
     AgileBoardComponent,
+    RestorationEmailComponent,
+    RestorationCodeComponent,
+    RestorationPasswordComponent,
+    ImageFormatterService,
     ArticleCreateComponent,
     FormlyFieldMdEditorComponent,
     ImageFormatterService,
     ForbiddenErrorComponent,
-    ProjectServerErrorsComponent
+    ProjectServerErrorsComponent,
+    ArticleUpdateComponent,
+    TelegramBindingComponent,
+    CommentsComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
+    MaterialModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -86,14 +103,18 @@ import {ProjectServerErrorsComponent} from './project/project-server-errors/proj
     BsDropdownModule.forRoot(),
     AgGridModule.withComponents([ImageFormatterService]),
     TabsModule.forRoot(),
-    AgGridModule,
     CollapseModule,
+    FormsModule,
+    AgGridModule.withComponents([]),
+    AgGridModule,
     AccordionModule.forRoot(),
     MatCardModule,
     MatIconModule,
     DragDropModule,
     FormsModule,
     LMarkdownEditorModule,
+    ModalModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

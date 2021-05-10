@@ -12,10 +12,12 @@ export class AppComponent implements OnInit {
   isAuthPage = false;
   userEmail = '';
   isCollapsed: boolean;
-
+  router: Router;
+ 
   constructor(private authService: AuthenticationService,
-              private router: Router) {
+              private _router: Router) {
     this.isCollapsed = false;
+    this.router = _router;
   }
 
   ngOnInit(): void {
@@ -27,6 +29,10 @@ export class AppComponent implements OnInit {
         }
       }, 0);
     });
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['profile']);
   }
 
   signOut() {

@@ -5,7 +5,7 @@ import {ProjectQuery} from '../_interfaces/project-query';
 import {BehaviorSubject, timer} from 'rxjs';
 import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
@@ -18,11 +18,13 @@ export class ProjectUpdateComponent implements OnInit {
   idVisibleSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isUnique = true;
   serverValidationErrors: string = null;
+  imageSrcOnUpdate = undefined;
 
   private projectId: string;
 
   constructor(private projectService: ProjectService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   form = new FormGroup({});
@@ -68,10 +70,19 @@ export class ProjectUpdateComponent implements OnInit {
       key: 'logo',
       type: 'file',
       templateOptions: {
-        label: 'Project logo'
+        label: 'Project logo',
+        change: ((field, event) => this.showLogo(field, event))
       }
     }
   ];
+
+  showLogo(field: FormlyFieldConfig, event: any) {
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.imageSrcOnUpdate = fileReader.result;
+    };
+    fileReader.readAsDataURL(event.target.files[0]);
+  }
 
   ngOnInit(): void {
 
@@ -82,6 +93,7 @@ export class ProjectUpdateComponent implements OnInit {
     this.projectService.getProjectById(this.projectId)
       .subscribe(x => {
         this.model = {description: x.description, idVisible: x.idVisible, logo: undefined, name: x.name};
+        this.imageSrcOnUpdate = x.logoUrl;
       });
 
     this.idVisibleSubject.pipe(skip(1), debounce(() => timer(2000)))
@@ -95,8 +107,8 @@ export class ProjectUpdateComponent implements OnInit {
 
   projectGeneralInfoSubmit() {
     this.projectService.updateProject(this.model, this.projectId)
-      .pipe(tap(() => {
-        // todo: redirect to details
+      .pipe(tap((project) => {
+        this.router.navigate([`project/details/${project.id}`]);
       }, (err: HttpErrorResponse) => {
         switch (err.status) {
           case 422: {

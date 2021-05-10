@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 
+
 @Component({
   selector: 'app-project',
   templateUrl: './project-create.component.html',
@@ -15,6 +16,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class ProjectCreateComponent implements OnInit {
 
   serverValidationErrors: string;
+  imageSrc = undefined;
 
   constructor(private projectService: ProjectService, private router: Router) {
   }
@@ -59,18 +61,27 @@ export class ProjectCreateComponent implements OnInit {
       key: 'logo',
       type: 'file',
       templateOptions: {
-        label: 'Project logo'
+        label: 'Project logo',
+        change: ((field, event) => this.showLogo(field, event))
       }
     }
   ];
+
+  showLogo(field: FormlyFieldConfig, event: any) {
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.imageSrc = fileReader.result;
+    };
+    fileReader.readAsDataURL(event.target.files[0]);
+  }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
     this.projectService.createNewProject(this.model)
-      .pipe(tap(() => {
-          // todo: redirect to details
+      .pipe(tap((project) => {
+          this.router.navigate([`project/details/${project.id}`]);
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {

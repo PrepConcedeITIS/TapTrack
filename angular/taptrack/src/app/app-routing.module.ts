@@ -14,11 +14,24 @@ import { AgileBoardComponent } from './agile-board/agile-board.component';
 import {ArticleComponent} from "./knowledge-base/article/article.component";
 import {ArticleDetailsComponent} from "./knowledge-base/article-details/article-details.component";
 import {ArticleCreateComponent} from "./knowledge-base/article-create/article-create.component";
+import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
+import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
+import {RestorationPasswordComponent} from './auth/password-restoration/restoration-password/restoration-password.component';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
+import {ProfileComponent} from "./profile/profile.component";
+import {ArticleUpdateComponent} from "./knowledge-base/article-update/article-update.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {
+    path: 'restoration', children: [
+      {path: 'email', component: RestorationEmailComponent},
+      {path: 'code', component: RestorationCodeComponent},
+      {path: 'password', component: RestorationPasswordComponent},
+    ]
+  },
   {path: 'registration', component: RegistrationComponent},
   {
     path: 'issue', canActivate: [AuthGuard], children: [
@@ -36,12 +49,13 @@ const routes: Routes = [
       {path: 'board', component: AgileBoardComponent, canActivate: [AuthGuard]},
     ]
   },
-  {path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
+  {
+    path: 'article', component: ArticleComponent, canActivate: [AuthGuard], children: [
       {path: 'create', component: ArticleCreateComponent, canActivate: [AuthGuard]},
-      {path: 'details/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard]}
+      {path: 'details/:id', component: ArticleDetailsComponent, canActivate: [AuthGuard]},
+      {path: 'edit/:id', component: ArticleUpdateComponent, canActivate: [AuthGuard]}
     ]
   },
-
   {path: 'access-error', component: ForbiddenErrorComponent},
   {path: '**', component: ErrorComponent}
 ];
