@@ -1,0 +1,14 @@
+<div *ngIf="comments">
+  <div class="content-wrapper">
+    <div class="content-item" *ngFor="let comment of comments">
+      <p><b>{{comment.author.username}} {{comment.author.email}}</b></p>
+      <p>Created at: {{comment.created}} Updated at: {{comment.lastUpdated}}</p>
+      <md-editor height="100%" mode="preview" [ngModel]="comment.text"></md-editor>
+    </div>
+  </div>
+  <pagination [totalItems]="comments.length" (pageChanged)="pageChanged($event)"></pagination>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit(model)" style="margin-bottom: 3em">
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  <button type="submit" class="btn btn-default" [disabled]="!form.valid">Submit</button>
+</form>

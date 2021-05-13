@@ -1,4 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
 @import "ag-grid-community/dist/styles/ag-grid.css";
 @import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html {
+  font-family: 'Inter', sans-serif;
+}

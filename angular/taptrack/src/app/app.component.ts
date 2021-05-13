@@ -14,8 +14,7 @@ export class AppComponent implements OnInit {
   isCollapsed: boolean;
   router: Router;
  
-  constructor(private authService: AuthenticationService,
-              private _router: Router) {
+  constructor(private authService: AuthenticationService, private _router: Router) {
     this.isCollapsed = false;
     this.router = _router;
   }
@@ -29,6 +28,10 @@ export class AppComponent implements OnInit {
         }
       }, 0);
     });
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['profile']);
   }
 
   signOut() {

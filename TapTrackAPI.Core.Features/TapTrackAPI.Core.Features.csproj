@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="GravatarSharp.Core" Version="0.9.0.2" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
       <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.7.1" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
@@ -15,12 +16,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TapTrackAPI.Core\TapTrackAPI.Core.csproj" />
+      <ProjectReference Include="..\TapTrackAPI.TelegramBot\TapTrackAPI.TelegramBot.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Issue\Handlers\IssueDetailsProfile.cs">
-        <DependentUpon>GetIssueHandler.cs</DependentUpon>
-      </Compile>
       <Compile Update="Project\Edit\ProjectEditValidator.cs">
         <DependentUpon>ProjectEditCommand.cs</DependentUpon>
       </Compile>
@@ -45,6 +44,39 @@
       <Compile Update="Project\List\GetProjectsListAsyncHandler.cs">
         <DependentUpon>GetProjectsListQuery.cs</DependentUpon>
       </Compile>
+      <Compile Update="Profile\GetUserProfile\GetUserProfileHandler.cs">
+        <DependentUpon>GetUserProfileQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetContactInfoHandler.cs">
+        <DependentUpon>GetContactInfoQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetUserProjectsHandler.cs">
+        <DependentUpon>GetUserProjectsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetNotificationsOptionsHandler.cs">
+        <DependentUpon>GetNotificationOptionsValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\ChangeNotificationOptionHandler.cs">
+        <DependentUpon>ChangeNotificationOptionsCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\ChangeUserNameHandler.cs">
+        <DependentUpon>ChangeUserNameValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\UpdateContactsInfoHandler.cs">
+        <DependentUpon>UpdateContactInfoCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\UpdateProfileImageHandler.cs">
+        <DependentUpon>UpdateProfileImageCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetNotificationOptionsValidator.cs">
+        <DependentUpon>GetNotificationOptionsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Edit\ChangeUserNameValidator.cs">
+        <DependentUpon>ChangeUserNameCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\Get\GetUserProfileHandler.cs">
+        <DependentUpon>GetUserProfileQuery.cs</DependentUpon>
+      </Compile>
       <Compile Update="Auth\Login\LoginValidator.cs">
         <DependentUpon>LoginCommand.cs</DependentUpon>
       </Compile>
@@ -63,6 +95,23 @@
       <Compile Update="Project\Delete\ProjectDeleteAsyncCommandHandler.cs">
         <DependentUpon>ProjectDeleteValidator.cs</DependentUpon>
       </Compile>
+      <Compile Update="Restoration\SendCode\SendCodeHandler.cs">
+        <DependentUpon>SendCodeCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Restoration\VerifyCode\VerifyCodeHandler.cs">
+        <DependentUpon>VerifyCodeCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Restoration\PasswordReset\PasswordResetHandler.cs">
+        <DependentUpon>PasswordResetCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\GetTelegramInfo\GetTelegramInfoAsyncQueryHandler.cs">
+        <DependentUpon>GetTelegramInfoQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\GetTelegramInfo\TelegramInfo.cs">
+        <DependentUpon>GetTelegramInfoAsyncQueryHandler.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\DeleteTelegramConnection\DeleteTelegramConnectionAsyncCommandHandler.cs">
+        <DependentUpon>DeleteTelegramConnectionCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
-
 </Project>

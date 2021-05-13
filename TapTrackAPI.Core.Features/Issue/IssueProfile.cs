@@ -1,9 +1,8 @@
-using AutoMapper;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 
 namespace TapTrackAPI.Core.Features.Issue
 {
-    public class IssueProfile : Profile
+    public class IssueProfile : AutoMapper.Profile
     {
         public IssueProfile()
         {
@@ -34,6 +33,8 @@ namespace TapTrackAPI.Core.Features.Issue
                     e.MapFrom(m => m.Priority.ToString()))
                 .ForMember(dto => dto.Project, e =>
                     e.MapFrom(m => m.Project.Name))
+                .ForMember(dto => dto.ProjectId, e =>
+                    e.MapFrom(m => m.Project.Id))
                 .ForMember(dto => dto.State, e =>
                     e.MapFrom(m => m.State.ToString()))
                 .ForMember(dto => dto.Priority, e =>
@@ -47,7 +48,9 @@ namespace TapTrackAPI.Core.Features.Issue
                 .ForMember(dto => dto.SpentMinutes, e =>
                     e.MapFrom(m => m.Spent.Minutes))
                 .ForMember(dto => dto.Created, e =>
-                    e.MapFrom(m => m.Created.Date.ToShortDateString()));
+                    e.MapFrom(m => m.Created.Date.ToShortDateString()))
+                .ForMember(dto => dto.IdVisible, e =>
+                    e.MapFrom(m => m.IdVisible));
         }
     }
 }
