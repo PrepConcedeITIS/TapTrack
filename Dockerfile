@@ -7,6 +7,7 @@ COPY TapTrackAPI/TapTrackAPI.csproj ./TapTrackAPI/
 COPY TapTrackAPI.Core/TapTrackAPI.Core.csproj ./TapTrackAPI.Core/
 COPY TapTrackAPI.Core.Features/TapTrackAPI.Core.Features.csproj ./TapTrackAPI.Core.Features/
 COPY TapTrackAPI.Data/TapTrackAPI.Data.csproj ./TapTrackAPI.Data/
+COPY TapTrackAPI.TelegramBot/TapTrackAPI.TelegramBot.csproj ./TapTrackAPI.TelegramBot
 
 WORKDIR /src/TapTrackAPI/
 RUN dotnet restore TapTrackAPI.csproj
@@ -16,6 +17,7 @@ COPY TapTrackAPI/ ./TapTrackAPI/
 COPY TapTrackAPI.Core/ ./TapTrackAPI.Core/
 COPY TapTrackAPI.Core.Features/ ./TapTrackAPI.Core.Features/
 COPY TapTrackAPI.Data/ ./TapTrackAPI.Data
+COPY TapTrackAPI.TelegramBot ./TapTrackAPI.TelegramBot
 
 WORKDIR /src/TapTrackAPI/
 RUN dotnet build TapTrackAPI.csproj -c Release -o /app
