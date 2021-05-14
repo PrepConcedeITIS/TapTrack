@@ -3,129 +3,65 @@
         <div class="container">
             <h2>New</h2>
             <hr>
-            <mat-card cdkDropList id="0" #newList="cdkDropList" [cdkDropListData]="new" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[analyseList, todoList, inProgressList, incompleteList, inTestList, acceptanceList, doneList]">
-                <p class="empty-label" *ngIf="new.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of new" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="0" #newList="cdkDropList" [cdkDropListData]="minor[0]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[analyseList, todoList, inProgressList, incompleteList, inTestList, acceptanceList, doneList]">
+                <p class="empty-label" *ngIf="minor[0].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[0]" [task]="task"></app-task>
             </mat-card>
         </div>
         <div class="container">
             <h2>Analyse</h2>
             <hr>
-            <mat-card cdkDropList id="1" #analyseList="cdkDropList" [cdkDropListData]="analyse" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, todoList, inProgressList, incompleteList, inTestList, acceptanceList, doneList]">
-                <p class="empty-label" *ngIf="analyse.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of analyse" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="1" #analyseList="cdkDropList" [cdkDropListData]="minor[1]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, todoList, inProgressList, incompleteList, inTestList, acceptanceList, doneList]">
+                <p class="empty-label" *ngIf="minor[1].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[1]" [task]="task"></app-task>
             </mat-card>
         </div>
         <div class="container">
             <h2>To Do</h2>
             <hr>
-            <mat-card cdkDropList id="2" #todoList="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, inProgressList, incompleteList, inTestList, acceptanceList, doneList]">
-                <p class="empty-label" *ngIf="todo.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of todo" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="2" #todoList="cdkDropList" [cdkDropListData]="minor[2]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, inProgressList, incompleteList, inTestList, acceptanceList, doneList]">
+                <p class="empty-label" *ngIf="minor[2].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[2]" [task]="task"></app-task>
             </mat-card>
         </div>
         <div class="container">
             <h2>In Progress</h2>
             <hr>
-            <mat-card cdkDropList id="3" #inProgressList="cdkDropList" [cdkDropListData]="inProgress" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, incompleteList, inTestList, acceptanceList, doneList]">
-                <p class="empty-label" *ngIf="inProgress.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of inProgress" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="3" #inProgressList="cdkDropList" [cdkDropListData]="minor[3]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, incompleteList, inTestList, acceptanceList, doneList]">
+                <p class="empty-label" *ngIf="minor[3].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[3]" [task]="task"></app-task>
             </mat-card>
         </div>
         <div class="container">
             <h2>Incomplete</h2>
             <hr>
-            <mat-card cdkDropList id="4" #incompleteList="cdkDropList" [cdkDropListData]="incomplete" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, inTestList, acceptanceList, doneList]">
-                <p class="empty-label" *ngIf="incomplete.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of incomplete" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="4" #incompleteList="cdkDropList" [cdkDropListData]="minor[4]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, inTestList, acceptanceList, doneList]">
+                <p class="empty-label" *ngIf="minor[4].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[4]" [task]="task"></app-task>
             </mat-card>
         </div>
         <div class="container">
             <h2>In Test</h2>
             <hr>
-            <mat-card cdkDropList id="5" #inTestList="cdkDropList" [cdkDropListData]="inTest" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, incompleteList, acceptanceList, doneList]">
-                <p class="empty-label" *ngIf="inTest.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of inTest" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="5" #inTestList="cdkDropList" [cdkDropListData]="minor[5]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, incompleteList, acceptanceList, doneList]">
+                <p class="empty-label" *ngIf="minor[5].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[5]" [task]="task"></app-task>
             </mat-card>
         </div>
         <div class="container">
             <h2>Acceptance</h2>
             <hr>
-            <mat-card cdkDropList id="6" #acceptanceList="cdkDropList" [cdkDropListData]="acceptance" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, incompleteList, inTestList, doneList]">
-                <p class="empty-label" *ngIf="acceptance.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of acceptance" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="6" #acceptanceList="cdkDropList" [cdkDropListData]="minor[6]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, incompleteList, inTestList, doneList]">
+                <p class="empty-label" *ngIf="minor[6].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[6]" [task]="task"></app-task>
             </mat-card>
         </div>
         <div class="container">
             <h2>Done</h2>
             <hr>
-            <mat-card cdkDropList id="7" #doneList="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, incompleteList, inTestList, acceptanceList]">
-                <p class="empty-label" *ngIf="done.length == 0">Empty list</p>
-                <div class="task" cdkDrag *ngFor="let task of done" [task]="task">
-                    <mat-card class="item">
-                        <h5>{{ task.title }}</h5>
-                        <hr>
-                        <p>
-                            {{ task.description }}
-                        </p>
-                    </mat-card>
-                </div>
+            <mat-card cdkDropList id="7" #doneList="cdkDropList" [cdkDropListData]="minor[7]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[newList, analyseList, todoList, inProgressList, incompleteList, inTestList, acceptanceList]">
+                <p class="empty-label" *ngIf="minor[7].length == 0">Empty list</p>
+                <app-task class="task" cdkDrag *ngFor="let task of minor[7]" [task]="task"></app-task>
             </mat-card>
         </div>
     </div>
