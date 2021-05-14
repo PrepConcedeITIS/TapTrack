@@ -63,5 +63,15 @@ namespace TapTrackAPI.Core.Entities
             Priority = priority;
             LastUpdated = DateTime.Now;
         }
+
+        public void UpdatePriority(Priority priority)
+        {
+            Priority = priority;
+        }
+
+        public void UpdateState(State state)
+        {
+            State = state;
+        }
     }
 }

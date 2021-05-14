@@ -27,6 +27,10 @@ import {ProjectDetailsComponent} from './project/details/project-details.compone
 import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {DragDropModule} from '@angular/cdk/drag-drop'
+import { AgileBoardComponent } from './agile-board/agile-board.component';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
 import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
@@ -64,6 +68,7 @@ import { CommentUpdateComponent } from './commenting/comment-update/comment-upda
     ProjectListComponent,
     ProjectDetailsComponent,
     ErrorComponent,
+    AgileBoardComponent,
     RestorationEmailComponent,
     RestorationCodeComponent,
     RestorationPasswordComponent,
@@ -107,6 +112,9 @@ import { CommentUpdateComponent } from './commenting/comment-update/comment-upda
     AgGridModule.withComponents([]),
     AgGridModule,
     AccordionModule.forRoot(),
+    MatCardModule,
+    MatIconModule,
+    DragDropModule,
     FormsModule,
     LMarkdownEditorModule,
     ModalModule.forRoot(),
