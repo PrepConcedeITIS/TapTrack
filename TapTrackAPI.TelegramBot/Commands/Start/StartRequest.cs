@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.TelegramBot.Base;
+using TapTrackAPI.TelegramBot.Interfaces;
 
 namespace TapTrackAPI.TelegramBot.Commands.Start
 {

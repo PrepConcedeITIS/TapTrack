@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {HttpClient} from "@angular/common/http";
 import {Location} from "@angular/common";
 import {Router} from "@angular/router";
-import {Option} from "../../_interfaces/option";
 import {environment} from "../../../environments/environment";
 import {FullArticle} from "../_interfaces/full-article";
 
