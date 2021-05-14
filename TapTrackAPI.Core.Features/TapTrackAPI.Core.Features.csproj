@@ -17,9 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Issue\Handlers\IssueDetailsProfile.cs">
-        <DependentUpon>GetIssueHandler.cs</DependentUpon>
-      </Compile>
       <Compile Update="Project\Edit\ProjectEditValidator.cs">
         <DependentUpon>ProjectEditCommand.cs</DependentUpon>
       </Compile>

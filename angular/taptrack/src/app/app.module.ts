@@ -47,6 +47,9 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {TelegramBindingComponent} from './profile/telegram-binding/telegram-binding.component';
 import {CommentsComponent} from './commenting/comments/comments.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
+import {SidebarModule} from "ng-sidebar";
+import { CommentUpdateComponent } from './commenting/comment-update/comment-update.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,8 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
     ProjectServerErrorsComponent,
     ArticleUpdateComponent,
     TelegramBindingComponent,
-    CommentsComponent
+    CommentsComponent,
+    CommentUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -114,7 +118,9 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
     FormsModule,
     LMarkdownEditorModule,
     ModalModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    NgSelectModule,
+    SidebarModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

@@ -1,9 +1,10 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {FormGroup} from "@angular/forms";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {PageChangedEvent} from "ngx-bootstrap/pagination";
+import {Comment} from "../_interfaces/comment";
 
 @Component({
   selector: 'app-comments',
@@ -51,6 +52,10 @@ export class CommentsComponent implements OnChanges {
       });
   }
 
+  goToEdit(comment: Comment): void {
+    comment.mode = 'editor';
+  }
+
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
@@ -63,16 +68,4 @@ interface CreateCommentCommand {
   entityId: string;
   projectId: string;
   text: string;
-}
-
-interface Comment {
-  author: TeamMember;
-  text: string;
-  created: Date;
-  lastUpdated: Date;
-}
-
-interface TeamMember {
-  username: string;
-  email: string;
 }

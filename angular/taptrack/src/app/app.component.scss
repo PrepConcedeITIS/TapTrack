@@ -1,5 +1,27 @@
 .navbar {
+  font-size: 16px;
   box-shadow: 0px 3px 10px 0px rgba(34, 60, 80, 0.2);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  color: #4e4f5f;
+  font-weight: lighter;
+}
+
+.nav-item {
+  margin-right: 0.5em;
+}
+
+.nav-item-new {
+  border-radius: 8px;
+  background-color: #007bff;
+  padding: 0.5em;
+  box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
+}
+
+.nav-link-new {
+  color: #FFFF
 }
 
 .custom-toggler.navbar-toggler {
