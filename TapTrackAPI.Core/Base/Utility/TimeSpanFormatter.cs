@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TapTrackAPI.Core.Features.Issue
+namespace TapTrackAPI.Core.Base.Utility
 {
-    public class TimeSpanFormatter
+    public static class TimeSpanFormatter
     {
-        public string FormatterFromTimeSpan(TimeSpan date)
+        public static string FormatterFromTimeSpan(TimeSpan date)
         {
             var weeks = date.Days / 5;
             var days = date.Days % 5;
@@ -17,7 +13,7 @@ namespace TapTrackAPI.Core.Features.Issue
             return output;
         }
 
-        public TimeSpan FormatterFromString(string date)
+        public static TimeSpan FormatterFromString(string date)
         {
             var splitter = date.Split('w', 'd', 'h');
             var weeks = int.Parse(splitter[0]);
