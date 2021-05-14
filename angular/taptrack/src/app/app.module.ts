@@ -45,6 +45,7 @@ import {CommentsComponent} from './commenting/comments/comments.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {SidebarModule} from "ng-sidebar";
+import { CommentUpdateComponent } from './commenting/comment-update/comment-update.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {SidebarModule} from "ng-sidebar";
     ProjectServerErrorsComponent,
     ArticleUpdateComponent,
     TelegramBindingComponent,
-    CommentsComponent
+    CommentsComponent,
+    CommentUpdateComponent
   ],
   imports: [
     CommonModule,
