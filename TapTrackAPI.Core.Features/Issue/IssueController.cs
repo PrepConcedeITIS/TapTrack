@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Features.Issue.Delete;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 using TapTrackAPI.Core.Features.Issue.Queries;
 
@@ -57,6 +58,11 @@ namespace TapTrackAPI.Core.Features.Issue
         {
             var schema = _issueDetailsDropdownsSchemaService.GetSchema(issueId);
             return schema == null ? BadRequest() : Ok(schema);
+        }
+        [HttpDelete("{issueId}")]
+        public async Task<IActionResult> Delete(Guid issueId)
+        {
+            return Ok(await Mediator.Send(new IssueDeleteCommand(User, issueId)));
         }
     }
 }
