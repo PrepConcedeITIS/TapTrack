@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormlyFieldConfig} from '@ngx-formly/core';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectQuery} from '../_interfaces/project-query';
-import {BehaviorSubject, timer} from 'rxjs';
+import {BehaviorSubject, Observable, of, timer} from 'rxjs';
 import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -28,6 +28,9 @@ export class ProjectUpdateComponent implements OnInit {
   }
 
   form = new FormGroup({});
+  emailFormControl = new FormControl('', [
+    Validators.email,
+  ]);
   model: ProjectQuery = {description: '', idVisible: '', logo: undefined, name: ''};
   fields: FormlyFieldConfig[] = [
     {
@@ -76,6 +79,7 @@ export class ProjectUpdateComponent implements OnInit {
     }
   ];
 
+<<<<<<< HEAD
   showLogo(field: FormlyFieldConfig, event: any) {
     const fileReader = new FileReader();
     fileReader.onload = () => {
@@ -83,6 +87,17 @@ export class ProjectUpdateComponent implements OnInit {
     };
     fileReader.readAsDataURL(event.target.files[0]);
   }
+=======
+  columnDefs = [
+    { field: 'Email' },
+    { field: 'Status'}
+  ];
+
+  defaultColDef = {
+    resizable: false,
+  };
+  rowData: Observable<any>;
+>>>>>>> f6cd1613982035a3f2c2c3df8b5b05750ab047fe
 
   ngOnInit(): void {
 
@@ -103,6 +118,11 @@ export class ProjectUpdateComponent implements OnInit {
             return this.isUnique = isUnique;
           });
       });
+    this.rowData = of([]);
+  }
+
+  onGridReady(params){
+    params.columnApi.sizeColumnsToFit();
   }
 
   projectGeneralInfoSubmit() {

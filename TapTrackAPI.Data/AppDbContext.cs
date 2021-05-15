@@ -12,7 +12,7 @@ namespace TapTrackAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-        
+
         public DbSet<RestorationCode> RestorationCodes { get; protected set; }
         public DbSet<Issue> Issues { get; protected set; }
         public DbSet<Comment> Comments { get; protected set; }
@@ -21,6 +21,7 @@ namespace TapTrackAPI.Data
         public DbSet<Article> Articles { get; protected set; }
         public DbSet<UserContact> UserContacts { get; protected set; }
         public DbSet<ContactType> ContactTypes { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

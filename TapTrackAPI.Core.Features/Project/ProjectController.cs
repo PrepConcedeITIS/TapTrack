@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Features.Project.AddTeamMember;
 using TapTrackAPI.Core.Features.Project.Create;
 using TapTrackAPI.Core.Features.Project.Delete;
 using TapTrackAPI.Core.Features.Project.Edit;
@@ -64,10 +63,6 @@ namespace TapTrackAPI.Core.Features.Project
             return Ok(await Mediator.Send(new ProjectDeleteCommand(User, projectId)));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddTeamMember([FromRoute] AddTeamMemberCommand command)
-        {
-            return Ok(await Mediator.Send(command));
-        }
+        
     }
 }
