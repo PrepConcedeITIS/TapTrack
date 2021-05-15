@@ -9,13 +9,14 @@ import {ProjectDetailsComponent} from './project/details/project-details.compone
 import {ProjectUpdateComponent} from './project/update/project-update.component';
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ErrorComponent} from './error/error.component';
-import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
+import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
+import { AgileBoardComponent } from './agile-board/agile-board.component';
+import {ArticleComponent} from "./knowledge-base/article/article.component";
+import {ArticleDetailsComponent} from "./knowledge-base/article-details/article-details.component";
+import {ArticleCreateComponent} from "./knowledge-base/article-create/article-create.component";
 import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
 import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
 import {RestorationPasswordComponent} from './auth/password-restoration/restoration-password/restoration-password.component';
-import {ArticleComponent} from './knowledge-base/article/article.component';
-import {ArticleDetailsComponent} from './knowledge-base/article-details/article-details.component';
-import {ArticleCreateComponent} from './knowledge-base/article-create/article-create.component';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 import {ProfileComponent} from "./profile/profile.component";
 import {ArticleUpdateComponent} from "./knowledge-base/article-update/article-update.component";
@@ -45,6 +46,7 @@ const routes: Routes = [
       {path: 'details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
       {path: 'create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
       {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
+      {path: 'board/:id', component: AgileBoardComponent, canActivate: [AuthGuard]},
     ]
   },
   {

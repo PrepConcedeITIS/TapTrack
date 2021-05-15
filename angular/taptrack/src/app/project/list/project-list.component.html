@@ -1,15 +1,12 @@
-<div style="text-align: center; margin-top: 30px;">
-    <h2>
-            Projects
-    </h2>
-</div>
-<div style="margin-left: auto; margin-right: auto; width: 60%;">
-    <ag-grid-angular
-      style="width: 100%; height: 500px; margin-top: 30px;"
-      class="ag-theme-alpine"
-      [rowData]="rowData | async"
-      [columnDefs]="columnDefs"
-      (rowClicked)="goToDetails($event)"
-    >
-    </ag-grid-angular>
+<div class="project-list">
+  <div>
+      <ag-grid-angular
+        style="height: 500px; font-size: 14px"
+        class="ag-theme-alpine"
+        [rowData]="rowData | async"
+        [columnDefs]="columnDefs"
+        (rowClicked)="goToDetails($event)"
+      >
+      </ag-grid-angular>
   </div>
+</div>

@@ -2,6 +2,6 @@
 
 namespace TapTrackAPI.Core.Features.Profile.Edit
 {
-    public record ChangeNotificationOptionsCommand(bool Option): 
+    public record ChangeNotificationOptionsCommand(): 
         ProfileRecordBase<bool>;
 }

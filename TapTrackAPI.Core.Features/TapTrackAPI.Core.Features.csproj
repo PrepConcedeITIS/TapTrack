@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -13,12 +13,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TapTrackAPI.Core\TapTrackAPI.Core.csproj" />
+      <ProjectReference Include="..\TapTrackAPI.TelegramBot\TapTrackAPI.TelegramBot.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Issue\Handlers\IssueDetailsProfile.cs">
-        <DependentUpon>GetIssueHandler.cs</DependentUpon>
-      </Compile>
       <Compile Update="Project\Edit\ProjectEditValidator.cs">
         <DependentUpon>ProjectEditCommand.cs</DependentUpon>
       </Compile>
@@ -129,6 +127,14 @@
       </Compile>
       <Compile Update="Invitation\AcceptOrDeclineCommand.cs">
         <DependentUpon>InvitationController.cs</DependentUpon>
+      <Compile Update="Profile\GetTelegramInfo\GetTelegramInfoAsyncQueryHandler.cs">
+        <DependentUpon>GetTelegramInfoQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\GetTelegramInfo\TelegramInfo.cs">
+        <DependentUpon>GetTelegramInfoAsyncQueryHandler.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Profile\DeleteTelegramConnection\DeleteTelegramConnectionAsyncCommandHandler.cs">
+        <DependentUpon>DeleteTelegramConnectionCommand.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

@@ -45,13 +45,13 @@ namespace TapTrackAPI.Core.Features.Auth.Registration
                 var contactTypes = _dbContext.Set<ContactType>().AsQueryable();
 
                 await _dbContext.Set<UserContact>().AddRangeAsync(
-                    new UserContact(userId, String.Empty, false,
+                    new UserContact(userId, String.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.TelegramName).Id),
-                    new UserContact(userId, String.Empty, false,
+                    new UserContact(userId, String.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.DiscordName).Id),
-                    new UserContact(userId, String.Empty, false,
+                    new UserContact(userId, String.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.SkypeName).Id),
-                    new UserContact(userId, String.Empty, false,
+                    new UserContact(userId, String.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.GitHubName).Id));
 
                 await _dbContext.SaveChangesAsync(cancellationToken);

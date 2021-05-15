@@ -454,6 +454,34 @@ namespace TapTrackAPI.Data.Migrations
                     b.ToTable("TeamMembers");
                 });
 
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.TelegramConnection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("ChatId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsNotificationsEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TelegramUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TelegramConnections");
+                });
+
             modelBuilder.Entity("TapTrackAPI.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -536,9 +564,6 @@ namespace TapTrackAPI.Data.Migrations
 
                     b.Property<string>("IdVisible")
                         .HasColumnType("text");
-
-                    b.Property<bool>("NotificationEnabled")
-                        .HasColumnType("boolean");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -724,6 +749,17 @@ namespace TapTrackAPI.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Project");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TapTrackAPI.Core.Entities.TelegramConnection", b =>
+                {
+                    b.HasOne("TapTrackAPI.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

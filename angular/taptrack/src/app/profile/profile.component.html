@@ -11,7 +11,7 @@
       <mat-tab-group dynamicHeight class="tab-group ">
         <mat-tab label="General" (click)="getProfile()">
 
-          <div class="tap-content">
+          <div class="mt-3">
             <div class="outer-flex-container">
 
               <div class="outer-flex-item-column1 color1">
@@ -98,7 +98,7 @@
           </ng-template>
         </mat-tab>
         <mat-tab label="Contact information">
-          <div class="tap-content">
+          <div class="mt-3">
             <div *ngIf="userContactsRowData && userContactsRowData.length !== 0; else alterContact">
               <div class="inner-flex-container">
                 <div class="form-element">
@@ -138,11 +138,8 @@
           </div>
         </mat-tab>
         <mat-tab label="Notifications">
-          <div class="tap-content notifications">
-            <mat-slide-toggle class="toggle" (change)="changeNotificationOption()"
-                              [(ngModel)]="isTelegramNotificationsEnabled">
-              Get notifications from Telegram bot
-            </mat-slide-toggle>
+          <div class="mt-3 notifications">
+            <mat-button-toggle (click)="openTelegramNotificationManagement()">Manage Telegram notification</mat-button-toggle>
           </div>
         </mat-tab>
       </mat-tab-group>

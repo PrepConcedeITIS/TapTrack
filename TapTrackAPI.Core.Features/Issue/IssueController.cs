@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
@@ -10,8 +11,11 @@ namespace TapTrackAPI.Core.Features.Issue
 {
     public class IssueController : AuthorizedApiController
     {
-        public IssueController(IMediator mediator) : base(mediator)
+        private readonly IssueDetailsDropdownsSchemaService _issueDetailsDropdownsSchemaService;
+        public IssueController(IMediator mediator, 
+            IssueDetailsDropdownsSchemaService issueDetailsDropdownsSchemaService) : base(mediator)
         {
+            _issueDetailsDropdownsSchemaService = issueDetailsDropdownsSchemaService;
         }
 
         [HttpGet]
@@ -28,6 +32,31 @@ namespace TapTrackAPI.Core.Features.Issue
         public async Task<IActionResult> Edit([FromQuery] EditIssueCommand command)
         {
             return Ok(await Mediator.Send(command));
+        }
+
+        [HttpGet("board/{ProjectId}")]
+        public async Task<ActionResult<IssueOnBoardDto>> GetByProjectId([FromRoute] GetIssuesByProjectIdQuery query)
+        {
+            return Ok(await Mediator.Send(query));
+        }
+
+        [HttpPut("priority")]
+        public async Task<IActionResult> EditPriority([FromBody] EditPriorityIssueCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpPut("state")]
+        public async Task<IActionResult> EditState([FromBody] EditStateIssueCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpGet("Dropdowns/{issueId}")]
+        public IActionResult GetIssueDetailDropdownsSchema([FromRoute] Guid issueId)
+        {
+            var schema = _issueDetailsDropdownsSchemaService.GetSchema(issueId);
+            return schema == null ? BadRequest() : Ok(schema);
         }
     }
 }

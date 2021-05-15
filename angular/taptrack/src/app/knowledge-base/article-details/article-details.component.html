@@ -1,17 +1,21 @@
-<div *ngIf="article">
-  <h1>{{article.projectTitle}}</h1>
-  <h2>{{article.title}}</h2>
+<div *ngIf="article" class="article-details">
+  <div class="project-title">Project: {{article.projectTitle}}</div>
+  <div class="article-title">Title: {{article.title}}</div>
+  <p><b>Created by:</b></p>
   <p>
-    CreatedBy: {{article.createdBy.username}}
-    Email: {{article.createdBy.email}}
-    CreatedAt: {{article.createdAt}}
+    Username {{article.createdBy.username}};
+    Email: {{article.createdBy.email}};
+    Created at: {{article.createdAt}}
   </p>
+  <p><b>Updated by:</b></p>
   <p>
-    UpdatedBy: {{article.updatedBy.username}}
-    Email: {{article.updatedBy.email}}
-    UpdatedAt: {{article.updatedAt}}
+    Username {{article.updatedBy.username}};
+    Email: {{article.updatedBy.email}};
+    Updated at: {{article.updatedAt}}
   </p>
   <md-editor height="100%" mode="preview" [ngModel]="article.content"></md-editor>
-  <button type="button" class="btn btn-default" (click)="goToEdit(article.id)">Edit</button>
+  <button type="button" class="btn btn-primary" (click)="goToEdit(article.id)">Edit</button>
   <button type="button" class="btn btn-danger" (click)="deleteArticle()">Delete</button>
+  <div class="article-comments">Comments:</div>
+  <app-comments entityType="Article" [entityId]="article.id" [projectId]="article.belongsToId"></app-comments>
 </div>
