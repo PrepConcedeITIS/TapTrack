@@ -34,6 +34,8 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
 
             _dbContext.Set<Entities.Issue>().Remove(issue);
 
+            await _dbContext.SaveChangesAsync();
+
             return Unit.Value;
         }
 
