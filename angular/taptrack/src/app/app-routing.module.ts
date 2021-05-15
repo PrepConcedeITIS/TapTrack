@@ -20,6 +20,7 @@ import {RestorationPasswordComponent} from './auth/password-restoration/restorat
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
 import {ProfileComponent} from "./profile/profile.component";
 import {ArticleUpdateComponent} from "./knowledge-base/article-update/article-update.component";
+import {IssueCreateComponent} from "./issue/issue-create/issue-create.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
@@ -36,6 +37,7 @@ const routes: Routes = [
   {
     path: 'issue', canActivate: [AuthGuard], children: [
       {path: 'list', component: IssueListComponent, canActivate: [AuthGuard]},
+      {path: 'create', component: IssueCreateComponent, canActivate: [AuthGuard]},
       {path: ':id', component: IssueDetailsComponent, canActivate: [AuthGuard]}
     ]
   },
