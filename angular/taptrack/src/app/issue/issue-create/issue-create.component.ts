@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {tap} from "rxjs/operators";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {Router} from "@angular/router";
-import {IssueCreateDto} from "./IssueCreateDto";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {IssueCreateDto} from "../IssueCreateDto";
+import {environment} from "../../../environments/environment";
+import {Project} from "../../project/_interfaces/project";
 
 @Component({
   selector: 'app-issue-create',
@@ -14,13 +16,27 @@ import {IssueCreateDto} from "./IssueCreateDto";
 })
 export class IssueCreateComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private httpClient: HttpClient) {
   }
 
   serverValidationErrors: string;
   form = new FormGroup({});
-  model: IssueCreateDto = {description: '', name: '', type: '', assignee: '', priority: ''};
+  model: IssueCreateDto = {description: '', name: ''};
   fields: FormlyFieldConfig[] = [
+    {
+      key: 'project',
+      type: 'select',
+      templateOptions: {
+        label: 'Project',
+        required: true,
+        hideRequiredMarker: true,
+        valueProp: 'id',
+        labelProp: 'name',
+        options: this.getProjectsList()
+      }
+    },
     {
       key: 'name',
       type: 'input',
@@ -40,45 +56,19 @@ export class IssueCreateComponent implements OnInit {
         label: 'Issue Description',
         placeholder: 'Your new issue description',
         required: false,
-        maxLength: 500
-      }
-    },
-    {
-      key: 'assignee',
-      type: 'select',
-      templateOptions: {
-        label: 'Assignee',
-        placeholder: 'Issue assignee',
-        required: false,
-      }
-    },
-    {
-      key: 'type',
-      type: 'select',
-      templateOptions: {
-        label: 'Type',
-        placeholder: 'Issue type',
-        required: false,
-      }
-    },
-    {
-      key: 'priority',
-      type: 'select',
-      templateOptions: {
-        label: 'Priority',
-        placeholder: 'Issue priority',
-        required: false,
+        rows: 10
       }
     },
   ];
 
   ngOnInit(): void {
+
   }
 
   onSubmit() {
     this.createNewIssue()
-      .pipe(tap((issue) => {
-          this.router.navigate([`issue/details/${issue.id}`]);
+      .pipe(tap((issueId) => {
+          this.router.navigate([`issue/${issueId}`]);
         },
         (err: HttpErrorResponse) => {
           switch (err.status) {
@@ -90,7 +80,17 @@ export class IssueCreateComponent implements OnInit {
       .subscribe();
   }
 
-  createNewIssue(): Observable<any> {
-    return of();
+  createNewIssue(): Observable<string> {
+    const formData = new FormData();
+    const keys = Object.getOwnPropertyNames(this.model);
+    keys.forEach((propertyName) => {
+      formData.append(propertyName, this.model[propertyName]);
+    });
+
+    return this.httpClient.post<string>(`${environment.apiUrl}/issue/create/${this.model['project']}`, formData);
+  }
+
+  getProjectsList(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${environment.apiUrl}/project/get`);
   }
 }

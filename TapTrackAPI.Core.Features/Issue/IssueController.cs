@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Features.Issue.Create;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 using TapTrackAPI.Core.Features.Issue.Queries;
 
@@ -34,6 +35,13 @@ namespace TapTrackAPI.Core.Features.Issue
             return Ok(await Mediator.Send(command));
         }
 
+        [HttpPost("Create/{projectId}")]
+        public async Task<IActionResult> Create([FromForm] CreateIssueCommand command, [FromRoute] Guid projectId)
+        {
+            var commandWithUser = new CreateIssueCommand(command.Name, command.Description, projectId, User);
+            return Ok(await Mediator.Send(commandWithUser));
+        }
+
         [HttpGet("board/{ProjectId}")]
         public async Task<ActionResult<IssueOnBoardDto>> GetByProjectId([FromRoute] GetIssuesByProjectIdQuery query)
         {
@@ -52,10 +60,10 @@ namespace TapTrackAPI.Core.Features.Issue
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpGet("Dropdowns/{issueId}")]
-        public IActionResult GetIssueDetailDropdownsSchema([FromRoute] Guid issueId)
+        [HttpGet("Dropdowns/{projectId}")]
+        public IActionResult GetIssueDetailDropdownsSchema([FromRoute] Guid projectId)
         {
-            var schema = _issueDetailsDropdownsSchemaService.GetSchema(issueId);
+            var schema = _issueDetailsDropdownsSchemaService.GetSchema(projectId);
             return schema == null ? BadRequest() : Ok(schema);
         }
     }

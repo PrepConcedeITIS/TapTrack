@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Security.Claims;
+using JetBrains.Annotations;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Enums;
@@ -12,7 +16,7 @@ namespace TapTrackAPI.Core.Entities
         {
         }
 
-        public Issue(string title, string description, long creatorId, long assigneeId, Guid projectId, IssueType type,
+        public Issue(string title, string description, Guid creatorId, Guid assigneeId, Guid projectId, IssueType type,
             Priority priority)
         {
             Title = title;
@@ -28,14 +32,29 @@ namespace TapTrackAPI.Core.Entities
             Created = DateTime.Now;
         }
 
+        public Issue(string title, string description, Guid projectId, TeamMember creator, string idVisible)
+        {
+            Title = title;
+            Description = description;
+            ProjectId = projectId;
+            Creator = creator;
+            CreatorId = creator.UserId;
+            State = State.New;
+            Priority = Priority.Normal;
+            IssueType = IssueType.Task;
+            Created = DateTime.Now;
+            IdVisible = idVisible;
+        }
+
         public string Title { get; protected set; }
         public string Description { get; protected set; }
         [JsonIgnore]
         public virtual TeamMember Creator { get; protected set; }
-        public long CreatorId { get; set; }
-        [JsonIgnore]
+        public Guid CreatorId { get; set; }
+        [JsonIgnore] 
+        [CanBeNull] 
         public virtual TeamMember Assignee { get; protected set; }
-        public long AssigneeId { get; set; }
+        public Guid? AssigneeId { get; set; }
         [JsonIgnore]
         public virtual Project Project { get; protected set; }
         public Guid ProjectId { get; set; }
@@ -54,7 +73,7 @@ namespace TapTrackAPI.Core.Entities
         {
             Title = title;
             Description = description;
-            AssigneeId = assignee.Id;
+            AssigneeId = assignee.UserId;
             ProjectId = project.Id;
             Estimation = estimation;
             Spent = spent;
