@@ -5,7 +5,6 @@ import {environment} from "../../../environments/environment";
 import {IssueDetailsDto} from "../IssueDetailsDto";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormlyFieldConfig} from "@ngx-formly/core";
-import {first} from "rxjs/operators";
 import {DropdownsSchemaDto} from "../dropdownsSchemaDto";
 
 @Component({
@@ -32,7 +31,13 @@ export class IssueDetailsComponent implements OnInit {
     this.getIssue().subscribe(issueData => {
       this.issueData = issueData;
       this.httpClient.get<DropdownsSchemaDto>(`${this.baseUrl}Dropdowns/${issueData.projectId}`)
-        .subscribe(data => this.dropdownsSchema = data);
+        .subscribe(data => {
+          this.dropdownsSchema = data;
+          this.dropdownsSchema.assignee.push('unassigned');
+          if (!issueData.assignee) {
+            issueData.assignee = 'unassigned';
+          }
+        });
     });
   }
 
