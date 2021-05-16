@@ -27,6 +27,10 @@ import {ProjectDetailsComponent} from './project/details/project-details.compone
 import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from './issue/issue-details/issue-details.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {DragDropModule} from '@angular/cdk/drag-drop'
+import { AgileBoardComponent } from './agile-board/agile-board.component';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
 import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
@@ -45,6 +49,7 @@ import {CommentsComponent} from './commenting/comments/comments.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {SidebarModule} from "ng-sidebar";
+import { CommentUpdateComponent } from './commenting/comment-update/comment-update.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,7 @@ import {SidebarModule} from "ng-sidebar";
     ProjectListComponent,
     ProjectDetailsComponent,
     ErrorComponent,
+    AgileBoardComponent,
     RestorationEmailComponent,
     RestorationCodeComponent,
     RestorationPasswordComponent,
@@ -74,7 +80,8 @@ import {SidebarModule} from "ng-sidebar";
     ProjectServerErrorsComponent,
     ArticleUpdateComponent,
     TelegramBindingComponent,
-    CommentsComponent
+    CommentsComponent,
+    CommentUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -105,6 +112,9 @@ import {SidebarModule} from "ng-sidebar";
     AgGridModule.withComponents([]),
     AgGridModule,
     AccordionModule.forRoot(),
+    MatCardModule,
+    MatIconModule,
+    DragDropModule,
     FormsModule,
     LMarkdownEditorModule,
     ModalModule.forRoot(),

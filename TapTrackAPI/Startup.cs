@@ -26,6 +26,8 @@ using TapTrackAPI.Data;
 using TapTrackAPI.TelegramBot;
 using TapTrackAPI.TelegramBot.Base;
 using TapTrackAPI.TelegramBot.Commands.Start;
+using TapTrackAPI.TelegramBot.Interfaces;
+using TapTrackAPI.TelegramBot.Services;
 
 namespace TapTrackAPI
 {

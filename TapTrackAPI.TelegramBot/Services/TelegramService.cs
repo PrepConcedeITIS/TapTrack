@@ -6,13 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TapTrackAPI.TelegramBot.Base;
+using TapTrackAPI.TelegramBot.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace TapTrackAPI.TelegramBot
+namespace TapTrackAPI.TelegramBot.Services
 {
     public class TelegramService : IChatService, IDisposable
     {
@@ -106,7 +107,7 @@ namespace TapTrackAPI.TelegramBot
             }
         }
 
-        public async Task<bool> UpdateMessage(long chatId, int messageId, string? newText, Dictionary<string, string>? buttons = null)
+        public async Task<bool> UpdateMessage(long chatId, int messageId, string? newText, ParseMode parseMode = ParseMode.MarkdownV2, Dictionary<string, string>? buttons = null)
         {
             try
             {
@@ -114,7 +115,7 @@ namespace TapTrackAPI.TelegramBot
 
                 _logger.LogTrace("Updating message {MessageId}: {NewText}", messageId, newText);
 
-                await _botClient.EditMessageTextAsync(new ChatId(chatId), messageId, newText, parseMode: ParseMode.MarkdownV2, replyMarkup: GetInlineKeyboard(buttons));
+                await _botClient.EditMessageTextAsync(new ChatId(chatId), messageId, newText, parseMode: parseMode, replyMarkup: GetInlineKeyboard(buttons));
                 return true;
             }
             catch (Exception ex)
@@ -139,7 +140,7 @@ namespace TapTrackAPI.TelegramBot
             return inlineKeyboard;
         }
 
-        public async Task<bool> SendMessage(long chatId, string? message, Dictionary<string, string>? buttons = null)
+        public async Task<bool> SendMessage(long chatId, string? message, ParseMode parseMode = ParseMode.MarkdownV2, Dictionary<string, string>? buttons = null)
         {
             try
             {
@@ -147,7 +148,7 @@ namespace TapTrackAPI.TelegramBot
 
                 _logger.LogTrace("Sending message to {ChatId}: {Message}", chatId, message);
 
-                await _botClient.SendTextMessageAsync(new ChatId(chatId), message, parseMode: ParseMode.MarkdownV2, replyMarkup: GetInlineKeyboard(buttons));
+                await _botClient.SendTextMessageAsync(new ChatId(chatId), message, parseMode: parseMode, replyMarkup: GetInlineKeyboard(buttons));
                 return true;
             }
             catch (Exception ex)

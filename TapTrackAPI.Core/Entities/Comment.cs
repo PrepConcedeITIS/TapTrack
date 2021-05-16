@@ -40,5 +40,11 @@ namespace TapTrackAPI.Core.Entities
         protected Comment()
         {
         }
+
+        public void UpdateText(string text)
+        {
+            Text = text;
+            LastUpdated = DateTime.Now;
+        }
     }
 }

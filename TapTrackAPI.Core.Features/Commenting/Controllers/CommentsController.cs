@@ -23,7 +23,9 @@ namespace TapTrackAPI.Core.Features.Commenting.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllEntityComments([FromQuery] string entityType, [FromQuery] Guid entityId)
         {
-            var result = await Mediator.Send(new GetAllEntityCommentsQuery(entityId, entityType));
+            var result =
+                await Mediator.Send(
+                    new GetAllEntityCommentsQuery(entityId, entityType, UserManager.GetUserIdGuid(User)));
             if (result == null)
                 return BadRequest("Entity type is wrong");
             return Ok(result);
@@ -31,6 +33,12 @@ namespace TapTrackAPI.Core.Features.Commenting.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateComment([FromBody] CreateCommentCommand command)
+        {
+            return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditComment([FromBody] UpdateCommentCommand command)
         {
             return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
         }

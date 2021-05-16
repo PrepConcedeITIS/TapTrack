@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TapTrackAPI.TelegramBot.Base;
+using TapTrackAPI.TelegramBot.Interfaces;
 
 namespace TapTrackAPI.TelegramBot
 {
