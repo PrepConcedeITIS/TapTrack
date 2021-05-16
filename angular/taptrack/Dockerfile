@@ -6,7 +6,7 @@ RUN npm install -g @angular/cli
 COPY package.json .
 RUN npm install
 COPY . .
-RUN ng build 
+RUN ng build --prod
 
 FROM nginx as runtime
 COPY --from=build /app/dist /usr/share/nginx/html
