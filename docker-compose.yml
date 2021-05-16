@@ -17,6 +17,6 @@ services:
       - 5000:80
     
   client:
-    image: hernantos/hernantos/taptrack_client_1
+    image: hernantos/taptrack_client_1
     ports:
     - 3000:80
