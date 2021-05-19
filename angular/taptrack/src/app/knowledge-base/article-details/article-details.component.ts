@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {FullArticle} from "../_interfaces/full-article";
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {FullArticle} from '../_interfaces/full-article';
+import {KnowledgeBaseService} from '../knowledge-base.service';
 
 @Component({
   selector: 'app-article-details',
@@ -13,7 +14,8 @@ export class ArticleDetailsComponent implements OnInit {
   article: FullArticle;
   command: DeleteArticleCommand = {id: '', belongsToId: ''};
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
+              private knowledgeBaseService: KnowledgeBaseService) {
   }
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class ArticleDetailsComponent implements OnInit {
     this.http
       .request('delete', environment.apiUrl + '/articles', {body: this.command})
       .subscribe(() => {
+        this.knowledgeBaseService.needToRefreshArticles.next(true);
         this.router
           .navigate(['article'])
           .then();

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {FormGroup} from "@angular/forms";
-import {FormlyFieldConfig} from "@ngx-formly/core";
-import {Observable} from "rxjs";
-import {environment} from "../../../environments/environment";
-import {Location} from "@angular/common";
-import {Router} from "@angular/router";
-import {Option} from "../../_interfaces/option";
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {FormGroup} from '@angular/forms';
+import {FormlyFieldConfig} from '@ngx-formly/core';
+import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
+import {Option} from '../../_interfaces/option';
+import {KnowledgeBaseService} from '../knowledge-base.service';
 
 @Component({
   selector: 'app-article-create',
@@ -18,7 +19,8 @@ export class ArticleCreateComponent implements OnInit {
   model: CreateArticleCommand = {belongsToId: '', title: '', content: ''};
   fields: FormlyFieldConfig[];
 
-  constructor(private http: HttpClient, private location: Location, private router: Router) {
+  constructor(private http: HttpClient, private location: Location, private router: Router,
+              private knowledgeBaseService: KnowledgeBaseService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +53,10 @@ export class ArticleCreateComponent implements OnInit {
   onSubmit(model) {
     this.http
       .post<string>(environment.apiUrl + '/articles', model)
-      .subscribe(id => this.router.navigate(['/article/details', id]));
+      .subscribe(id => {
+        this.knowledgeBaseService.needToRefreshArticles.next(true);
+        this.router.navigate(['/article/details', id]);
+      });
   }
 
   goBack(): void {
