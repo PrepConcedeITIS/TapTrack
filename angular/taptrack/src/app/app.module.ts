@@ -50,6 +50,7 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {SidebarModule} from "ng-sidebar";
 import { CommentUpdateComponent } from './commenting/comment-update/comment-update.component';
+import { TaskComponent } from './agile-board/task/task.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { CommentUpdateComponent } from './commenting/comment-update/comment-upda
     ProjectDetailsComponent,
     ErrorComponent,
     AgileBoardComponent,
+    TaskComponent,
     RestorationEmailComponent,
     RestorationCodeComponent,
     RestorationPasswordComponent,

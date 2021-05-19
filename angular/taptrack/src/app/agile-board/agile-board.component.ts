@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IssueOnBoardDto } from './IssueDetailsDto';
+import { TaskComponent } from './task/task.component'
 
 @Component({
     selector: 'app-agile-board',
