@@ -4,7 +4,7 @@
     <div [ngClass]="model.logo ? 'row pt-4 pb-4' : 'p-4'">
 
       <div [ngClass]="model.logo ? 'pl-4 pr-1 col-md-8' : null">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" (input)="checkFields()">
           <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
           <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
         </form>

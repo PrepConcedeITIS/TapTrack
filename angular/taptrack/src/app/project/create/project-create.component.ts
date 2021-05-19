@@ -21,6 +21,7 @@ export class ProjectCreateComponent implements OnInit {
   constructor(private projectService: ProjectService, private router: Router) {
   }
 
+  private projectNameRegex = new RegExp('^[A-Za-z]');
   form = new FormGroup({});
   model: ProjectQuery = {description: '', idVisible: '', logo: undefined, name: ''};
   fields: FormlyFieldConfig[] = [
@@ -33,6 +34,7 @@ export class ProjectCreateComponent implements OnInit {
         placeholder: 'Enter your new project name',
         required: true,
         maxLength: 30,
+        pattern: this.projectNameRegex,
         hideRequiredMarker: true
       }
     },
@@ -91,6 +93,13 @@ export class ProjectCreateComponent implements OnInit {
           }
         }))
       .subscribe();
+  }
+
+  checkFields() {
+    const nameField = this.form.get('name');
+    if (nameField.hasError('pattern')) {
+      nameField.setErrors({pattern: 'Project name should start from letter'});
+    }
   }
 }
 
