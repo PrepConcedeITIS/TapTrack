@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {FullArticle} from '../_interfaces/full-article';
 import {KnowledgeBaseService} from '../knowledge-base.service';
+import {DateBeautifierService} from '../../_services/date-beautifier.service';
 
 @Component({
   selector: 'app-article-details',
@@ -13,9 +14,12 @@ import {KnowledgeBaseService} from '../knowledge-base.service';
 export class ArticleDetailsComponent implements OnInit {
   article: FullArticle;
   command: DeleteArticleCommand = {id: '', belongsToId: ''};
+  dateBeautifier: DateBeautifierService;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
-              private knowledgeBaseService: KnowledgeBaseService) {
+              private knowledgeBaseService: KnowledgeBaseService,
+              dateBeautifier: DateBeautifierService) {
+    this.dateBeautifier = dateBeautifier;
   }
 
   ngOnInit(): void {
