@@ -91,7 +91,8 @@ export class AgileBoardComponent implements OnInit {
             return;
         }
         const issueId = event.previousContainer.data[event.previousIndex].id;
-        this.editState(issueId, event.container.id)
+        this.editState(issueId, event.container.id[1]);
+        this.editPriority(issueId, event.container.id[0]);
         transferArrayItem(
             event.previousContainer.data,
             event.container.data,
