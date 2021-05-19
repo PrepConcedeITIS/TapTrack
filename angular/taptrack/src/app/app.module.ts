@@ -29,8 +29,8 @@ import {IssueDetailsComponent} from './issue/issue-details/issue-details.compone
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import {DragDropModule} from '@angular/cdk/drag-drop'
-import { AgileBoardComponent } from './agile-board/agile-board.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {AgileBoardComponent} from './agile-board/agile-board.component';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
 import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
@@ -47,10 +47,11 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {TelegramBindingComponent} from './profile/telegram-binding/telegram-binding.component';
 import {CommentsComponent} from './commenting/comments/comments.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
-import { NgSelectModule } from '@ng-select/ng-select';
-import {SidebarModule} from "ng-sidebar";
-import { CommentUpdateComponent } from './commenting/comment-update/comment-update.component';
-import { TaskComponent } from './agile-board/task/task.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {SidebarModule} from 'ng-sidebar';
+import {CommentUpdateComponent} from './commenting/comment-update/comment-update.component';
+import {TaskComponent} from './agile-board/task/task.component';
+import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.config';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,9 @@ import { TaskComponent } from './agile-board/task/task.component';
         {
           name: 'required',
           message: 'Field is required'
+        }, {
+          name: 'pattern',
+          message: (error: any, field: FormlyFieldConfig) => error
         }
       ],
       types: [
