@@ -13,8 +13,15 @@
         </span>
       </h4>
       <md-editor *ngIf="comment.mode === 'preview'" height="100%" mode="preview" [ngModel]="comment.text"></md-editor>
-      <button *ngIf="comment.isEditable" type="button" class="btn btn-primary" (click)="goToEdit(comment)">Edit</button>
-      <app-comment-update *ngIf="comment.mode === 'editor'" [comment]="comment"></app-comment-update>
+      <div *ngIf="!comment.isDeleted">
+        <button *ngIf="comment.isEditable" type="button" class="btn btn-primary" (click)="goToEdit(comment)">Edit</button>
+        <app-comment-update *ngIf="comment.mode === 'editor'" [comment]="comment"></app-comment-update>
+        <button *ngIf="comment.isDeletable" type="button" class="btn btn-primary" (click)="delete(comment)">Delete</button>
+      </div>
+      <div *ngIf="comment.isDeleted">
+        <button type="button" class="btn btn-primary">Restore</button>
+        <button type="button" class="btn btn-primary" (click)="deletePermanently(comment)">Delete permanently</button>
+      </div>
     </div>
   </div>
   <pagination [totalItems]="comments.length" (pageChanged)="pageChanged($event)"></pagination>
