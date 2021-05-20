@@ -30,7 +30,7 @@ namespace TapTrackAPI.Core.Features.Issue
         }
 
         [HttpPost("{Id}")]
-        public async Task<IActionResult> Edit([FromQuery] EditIssueCommand command)
+        public async Task<IActionResult> Edit([FromForm] EditIssueCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
