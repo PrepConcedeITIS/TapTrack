@@ -283,19 +283,13 @@ namespace TapTrackAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("AssigneeId")
-                        .HasColumnType("uuid");
-
-                    b.Property<long?>("AssigneeId1")
+                    b.Property<long>("AssigneeId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("CreatorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<long?>("CreatorId1")
+                    b.Property<long>("CreatorId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
@@ -330,9 +324,9 @@ namespace TapTrackAPI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssigneeId1");
+                    b.HasIndex("AssigneeId");
 
-                    b.HasIndex("CreatorId1");
+                    b.HasIndex("CreatorId");
 
                     b.HasIndex("IdVisible")
                         .IsUnique();
@@ -658,11 +652,15 @@ namespace TapTrackAPI.Data.Migrations
                 {
                     b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "Assignee")
                         .WithMany()
-                        .HasForeignKey("AssigneeId1");
+                        .HasForeignKey("AssigneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "Creator")
                         .WithMany()
-                        .HasForeignKey("CreatorId1");
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TapTrackAPI.Core.Entities.Project", "Project")
                         .WithMany("Issues")
