@@ -33,9 +33,9 @@ export class IssueDetailsComponent implements OnInit {
       this.httpClient.get<DropdownsSchemaDto>(`${this.baseUrl}Dropdowns/${issueData.projectId}`)
         .subscribe(data => {
           this.dropdownsSchema = data;
-          this.dropdownsSchema.assignee.push('unassigned');
+          this.dropdownsSchema.assignee.push('Unassigned');
           if (!issueData.assignee) {
-            issueData.assignee = 'unassigned';
+            issueData.assignee = 'Unassigned';
           }
         });
     });
