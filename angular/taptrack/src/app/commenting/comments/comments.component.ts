@@ -80,9 +80,9 @@ export class CommentsComponent implements OnChanges {
       projectId: comment.projectId
     };
     this.http
-      .post(environment.apiUrl + '/comments/restore', {body: command})
+      .post(environment.apiUrl + '/comments/restore/', command)
       .subscribe(() => {
-        comment.isDeleted = true;
+        comment.isDeleted = false;
       });
   }
 

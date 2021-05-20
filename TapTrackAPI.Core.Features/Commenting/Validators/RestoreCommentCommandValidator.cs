@@ -10,14 +10,12 @@ namespace TapTrackAPI.Core.Features.Commenting.Validators
     {
         public RestoreCommentCommandValidator(DbContext dbContext)
         {
-            Comment comment = null;
             RuleFor(command => command.Id)
                 .MustAsync(async (id, token) =>
                 {
-                    comment = await dbContext
+                    return await dbContext
                         .Set<Comment>()
-                        .FindAsync(new object[] {id}, token);
-                    return comment is {IsDeleted: true};
+                        .AnyAsync(comment => comment.Id == id && comment.IsDeleted, token);
                 })
                 .WithMessage("Comment with this id doesn't exist or wasn't really deleted")
                 .DependentRules(() =>
@@ -31,7 +29,7 @@ namespace TapTrackAPI.Core.Features.Commenting.Validators
                                 .SingleOrDefaultAsync(member => member.UserId == x.UserId, token);
                             if (teamMember == null)
                                 return false;
-                            return comment.IsDeleted && teamMember.Role == "Admin";
+                            return teamMember.Role == "Admin";
                         })
                         .WithMessage("Current user isn't admin of this project")
                         .WithErrorCode("403");
