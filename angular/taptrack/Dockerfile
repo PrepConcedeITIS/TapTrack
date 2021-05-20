@@ -1,5 +1,6 @@
 FROM node:15.3.0-alpine3.11 as build
 WORKDIR /app
+EXPOSE 4200
 
 RUN npm install -g @angular/cli
 
