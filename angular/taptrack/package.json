@@ -27,6 +27,7 @@
     "ace-builds": "^1.4.12",
     "ag-grid-angular": "^25.1.0",
     "ag-grid-community": "^25.1.0",
+    "date-diff": "^0.2.2",
     "font-awesome": "^4.7.0",
     "ng-sidebar": "^9.4.2",
     "ngx-bootstrap": "^6.2.0",
@@ -36,7 +37,7 @@
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1102.4",
+    "@angular-devkit/build-angular": "^0.1102.13",
     "@angular/cli": "~11.2.2",
     "@angular/compiler-cli": "~11.2.3",
     "@types/jasmine": "~3.6.0",

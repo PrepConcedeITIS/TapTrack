@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -127,6 +127,7 @@
       </Compile>
       <Compile Update="Invitation\AcceptOrDeclineCommand.cs">
         <DependentUpon>InvitationController.cs</DependentUpon>
+      </Compile>
       <Compile Update="Profile\GetTelegramInfo\GetTelegramInfoAsyncQueryHandler.cs">
         <DependentUpon>GetTelegramInfoQuery.cs</DependentUpon>
       </Compile>

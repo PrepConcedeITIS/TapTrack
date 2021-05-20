@@ -28,7 +28,7 @@ export class ProjectService {
     const formData = new FormData();
     const keys = Object.getOwnPropertyNames(project);
     keys.forEach((propertyName) => {
-      formData.append(propertyName, project[propertyName]);
+      formData.append(propertyName, project[propertyName] === null ? '' : project[propertyName]);
     });
 
     if (project.logo !== undefined) {
@@ -47,9 +47,8 @@ export class ProjectService {
     const formData = new FormData();
     const keys = Object.getOwnPropertyNames(project);
     keys.forEach((propertyName) => {
-      formData.append(propertyName, project[propertyName]);
+      formData.append(propertyName, project[propertyName] === null ? '' : project[propertyName]);
     });
-
     if (project.logo !== undefined) {
       formData.set('logo', project.logo[0], project.logo[0].name);
     }

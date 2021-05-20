@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TapTrackAPI.Data;
@@ -9,9 +10,10 @@ using TapTrackAPI.Data;
 namespace TapTrackAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210520102213_CreateIssue")]
+    partial class CreateIssue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,39 +277,6 @@ namespace TapTrackAPI.Data.Migrations
                             Id = new Guid("325b38a1-494c-478f-a6f4-5a8ee5f12b36"),
                             Name = "GitHub"
                         });
-                });
-
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.Invitation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("IdVisible")
-                        .HasColumnType("text");
-
-                    b.Property<int>("InvitationRole")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("InvitationState")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("ProjectId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdVisible")
-                        .IsUnique();
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Invitations");
                 });
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Issue", b =>
@@ -679,21 +648,6 @@ namespace TapTrackAPI.Data.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Issue");
-                });
-
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.Invitation", b =>
-                {
-                    b.HasOne("TapTrackAPI.Core.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId");
-
-                    b.HasOne("TapTrackAPI.Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TapTrackAPI.Core.Entities.Issue", b =>

@@ -1,18 +1,14 @@
 <div *ngIf="article" class="article-details">
   <div class="project-title">Project: {{article.projectTitle}}</div>
   <div class="article-title">Title: {{article.title}}</div>
-  <p><b>Created by:</b></p>
-  <p>
-    Username {{article.createdBy.username}};
-    Email: {{article.createdBy.email}};
-    Created at: {{article.createdAt}}
-  </p>
-  <p><b>Updated by:</b></p>
-  <p>
-    Username {{article.updatedBy.username}};
-    Email: {{article.updatedBy.email}};
-    Updated at: {{article.updatedAt}}
-  </p>
+  <h4>Created by
+    <b>{{article.createdBy.username}}</b>
+    <span matTooltip="{{article.createdAt | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(article.createdAt)}}</span>
+  </h4>
+  <h4>Updated by
+    <b>{{article.updatedBy.username}}</b>
+    <span matTooltip="{{article.updatedAt | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(article.updatedAt)}}</span>
+  </h4>
   <md-editor height="100%" mode="preview" [ngModel]="article.content"></md-editor>
   <button type="button" class="btn btn-primary" (click)="goToEdit(article.id)">Edit</button>
   <button type="button" class="btn btn-danger" (click)="deleteArticle()">Delete</button>
