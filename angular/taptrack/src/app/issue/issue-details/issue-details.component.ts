@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {IssueDetailsDto} from "./IssueDetailsDto";
+import {IssueDetailsDto} from "../IssueDetailsDto";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormlyFieldConfig} from "@ngx-formly/core";
-import {first} from "rxjs/operators";
-import {DropdownsSchemaDto} from "./dropdownsSchemaDto";
+import {DropdownsSchemaDto} from "../dropdownsSchemaDto";
 
 @Component({
   selector: 'app-details-list',
@@ -31,9 +30,15 @@ export class IssueDetailsComponent implements OnInit {
     this.baseUrl = `${environment.apiUrl}/issue/`;
     this.getIssue().subscribe(issueData => {
       this.issueData = issueData;
+      this.httpClient.get<DropdownsSchemaDto>(`${this.baseUrl}Dropdowns/${issueData.projectId}`)
+        .subscribe(data => {
+          this.dropdownsSchema = data;
+          this.dropdownsSchema.assignee.push('Unassigned');
+          if (!issueData.assignee) {
+            issueData.assignee = 'Unassigned';
+          }
+        });
     });
-    this.httpClient.get<DropdownsSchemaDto>(`${this.baseUrl}Dropdowns/${this.issueId}`)
-      .subscribe(data => this.dropdownsSchema = data);
   }
 
   getIssue(): Observable<IssueDetailsDto>{

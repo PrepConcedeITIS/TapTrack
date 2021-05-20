@@ -1,14 +1,14 @@
-using System.Linq;
+﻿using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Commands;
+using TapTrackAPI.Core.Features.Commenting.Queries;
 
 namespace TapTrackAPI.Core.Features.Commenting.Validators
 {
-    public class CreateCommentCommandValidator : AbstractValidator<CreateCommentCommand>
+    public class GetAllEntityCommentsQueryValidator : AbstractValidator<GetAllEntityCommentsQuery>
     {
-        public CreateCommentCommandValidator(DbContext dbContext)
+        public GetAllEntityCommentsQueryValidator(DbContext dbContext)
         {
             RuleFor(command => new {command.EntityType, command.ProjectId, command.EntityId})
                 .MustAsync(async (x, token) =>
@@ -37,7 +37,6 @@ namespace TapTrackAPI.Core.Features.Commenting.Validators
                         })
                         .WithMessage("Current user isn't member of this project")
                         .WithErrorCode("403");
-                    RuleFor(command => command.Text).NotEmpty();
                 });
         }
     }
