@@ -16,14 +16,8 @@ namespace TapTrackAPI.Core.Features.Issue
             _dbContext = dbContext;
         }
 
-        public IssueDetailsDropdownsSchema GetSchema(Guid issueId)
+        public IssueDetailsDropdownsSchema GetSchema(Guid projectId)
         {
-            var issue = _dbContext
-                .Set<Entities.Issue>()
-                .FirstOrDefault(x => x.Id == issueId);
-            if (issue == null) return null;
-            
-            var projectId = issue.ProjectId;
             var issueTypes = Enum.GetNames(typeof(IssueType));
             var priorities = Enum.GetNames(typeof(Priority));
             var states = Enum.GetNames(typeof(State));

@@ -50,7 +50,8 @@
 .short-name-creator{
   color: gray;
   font-size: 16px;
-  margin-left: 10px
+  margin-left: 10px;
+  margin-right: 20px;
 }
 
 .name{
@@ -79,5 +80,11 @@
 }
 
 .projectRedirectButton{
+  cursor: pointer;
+}
+
+.icon{
+  color: gray;
+  margin-left: 5px;
   cursor: pointer;
 }
