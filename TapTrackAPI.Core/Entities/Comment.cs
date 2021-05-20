@@ -46,5 +46,10 @@ namespace TapTrackAPI.Core.Entities
             Text = text;
             LastUpdated = DateTime.Now;
         }
+
+        public void MarkAsDeleted()
+        {
+            IsDeleted = true;
+        }
     }
 }

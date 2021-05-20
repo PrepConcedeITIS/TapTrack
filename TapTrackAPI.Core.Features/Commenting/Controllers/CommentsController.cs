@@ -13,7 +13,7 @@ namespace TapTrackAPI.Core.Features.Commenting.Controllers
 {
     public class CommentsController : AuthorizedApiController
     {
-        protected UserManager<User> UserManager { get; }
+        private UserManager<User> UserManager { get; }
 
         public CommentsController(IMediator mediator, UserManager<User> userManager) : base(mediator)
         {
@@ -21,11 +21,12 @@ namespace TapTrackAPI.Core.Features.Commenting.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllEntityComments([FromQuery] string entityType, [FromQuery] Guid entityId)
+        public async Task<IActionResult> GetAllEntityComments([FromQuery] string entityType, [FromQuery] Guid projectId,
+            [FromQuery] Guid entityId)
         {
             var result =
                 await Mediator.Send(
-                    new GetAllEntityCommentsQuery(entityId, entityType, UserManager.GetUserIdGuid(User)));
+                    new GetAllEntityCommentsQuery(entityType, projectId, entityId, UserManager.GetUserIdGuid(User)));
             if (result == null)
                 return BadRequest("Entity type is wrong");
             return Ok(result);
@@ -38,7 +39,13 @@ namespace TapTrackAPI.Core.Features.Commenting.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditComment([FromBody] UpdateCommentCommand command)
+        public async Task<IActionResult> UpdateComment([FromBody] UpdateCommentCommand command)
+        {
+            return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCommand([FromBody] DeleteCommentCommand command)
         {
             return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
         }
