@@ -64,6 +64,7 @@
                     <form [formGroup]="form" (ngSubmit)="saveNewProfileImage()">
                       <input type="file"
                              id="file"
+                             accept="image/jpeg, image/png"
                              (change)="handleFileInput($event.target.files)">
                       <button [disabled]="!isFileLoaded" type="submit" class="upld-img btn btn-primary btn-sm">
                         Save image
