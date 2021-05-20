@@ -74,6 +74,18 @@ export class CommentsComponent implements OnChanges {
       });
   }
 
+  restore(comment: Comment): void {
+    const command: RestoreCommentCommand = {
+      id: comment.id,
+      projectId: comment.projectId
+    };
+    this.http
+      .post(environment.apiUrl + '/comments/restore', {body: command})
+      .subscribe(() => {
+        comment.isDeleted = true;
+      });
+  }
+
   deletePermanently(comment: Comment): void {
     const command: DeleteCommentCommand = {
       id: comment.id,
@@ -105,5 +117,10 @@ interface CreateCommentCommand {
 interface DeleteCommentCommand {
   id: string;
   isCommentBeingDeletedPermanently: boolean;
+  projectId: string;
+}
+
+interface RestoreCommentCommand {
+  id: string;
   projectId: string;
 }
