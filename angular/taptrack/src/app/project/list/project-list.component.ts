@@ -27,18 +27,18 @@ export class ProjectListComponent implements OnInit {
   columnDefs = [
     {
       headerName: '',
-      width: 250,
+      width: 100,
       field: 'logoUrl',
       cellRendererFramework: ImageFormatterService
     },
     {
       headerName: 'Name',
-      width: 300,
+      width: 250,
       field: 'name'
     },
     {
       headerName: 'Description',
-      width: 600,
+      width: 850,
       field: 'description'
     }
   ];
