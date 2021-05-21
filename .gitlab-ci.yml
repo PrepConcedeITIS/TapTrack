@@ -18,7 +18,6 @@ dummy job on windows:
 build_solution:
   script: 
     - echo "building..."
-    - msbuild -target:Build -r TapTrackAPI.sln
   tags:
     - windows
   stage: build
