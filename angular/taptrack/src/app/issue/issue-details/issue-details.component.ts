@@ -6,6 +6,7 @@ import {IssueDetailsDto} from "../IssueDetailsDto";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {DropdownsSchemaDto} from "../dropdownsSchemaDto";
+import {IssueService} from "../../_services/issue.service";
 
 @Component({
   selector: 'app-details-list',
@@ -17,7 +18,8 @@ export class IssueDetailsComponent implements OnInit {
   private issueId: string;
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private issueService: IssueService) { }
   baseUrl: string;
   fields: FormlyFieldConfig[];
   issueData: IssueDetailsDto;
@@ -46,15 +48,18 @@ export class IssueDetailsComponent implements OnInit {
   }
 
   changeIssueType(){
-    console.log('changeIssueType');
+    this.issueService.editType(this.issueId, this.issueData.issueType)
+      .subscribe();
   }
 
   changePriority(){
-    console.log('changePriority');
+    this.issueService.editPriority(this.issueId, this.issueData.priority)
+      .subscribe();
   }
 
   changeAssignee(){
-    console.log('changeAssignee');
+    this.issueService.editAssignee(this.issueId, this.issueData.assignee)
+      .subscribe();
   }
   changeSpentTime(){
     console.log('changeSpentTime');
@@ -65,7 +70,8 @@ export class IssueDetailsComponent implements OnInit {
   }
 
   changeState(){
-    console.log('changeState');
+    this.issueService.editState(this.issueId, this.issueData.state)
+      .subscribe();
   }
 
   redirectToProject(){

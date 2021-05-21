@@ -59,6 +59,18 @@ namespace TapTrackAPI.Core.Features.Issue
         {
             return Ok(await Mediator.Send(command));
         }
+        
+        [HttpPut("assignee")]
+        public async Task<IActionResult> EditAssignee([FromBody] EditAssigneeIssueCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+        
+        [HttpPut("issueType")]
+        public async Task<IActionResult> EditIssueType([FromBody] EditIssueTypeCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
 
         [HttpGet("Dropdowns/{projectId}")]
         public IActionResult GetIssueDetailDropdownsSchema([FromRoute] Guid projectId)

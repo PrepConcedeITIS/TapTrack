@@ -99,5 +99,15 @@ namespace TapTrackAPI.Core.Entities
         {
             State = state;
         }
+        
+        public void UpdateIssueType(IssueType type)
+        {
+            IssueType = type;
+        }
+        
+        public void UpdateAssignee(long? assigneeId)
+        {
+            AssigneeId = assigneeId;
+        }
     }
 }

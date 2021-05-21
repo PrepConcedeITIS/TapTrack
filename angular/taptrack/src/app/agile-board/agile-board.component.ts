@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IssueOnBoardDto } from './IssueDetailsDto';
+import {IssueService} from "../_services/issue.service";
 
 @Component({
     selector: 'app-agile-board',
@@ -15,7 +16,7 @@ import { IssueOnBoardDto } from './IssueDetailsDto';
 export class AgileBoardComponent implements OnInit {
 
     private projectId: string;
-    constructor(private httpClient: HttpClient, private route: ActivatedRoute) { };
+    constructor(private httpClient: HttpClient, private route: ActivatedRoute, private issueService: IssueService) { }
     issueList = Array<IssueOnBoardDto>();
     new: IssueOnBoardDto[] = [];
     analyse: IssueOnBoardDto[] = [];
@@ -74,7 +75,7 @@ export class AgileBoardComponent implements OnInit {
             return;
         }
         const issueId = event.previousContainer.data[event.previousIndex].id;
-        this.editState(issueId, event.container.id)
+        this.editState(issueId, event.container.id);
         transferArrayItem(
             event.previousContainer.data,
             event.container.data,
@@ -84,16 +85,10 @@ export class AgileBoardComponent implements OnInit {
     }
 
     editState(Id: string, state: string): void{
-        this.httpClient.put(`${environment.apiUrl}/issue/state`, {
-            Id,
-            state
-          }).subscribe();
+       this.issueService.editState(Id, state).subscribe();
     }
 
     editPriority(Id: string, priority: string): void{
-        this.httpClient.put(`${environment.apiUrl}/issue/priority`, {
-            Id,
-            priority
-          }).subscribe();
+        this.issueService.editPriority(Id, priority).subscribe();
     }
 }
