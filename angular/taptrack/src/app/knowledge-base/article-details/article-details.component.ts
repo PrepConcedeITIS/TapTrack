@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {FullArticle} from "../_interfaces/full-article";
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {FullArticle} from '../_interfaces/full-article';
+import {KnowledgeBaseService} from '../knowledge-base.service';
+import {DateBeautifierService} from '../../_services/date-beautifier.service';
 
 @Component({
   selector: 'app-article-details',
@@ -12,8 +14,12 @@ import {FullArticle} from "../_interfaces/full-article";
 export class ArticleDetailsComponent implements OnInit {
   article: FullArticle;
   command: DeleteArticleCommand = {id: '', belongsToId: ''};
+  dateBeautifier: DateBeautifierService;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
+              private knowledgeBaseService: KnowledgeBaseService,
+              dateBeautifier: DateBeautifierService) {
+    this.dateBeautifier = dateBeautifier;
   }
 
   ngOnInit(): void {
@@ -36,6 +42,7 @@ export class ArticleDetailsComponent implements OnInit {
     this.http
       .request('delete', environment.apiUrl + '/articles', {body: this.command})
       .subscribe(() => {
+        this.knowledgeBaseService.needToRefreshArticles.next(true);
         this.router
           .navigate(['article'])
           .then();

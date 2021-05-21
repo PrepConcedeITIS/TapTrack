@@ -29,8 +29,8 @@ import {IssueDetailsComponent} from './issue/issue-details/issue-details.compone
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import {DragDropModule} from '@angular/cdk/drag-drop'
-import { AgileBoardComponent } from './agile-board/agile-board.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {AgileBoardComponent} from './agile-board/agile-board.component';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {RestorationEmailComponent} from './auth/password-restoration/restoration-email/restoration-email.component';
 import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
@@ -50,6 +50,8 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {SidebarModule} from "ng-sidebar";
 import { CommentUpdateComponent } from './commenting/comment-update/comment-update.component';
+import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
+import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.config';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { CommentUpdateComponent } from './commenting/comment-update/comment-upda
     ArticleUpdateComponent,
     TelegramBindingComponent,
     CommentsComponent,
-    CommentUpdateComponent
+    CommentUpdateComponent,
+    IssueCreateComponent
   ],
   imports: [
     CommonModule,
@@ -95,6 +98,9 @@ import { CommentUpdateComponent } from './commenting/comment-update/comment-upda
         {
           name: 'required',
           message: 'Field is required'
+        }, {
+          name: 'pattern',
+          message: (error: any, field: FormlyFieldConfig) => error
         }
       ],
       types: [

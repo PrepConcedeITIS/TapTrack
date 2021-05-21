@@ -13,7 +13,9 @@ namespace TapTrackAPI.Core.Features.Commenting.Mappers
     {
         public CommentingProfile()
         {
-            CreateMap<Comment, CommentDTO>();
+            CreateMap<Comment, CommentDTO>()
+                .ForMember(dto => dto.ProjectId,
+                    expression => expression.MapFrom(comment => comment.Article.BelongsToId));
             CreateMap<Comment, EditedCommentDTO>();
         }
     }

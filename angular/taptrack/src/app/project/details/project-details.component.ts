@@ -27,7 +27,6 @@ export class ProjectDetailsComponent implements OnInit {
       className: '',
       templateOptions: {
         label: 'Project Name',
-        placeholder: 'Enter your new project name',
         required: true,
         maxLength: 30,
         hideRequiredMarker: true,
@@ -40,7 +39,6 @@ export class ProjectDetailsComponent implements OnInit {
       id: 'idVisible',
       templateOptions: {
         label: 'Project Shortcut Name',
-        placeholder: 'Enter your new project shortcut name',
         required: true,
         maxLength: 7,
         hideRequiredMarker: true,
@@ -52,7 +50,6 @@ export class ProjectDetailsComponent implements OnInit {
       type: 'textarea',
       templateOptions: {
         label: 'Project Description',
-        placeholder: 'Your project description',
         required: false,
         maxLength: 500,
         disabled: true

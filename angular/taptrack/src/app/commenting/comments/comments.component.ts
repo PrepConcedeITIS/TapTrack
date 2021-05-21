@@ -1,10 +1,11 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {FormGroup} from "@angular/forms";
-import {FormlyFieldConfig} from "@ngx-formly/core";
-import {PageChangedEvent} from "ngx-bootstrap/pagination";
-import {Comment} from "../_interfaces/comment";
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {FormGroup} from '@angular/forms';
+import {FormlyFieldConfig} from '@ngx-formly/core';
+import {PageChangedEvent} from 'ngx-bootstrap/pagination';
+import {Comment} from '../_interfaces/comment';
+import {DateBeautifierService} from '../../_services/date-beautifier.service';
 
 @Component({
   selector: 'app-comments',
@@ -21,7 +22,10 @@ export class CommentsComponent implements OnChanges {
   comments: Comment[];
   returnedComments: Comment[];
 
-  constructor(private http: HttpClient) {
+  dateBeautifier: DateBeautifierService;
+
+  constructor(private http: HttpClient, dateBeautifier: DateBeautifierService) {
+    this.dateBeautifier = dateBeautifier;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -38,7 +42,7 @@ export class CommentsComponent implements OnChanges {
     this.http
       .get<Comment[]>(
         environment.apiUrl + '/comments',
-        {params: {entityType: this.entityType, entityId: this.entityId}})
+        {params: {entityType: this.entityType, projectId: this.projectId, entityId: this.entityId}})
       .subscribe(response => this.comments = response);
   }
 
@@ -56,6 +60,34 @@ export class CommentsComponent implements OnChanges {
     comment.mode = 'editor';
   }
 
+  delete(comment: Comment): void {
+    const command: DeleteCommentCommand = {
+      id: comment.id,
+      isCommentBeingDeletedPermanently: false,
+      projectId: comment.projectId
+    };
+    this.http
+      .request('delete', environment.apiUrl + '/comments', {body: command})
+      .subscribe(() => {
+        const index = this.comments.findIndex(x => x.id === comment.id);
+        this.comments.splice(index, 1);
+      });
+  }
+
+  deletePermanently(comment: Comment): void {
+    const command: DeleteCommentCommand = {
+      id: comment.id,
+      isCommentBeingDeletedPermanently: true,
+      projectId: comment.projectId
+    };
+    this.http
+      .request('delete', environment.apiUrl + '/comments', {body: command})
+      .subscribe(() => {
+        const index = this.comments.findIndex(x => x.id === comment.id);
+        this.comments.splice(index, 1);
+      });
+  }
+
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
@@ -68,4 +100,10 @@ interface CreateCommentCommand {
   entityId: string;
   projectId: string;
   text: string;
+}
+
+interface DeleteCommentCommand {
+  id: string;
+  isCommentBeingDeletedPermanently: boolean;
+  projectId: string;
 }

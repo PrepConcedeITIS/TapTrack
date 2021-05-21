@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {AuthenticationService} from '../../_services/authentication.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 
 @Component({templateUrl: 'login.component.html'})
@@ -20,10 +21,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    // redirect to home if already logged in
-    //if (this.authenticationService.currentUserValue) {
-    //  this.router.navigate(['/']);
-    //}
   }
 
   ngOnInit(): void {
@@ -55,16 +52,23 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.formControls.email.value, this.formControls.password.value)
       .pipe(first())
       .subscribe(
-        data => {
+        _ => {
           this.router.navigate([this.returnUrl]);
         },
-        error => {
-          this.error = error;
+        (error: HttpErrorResponse) => {
+          switch (error.status) {
+            case 400:
+              this.error = 'Incorrect login or password';
+          }
           this.loading = false;
         });
   }
 
   redirectToRegistration(): void {
     this.router.navigate(['registration']);
+  }
+
+  clearError() {
+    this.error = undefined;
   }
 }
