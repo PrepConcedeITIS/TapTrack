@@ -149,9 +149,8 @@
       <Compile Update="Issue\Get\IssueListItemDto.cs">
         <DependentUpon>GetIssueListQuery.cs</DependentUpon>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Issue\Delete" />
+      <Compile Update="Issue\Delete\IssueDeleteAsyncCommandHandler.cs">
+        <DependentUpon>IssueDeleteCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

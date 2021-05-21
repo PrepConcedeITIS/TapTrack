@@ -7,6 +7,8 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {DropdownsSchemaDto} from "../dropdownsSchemaDto";
 import {IssueService} from "../../_services/issue.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-details-list',
@@ -19,7 +21,8 @@ export class IssueDetailsComponent implements OnInit {
   constructor(private httpClient: HttpClient,
               private route: ActivatedRoute,
               private router: Router,
-              private issueService: IssueService) { }
+              private issueService: IssueService,
+              public dialog: MatDialog) { }
   baseUrl: string;
   fields: FormlyFieldConfig[];
   issueData: IssueDetailsDto;
@@ -76,5 +79,23 @@ export class IssueDetailsComponent implements OnInit {
 
   redirectToProject(){
     this.router.navigate([`project/details/${this.issueData.projectId}`]);
+  }
+  edit(){
+    this.router.navigate([`issue/edit/${this.issueId}`]);
+  }
+  delete(){
+    const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Delete Issue?',
+        message: 'Are you sure, you want to remove an issue?'
+      }
+    });
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result){
+        this.httpClient.delete<any>(this.baseUrl + `${this.issueId}`).subscribe(x =>
+          this.router.navigate([`issue/list`])
+        );
+      }
+    });
   }
 }
