@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {KnowledgeBaseService} from '../knowledge-base.service';
-import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-article',
@@ -13,8 +11,8 @@ import {delay} from 'rxjs/operators';
 export class ArticleComponent implements OnInit {
   opened = true;
   selectedArticleId: string;
-  projectsWithArticles: Observable<ProjectWithArticles[]>;
   projects: ProjectWithArticles[];
+  private projectsSource: ReadonlyArray<ProjectWithArticles>;
 
   constructor(private http: HttpClient, private knowledgeBaseService: KnowledgeBaseService) {
   }
@@ -32,8 +30,18 @@ export class ArticleComponent implements OnInit {
   private getData() {
     this.http.get<ProjectWithArticles[]>(environment.apiUrl + '/articles')
       .subscribe(x => {
-        this.projects = x;
+        this.projectsSource = x;
+        this.projects = this.projectsSource.slice();
       });
+  }
+
+  filterArticles($event: InputEvent) {
+    const query = ($event.target as HTMLInputElement).value;
+    this.projects = this.projectsSource.slice().map(value => {
+      const filteredArticles = value.articles.filter(article => article.title.toLowerCase().includes(query.toLowerCase()));
+      const projectWithArticles: ProjectWithArticles = {articles: filteredArticles, name: value.name};
+      return projectWithArticles;
+    }).filter(value => value.articles.length !== 0);
   }
 }
 
