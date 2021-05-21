@@ -3,7 +3,7 @@ using MediatR;
 using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Issue.Dtos;
 
-namespace TapTrackAPI.Core.Features.Issue.Queries
+namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     public class EditIssueCommand : IRequest<IssueDetailsDto>
     {

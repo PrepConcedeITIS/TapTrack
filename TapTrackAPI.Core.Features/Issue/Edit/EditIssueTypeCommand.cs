@@ -2,7 +2,7 @@ using System;
 using MediatR;
 using TapTrackAPI.Core.Enums;
 
-namespace TapTrackAPI.Core.Features.Issue.Queries
+namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     public class EditIssueTypeCommand : IRequest<Guid>
     {

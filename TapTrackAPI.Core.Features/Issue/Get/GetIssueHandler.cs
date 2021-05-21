@@ -7,9 +7,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Features.Issue.Dtos;
-using TapTrackAPI.Core.Features.Issue.Queries;
 
-namespace TapTrackAPI.Core.Features.Issue.Handlers
+namespace TapTrackAPI.Core.Features.Issue.Get
 {
     public class GetIssueHandler : RequestHandlerBase,
          IRequestHandler<GetIssueQuery, IssueDetailsDto>

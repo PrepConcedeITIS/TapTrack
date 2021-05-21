@@ -5,8 +5,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Features.Issue.Create;
-using TapTrackAPI.Core.Features.Issue.Dtos;
-using TapTrackAPI.Core.Features.Issue.Queries;
+using TapTrackAPI.Core.Features.Issue.Edit;
+using TapTrackAPI.Core.Features.Issue.Get;
+using TapTrackAPI.Core.Features.Issue.Services;
 
 namespace TapTrackAPI.Core.Features.Issue
 {
@@ -24,7 +25,7 @@ namespace TapTrackAPI.Core.Features.Issue
             => Ok(await Mediator.Send(query));
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<Entities.Issue>> Get([FromRoute] GetIssueQuery query)
+        public async Task<ActionResult<Entities.Issue>> Get([FromRoute] GetIssueQuery query) 
         {
             return Ok(await Mediator.Send(query));
         }

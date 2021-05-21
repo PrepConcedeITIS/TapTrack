@@ -5,9 +5,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Features.Issue.Queries;
 
-namespace TapTrackAPI.Core.Features.Issue.Handlers
+namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     public class EditIssueTypeHandler: RequestHandlerBase, IRequestHandler<EditIssueTypeCommand, Guid>
     {

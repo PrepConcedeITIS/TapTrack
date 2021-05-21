@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace TapTrackAPI.Core.Features.Issue.Queries
+namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     public class EditAssigneeIssueCommand : IRequest<Guid>
     {
