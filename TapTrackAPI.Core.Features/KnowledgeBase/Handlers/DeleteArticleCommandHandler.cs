@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -20,8 +21,12 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
         {
             var article = await DbContext
                 .Set<Article>()
-                .FindAsync(new object[] {request.Id}, cancellationToken);
+                .Include(x => x.Comments)
+                .SingleAsync(x => x.Id == request.Id, cancellationToken);
             DbContext.Entry(article).State = EntityState.Deleted;
+            DbContext
+                .Set<Comment>()
+                .RemoveRange(article.Comments);
             await DbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
