@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Enums;

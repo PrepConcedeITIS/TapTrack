@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,7 +8,6 @@ using Force.Linq;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Features.Commenting.DTOs;
 using TapTrackAPI.Core.Features.Commenting.Queries;
