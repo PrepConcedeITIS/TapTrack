@@ -47,10 +47,11 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {TelegramBindingComponent} from './profile/telegram-binding/telegram-binding.component';
 import {CommentsComponent} from './commenting/comments/comments.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
-import { NgSelectModule } from '@ng-select/ng-select';
-import {SidebarModule} from "ng-sidebar";
-import { CommentUpdateComponent } from './commenting/comment-update/comment-update.component';
-import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {SidebarModule} from 'ng-sidebar';
+import {CommentUpdateComponent} from './commenting/comment-update/comment-update.component';
+import {TaskComponent} from './agile-board/task/task.component';
+import {IssueCreateComponent} from './issue/issue-create/issue-create.component';
 import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.config';
 
 @NgModule({
@@ -71,6 +72,7 @@ import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.co
     ProjectDetailsComponent,
     ErrorComponent,
     AgileBoardComponent,
+    TaskComponent,
     RestorationEmailComponent,
     RestorationCodeComponent,
     RestorationPasswordComponent,

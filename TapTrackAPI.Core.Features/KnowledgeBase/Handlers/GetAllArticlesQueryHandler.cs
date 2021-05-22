@@ -26,6 +26,7 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
                 .Set<Entities.Project>()
                 .Where(project => project.Team.Any(member => member.UserId == request.UserId))
                 .ProjectTo<ProjectWithArticlesDto>(Mapper.ConfigurationProvider)
+                .Where(x=>x.Articles.Any())
                 .ToListAsync(cancellationToken);
             return projectsWithArticles;
         }
