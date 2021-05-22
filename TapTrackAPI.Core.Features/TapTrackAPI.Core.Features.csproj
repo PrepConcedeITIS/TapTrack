@@ -119,6 +119,56 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Issue\Validators" />
+      <Compile Update="Issue\Create\CreateIssueCommandHandler.cs">
+        <DependentUpon>CreateIssueCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Create\CreateIssueValidator.cs">
+        <DependentUpon>CreateIssueCommandHandler.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Services\IssueDetailsDropdownsSchema.cs">
+        <DependentUpon>IssueDetailsDropdownsSchemaService.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditAssigneeIssueHandler.cs">
+        <DependentUpon>EditAssigneeIssueCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueTypeHandler.cs">
+        <DependentUpon>EditIssueTypeCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditPriorityIssueHandler.cs">
+        <DependentUpon>EditPriorityIssueCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditStateIssueHandler.cs">
+        <DependentUpon>EditStateIssueCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Get\GetIssueListHandler.cs">
+        <DependentUpon>GetIssueListQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Get\GetIssueHandler.cs">
+        <DependentUpon>GetIssueQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Get\GetIssueByProjectIdHandler.cs">
+        <DependentUpon>GetIssuesByProjectIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Get\IssueOnBoardDto.cs">
+        <DependentUpon>GetIssuesByProjectIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Get\IssueListItemDto.cs">
+        <DependentUpon>GetIssueListQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueQueryHandler.cs">
+        <DependentUpon>IssueEditQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueCommandHandler.cs">
+        <DependentUpon>EditIssueCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueValidator.cs">
+        <DependentUpon>EditIssueCommandHandler.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueSpentTimeCommandHandler.cs">
+        <DependentUpon>EditIssueSpentTimeCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueEstimationTimeCommandHandler.cs">
+        <DependentUpon>EditIssueEstimationTimeCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

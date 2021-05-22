@@ -1,4 +1,6 @@
-using TapTrackAPI.Core.Features.Issue.Dtos;
+using TapTrackAPI.Core.Base.Utility;
+using TapTrackAPI.Core.Features.Issue.Edit;
+using TapTrackAPI.Core.Features.Issue.Get;
 
 namespace TapTrackAPI.Core.Features.Issue
 {
@@ -39,14 +41,10 @@ namespace TapTrackAPI.Core.Features.Issue
                     e.MapFrom(m => m.State.ToString()))
                 .ForMember(dto => dto.Priority, e =>
                     e.MapFrom(m => m.Priority.ToString()))
-                .ForMember(dto => dto.EstimationHours, e =>
-                    e.MapFrom(m => m.Estimation.Hours))
-                .ForMember(dto => dto.EstimationMinutes, e =>
-                    e.MapFrom(m => m.Estimation.Minutes))
-                .ForMember(dto => dto.SpentHours, e =>
-                    e.MapFrom(m => m.Spent.Hours))
-                .ForMember(dto => dto.SpentMinutes, e =>
-                    e.MapFrom(m => m.Spent.Minutes))
+                .ForMember(dto => dto.Spent, e =>
+                    e.MapFrom(m => TimeSpanFormatter.FormatterFromTimeSpan(m.Spent)))
+                .ForMember(dto => dto.Estimate, e =>
+                    e.MapFrom(m => TimeSpanFormatter.FormatterFromTimeSpan(m.Estimation)))
                 .ForMember(dto => dto.Created, e =>
                     e.MapFrom(m => m.Created.Date.ToShortDateString()))
                 .ForMember(dto => dto.IdVisible, e =>
@@ -79,6 +77,8 @@ namespace TapTrackAPI.Core.Features.Issue
                     e.MapFrom(m => m.Spent.Minutes))
                 .ForMember(dto => dto.Created, e =>
                     e.MapFrom(m => m.Created.Date.ToShortDateString()));
+
+            CreateMap<Entities.Issue, EditIssueDto>();
         }
     }
 }

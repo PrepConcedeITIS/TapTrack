@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IssueOnBoardDto } from './IssueDetailsDto';
 import { TaskComponent } from './task/task.component'
+import {IssueService} from "../_services/issue.service";
 
 @Component({
     selector: 'app-agile-board',
@@ -16,7 +17,7 @@ import { TaskComponent } from './task/task.component'
 export class AgileBoardComponent implements OnInit {
 
     private projectId: string;
-    constructor(private httpClient: HttpClient, private route: ActivatedRoute) { };
+    constructor(private httpClient: HttpClient, private route: ActivatedRoute, private issueService: IssueService) { }
     issueList = Array<IssueOnBoardDto>();
 
     minor: IssueOnBoardDto[][] = [[],[],[],[],[],[],[],[]];
@@ -102,17 +103,13 @@ export class AgileBoardComponent implements OnInit {
         );
     }
 
-    editState(Id: string, state: string): void {
-        this.httpClient.put(`${environment.apiUrl}/issue/state`, {
-            Id,
-            state
-        }).subscribe();
+
+    editState(Id: string, state: string): void{
+       this.issueService.editState(Id, state).subscribe();
     }
 
-    editPriority(Id: string, priority: string): void {
-        this.httpClient.put(`${environment.apiUrl}/issue/priority`, {
-            Id,
-            priority
-        }).subscribe();
+
+    editPriority(Id: string, priority: string): void{
+        this.issueService.editPriority(Id, priority).subscribe();
     }
 }

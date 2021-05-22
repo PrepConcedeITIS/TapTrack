@@ -1,18 +1,14 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Features.Issue.Dtos;
-using TapTrackAPI.Core.Features.Issue.Queries;
 
-namespace TapTrackAPI.Core.Features.Issue.Handlers
+namespace TapTrackAPI.Core.Features.Issue.Get
 {
     public class GetIssuesByProjectIdHandler : RequestHandlerBase,
          IRequestHandler<GetIssuesByProjectIdQuery, List<IssueOnBoardDto>>
