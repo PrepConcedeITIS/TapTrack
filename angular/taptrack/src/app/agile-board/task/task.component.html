@@ -1,7 +1,7 @@
-<mat-card class="item">
-    <h5>{{ task.title }}</h5>
-    <hr>
-    <p>
-        {{ task.description }}
-    </p>
+<mat-card class="item mat-elevation-z0 border">
+  <a style="color: black" routerLink="/issue/{{task.id}}">{{ task.title }}</a>
+  <hr>
+  <p>
+    {{ task.description }}
+  </p>
 </mat-card>
