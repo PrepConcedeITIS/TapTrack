@@ -31,10 +31,16 @@ namespace TapTrackAPI.Core.Features.Issue
             return Ok(await Mediator.Send(query));
         }
 
-        [HttpPost("{Id}")]
-        public async Task<IActionResult> Edit([FromForm] EditIssueCommand command)
+        [HttpGet("Edit/{issueId}")]
+        public async Task<ActionResult<EditIssueDto>> Get([FromRoute] Guid issueId) 
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new EditIssueQuery(issueId)));
+        }
+        [HttpPost("Edit/{issueId}")]
+        public async Task<IActionResult> Edit([FromForm] EditIssueCommand command, [FromRoute] Guid issueId)
+        {
+            return Ok(await Mediator.Send(
+                new EditIssueCommand(issueId, command.Title, command.Description, command.ProjectId)));
         }
 
         [HttpPost("Create/{projectId}")]

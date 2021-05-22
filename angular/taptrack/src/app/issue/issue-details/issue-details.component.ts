@@ -34,6 +34,7 @@ export class IssueDetailsComponent implements OnInit {
     });
     this.baseUrl = `${environment.apiUrl}/issue/`;
     this.getIssue().subscribe(issueData => {
+      console.log(issueData);
       this.issueData = issueData;
       this.httpClient.get<DropdownsSchemaDto>(`${this.baseUrl}Dropdowns/${issueData.projectId}`)
         .subscribe(data => {

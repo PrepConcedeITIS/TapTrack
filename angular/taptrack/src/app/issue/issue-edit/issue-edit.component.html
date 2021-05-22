@@ -1,1 +1,12 @@
-<p>issue-edit works!</p>
+<div class="col-md-4 offset-md-4 pt-5 mt-5">
+  <div class="card">
+    <h4 class="card-header">Edit Issue</h4>
+    <div class="p-4">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+      </form>
+      <app-project-server-errors [serverValidationErrors]="serverValidationErrors"></app-project-server-errors>
+    </div>
+  </div>
+</div>

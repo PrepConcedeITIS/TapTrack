@@ -152,5 +152,11 @@
       <Compile Update="Issue\Delete\IssueDeleteAsyncCommandHandler.cs">
         <DependentUpon>IssueDeleteCommand.cs</DependentUpon>
       </Compile>
+      <Compile Update="Issue\Edit\EditIssueQueryHandler.cs">
+        <DependentUpon>IssueEditQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueCommandHandler.cs">
+        <DependentUpon>EditIssueCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

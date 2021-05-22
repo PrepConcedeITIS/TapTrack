@@ -80,6 +80,8 @@ namespace TapTrackAPI.Core.Features.Issue
                     e.MapFrom(m => m.Spent.Minutes))
                 .ForMember(dto => dto.Created, e =>
                     e.MapFrom(m => m.Created.Date.ToShortDateString()));
+
+            CreateMap<Entities.Issue, EditIssueDto>();
         }
     }
 }
