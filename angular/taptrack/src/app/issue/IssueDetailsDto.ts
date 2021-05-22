@@ -12,4 +12,5 @@ export interface IssueDetailsDto{
   issueType: string;
   created: Date;
   idVisible: string;
+  id: string;
 }
