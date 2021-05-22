@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { IssueDetailsDto } from "src/app/issue/issue-details/IssueDetailsDto";
+import {IssueDetailsDto} from '../../issue/IssueDetailsDto';
 
 
 @Component({
@@ -14,6 +14,6 @@ export class TaskComponent implements OnInit{
 
 
     ngOnInit(): void {
-        
+
     }
 }
