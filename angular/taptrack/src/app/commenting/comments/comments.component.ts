@@ -19,8 +19,8 @@ export class CommentsComponent implements OnChanges {
   form = new FormGroup({});
   model: CreateCommentCommand = {entityType: '', entityId: '', projectId: '', text: ''};
   fields: FormlyFieldConfig[];
+  p = 1;
   comments: Comment[];
-  returnedComments: Comment[];
 
   dateBeautifier: DateBeautifierService;
 
@@ -98,12 +98,6 @@ export class CommentsComponent implements OnChanges {
         const index = this.comments.findIndex(x => x.id === comment.id);
         this.comments.splice(index, 1);
       });
-  }
-
-  pageChanged(event: PageChangedEvent): void {
-    const startItem = (event.page - 1) * event.itemsPerPage;
-    const endItem = event.page * event.itemsPerPage;
-    this.returnedComments = this.comments.slice(startItem, endItem);
   }
 }
 

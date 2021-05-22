@@ -55,6 +55,7 @@ import {IssueCreateComponent} from './issue/issue-create/issue-create.component'
 import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.config';
 import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     NgSelectModule,
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
