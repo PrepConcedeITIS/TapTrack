@@ -16,14 +16,14 @@ export class IssueListComponent implements OnInit {
   constructor(private httpClient: HttpClient, private router: Router) { }
   baseUrl: string;
   columnDefs = [
-    { field: 'title' },
-    { field: 'project' },
-    { field: 'priority' },
-    { field: 'state' },
-    { field: 'creator' },
-    { field: 'assignee' },
-    { field: 'estimate' },
-    { field: 'spent' }
+    { field: 'title', width: 250 },
+    { field: 'project', width: 250 },
+    { field: 'priority', width: 150 },
+    { field: 'state', width: 150 },
+    { field: 'creator', width: 150 },
+    { field: 'assignee', width: 150 },
+    { field: 'estimate', width: 150 },
+    { field: 'spent', width: 150 }
   ];
   rowData: Observable<IssueDto[]>;
 

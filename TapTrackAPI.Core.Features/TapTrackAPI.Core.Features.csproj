@@ -110,6 +110,16 @@
       <Compile Update="Profile\DeleteTelegramConnection\DeleteTelegramConnectionAsyncCommandHandler.cs">
         <DependentUpon>DeleteTelegramConnectionCommand.cs</DependentUpon>
       </Compile>
+      <Compile Update="Issue\Delete\IssueDeleteValidator.cs">
+        <DependentUpon>IssueDeleteCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Delete\IssueDeleteHandler.cs">
+        <DependentUpon>IssueDeleteValidator.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Issue\Validators" />
       <Compile Update="Issue\Create\CreateIssueCommandHandler.cs">
         <DependentUpon>CreateIssueCommand.cs</DependentUpon>
       </Compile>

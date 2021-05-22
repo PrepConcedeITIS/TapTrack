@@ -45,7 +45,7 @@ export class IssueCreateComponent implements OnInit {
         label: 'Issue Name',
         placeholder: 'Enter your new issue name',
         required: true,
-        maxLength: 500,
+        maxLength: 100,
         hideRequiredMarker: true
       }
     },
