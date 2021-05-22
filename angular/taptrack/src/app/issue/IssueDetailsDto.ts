@@ -14,4 +14,5 @@ export interface IssueDetailsDto{
   issueType: string;
   created: string;
   idVisible: string;
+  id: string;
 }
