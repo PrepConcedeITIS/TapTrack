@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Features.Issue.Create;
-using TapTrackAPI.Core.Features.Issue.Delete;
 using TapTrackAPI.Core.Features.Issue.Edit;
 using TapTrackAPI.Core.Features.Issue.Get;
 using TapTrackAPI.Core.Features.Issue.Services;
@@ -77,9 +76,5 @@ namespace TapTrackAPI.Core.Features.Issue
             var schema = _issueDetailsDropdownsSchemaService.GetSchema(projectId);
             return schema == null ? BadRequest() : Ok(schema);
         }
-        
-        [HttpDelete("{issueId}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid issueId) => 
-            Ok(await Mediator.Send(new IssueDeleteCommand(issueId)));
     }
 }
