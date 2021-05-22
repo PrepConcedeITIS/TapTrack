@@ -46,7 +46,7 @@ namespace TapTrackAPI.Core.Features.Issue
                 .ForMember(dto => dto.Estimate, e =>
                     e.MapFrom(m => TimeSpanFormatter.FormatterFromTimeSpan(m.Estimation)))
                 .ForMember(dto => dto.Created, e =>
-                    e.MapFrom(m => m.Created.Date.ToShortDateString()))
+                    e.MapFrom(m => m.Created))
                 .ForMember(dto => dto.IdVisible, e =>
                     e.MapFrom(m => m.IdVisible));
 
