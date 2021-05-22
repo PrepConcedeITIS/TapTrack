@@ -19,7 +19,7 @@
         <button *ngIf="comment.isDeletable" type="button" class="btn btn-primary" (click)="delete(comment)">Delete</button>
       </div>
       <div *ngIf="comment.isDeleted">
-        <button type="button" class="btn btn-primary">Restore</button>
+        <button type="button" class="btn btn-primary" (click)="restore(comment)">Restore</button>
         <button type="button" class="btn btn-primary" (click)="deletePermanently(comment)">Delete permanently</button>
       </div>
     </div>

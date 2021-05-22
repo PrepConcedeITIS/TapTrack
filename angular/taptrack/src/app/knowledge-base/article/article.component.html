@@ -3,7 +3,7 @@
     <!-- Sidebar -->
     <ng-sidebar [opened]="true">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search..." aria-label="Search"
+        <input type="text" class="form-control" placeholder="Search..." aria-label="Search" (input)="filterArticles($event)"
                style="min-width: 270px; margin-bottom: 1em">
       </div>
       <div *ngIf="projects else loading">
