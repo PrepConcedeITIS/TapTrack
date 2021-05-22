@@ -1,6 +1,6 @@
 using System;
 
-namespace TapTrackAPI.Core.Features.Issue.Get
+namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     public class EditIssueDto
     {

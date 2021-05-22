@@ -12,6 +12,6 @@ export interface IssueDetailsDto{
   spentMinutes: number;
   description: string;
   issueType: string;
-  created: string;
+  created: Date;
   idVisible: string;
 }

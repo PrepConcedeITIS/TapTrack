@@ -122,9 +122,6 @@
       <Compile Update="Issue\Edit\EditAssigneeIssueHandler.cs">
         <DependentUpon>EditAssigneeIssueCommand.cs</DependentUpon>
       </Compile>
-      <Compile Update="Issue\Edit\EditIssueHandler.cs">
-        <DependentUpon>EditIssueCommand.cs</DependentUpon>
-      </Compile>
       <Compile Update="Issue\Edit\EditIssueTypeHandler.cs">
         <DependentUpon>EditIssueTypeCommand.cs</DependentUpon>
       </Compile>
@@ -158,5 +155,12 @@
       <Compile Update="Issue\Edit\EditIssueCommandHandler.cs">
         <DependentUpon>EditIssueCommand.cs</DependentUpon>
       </Compile>
+      <Compile Update="Issue\Edit\EditIssueValidator.cs">
+        <DependentUpon>EditIssueCommandHandler.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Issue\Dtos" />
     </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-using TapTrackAPI.Core.Features.Issue.Dtos;
+using TapTrackAPI.Core.Features.Issue.Edit;
 using TapTrackAPI.Core.Features.Issue.Get;
 
 namespace TapTrackAPI.Core.Features.Issue

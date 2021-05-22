@@ -1,6 +1,6 @@
 using System;
 
-namespace TapTrackAPI.Core.Features.Issue.Dtos
+namespace TapTrackAPI.Core.Features.Issue.Get
 {
     public class IssueDetailsDto
     {

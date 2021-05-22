@@ -6,7 +6,6 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Features.Issue.Dtos;
 
 namespace TapTrackAPI.Core.Features.Issue.Get
 {
