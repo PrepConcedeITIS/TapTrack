@@ -119,7 +119,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Issue\Validators" />
       <Compile Update="Issue\Create\CreateIssueCommandHandler.cs">
         <DependentUpon>CreateIssueCommand.cs</DependentUpon>
       </Compile>
@@ -171,9 +170,5 @@
       <Compile Update="Issue\Edit\EditIssueEstimationTimeCommandHandler.cs">
         <DependentUpon>EditIssueEstimationTimeCommand.cs</DependentUpon>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Issue\Dtos" />
     </ItemGroup>
 </Project>
