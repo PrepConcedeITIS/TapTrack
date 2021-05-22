@@ -13,12 +13,9 @@ namespace TapTrackAPI.Core.Features.Issue.Get
         public string Project { get; set; }
         public Guid ProjectId { get; set; }
         public string State { get; set; }
-        public int EstimationHours { get; set; }
-        public int EstimationMinutes { get; set; }
         public string Created { get; set; }
-        public int SpentHours { get; set; }
-        public int SpentMinutes { get; set; }
-        
         public string IdVisible { get; set; }
+        public string Spent { get; set; }
+        public string Estimate { get; set; }
     }
 }

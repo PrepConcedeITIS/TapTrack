@@ -158,6 +158,12 @@
       <Compile Update="Issue\Edit\EditIssueValidator.cs">
         <DependentUpon>EditIssueCommandHandler.cs</DependentUpon>
       </Compile>
+      <Compile Update="Issue\Edit\EditIssueSpentTimeCommandHandler.cs">
+        <DependentUpon>EditIssueSpentTimeCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Issue\Edit\EditIssueEstimationTimeCommandHandler.cs">
+        <DependentUpon>EditIssueEstimationTimeCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

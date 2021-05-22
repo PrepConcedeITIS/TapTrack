@@ -64,6 +64,12 @@ namespace TapTrackAPI.Core.Features.Issue
         [HttpPut("issueType")]
         public async Task<IActionResult> EditIssueType([FromBody] EditIssueTypeCommand command) => 
             Ok(await Mediator.Send(command));
+        [HttpPut("spent")]
+        public async Task<IActionResult> EditIssueSpentTime([FromBody] EditIssueSpentTimeCommand command) => 
+            Ok(await Mediator.Send(command));
+        [HttpPut("estimation")]
+        public async Task<IActionResult> EditIssueEstimationTime([FromBody] EditIssueEstimationTimeCommand command) => 
+            Ok(await Mediator.Send(command));
 
         [HttpGet("Dropdowns/{projectId}")]
         public IActionResult GetIssueDetailDropdownsSchema([FromRoute] Guid projectId)

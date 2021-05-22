@@ -31,6 +31,20 @@ export class IssueService{
     });
   }
 
+  editSpentTime(Id: string, spent: string): Observable<any>{
+    return this.httpClient.put(`${environment.apiUrl}/issue/spent`, {
+      Id,
+      spent
+    });
+  }
+
+  editEstimation(Id: string, estimation: string): Observable<any>{
+    return this.httpClient.put(`${environment.apiUrl}/issue/estimation`, {
+      Id,
+      estimation
+    });
+  }
+
   editType(Id: string, issueType: string): Observable<any>{
     return this.httpClient.put(`${environment.apiUrl}/issue/issueType`, {
       Id,

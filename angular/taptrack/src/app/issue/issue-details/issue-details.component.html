@@ -59,13 +59,13 @@
       <div class="spentTime right-bar-element">
         <mat-form-field style="width: 100%">
           <mat-label>Spent time</mat-label>
-          <input matInput (change)="changeSpentTime()">
+          <input matInput (change)="changeSpentTime()" value="{{issueData.spent}}">
         </mat-form-field>
       </div>
       <div class="estimation right-bar-element">
         <mat-form-field style="width: 100%">
           <mat-label>Estimation</mat-label>
-          <input matInput (change)="changeEstimation()">
+          <input matInput (change)="changeEstimation()" value="{{issueData.estimate}}">
         </mat-form-field>
       </div>
       <div class="right-bar-element">

@@ -71,11 +71,13 @@ export class IssueDetailsComponent implements OnInit {
       .subscribe();
   }
   changeSpentTime(){
-    console.log('changeSpentTime');
+    this.issueService.editSpentTime(this.issueId, this.issueData.spent)
+      .subscribe();
   }
 
   changeEstimation(){
-    console.log('changeEstimation');
+    this.issueService.editEstimation(this.issueId, this.issueData.estimate)
+      .subscribe();
   }
 
   changeState(){

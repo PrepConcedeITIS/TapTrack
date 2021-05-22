@@ -90,5 +90,15 @@ namespace TapTrackAPI.Core.Entities
         {
             AssigneeId = assigneeId;
         }
+        
+        public void UpdateSpentTime(TimeSpan spent)
+        {
+            Spent = spent;
+        }
+        
+        public void UpdateEstimation(TimeSpan estimation)
+        {
+            Estimation = estimation;
+        }
     }
 }
