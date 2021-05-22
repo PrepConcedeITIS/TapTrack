@@ -5,9 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Force.Linq;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Features.Commenting.DTOs;
 using TapTrackAPI.Core.Features.Commenting.Queries;
@@ -24,36 +26,19 @@ namespace TapTrackAPI.Core.Features.Commenting.Handlers
         public async Task<List<CommentDTO>> Handle(GetAllEntityCommentsQuery request,
             CancellationToken cancellationToken)
         {
-            var (entityId, entityType, userId) = request;
-            return entityType switch
-            {
-                "Issue" => await GetIssueComments(entityId, userId, cancellationToken),
-                "Article" => await GetArticleComments(entityId, userId, cancellationToken),
-                _ => null
-            };
-        }
-
-        private async Task<List<CommentDTO>> GetIssueComments(Guid entityId, Guid userId, CancellationToken token)
-        {
+            var (entityType, projectId, entityId, userId) = request;
+            var teamMember = await DbContext
+                .Set<TeamMember>()
+                .Where(member => member.ProjectId == projectId)
+                .SingleAsync(member => member.UserId == userId, cancellationToken);
             var comments = await DbContext
                 .Set<Comment>()
-                .Where(comment => !comment.IsDeleted && comment.IssueId == entityId)
-                .OrderByDescending(comment => comment.Created)
+                .WhereIf(entityType == "Issue", comment => comment.IssueId == entityId,
+                    comment => comment.ArticleId == entityId)
+                .WhereIf(teamMember.Role == "User", comment => !comment.IsDeleted, comment => true)
                 .ProjectTo<CommentDTO>(Mapper.ConfigurationProvider)
-                .ToListAsync(token);
-            comments.ForEach(dto => dto.IsEditable = dto.Author.UserId == userId);
-            return comments;
-        }
-
-        private async Task<List<CommentDTO>> GetArticleComments(Guid entityId, Guid userId, CancellationToken token)
-        {
-            var comments = await DbContext
-                .Set<Comment>()
-                .Where(comment => !comment.IsDeleted && comment.ArticleId == entityId)
-                .OrderByDescending(comment => comment.Created)
-                .ProjectTo<CommentDTO>(Mapper.ConfigurationProvider)
-                .ToListAsync(token);
-            comments.ForEach(dto => dto.IsEditable = dto.Author.UserId == userId);
+                .ToListAsync(cancellationToken);
+            comments.ForEach(dto => dto.IsEditable = dto.IsDeletable = dto.Author.UserId == userId);
             return comments;
         }
     }

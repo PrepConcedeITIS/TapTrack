@@ -10,9 +10,9 @@ using TapTrackAPI.Core.Features.Commenting.DTOs;
 
 namespace TapTrackAPI.Core.Features.Commenting.Handlers
 {
-    public class EditCommentCommandHandler : BaseCommandHandler, IRequestHandler<UpdateCommentCommand, EditedCommentDTO>
+    public class UpdateCommentCommandHandler : BaseCommandHandler, IRequestHandler<UpdateCommentCommand, EditedCommentDTO>
     {
-        public EditCommentCommandHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public UpdateCommentCommandHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
