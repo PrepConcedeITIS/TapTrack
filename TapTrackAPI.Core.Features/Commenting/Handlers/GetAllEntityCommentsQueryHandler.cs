@@ -36,6 +36,7 @@ namespace TapTrackAPI.Core.Features.Commenting.Handlers
                 .WhereIf(entityType == "Issue", comment => comment.IssueId == entityId,
                     comment => comment.ArticleId == entityId)
                 .WhereIf(teamMember.Role == "User", comment => !comment.IsDeleted, comment => true)
+                .OrderByDescending(comment => comment.Created)
                 .ProjectTo<CommentDTO>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
             comments.ForEach(dto => dto.IsEditable = dto.IsDeletable = dto.Author.UserId == userId);

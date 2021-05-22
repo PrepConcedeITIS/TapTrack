@@ -38,6 +38,12 @@ namespace TapTrackAPI.Core.Features.Commenting.Controllers
             return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
         }
 
+        [HttpPost, Route("restore")]
+        public async Task<IActionResult> RestoreComment([FromBody] RestoreCommentCommand command)
+        {
+            return Ok(await Mediator.Send(command with {UserId = UserManager.GetUserIdGuid(User)}));
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdateComment([FromBody] UpdateCommentCommand command)
         {
