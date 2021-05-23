@@ -16,26 +16,36 @@ namespace TapTrackAPI.TelegramBot
         private readonly IChatService _chatService;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<Bot> _logger;
+        private readonly IHostEnvironment _hostEnvironment;
 
         public const string UnknownCommandMessage = "Unknown command. Try /help for a list of available commands.";
 
-        public Bot(IChatService chatService, IServiceProvider serviceProvider, ILogger<Bot> logger)
+        public Bot(IChatService chatService, IServiceProvider serviceProvider, ILogger<Bot> logger, IHostEnvironment hostEnvironment)
         {
             _chatService = chatService;
             _serviceProvider = serviceProvider;
             _logger = logger;
+            _hostEnvironment = hostEnvironment;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _chatService.ChatMessage += OnChatMessage;
-            _chatService.Callback += OnCallback;
+            if (_hostEnvironment.IsProduction())
+            {
+                _chatService.ChatMessage += OnChatMessage;
+                _chatService.Callback += OnCallback;
+            }
+
             return Task.CompletedTask;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _chatService.ChatMessage -= OnChatMessage;
+            if (_hostEnvironment.IsProduction())
+            {
+                _chatService.ChatMessage -= OnChatMessage;
+            }
+
             return Task.CompletedTask;
         }
 
