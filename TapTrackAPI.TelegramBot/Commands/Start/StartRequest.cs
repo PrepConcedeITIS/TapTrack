@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using TapTrackAPI.TelegramBot.Base;
 using TapTrackAPI.TelegramBot.Interfaces;
 
@@ -12,9 +13,12 @@ namespace TapTrackAPI.TelegramBot.Commands.Start
     {
         private readonly IMediator _mediator;
 
-        public StartRequest(IMediator mediator)
+        private readonly IHostEnvironment _webHostEnvironment;
+
+        public StartRequest(IMediator mediator, IHostEnvironment webHostEnvironment)
         {
             _mediator = mediator;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public string Command => "start";
@@ -24,6 +28,8 @@ namespace TapTrackAPI.TelegramBot.Commands.Start
         public async Task Execute(IChatService chatService, DbContext dbContext, long chatId, int userId, int messageId,
             string? commandText)
         {
+            if (!_webHostEnvironment.IsProduction())
+                return;
             var requestResponse = await _mediator.Send(new BindUserCommand(chatId, userId,
                 await chatService.GetChatMemberName(chatId, userId),
                 commandText!, dbContext));

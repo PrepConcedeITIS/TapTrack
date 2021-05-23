@@ -32,6 +32,9 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
             Issue issue, TeamMember? assignee)
         {
+            if (!_environment.IsProduction())
+                return TelegramNotificationStatus.DeclinedBySystem;
+
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
             if (assignee == null || actorId == assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
@@ -41,14 +44,14 @@ namespace TapTrackAPI.TelegramBot.Services
                 return TelegramNotificationStatus.UserNotificationsDisabled;
 
             var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "taptrack.tech")}/issue/{issue.Id}";
-            var message = $"<p>New <a href=\"{url}\">issue</a> was assigned to you</p>" +
-                          $"<p><b>{issue.Title}</b></p>" +
-                          $"<p>Status: {issue.State}</p>" +
-                          $"<p>Priority: {issue.Priority}</p>" +
-                          $"<p>Estimate time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Estimation)}</p>" +
-                          $"<p>Spent time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Spent)}</p>";
+            var message = $"New [issue]({url}) was assigned to you\n" +
+                          $"*{issue.Title}*\n" +
+                          $"Status: {issue.State}\n" +
+                          $"Priority: {issue.Priority}\n" +
+                          $"Estimate time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Estimation)}\n" +
+                          $"Spent time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Spent)}\n";
 
-            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message, ParseMode.Html);
+            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message);
 
             return isDelivered ? TelegramNotificationStatus.Success : TelegramNotificationStatus.Failed;
         }
@@ -56,6 +59,9 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueStatusChangeNotification(ClaimsPrincipal actionAuthor,
             State previousStatus, Issue issue)
         {
+            if (!_environment.IsProduction())
+                return TelegramNotificationStatus.DeclinedBySystem;
+
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
             if (issue.Assignee == null || actorId == issue.Assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
@@ -66,10 +72,10 @@ namespace TapTrackAPI.TelegramBot.Services
                 return TelegramNotificationStatus.UserNotificationsDisabled;
 
             var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "taptrack.tech")}/issue/{issue.Id}";
-            var message = $"<p><a href=\"{url}\">Issue</a> status changed: " +
-                          $"<b>{previousStatus}</b> → <b>{issue.State}</b></p>";
+            var message = $"[Issue]({url}) status changed: " +
+                          $"*{previousStatus}* → *{issue.State}*";
 
-            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message, ParseMode.Html);
+            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message);
 
             return isDelivered ? TelegramNotificationStatus.Success : TelegramNotificationStatus.Failed;
         }

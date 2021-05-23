@@ -12,12 +12,14 @@
     <div class="name">
       {{issueData.title}}
     </div>
-    <div class="description">
+    <div class="description" style="word-wrap: break-word ">
       {{issueData.description}}
     </div>
-    <div class="issue-comments">Comments:</div>
-    <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
+    <div class="commenting">
+      Comments:
+      <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
     </div>
+  </div>
   <div class="right-container">
     <div class="right-bar">
       <div class="project right-bar-element">
