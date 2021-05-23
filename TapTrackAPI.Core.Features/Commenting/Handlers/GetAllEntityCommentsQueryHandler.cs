@@ -31,8 +31,7 @@ namespace TapTrackAPI.Core.Features.Commenting.Handlers
                 .SingleAsync(member => member.UserId == userId, cancellationToken);
             var comments = await DbContext
                 .Set<Comment>()
-                .WhereIf(entityType == "Issue", comment => comment.IssueId == entityId,
-                    comment => comment.ArticleId == entityId)
+                .WhereIf(entityType == "Issue", comment => comment.IssueId == entityId, comment => comment.ArticleId == entityId)
                 .WhereIf(teamMember.Role == "User", comment => !comment.IsDeleted, comment => true)
                 .OrderByDescending(comment => comment.Created)
                 .ProjectTo<CommentDTO>(Mapper.ConfigurationProvider)

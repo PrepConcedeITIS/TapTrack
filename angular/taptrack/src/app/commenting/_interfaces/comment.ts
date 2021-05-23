@@ -2,7 +2,6 @@ export interface Comment {
   id: string;
   author: TeamMember;
   text: string;
-  projectId: string;
   isDeleted: boolean;
   created: Date;
   lastUpdated: Date;

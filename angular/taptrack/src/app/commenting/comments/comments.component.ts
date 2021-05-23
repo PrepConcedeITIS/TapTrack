@@ -64,7 +64,7 @@ export class CommentsComponent implements OnChanges {
     const command: DeleteCommentCommand = {
       id: comment.id,
       isCommentBeingDeletedPermanently: false,
-      projectId: comment.projectId
+      projectId: this.projectId
     };
     this.http
       .request('delete', environment.apiUrl + '/comments', {body: command})
@@ -77,7 +77,7 @@ export class CommentsComponent implements OnChanges {
   restore(comment: Comment): void {
     const command: RestoreCommentCommand = {
       id: comment.id,
-      projectId: comment.projectId
+      projectId: this.projectId
     };
     this.http
       .post(environment.apiUrl + '/comments/restore/', command)
@@ -90,7 +90,7 @@ export class CommentsComponent implements OnChanges {
     const command: DeleteCommentCommand = {
       id: comment.id,
       isCommentBeingDeletedPermanently: true,
-      projectId: comment.projectId
+      projectId: this.projectId
     };
     this.http
       .request('delete', environment.apiUrl + '/comments', {body: command})
