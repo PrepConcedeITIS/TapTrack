@@ -30,7 +30,7 @@ namespace TapTrackAPI.TelegramBot
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            if (_hostEnvironment.IsProduction())
+            if (_hostEnvironment.IsProduction() || true)
             {
                 _chatService.ChatMessage += OnChatMessage;
                 _chatService.Callback += OnCallback;
@@ -41,7 +41,7 @@ namespace TapTrackAPI.TelegramBot
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            if (_hostEnvironment.IsProduction())
+            if (_hostEnvironment.IsProduction() || true)
             {
                 _chatService.ChatMessage -= OnChatMessage;
             }

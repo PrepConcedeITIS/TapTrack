@@ -32,8 +32,8 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
             Issue issue, TeamMember? assignee)
         {
-            if (!_environment.IsProduction())
-                return TelegramNotificationStatus.DeclinedBySystem;
+            //if (!_environment.IsProduction())
+            //    return TelegramNotificationStatus.DeclinedBySystem;
 
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
             if (assignee == null || actorId == assignee.UserId)
@@ -59,8 +59,8 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueStatusChangeNotification(ClaimsPrincipal actionAuthor,
             State previousStatus, Issue issue)
         {
-            if (!_environment.IsProduction())
-                return TelegramNotificationStatus.DeclinedBySystem;
+            //if (!_environment.IsProduction())
+            //    return TelegramNotificationStatus.DeclinedBySystem;
 
             if ((previousStatus == State.Review && issue.State == State.Incomplete) ||
                 (previousStatus == State.InTest && issue.State == State.Incomplete) ||

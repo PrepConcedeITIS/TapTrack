@@ -28,8 +28,8 @@ namespace TapTrackAPI.TelegramBot.Commands.Start
         public async Task Execute(IChatService chatService, DbContext dbContext, long chatId, int userId, int messageId,
             string? commandText)
         {
-            if (!_webHostEnvironment.IsProduction())
-                return;
+            //if (!_webHostEnvironment.IsProduction())
+            //    return;
             var requestResponse = await _mediator.Send(new BindUserCommand(chatId, userId,
                 await chatService.GetChatMemberName(chatId, userId),
                 commandText!, dbContext));
