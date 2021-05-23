@@ -43,7 +43,7 @@ namespace TapTrackAPI.TelegramBot.Services
             if (tgConnection is not {IsNotificationsEnabled: true})
                 return TelegramNotificationStatus.UserNotificationsDisabled;
 
-            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "taptrack.tech")}/issue/{issue.Id}";
+            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "www.taptrack.tech")}/issue/{issue.Id}";
             var message = $"New [issue]({url}) was assigned to you\n" +
                           $"*{issue.Title}*\n" +
                           $"Status: {issue.State}\n" +
@@ -76,7 +76,7 @@ namespace TapTrackAPI.TelegramBot.Services
             if (tgConnection is not {IsNotificationsEnabled: true})
                 return TelegramNotificationStatus.UserNotificationsDisabled;
 
-            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "taptrack.tech")}/issue/{issue.Id}";
+            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "www.taptrack.tech")}/issue/{issue.Id}";
             var message = $"[Issue]({url}) status changed: " +
                           $"*{previousStatus}* → *{issue.State}*";
 
