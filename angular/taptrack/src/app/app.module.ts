@@ -56,6 +56,7 @@ import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.co
 import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {NgxPaginationModule} from "ngx-pagination";
+import { ResolveInviteComponent } from './resolve-invite/resolve-invite.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import {NgxPaginationModule} from "ngx-pagination";
     CommentUpdateComponent,
     IssueCreateComponent,
     IssueEditComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ResolveInviteComponent
   ],
   imports: [
     CommonModule,

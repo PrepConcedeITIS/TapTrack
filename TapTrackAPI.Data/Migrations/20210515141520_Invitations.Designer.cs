@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TapTrackAPI.Data;
@@ -9,9 +10,10 @@ using TapTrackAPI.Data;
 namespace TapTrackAPI.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210515141520_Invitations")]
+    partial class Invitations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,10 +294,10 @@ namespace TapTrackAPI.Data.Migrations
                     b.Property<int>("InvitationState")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("ProjectId")
+                    b.Property<Guid?>("ProjectId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -316,7 +318,7 @@ namespace TapTrackAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<long?>("AssigneeId")
+                    b.Property<long>("AssigneeId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("Created")
@@ -454,34 +456,6 @@ namespace TapTrackAPI.Data.Migrations
                     b.ToTable("TeamMembers");
                 });
 
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.TelegramConnection", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<long>("ChatId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsNotificationsEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("TelegramUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TelegramConnections");
-                });
-
             modelBuilder.Entity("TapTrackAPI.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -564,6 +538,9 @@ namespace TapTrackAPI.Data.Migrations
 
                     b.Property<string>("IdVisible")
                         .HasColumnType("text");
+
+                    b.Property<bool>("NotificationEnabled")
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -685,15 +662,11 @@ namespace TapTrackAPI.Data.Migrations
                 {
                     b.HasOne("TapTrackAPI.Core.Entities.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId");
 
                     b.HasOne("TapTrackAPI.Core.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Project");
 
@@ -704,7 +677,9 @@ namespace TapTrackAPI.Data.Migrations
                 {
                     b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "Assignee")
                         .WithMany()
-                        .HasForeignKey("AssigneeId");
+                        .HasForeignKey("AssigneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TapTrackAPI.Core.Entities.TeamMember", "Creator")
                         .WithMany()
@@ -751,17 +726,6 @@ namespace TapTrackAPI.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Project");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TapTrackAPI.Core.Entities.TelegramConnection", b =>
-                {
-                    b.HasOne("TapTrackAPI.Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });

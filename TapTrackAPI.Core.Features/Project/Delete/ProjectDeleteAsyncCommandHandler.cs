@@ -54,7 +54,7 @@ namespace TapTrackAPI.Core.Features.Project.Delete
             var tasks = new List<Task>();
             foreach (var email in emails)
             {
-                var message = new MailMessage(new MailAddress("taptrack@noreply.com", "ТапТрек"),
+                var message = new MailMessage(new MailAddress("taptrack@noreply.com", "TapTrack"),
                     new MailAddress(email))
                 {
                     Body = $"{projectName} has been deleted by creator",
