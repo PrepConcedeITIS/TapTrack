@@ -82,10 +82,30 @@ export class ProjectUpdateComponent implements OnInit {
   ];
 
   columnDefs = [
-    {field: 'userName', width: 150},
-    {field: 'projectName', width: 150},
-    {field: 'role', width: 150},
-    {field: 'status', width: 150}
+    {
+      headerName: 'User name',
+      width: 250,
+      field: 'userName',
+      suppressSizeToFit: false
+    },
+    {
+      headerName: 'Project name',
+      width: 250,
+      field: 'projectName',
+      suppressSizeToFit: false
+    },
+    {
+      headerName: 'Role',
+      width: 200,
+      field: 'role',
+      suppressSizeToFit: false
+    },
+    {
+      headerName: 'Status',
+      width: 200,
+      field: 'status',
+      suppressSizeToFit: false
+    },
   ];
 
   rowData: Observable<any>;
@@ -118,10 +138,6 @@ export class ProjectUpdateComponent implements OnInit {
           });
       });
     this.rowData = this.getInvitationResults();
-  }
-
-  onGridReady(params) {
-    params.columnApi.sizeColumnsToFit();
   }
 
   projectGeneralInfoSubmit() {

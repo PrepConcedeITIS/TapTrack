@@ -42,14 +42,12 @@
           </form>
           <div style="font-size: 18px; padding-top: 20px"> Invited Users </div>
           <ag-grid-angular
-            style="width: 760px; height: 200px; margin-top: 10px;"
+            style="height: 200px; margin-top: 10px;"
             class="ag-theme-alpine"
             [rowData]="rowData | async"
-            [columnDefs]="columnDefs"
-            (gridReady)="onGridReady($event)">
+            [columnDefs]="columnDefs">
           </ag-grid-angular>
         </div>
-
       </div>
     </tab>
   </tabset>
