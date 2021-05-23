@@ -57,7 +57,7 @@ namespace TapTrackAPI.TelegramBot.Services
             State previousStatus, Issue issue)
         {
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
-            if (actorId == issue.Assignee.UserId)
+            if (issue.Assignee == null || actorId == issue.Assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
 
             var tgConnection = await _dbContext.Set<TelegramConnection>()

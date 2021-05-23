@@ -22,8 +22,8 @@ namespace TapTrackAPI.Core.Features.Issue.Edit
 
         public async Task<Guid> Handle(EditStateIssueCommand request, CancellationToken cancellationToken)
         {
-            var issues = Context.Set<Entities.Issue>();
-            var issue = await issues.FindAsync(Guid.Parse(request.Id));
+            var issues = Context.Set<Entities.Issue>().Include(x => x.Assignee);
+            var issue = await issues.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id));
             var previousStatus = issue.State;
             issue.UpdateState(request.State);
             await Context.SaveChangesAsync(cancellationToken);
