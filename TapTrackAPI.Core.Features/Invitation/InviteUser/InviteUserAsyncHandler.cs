@@ -47,8 +47,8 @@ namespace TapTrackAPI.Core.Features.Invitation.InviteUser
                 new MailAddress(request.Email))
             {
                 Body =
-                    $"Вы были приглашены в проект {project?.Name}, чтобы принять перейдите по ссылке: {url}?IsAccept=true" +
-                    $"\nЧтобы отклонить перейдите по ссылке: {url}?IsAccept=false",
+                    $"Вы были приглашены в проект {project?.Name}, чтобы принять перейдите по ссылке: {url}?IsAccept=true&InvitationId={entityEntry.Entity.Id}" +
+                    $"\nЧтобы отклонить перейдите по ссылке: {url}?IsAccept=false&InvitationId={entityEntry.Entity.Id}",
                 IsBodyHtml = true
             };
 

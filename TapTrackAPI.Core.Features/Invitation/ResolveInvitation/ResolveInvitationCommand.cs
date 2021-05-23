@@ -8,7 +8,7 @@ namespace TapTrackAPI.Core.Features.Invitation.ResolveInvitation
     public class ResolveInvitationCommand : IRequest<ProjectDto>
     {
         [Required]
-        public Guid InvitationId { get; set; }
+        public string InvitationId { get; set; }
         [Required]
         public bool IsAccept { get; set; }
     }

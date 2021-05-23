@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -20,7 +21,7 @@ namespace TapTrackAPI.Core.Features.Invitation.ResolveInvitation
         public async Task<ProjectDto> Handle(ResolveInvitationCommand request, CancellationToken cancellationToken)
         {
             var invite = await DbContext.Set<Entities.Invitation>().Include(x => x.Project).Include(x => x.User)
-                .FirstOrDefaultAsync(x => x.Id == request.InvitationId, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.InvitationId), cancellationToken);
 
             invite.SetAcceptState(request.IsAccept);
 
