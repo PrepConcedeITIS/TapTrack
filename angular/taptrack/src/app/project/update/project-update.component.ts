@@ -82,7 +82,7 @@ export class ProjectUpdateComponent implements OnInit {
   ];
 
   columnDefs = [
-    {field: 'userName', width: 250},
+    {field: 'userName', width: 150},
     {field: 'projectName', width: 150},
     {field: 'role', width: 150},
     {field: 'status', width: 150}
