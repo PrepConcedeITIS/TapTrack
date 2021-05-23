@@ -1,17 +1,15 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using JetBrains.Annotations;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Features.Issue.Queries;
 
-namespace TapTrackAPI.Core.Features.Issue.Handlers
+namespace TapTrackAPI.Core.Features.Issue.Edit
 {
+    [UsedImplicitly]
     public class EditStateIssueHandler : RequestHandlerBase, IRequestHandler<EditStateIssueCommand, Guid>
     {
         private readonly IMediator _mediator;

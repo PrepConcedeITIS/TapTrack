@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TapTrackAPI.Core.Features.Issue.Dtos
+namespace TapTrackAPI.Core.Features.Issue.Get
 {
     public class IssueOnBoardDto
     {

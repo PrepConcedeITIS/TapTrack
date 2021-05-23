@@ -1,19 +1,17 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using JetBrains.Annotations;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
-using TapTrackAPI.Core.Features.Issue.Dtos;
-using TapTrackAPI.Core.Features.Issue.Queries;
 
-namespace TapTrackAPI.Core.Features.Issue.Handlers
+namespace TapTrackAPI.Core.Features.Issue.Get
 {
+    [UsedImplicitly]
     public class GetIssuesByProjectIdHandler : RequestHandlerBase,
          IRequestHandler<GetIssuesByProjectIdQuery, List<IssueOnBoardDto>>
     {
@@ -30,7 +28,7 @@ namespace TapTrackAPI.Core.Features.Issue.Handlers
                 .Set<Entities.Issue>()
                 .Where(x => x.ProjectId == request.ProjectId)
                 .ProjectTo<IssueOnBoardDto>(Mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
             return issueList;
         }
     }

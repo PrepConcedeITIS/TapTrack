@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Enums;
@@ -14,22 +11,6 @@ namespace TapTrackAPI.Core.Entities
     {
         protected Issue()
         {
-        }
-
-        public Issue(string title, string description, long creatorId, long assigneeId, Guid projectId, IssueType type,
-            Priority priority)
-        {
-            Title = title;
-            Description = description;
-            CreatorId = creatorId;
-            AssigneeId = assigneeId;
-            ProjectId = projectId;
-            Estimation = TimeSpan.Zero;
-            Spent = TimeSpan.Zero;
-            State = State.New;
-            IssueType = type;
-            Priority = priority;
-            Created = DateTime.Now;
         }
 
         public Issue(string title, string description, Guid projectId, TeamMember creator, string idVisible)
@@ -75,19 +56,16 @@ namespace TapTrackAPI.Core.Entities
 
         public virtual ICollection<Comment> Comment { get; protected set; }
 
-        public void Update(string title, string description, TeamMember assignee, Project project, TimeSpan estimation,
-            TimeSpan spent, State state, IssueType issueType, Priority priority)
+        public void Update(string title, string description)
         {
             Title = title;
             Description = description;
-            AssigneeId = assignee.Id;
-            ProjectId = project.Id;
-            Estimation = estimation;
-            Spent = spent;
-            State = state;
-            IssueType = issueType;
-            Priority = priority;
-            LastUpdated = DateTime.Now;
+        }
+
+        public void UpdateProject(Guid projectId)
+        {
+            AssigneeId = null;
+            ProjectId = projectId;
         }
 
         public void UpdatePriority(Priority priority)
@@ -98,6 +76,26 @@ namespace TapTrackAPI.Core.Entities
         public void UpdateState(State state)
         {
             State = state;
+        }
+        
+        public void UpdateIssueType(IssueType type)
+        {
+            IssueType = type;
+        }
+        
+        public void UpdateAssignee(long? assigneeId)
+        {
+            AssigneeId = assigneeId;
+        }
+        
+        public void UpdateSpentTime(TimeSpan spent)
+        {
+            Spent = spent;
+        }
+        
+        public void UpdateEstimation(TimeSpan estimation)
+        {
+            Estimation = estimation;
         }
     }
 }

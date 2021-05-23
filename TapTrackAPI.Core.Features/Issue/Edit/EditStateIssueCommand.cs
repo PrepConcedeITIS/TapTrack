@@ -1,12 +1,8 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using MediatR;
 using TapTrackAPI.Core.Enums;
 
-namespace TapTrackAPI.Core.Features.Issue.Queries
+namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     public class EditStateIssueCommand : IRequest<Guid>
     {

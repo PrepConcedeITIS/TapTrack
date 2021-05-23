@@ -19,7 +19,7 @@ using TapTrackAPI.Core.Base.ValidationBase;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
-using TapTrackAPI.Core.Features.Issue;
+using TapTrackAPI.Core.Features.Issue.Services;
 using TapTrackAPI.Core.Interfaces;
 using TapTrackAPI.Core.Services;
 using TapTrackAPI.Data;

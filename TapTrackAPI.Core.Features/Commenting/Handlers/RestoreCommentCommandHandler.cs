@@ -9,21 +9,18 @@ using TapTrackAPI.Core.Features.Commenting.Commands;
 
 namespace TapTrackAPI.Core.Features.Commenting.Handlers
 {
-    public class DeleteCommentCommandHandler : BaseCommandHandler, IRequestHandler<DeleteCommentCommand, Unit>
+    public class RestoreCommentCommandHandler : BaseCommandHandler, IRequestHandler<RestoreCommentCommand, Unit>
     {
-        public DeleteCommentCommandHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public RestoreCommentCommandHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
-        public async Task<Unit> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RestoreCommentCommand request, CancellationToken cancellationToken)
         {
             var comment = await DbContext
                 .Set<Comment>()
                 .FindAsync(new object[] {request.Id}, cancellationToken);
-            if (request.IsCommentBeingDeletedPermanently)
-                DbContext.Entry(comment).State = EntityState.Deleted;
-            else
-                comment.MarkAsDeleted();
+            comment.UnmarkAsDeleted();
             await DbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

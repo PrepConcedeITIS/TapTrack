@@ -53,6 +53,9 @@ import {CommentUpdateComponent} from './commenting/comment-update/comment-update
 import {TaskComponent} from './agile-board/task/task.component';
 import {IssueCreateComponent} from './issue/issue-create/issue-create.component';
 import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.config';
+import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -86,7 +89,9 @@ import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.co
     TelegramBindingComponent,
     CommentsComponent,
     CommentUpdateComponent,
-    IssueCreateComponent
+    IssueCreateComponent,
+    IssueEditComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -128,7 +133,8 @@ import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.co
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     NgSelectModule,
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

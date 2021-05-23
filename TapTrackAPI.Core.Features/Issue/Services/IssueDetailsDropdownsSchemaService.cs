@@ -3,9 +3,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
-using TapTrackAPI.Core.Features.Issue.Dtos;
 
-namespace TapTrackAPI.Core.Features.Issue
+namespace TapTrackAPI.Core.Features.Issue.Services
 {
     public class IssueDetailsDropdownsSchemaService
     {

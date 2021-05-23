@@ -1,6 +1,6 @@
 <div *ngIf="comments">
   <div class="content-wrapper">
-    <div class="content-item" *ngFor="let comment of comments">
+    <div class="content-item" *ngFor="let comment of comments | paginate: {itemsPerPage: 10, currentPage: p }">
       <h4>Created by
         <b matTooltip="{{comment.author.email}}">{{comment.author.username}}</b>
         <span matTooltip="{{comment.created | date:'d MMM YYYY HH:mm'}}">
@@ -19,12 +19,12 @@
         <button *ngIf="comment.isDeletable" type="button" class="btn btn-primary" (click)="delete(comment)">Delete</button>
       </div>
       <div *ngIf="comment.isDeleted">
-        <button type="button" class="btn btn-primary">Restore</button>
+        <button type="button" class="btn btn-primary" (click)="restore(comment)">Restore</button>
         <button type="button" class="btn btn-primary" (click)="deletePermanently(comment)">Delete permanently</button>
       </div>
     </div>
   </div>
-  <pagination [totalItems]="comments.length" (pageChanged)="pageChanged($event)"></pagination>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit(model)" style="margin-bottom: 3em">
   <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
