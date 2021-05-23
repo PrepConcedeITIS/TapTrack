@@ -1,13 +1,9 @@
 ﻿using System;
+using System.Security.Claims;
 using MediatR;
 using TapTrackAPI.Core.Enums;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
-    public class EditStateIssueCommand : IRequest<Guid>
-    {
-        public string Id { get; set; }
-
-        public State State { get; set; }
-    }
+    public record EditStateIssueCommand(string Id, State State, ClaimsPrincipal User) : IRequest<Guid>;
 }

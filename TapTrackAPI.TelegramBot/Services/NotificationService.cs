@@ -30,10 +30,10 @@ namespace TapTrackAPI.TelegramBot.Services
         }
 
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
-            Issue issue, TeamMember assignee)
+            Issue issue, TeamMember? assignee)
         {
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
-            if (actorId == assignee.UserId)
+            if (assignee == null || actorId == assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
             var tgConnection = await _dbContext.Set<TelegramConnection>()
                 .FirstOrDefaultAsync(x => x.UserId == assignee.UserId);
