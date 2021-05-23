@@ -62,6 +62,11 @@ namespace TapTrackAPI.TelegramBot.Services
             if (!_environment.IsProduction())
                 return TelegramNotificationStatus.DeclinedBySystem;
 
+            if (/*(previousStatus == State.Review && issue.State == State.Incomplete) ||*/
+                (previousStatus == State.InTest && issue.State == State.Incomplete) ||
+                (previousStatus == State.Acceptance && issue.State == State.Incomplete))
+                return TelegramNotificationStatus.DeclinedBySystem;
+            
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
             if (issue.Assignee == null || actorId == issue.Assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
