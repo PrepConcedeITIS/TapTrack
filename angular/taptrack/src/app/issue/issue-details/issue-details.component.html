@@ -15,11 +15,9 @@
     <div class="description">
       {{issueData.description}}
     </div>
-    <div class="commenting">
-      Комментирование
-      <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
+    <div class="issue-comments">Comments:</div>
+    <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
     </div>
-  </div>
   <div class="right-container">
     <div class="right-bar">
       <div class="project right-bar-element">

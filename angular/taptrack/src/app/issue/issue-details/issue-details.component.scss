@@ -6,7 +6,7 @@
 
 .left-container{
   width: 50%;
-  height: 600px;
+  height: 800px;
   margin-right: 5px; display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -64,11 +64,6 @@
   font-size: 20px;
 }
 
-.commenting{
-  height: 50%;
-  font-size: 18px;
-}
-
 .project{
   padding-top: 10%
 }
@@ -95,4 +90,10 @@
 
 .icon:hover {
   color: black;
+}
+
+.issue-comments {
+  font-size: 28px;
+  color: lightslategray;
+  margin: 2em 0 1em 0;
 }
