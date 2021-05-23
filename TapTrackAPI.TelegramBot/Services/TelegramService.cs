@@ -144,7 +144,7 @@ namespace TapTrackAPI.TelegramBot.Services
         {
             try
             {
-                message = EscapeText(message);
+                //message = EscapeText(message);
 
                 _logger.LogTrace("Sending message to {ChatId}: {Message}", chatId, message);
 
