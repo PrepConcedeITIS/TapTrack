@@ -51,5 +51,10 @@ namespace TapTrackAPI.Core.Entities
         {
             IsDeleted = true;
         }
+
+        public void UnmarkAsDeleted()
+        {
+            IsDeleted = false;
+        }
     }
 }

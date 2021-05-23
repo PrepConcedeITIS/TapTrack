@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,7 +8,6 @@ using Force.Linq;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Features.Commenting.DTOs;
 using TapTrackAPI.Core.Features.Commenting.Queries;
@@ -33,9 +31,9 @@ namespace TapTrackAPI.Core.Features.Commenting.Handlers
                 .SingleAsync(member => member.UserId == userId, cancellationToken);
             var comments = await DbContext
                 .Set<Comment>()
-                .WhereIf(entityType == "Issue", comment => comment.IssueId == entityId,
-                    comment => comment.ArticleId == entityId)
+                .WhereIf(entityType == "Issue", comment => comment.IssueId == entityId, comment => comment.ArticleId == entityId)
                 .WhereIf(teamMember.Role == "User", comment => !comment.IsDeleted, comment => true)
+                .OrderByDescending(comment => comment.Created)
                 .ProjectTo<CommentDTO>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
             comments.ForEach(dto => dto.IsEditable = dto.IsDeletable = dto.Author.UserId == userId);

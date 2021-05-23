@@ -2,9 +2,12 @@
   <div class="left-container">
     <div class="short-name">
       <div class="short-name-idVisible">{{issueData.idVisible}}</div>
-      <div class="short-name-creator">Created By {{issueData.creator}} хх хх time ago</div>
-      <mat-icon class="icon">edit</mat-icon>
-      <mat-icon class="icon">delete</mat-icon>
+      <div class="short-name-creator">
+        <span>Created By {{issueData.creator}}</span>
+        <span matTooltip="{{issueData.created | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(issueData.created)}}</span>
+      </div>
+      <mat-icon class="icon" (click)="edit()">edit</mat-icon>
+      <mat-icon class="icon" (click)="delete()">delete</mat-icon>
     </div>
     <div class="name">
       {{issueData.title}}
@@ -14,6 +17,7 @@
     </div>
     <div class="commenting">
       Комментирование
+      <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
     </div>
   </div>
   <div class="right-container">
@@ -45,6 +49,16 @@
       </div>
       <div class="right-bar-element">
         <ng-select
+          placeholder="State"
+          [items]="dropdownsSchema.state"
+          [(ngModel)]="issueData.state"
+          [clearable]="false"
+          [searchable]="false"
+          (change)="changeState()"
+        ></ng-select>
+      </div>
+      <div class="right-bar-element">
+        <ng-select
           placeholder="Assignee"
           [items]="dropdownsSchema.assignee"
           [(ngModel)]="issueData.assignee"
@@ -56,24 +70,14 @@
       <div class="spentTime right-bar-element">
         <mat-form-field style="width: 100%">
           <mat-label>Spent time</mat-label>
-          <input matInput (change)="changeSpentTime()">
+          <input matInput (change)="changeSpentTime()" [(ngModel)]="issueData.spent" pattern="\d+w \d+d \d+h *">
         </mat-form-field>
       </div>
       <div class="estimation right-bar-element">
         <mat-form-field style="width: 100%">
           <mat-label>Estimation</mat-label>
-          <input matInput (change)="changeEstimation()">
+          <input matInput (change)="changeEstimation()" [(ngModel)]="issueData.estimate" pattern="\d+w \d+d \d+h *">
         </mat-form-field>
-      </div>
-      <div class="right-bar-element">
-        <ng-select
-          placeholder="State"
-          [items]="dropdownsSchema.state"
-          [(ngModel)]="issueData.state"
-          [clearable]="false"
-          [searchable]="false"
-          (change)="changeState()"
-        ></ng-select>
       </div>
     </div>
   </div>

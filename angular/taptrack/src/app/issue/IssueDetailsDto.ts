@@ -6,12 +6,11 @@ export interface IssueDetailsDto{
   state: string;
   creator: string;
   assignee: string;
-  estimationHours: number;
-  estimationMinutes: number;
-  spentHours: number;
-  spentMinutes: number;
+  spent: string;
+  estimate: string;
   description: string;
   issueType: string;
-  created: string;
+  created: Date;
   idVisible: string;
+  id: string;
 }

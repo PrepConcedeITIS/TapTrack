@@ -19,8 +19,8 @@ export class CommentsComponent implements OnChanges {
   form = new FormGroup({});
   model: CreateCommentCommand = {entityType: '', entityId: '', projectId: '', text: ''};
   fields: FormlyFieldConfig[];
+  p = 1;
   comments: Comment[];
-  returnedComments: Comment[];
 
   dateBeautifier: DateBeautifierService;
 
@@ -64,13 +64,25 @@ export class CommentsComponent implements OnChanges {
     const command: DeleteCommentCommand = {
       id: comment.id,
       isCommentBeingDeletedPermanently: false,
-      projectId: comment.projectId
+      projectId: this.projectId
     };
     this.http
       .request('delete', environment.apiUrl + '/comments', {body: command})
       .subscribe(() => {
         const index = this.comments.findIndex(x => x.id === comment.id);
         this.comments.splice(index, 1);
+      });
+  }
+
+  restore(comment: Comment): void {
+    const command: RestoreCommentCommand = {
+      id: comment.id,
+      projectId: this.projectId
+    };
+    this.http
+      .post(environment.apiUrl + '/comments/restore/', command)
+      .subscribe(() => {
+        comment.isDeleted = false;
       });
   }
 
@@ -78,7 +90,7 @@ export class CommentsComponent implements OnChanges {
     const command: DeleteCommentCommand = {
       id: comment.id,
       isCommentBeingDeletedPermanently: true,
-      projectId: comment.projectId
+      projectId: this.projectId
     };
     this.http
       .request('delete', environment.apiUrl + '/comments', {body: command})
@@ -86,12 +98,6 @@ export class CommentsComponent implements OnChanges {
         const index = this.comments.findIndex(x => x.id === comment.id);
         this.comments.splice(index, 1);
       });
-  }
-
-  pageChanged(event: PageChangedEvent): void {
-    const startItem = (event.page - 1) * event.itemsPerPage;
-    const endItem = event.page * event.itemsPerPage;
-    this.returnedComments = this.comments.slice(startItem, endItem);
   }
 }
 
@@ -105,5 +111,10 @@ interface CreateCommentCommand {
 interface DeleteCommentCommand {
   id: string;
   isCommentBeingDeletedPermanently: boolean;
+  projectId: string;
+}
+
+interface RestoreCommentCommand {
+  id: string;
   projectId: string;
 }
