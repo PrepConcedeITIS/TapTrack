@@ -7,6 +7,7 @@ namespace TapTrackAPI.Core.Enums
         ToDo,
         InProgress,
         Incomplete,
+        Review,
         InTest,
         Acceptance,
         Done
