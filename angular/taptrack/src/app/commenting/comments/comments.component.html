@@ -1,10 +1,18 @@
-<div *ngIf="comments">
+<form [formGroup]="form" (ngSubmit)="onSubmit(model)" style="margin-bottom: 3em">
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  <button type="submit" class="btn btn-default" [disabled]="!form.valid">Submit</button>
+</form>
+<div *ngIf="comments" class="pb-3">
   <div class="content-wrapper">
-    <div class="content-item" *ngFor="let comment of comments | paginate: {itemsPerPage: 10, currentPage: p }">
+    <div class="content-item" *ngFor="let comment of comments | paginate: {itemsPerPage: 5, currentPage: p }">
       <h4>Created by
         <b matTooltip="{{comment.author.email}}">{{comment.author.username}}</b>
         <span matTooltip="{{comment.created | date:'d MMM YYYY HH:mm'}}">
           {{dateBeautifier.beatify(comment.created)}}
+        </span>
+        <span *ngIf="!comment.isDeleted">
+          <mat-icon *ngIf="comment.isEditable" class="icon" (click)="goToEdit(comment)">edit</mat-icon>
+          <mat-icon *ngIf="comment.isDeletable" class="icon" (click)="delete(comment)">delete</mat-icon>
         </span>
       </h4>
       <h4 *ngIf="comment.lastUpdated!==comment.created">Updated
@@ -12,21 +20,16 @@
           {{dateBeautifier.beatify(comment.lastUpdated)}}
         </span>
       </h4>
-      <md-editor *ngIf="comment.mode === 'preview'" height="100%" mode="preview" [ngModel]="comment.text"></md-editor>
       <div *ngIf="!comment.isDeleted">
-        <button *ngIf="comment.isEditable" type="button" class="btn btn-primary" (click)="goToEdit(comment)">Edit</button>
         <app-comment-update *ngIf="comment.mode === 'editor'" [comment]="comment"></app-comment-update>
-        <button *ngIf="comment.isDeletable" type="button" class="btn btn-primary" (click)="delete(comment)">Delete</button>
       </div>
-      <div *ngIf="comment.isDeleted">
+      <div *ngIf="comment.isDeleted" class="mb-2">
         <button type="button" class="btn btn-primary" (click)="restore(comment)">Restore</button>
-        <button type="button" class="btn btn-primary" (click)="deletePermanently(comment)">Delete permanently</button>
+        <button type="button" class="btn btn-danger ml-2" (click)="deletePermanently(comment)">Delete permanently</button>
       </div>
+      <md-editor *ngIf="comment.mode === 'preview'" height="100%" mode="preview" [ngModel]="comment.text"></md-editor>
+      <hr style="height:2px">
     </div>
   </div>
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
-<form [formGroup]="form" (ngSubmit)="onSubmit(model)" style="margin-bottom: 3em">
-  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-  <button type="submit" class="btn btn-default" [disabled]="!form.valid">Submit</button>
-</form>
