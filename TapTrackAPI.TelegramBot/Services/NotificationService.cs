@@ -30,13 +30,13 @@ namespace TapTrackAPI.TelegramBot.Services
         }
 
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
-            Issue issue, TeamMember assignee)
+            Issue issue, TeamMember? assignee)
         {
             if (!_environment.IsProduction())
                 return TelegramNotificationStatus.DeclinedBySystem;
 
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
-            if (actorId == assignee.UserId)
+            if (assignee == null || actorId == assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
             var tgConnection = await _dbContext.Set<TelegramConnection>()
                 .FirstOrDefaultAsync(x => x.UserId == assignee.UserId);
@@ -62,8 +62,13 @@ namespace TapTrackAPI.TelegramBot.Services
             if (!_environment.IsProduction())
                 return TelegramNotificationStatus.DeclinedBySystem;
 
+            if (/*(previousStatus == State.Review && issue.State == State.Incomplete) ||*/
+                (previousStatus == State.InTest && issue.State == State.Incomplete) ||
+                (previousStatus == State.Acceptance && issue.State == State.Incomplete))
+                return TelegramNotificationStatus.DeclinedBySystem;
+            
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
-            if (actorId == issue.Assignee.UserId)
+            if (issue.Assignee == null || actorId == issue.Assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
 
             var tgConnection = await _dbContext.Set<TelegramConnection>()

@@ -1,12 +1,8 @@
 using System;
+using System.Security.Claims;
 using MediatR;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
-    public class EditAssigneeIssueCommand : IRequest<Guid>
-    {
-        public string Id { get; set; }
-
-        public string Assignee { get; set; }
-    }
+    public record EditAssigneeIssueCommand(string Id, string Assignee, ClaimsPrincipal User) : IRequest<Guid>;
 }

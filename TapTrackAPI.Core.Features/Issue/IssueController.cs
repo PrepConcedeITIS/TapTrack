@@ -56,11 +56,11 @@ namespace TapTrackAPI.Core.Features.Issue
 
         [HttpPut("state")]
         public async Task<IActionResult> EditState([FromBody] EditStateIssueCommand command) => 
-            Ok(await Mediator.Send(command));
+            Ok(await Mediator.Send(command with {User = User}));
 
         [HttpPut("assignee")]
         public async Task<IActionResult> EditAssignee([FromBody] EditAssigneeIssueCommand command) => 
-            Ok(await Mediator.Send(command));
+            Ok(await Mediator.Send(command with {User = User}));
 
         [HttpPut("issueType")]
         public async Task<IActionResult> EditIssueType([FromBody] EditIssueTypeCommand command) => 
