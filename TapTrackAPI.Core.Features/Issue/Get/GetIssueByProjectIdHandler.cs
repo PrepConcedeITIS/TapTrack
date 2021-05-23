@@ -4,12 +4,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 
 namespace TapTrackAPI.Core.Features.Issue.Get
 {
+    [UsedImplicitly]
     public class GetIssuesByProjectIdHandler : RequestHandlerBase,
          IRequestHandler<GetIssuesByProjectIdQuery, List<IssueOnBoardDto>>
     {
@@ -26,7 +28,7 @@ namespace TapTrackAPI.Core.Features.Issue.Get
                 .Set<Entities.Issue>()
                 .Where(x => x.ProjectId == request.ProjectId)
                 .ProjectTo<IssueOnBoardDto>(Mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
             return issueList;
         }
     }

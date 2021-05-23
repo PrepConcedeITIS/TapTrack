@@ -2,12 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
+    [UsedImplicitly]
     public class EditStateIssueHandler : RequestHandlerBase, IRequestHandler<EditStateIssueCommand, Guid>
     {
         private readonly IMediator _mediator;

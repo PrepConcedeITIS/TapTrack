@@ -3,12 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
+    [UsedImplicitly]
     public class IssueEditQueryHandler: RequestHandlerBase, IRequestHandler<EditIssueQuery, EditIssueDto>
     {
         public IssueEditQueryHandler(DbContext context, IMapper mapper) : base(context, mapper)
