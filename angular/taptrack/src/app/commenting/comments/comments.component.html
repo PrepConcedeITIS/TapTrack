@@ -1,6 +1,6 @@
 <div *ngIf="comments">
   <div class="content-wrapper">
-    <div class="content-item" *ngFor="let comment of comments">
+    <div class="content-item" *ngFor="let comment of comments | paginate: {itemsPerPage: 10, currentPage: p }">
       <h4>Created by
         <b matTooltip="{{comment.author.email}}">{{comment.author.username}}</b>
         <span matTooltip="{{comment.created | date:'d MMM YYYY HH:mm'}}">
@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <pagination [totalItems]="comments.length" (pageChanged)="pageChanged($event)"></pagination>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit(model)" style="margin-bottom: 3em">
   <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
