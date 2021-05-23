@@ -6,7 +6,7 @@ import {BehaviorSubject, Observable, of, timer} from 'rxjs';
 import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-project-update',
@@ -23,6 +23,7 @@ export class ProjectUpdateComponent implements OnInit {
   private projectId: string;
 
   constructor(private projectService: ProjectService,
+              private httpClient: HttpClient,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -142,5 +143,10 @@ export class ProjectUpdateComponent implements OnInit {
       return;
     }
     this.serverValidationErrors = undefined;
+  }
+
+  submitInvite() {
+    this.httpClient.post()
+    console.log(this.emailFormControl.value);
   }
 }

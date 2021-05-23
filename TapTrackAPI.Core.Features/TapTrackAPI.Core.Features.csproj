@@ -119,6 +119,21 @@
       <Compile Update="Invitation\ResolveInvitation\ResolveInvitationAsyncHandler.cs">
         <DependentUpon>ResolveInvitationValidator.cs</DependentUpon>
       </Compile>
+      <Compile Update="Invitation\GetInvitationResults\GetInvitationResultsValidator.cs">
+        <DependentUpon>GetInvitationResultsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Invitation\GetInvitationResults\GetInvitationResultsAsyncHandler.cs">
+        <DependentUpon>GetInvitationResultsValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Invitation\InviteUser\InviteUserValidator.cs">
+        <DependentUpon>InviteUserCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Invitation\InviteUser\InviteUserAsyncHandler.cs">
+        <DependentUpon>InviteUserValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Invitation\ResolveInvitation\ResolveInvitationValidator.cs">
+        <DependentUpon>ResolveInvitationCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

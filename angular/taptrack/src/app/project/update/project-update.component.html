@@ -24,7 +24,7 @@
       <div class="card">
         <h4 class="card-header">Invite User</h4>
         <div style="padding: 10px">
-          <form [formControl]="emailFormControl" class="email-form">
+          <form [formControl]="emailFormControl" class="email-form" (submit)="submitInvite()">
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">@</span>

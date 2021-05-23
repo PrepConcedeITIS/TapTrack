@@ -41,14 +41,14 @@ namespace TapTrackAPI.Core.Features.Invitation.InviteUser
             await DbContext.SaveChangesAsync(cancellationToken);
             
             #warning //todo:change after deplay fixes
-            var url = _configuration["Invitation:LocalUrl"];
+            var url = _configuration["Invitation:RemoteHostUrl"];
             var email = _configuration["Credentials:Mail"];
             var message = new MailMessage(new MailAddress(email, "TapTrack"),
                 new MailAddress(request.Email))
             {
                 Body =
-                    $"Вы были приглашены в проект {project?.Name}, чтобы принять перейдите по ссылке: ${url}?InvitationId={invite.Id}&IsAccept=true" +
-                    $"\nЧтобы отклонить перейдите по ссылке: ${url}?InvitationId={invite.Id}&IsAccept=false",
+                    $"Вы были приглашены в проект {project?.Name}, чтобы принять перейдите по ссылке: ${url}?IsAccept=true" +
+                    $"\nЧтобы отклонить перейдите по ссылке: ${url}?IsAccept=false",
                 IsBodyHtml = true
             };
 
