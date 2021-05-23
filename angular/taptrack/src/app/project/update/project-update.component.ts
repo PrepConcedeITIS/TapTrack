@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormlyFieldConfig} from '@ngx-formly/core';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectQuery} from '../_interfaces/project-query';
-import {BehaviorSubject, timer} from 'rxjs';
+import {BehaviorSubject, Observable, of, timer} from 'rxjs';
 import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-project-update',
@@ -23,11 +24,15 @@ export class ProjectUpdateComponent implements OnInit {
   private projectId: string;
 
   constructor(private projectService: ProjectService,
+              private httpClient: HttpClient,
               private route: ActivatedRoute,
               private router: Router) {
   }
 
   form = new FormGroup({});
+  emailFormControl = new FormControl('', [
+    Validators.email,
+  ]);
   model: ProjectQuery = {description: '', idVisible: '', logo: undefined, name: ''};
   fields: FormlyFieldConfig[] = [
     {
@@ -76,6 +81,15 @@ export class ProjectUpdateComponent implements OnInit {
     }
   ];
 
+  columnDefs = [
+    {field: 'userName', width: 150},
+    {field: 'projectName', width: 150},
+    {field: 'role', width: 150},
+    {field: 'status', width: 150}
+  ];
+
+  rowData: Observable<any>;
+
   showLogo(field: FormlyFieldConfig, event: any) {
     const fileReader = new FileReader();
     fileReader.onload = () => {
@@ -103,6 +117,11 @@ export class ProjectUpdateComponent implements OnInit {
             return this.isUnique = isUnique;
           });
       });
+    this.rowData = this.getInvitationResults();
+  }
+
+  onGridReady(params) {
+    params.columnApi.sizeColumnsToFit();
   }
 
   projectGeneralInfoSubmit() {
@@ -124,5 +143,20 @@ export class ProjectUpdateComponent implements OnInit {
       return;
     }
     this.serverValidationErrors = undefined;
+  }
+
+  submitInvite() {
+    this.httpClient.post(`${environment.apiUrl}/Invitation/Invite`, {
+      projectId: this.projectId,
+      role: 0,
+      email: this.emailFormControl.value
+    })
+      .subscribe(_ => {
+        this.rowData = this.getInvitationResults();
+      });
+  }
+
+  getInvitationResults() {
+    return this.httpClient.get(`${environment.apiUrl}/Invitation/GetInvitedUsers/${this.projectId}`);
   }
 }
