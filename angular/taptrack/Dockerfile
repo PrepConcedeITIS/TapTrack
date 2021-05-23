@@ -8,4 +8,4 @@ COPY package.json /app/package.json
 RUN npm install --save --legacy-peer-deps
 RUN npm install -g @angular/cli
 COPY . /app
-CMD ng serve --host 0.0.0.0 -c production
+CMD ng serve --host 0.0.0.0 -c production --port 2053
