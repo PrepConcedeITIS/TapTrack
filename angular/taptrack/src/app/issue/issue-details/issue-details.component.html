@@ -49,6 +49,16 @@
       </div>
       <div class="right-bar-element">
         <ng-select
+          placeholder="State"
+          [items]="dropdownsSchema.state"
+          [(ngModel)]="issueData.state"
+          [clearable]="false"
+          [searchable]="false"
+          (change)="changeState()"
+        ></ng-select>
+      </div>
+      <div class="right-bar-element">
+        <ng-select
           placeholder="Assignee"
           [items]="dropdownsSchema.assignee"
           [(ngModel)]="issueData.assignee"
@@ -60,24 +70,14 @@
       <div class="spentTime right-bar-element">
         <mat-form-field style="width: 100%">
           <mat-label>Spent time</mat-label>
-          <input matInput (change)="changeSpentTime()" value="{{issueData.spent}}">
+          <input matInput (change)="changeSpentTime()" [(ngModel)]="issueData.spent" pattern="\d+w \d+d \d+h *">
         </mat-form-field>
       </div>
       <div class="estimation right-bar-element">
         <mat-form-field style="width: 100%">
           <mat-label>Estimation</mat-label>
-          <input matInput (change)="changeEstimation()" value="{{issueData.estimate}}">
+          <input matInput (change)="changeEstimation()" [(ngModel)]="issueData.estimate" pattern="\d+w \d+d \d+h *">
         </mat-form-field>
-      </div>
-      <div class="right-bar-element">
-        <ng-select
-          placeholder="State"
-          [items]="dropdownsSchema.state"
-          [(ngModel)]="issueData.state"
-          [clearable]="false"
-          [searchable]="false"
-          (change)="changeState()"
-        ></ng-select>
       </div>
     </div>
   </div>
