@@ -9,7 +9,7 @@ namespace TapTrackAPI.TelegramBot.Interfaces
     public interface INotificationService
     {
         Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor, Issue issue,
-            TeamMember assignee);
+            TeamMember? assignee);
 
         Task<TelegramNotificationStatus> SendIssueStatusChangeNotification(ClaimsPrincipal actionAuthor,
             State previousStatus, Issue issue);

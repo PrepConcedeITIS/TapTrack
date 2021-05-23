@@ -30,13 +30,13 @@ namespace TapTrackAPI.TelegramBot.Services
         }
 
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
-            Issue issue, TeamMember assignee)
+            Issue issue, TeamMember? assignee)
         {
             if (!_environment.IsProduction())
                 return TelegramNotificationStatus.DeclinedBySystem;
 
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
-            if (actorId == assignee.UserId)
+            if (assignee == null || actorId == assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
             var tgConnection = await _dbContext.Set<TelegramConnection>()
                 .FirstOrDefaultAsync(x => x.UserId == assignee.UserId);
@@ -44,14 +44,14 @@ namespace TapTrackAPI.TelegramBot.Services
                 return TelegramNotificationStatus.UserNotificationsDisabled;
 
             var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "taptrack.tech")}/issue/{issue.Id}";
-            var message = $"<p>New <a href=\"{url}\">issue</a> was assigned to you</p>" +
-                          $"<p><b>{issue.Title}</b></p>" +
-                          $"<p>Status: {issue.State}</p>" +
-                          $"<p>Priority: {issue.Priority}</p>" +
-                          $"<p>Estimate time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Estimation)}</p>" +
-                          $"<p>Spent time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Spent)}</p>";
+            var message = $"New [issue]({url}) was assigned to you\n" +
+                          $"*{issue.Title}*\n" +
+                          $"Status: {issue.State}\n" +
+                          $"Priority: {issue.Priority}\n" +
+                          $"Estimate time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Estimation)}\n" +
+                          $"Spent time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Spent)}\n";
 
-            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message, ParseMode.Html);
+            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message);
 
             return isDelivered ? TelegramNotificationStatus.Success : TelegramNotificationStatus.Failed;
         }
@@ -62,8 +62,13 @@ namespace TapTrackAPI.TelegramBot.Services
             if (!_environment.IsProduction())
                 return TelegramNotificationStatus.DeclinedBySystem;
 
+            if (/*(previousStatus == State.Review && issue.State == State.Incomplete) ||*/
+                (previousStatus == State.InTest && issue.State == State.Incomplete) ||
+                (previousStatus == State.Acceptance && issue.State == State.Incomplete))
+                return TelegramNotificationStatus.DeclinedBySystem;
+            
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
-            if (actorId == issue.Assignee.UserId)
+            if (issue.Assignee == null || actorId == issue.Assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
 
             var tgConnection = await _dbContext.Set<TelegramConnection>()
