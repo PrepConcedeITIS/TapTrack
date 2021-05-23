@@ -16,7 +16,7 @@ namespace TapTrackAPI.Core.Features.Invitation
         }
 
         [HttpGet("GetInvitedUsers/{projectId}")]
-        public async Task<IActionResult> GetInvitedUsers([FromBody] Guid projectId)
+        public async Task<IActionResult> GetInvitedUsers([FromRoute] Guid projectId)
         {
             var query = new GetInvitationResultsQuery(projectId);
             return Ok(await Mediator.Send(query));

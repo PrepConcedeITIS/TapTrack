@@ -82,13 +82,12 @@ export class ProjectUpdateComponent implements OnInit {
   ];
 
   columnDefs = [
-    {field: 'Email'},
-    {field: 'Status'}
+    {field: 'userName', width: 250},
+    {field: 'projectName', width: 150},
+    {field: 'role', width: 150},
+    {field: 'status', width: 150}
   ];
 
-  defaultColDef = {
-    resizable: false,
-  };
   rowData: Observable<any>;
 
   showLogo(field: FormlyFieldConfig, event: any) {
@@ -118,7 +117,7 @@ export class ProjectUpdateComponent implements OnInit {
             return this.isUnique = isUnique;
           });
       });
-    this.rowData = of([]);
+    this.rowData = this.getInvitationResults();
   }
 
   onGridReady(params) {
@@ -153,11 +152,11 @@ export class ProjectUpdateComponent implements OnInit {
       email: this.emailFormControl.value
     })
       .subscribe(_ => {
-        this.getInvitationResults();
+        this.rowData = this.getInvitationResults();
       });
   }
 
   getInvitationResults() {
-    this.rowData = this.httpClient.get(`${environment.apiUrl}/Invitation/GetInvitedUsers/${this.projectId}`);
+    return this.httpClient.get(`${environment.apiUrl}/Invitation/GetInvitedUsers/${this.projectId}`);
   }
 }
