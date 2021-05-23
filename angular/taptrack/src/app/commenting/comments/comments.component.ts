@@ -77,7 +77,7 @@ export class CommentsComponent implements OnChanges {
   restore(comment: Comment): void {
     const command: RestoreCommentCommand = {
       id: comment.id,
-      projectId: comment.projectId
+      projectId: this.projectId
     };
     this.http
       .post(environment.apiUrl + '/comments/restore/', command)

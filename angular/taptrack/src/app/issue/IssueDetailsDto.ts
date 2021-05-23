@@ -1,5 +1,4 @@
 export interface IssueDetailsDto{
-  id: string;
   title: string;
   project: string;
   projectId: string;
