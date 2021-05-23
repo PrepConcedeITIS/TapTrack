@@ -101,33 +101,6 @@
       <Compile Update="Restoration\PasswordReset\PasswordResetHandler.cs">
         <DependentUpon>PasswordResetCommand.cs</DependentUpon>
       </Compile>
-      <Compile Update="Invitation\GetInvitedUserAsyncHandler.cs">
-        <DependentUpon>GetInvitedUserValidator.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\GetInvitedUserValidator.cs">
-        <DependentUpon>GetInvitedUserQuery.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\InviteUserAsyncHandler.cs">
-        <DependentUpon>InviteUserValidator.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\InviteUserValidator.cs">
-        <DependentUpon>InviteUserCommand.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\GetInvitedUserQuery.cs">
-        <DependentUpon>InvitationController.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\InviteUserCommand.cs">
-        <DependentUpon>InvitationController.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\AcceptOrDeclineValidator.cs">
-        <DependentUpon>AcceptOrDeclineCommand.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\AccepOrDeclineHandler.cs">
-        <DependentUpon>AccepttOrDeclineValidator.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Invitation\AcceptOrDeclineCommand.cs">
-        <DependentUpon>InvitationController.cs</DependentUpon>
-      </Compile>
       <Compile Update="Profile\GetTelegramInfo\GetTelegramInfoAsyncQueryHandler.cs">
         <DependentUpon>GetTelegramInfoQuery.cs</DependentUpon>
       </Compile>
@@ -142,6 +115,9 @@
       </Compile>
       <Compile Update="Issue\Delete\IssueDeleteHandler.cs">
         <DependentUpon>IssueDeleteValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Invitation\ResolveInvitation\ResolveInvitationAsyncHandler.cs">
+        <DependentUpon>ResolveInvitationValidator.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

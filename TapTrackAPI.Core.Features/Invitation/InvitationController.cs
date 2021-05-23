@@ -2,6 +2,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Features.Invitation.GetInvitationResults;
+using TapTrackAPI.Core.Features.Invitation.InviteUser;
+using TapTrackAPI.Core.Features.Invitation.ResolveInvitation;
 
 namespace TapTrackAPI.Core.Features.Invitation
 {
@@ -12,7 +15,7 @@ namespace TapTrackAPI.Core.Features.Invitation
         }
         
         [HttpGet("GetInvitedUsers")]
-        public async Task<IActionResult> GetInvitedUsers([FromQuery] GetInvitedUserQuery query)
+        public async Task<IActionResult> GetInvitedUsers([FromQuery] GetInvitationResultsQuery query)
         {
             return Ok(await Mediator.Send(query));
         }
@@ -24,7 +27,7 @@ namespace TapTrackAPI.Core.Features.Invitation
         }
         
         [HttpGet("AcceptOrDeclineInvitation")]
-        public async Task<IActionResult> AcceptOrDeclineInvitation([FromQuery] AcceptOrDeclineCommand command)
+        public async Task<IActionResult> AcceptOrDeclineInvitation([FromQuery] ResolveInvitationCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

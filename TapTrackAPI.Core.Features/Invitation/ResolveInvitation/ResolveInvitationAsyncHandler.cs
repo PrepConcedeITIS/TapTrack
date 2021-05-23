@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Features.Project;
 
-namespace TapTrackAPI.Core.Features.Invitation
+namespace TapTrackAPI.Core.Features.Invitation.ResolveInvitation
 {
-    public class AcceptOrDeclineHandler : BaseCommandHandler, IRequestHandler<AcceptOrDeclineCommand, ProjectDto>
+    public class ResolveInvitationAsyncHandler : BaseCommandHandler, IRequestHandler<ResolveInvitationCommand, ProjectDto>
     {
-        public AcceptOrDeclineHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public ResolveInvitationAsyncHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
-        public async Task<ProjectDto> Handle(AcceptOrDeclineCommand request, CancellationToken cancellationToken)
+        public async Task<ProjectDto> Handle(ResolveInvitationCommand request, CancellationToken cancellationToken)
         {
             var invite = await DbContext.Set<Entities.Invitation>().Include(x => x.Project).Include(x => x.User)
                 .FirstOrDefaultAsync(x => x.Id == request.InvitationId, cancellationToken: cancellationToken);

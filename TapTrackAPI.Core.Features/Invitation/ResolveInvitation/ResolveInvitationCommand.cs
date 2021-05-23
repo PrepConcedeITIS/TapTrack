@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using MediatR;
 using TapTrackAPI.Core.Features.Project;
 
-namespace TapTrackAPI.Core.Features.Invitation
+namespace TapTrackAPI.Core.Features.Invitation.ResolveInvitation
 {
-    public class AcceptOrDeclineCommand : IRequest<ProjectDto>
+    public class ResolveInvitationCommand : IRequest<ProjectDto>
     {
         [Required]
         public Guid InvitationId { get; set; }
