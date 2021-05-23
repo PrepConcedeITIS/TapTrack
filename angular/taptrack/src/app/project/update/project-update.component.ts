@@ -7,6 +7,7 @@ import {debounce, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-project-update',
@@ -146,7 +147,17 @@ export class ProjectUpdateComponent implements OnInit {
   }
 
   submitInvite() {
-    this.httpClient.post()
-    console.log(this.emailFormControl.value);
+    this.httpClient.post(`${environment.apiUrl}/Invitation/Invite`, {
+      projectId: this.projectId,
+      role: 0,
+      email: this.emailFormControl.value
+    })
+      .subscribe(_ => {
+        this.getInvitationResults();
+      });
+  }
+
+  getInvitationResults() {
+    this.rowData = this.httpClient.get(`${environment.apiUrl}/Invitation/GetInvitedUsers/${this.projectId}`);
   }
 }

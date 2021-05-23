@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,19 +14,20 @@ namespace TapTrackAPI.Core.Features.Invitation
         public InvitationController(IMediator mediator) : base(mediator)
         {
         }
-        
-        [HttpGet("GetInvitedUsers")]
-        public async Task<IActionResult> GetInvitedUsers([FromQuery] GetInvitationResultsQuery query)
+
+        [HttpGet("GetInvitedUsers/{projectId}")]
+        public async Task<IActionResult> GetInvitedUsers([FromBody] Guid projectId)
         {
+            var query = new GetInvitationResultsQuery(projectId);
             return Ok(await Mediator.Send(query));
         }
-        
+
         [HttpPost("Invite")]
-        public async Task<IActionResult> InviteUser([FromQuery] InviteUserCommand command)
+        public async Task<IActionResult> InviteUser([FromBody] InviteUserCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
-        
+
         [HttpGet("AcceptOrDeclineInvitation")]
         public async Task<IActionResult> AcceptOrDeclineInvitation([FromQuery] ResolveInvitationCommand command)
         {
