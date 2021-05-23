@@ -156,7 +156,7 @@
         <DependentUpon>GetIssueListQuery.cs</DependentUpon>
       </Compile>
       <Compile Update="Issue\Edit\EditIssueQueryHandler.cs">
-        <DependentUpon>IssueEditQuery.cs</DependentUpon>
+        <DependentUpon>EditIssueQuery.cs</DependentUpon>
       </Compile>
       <Compile Update="Issue\Edit\EditIssueCommandHandler.cs">
         <DependentUpon>EditIssueCommand.cs</DependentUpon>

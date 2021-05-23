@@ -20,7 +20,7 @@ namespace TapTrackAPI.Core.Features.Issue.Edit
             var spentTime = TimeSpanFormatter.FormatterFromString(request.Spent);
             var issues = Context.Set<Entities.Issue>();
             var issue = await issues.FindAsync(Guid.Parse(request.Id));
-            issue.UpdateEstimation(spentTime);
+            issue.UpdateSpentTime(spentTime);
             await Context.SaveChangesAsync(cancellationToken);
             return issue.Id;
         }
