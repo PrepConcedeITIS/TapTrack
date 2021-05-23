@@ -62,5 +62,7 @@ namespace TapTrackAPI.Core.Features.Project
         {
             return Ok(await Mediator.Send(new ProjectDeleteCommand(User, projectId)));
         }
+
+        
     }
 }

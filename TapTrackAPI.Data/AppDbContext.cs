@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +21,7 @@ namespace TapTrackAPI.Data
         public DbSet<Article> Articles { get; protected set; }
         public DbSet<UserContact> UserContacts { get; protected set; }
         public DbSet<ContactType> ContactTypes { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
         public DbSet<TelegramConnection> TelegramConnections { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

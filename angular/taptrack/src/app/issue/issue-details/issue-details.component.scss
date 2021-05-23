@@ -6,7 +6,7 @@
 
 .left-container{
   width: 50%;
-  height: 600px;
+  height: 800px;
   margin-right: 5px; display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -87,4 +87,12 @@
   color: gray;
   margin-left: 5px;
   cursor: pointer;
+  -webkit-transition: all 0.2s ease;;
+  -moz-transition: all 0.2s ease;;
+  -o-transition: all 0.2s ease;;
+  transition: all 0.2s ease;
+}
+
+.icon:hover {
+  color: black;
 }

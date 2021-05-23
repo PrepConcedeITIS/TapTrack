@@ -22,6 +22,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {ArticleUpdateComponent} from "./knowledge-base/article-update/article-update.component";
 import {IssueCreateComponent} from "./issue/issue-create/issue-create.component";
 import {IssueEditComponent} from "./issue/issue-edit/issue-edit.component";
+import {ResolveInviteComponent} from "./resolve-invite/resolve-invite.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/project/list', pathMatch: 'full'},
@@ -51,6 +52,7 @@ const routes: Routes = [
       {path: 'create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
       {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
       {path: 'board/:id', component: AgileBoardComponent, canActivate: [AuthGuard]},
+      {path: 'resolve-invite', component: ResolveInviteComponent, canActivate: [AuthGuard]},
     ]
   },
   {

@@ -6,25 +6,28 @@ using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
+using TapTrackAPI.TelegramBot.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     [UsedImplicitly]
     public class EditStateIssueHandler : RequestHandlerBase, IRequestHandler<EditStateIssueCommand, Guid>
     {
-        private readonly IMediator _mediator;
+        private readonly INotificationService _notificationService;
 
-        public EditStateIssueHandler(DbContext dbContext, IMediator mediator, IMapper mapper) : base(dbContext, mapper)
+        public EditStateIssueHandler(DbContext dbContext, IMapper mapper, INotificationService notificationService) : base(dbContext, mapper)
         {
-            _mediator = mediator;
+            _notificationService = notificationService;
         }
 
         public async Task<Guid> Handle(EditStateIssueCommand request, CancellationToken cancellationToken)
         {
-            var issues = Context.Set<Entities.Issue>();
-            var issue = await issues.FindAsync(Guid.Parse(request.Id));
+            var issues = Context.Set<Entities.Issue>().Include(x => x.Assignee);
+            var issue = await issues.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id));
+            var previousStatus = issue.State;
             issue.UpdateState(request.State);
             await Context.SaveChangesAsync(cancellationToken);
+            await _notificationService.SendIssueStatusChangeNotification(request.User, previousStatus, issue);
             return issue.Id;
         }
     }
