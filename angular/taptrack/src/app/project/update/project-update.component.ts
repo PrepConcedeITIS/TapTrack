@@ -79,7 +79,16 @@ export class ProjectUpdateComponent implements OnInit {
     }
   ];
 
-<<<<<<< HEAD
+  columnDefs = [
+    {field: 'Email'},
+    {field: 'Status'}
+  ];
+
+  defaultColDef = {
+    resizable: false,
+  };
+  rowData: Observable<any>;
+
   showLogo(field: FormlyFieldConfig, event: any) {
     const fileReader = new FileReader();
     fileReader.onload = () => {
@@ -87,17 +96,6 @@ export class ProjectUpdateComponent implements OnInit {
     };
     fileReader.readAsDataURL(event.target.files[0]);
   }
-=======
-  columnDefs = [
-    { field: 'Email' },
-    { field: 'Status'}
-  ];
-
-  defaultColDef = {
-    resizable: false,
-  };
-  rowData: Observable<any>;
->>>>>>> f6cd1613982035a3f2c2c3df8b5b05750ab047fe
 
   ngOnInit(): void {
 
@@ -121,7 +119,7 @@ export class ProjectUpdateComponent implements OnInit {
     this.rowData = of([]);
   }
 
-  onGridReady(params){
+  onGridReady(params) {
     params.columnApi.sizeColumnsToFit();
   }
 
