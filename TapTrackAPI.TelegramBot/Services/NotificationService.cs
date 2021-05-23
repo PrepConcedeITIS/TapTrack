@@ -51,7 +51,7 @@ namespace TapTrackAPI.TelegramBot.Services
                           $"Estimate time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Estimation)}\n" +
                           $"Spent time: {TimeSpanFormatter.FormatterFromTimeSpan(issue.Spent)}\n";
 
-            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message, ParseMode.Html);
+            var isDelivered = await _chatService.SendMessage(tgConnection.ChatId, message);
 
             return isDelivered ? TelegramNotificationStatus.Success : TelegramNotificationStatus.Failed;
         }
