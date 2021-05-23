@@ -159,10 +159,10 @@
         <DependentUpon>EditIssueQuery.cs</DependentUpon>
       </Compile>
       <Compile Update="Issue\Edit\EditIssueCommandHandler.cs">
-        <DependentUpon>EditIssueCommand.cs</DependentUpon>
+        <DependentUpon>EditIssueValidator.cs</DependentUpon>
       </Compile>
       <Compile Update="Issue\Edit\EditIssueValidator.cs">
-        <DependentUpon>EditIssueCommandHandler.cs</DependentUpon>
+        <DependentUpon>EditIssueCommand.cs</DependentUpon>
       </Compile>
       <Compile Update="Issue\Edit\EditIssueSpentTimeCommandHandler.cs">
         <DependentUpon>EditIssueSpentTimeCommand.cs</DependentUpon>

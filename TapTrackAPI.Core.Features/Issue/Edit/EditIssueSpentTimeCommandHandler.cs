@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base;
@@ -9,6 +10,7 @@ using TapTrackAPI.Core.Base.Utility;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
+    [UsedImplicitly]
     public class EditIssueSpentTimeCommandHandler: RequestHandlerBase, IRequestHandler<EditIssueSpentTimeCommand, Guid>
     {
         public EditIssueSpentTimeCommandHandler(DbContext context, IMapper mapper) : base(context, mapper)

@@ -24,7 +24,7 @@ namespace TapTrackAPI.Core.Features.Issue
 
         [HttpGet]
         public async Task<ActionResult<List<IssueListItemDto>>> Get([FromQuery] GetIssueListQuery query)
-            => Ok(await Mediator.Send(query));
+            => Ok(await Mediator.Send(query with{ClaimsPrincipal = User}));
 
         [HttpGet("{Id}")]
         public async Task<ActionResult<Entities.Issue>> Get([FromRoute] GetIssueQuery query) =>
