@@ -32,8 +32,8 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
             Issue issue, TeamMember? assignee)
         {
-            if (!_environment.IsProduction())
-                return TelegramNotificationStatus.DeclinedBySystem;
+            //if (!_environment.IsProduction())
+            //    return TelegramNotificationStatus.DeclinedBySystem;
 
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
             if (assignee == null || actorId == assignee.UserId)
@@ -43,7 +43,7 @@ namespace TapTrackAPI.TelegramBot.Services
             if (tgConnection is not {IsNotificationsEnabled: true})
                 return TelegramNotificationStatus.UserNotificationsDisabled;
 
-            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "taptrack.tech")}/issue/{issue.Id}";
+            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "www.taptrack.tech")}/issue/{issue.Id}";
             var message = $"New [issue]({url}) was assigned to you\n" +
                           $"*{issue.Title}*\n" +
                           $"Status: {issue.State}\n" +
@@ -59,12 +59,12 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueStatusChangeNotification(ClaimsPrincipal actionAuthor,
             State previousStatus, Issue issue)
         {
-            if (!_environment.IsProduction())
-                return TelegramNotificationStatus.DeclinedBySystem;
+            //if (!_environment.IsProduction())
+            //    return TelegramNotificationStatus.DeclinedBySystem;
 
-            if ((previousStatus == State.Review && issue.State == State.Incomplete) ||
+            if (!((previousStatus == State.Review && issue.State == State.Incomplete) ||
                 (previousStatus == State.InTest && issue.State == State.Incomplete) ||
-                (previousStatus == State.Acceptance && issue.State == State.Incomplete))
+                (previousStatus == State.Acceptance && issue.State == State.Incomplete)))
                 return TelegramNotificationStatus.DeclinedBySystem;
             
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
@@ -76,7 +76,7 @@ namespace TapTrackAPI.TelegramBot.Services
             if (tgConnection is not {IsNotificationsEnabled: true})
                 return TelegramNotificationStatus.UserNotificationsDisabled;
 
-            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "taptrack.tech")}/issue/{issue.Id}";
+            var url = $"{(_environment.IsDevelopment() ? "localhost:4200" : "www.taptrack.tech")}/issue/{issue.Id}";
             var message = $"[Issue]({url}) status changed: " +
                           $"*{previousStatus}* → *{issue.State}*";
 
