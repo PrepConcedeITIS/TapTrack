@@ -1,0 +1,30 @@
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - $PSVersionTable.PSVersion
+  - dotnet --version
+  - nuget help | select-string Version
+
+dummy job on windows:
+  stage: test
+  script: 
+    - echo ok
+  tags:
+    - windows
+
+build_solution:
+  script: 
+    - echo "building..."
+  tags:
+    - windows
+  stage: build
+  
+pack and deploy job:
+  script: 
+    - echo "deploing.."
+  tags:
+    - windows
+  stage: deploy
