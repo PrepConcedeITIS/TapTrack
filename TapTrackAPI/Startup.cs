@@ -131,7 +131,7 @@ namespace TapTrackAPI
 #warning
             //app.UseCors(builder => builder.WithOrigins("paste url from prod front").AllowAnyHeader().AllowAnyMethod());
 
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseCors(builder =>
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
