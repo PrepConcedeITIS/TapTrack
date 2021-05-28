@@ -122,7 +122,7 @@ namespace TapTrackAPI
 
             RegisterTelegramBot(services);
             
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "../angular/taptrack/dist"; });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "taptrack/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -161,7 +161,7 @@ namespace TapTrackAPI
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "../angular/taptrack";
+                spa.Options.SourcePath = "taptrack";
 
                 if (env.IsDevelopment())
                 {
