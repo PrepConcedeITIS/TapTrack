@@ -1,0 +1,12 @@
+<div class="project-list">
+  <div>
+      <ag-grid-angular
+        style="height: 500px; font-size: 14px"
+        class="ag-theme-alpine"
+        [rowData]="rowData | async"
+        [columnDefs]="columnDefs"
+        (rowClicked)="goToDetails($event)"
+      >
+      </ag-grid-angular>
+  </div>
+</div>

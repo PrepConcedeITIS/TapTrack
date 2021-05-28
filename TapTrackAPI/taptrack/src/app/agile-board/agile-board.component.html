@@ -1,0 +1,655 @@
+<div class="content-wrapper">
+
+  <h1 style="text-align: center;">Show Stopper</h1>
+  <div class="container-wrapper">
+    <div class="container">
+      <h2>New</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="40" #newListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[0]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[0].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[0]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Analyse</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="41" #analyseListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[1]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[1].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[1]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>To Do</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="42" #todoListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[2]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[2].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[2]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Progress</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="43" #inProgressListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[3]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[3].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[3]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Incomplete</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="44" #incompleteListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[4]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[4].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[4]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Review</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="45" #reviewListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[5]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[5].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[5]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Test</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="46" #inTestListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[6]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[6].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[6]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Acceptance</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="47" #acceptanceListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[7]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[7].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[7]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Done</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="48" #doneListShowStopper="cdkDropList"
+                [cdkDropListData]="showStopper[8]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="showStopper[8].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of showStopper[8]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+  </div>
+
+  <h1 style="text-align: center;">Critical</h1>
+  <div class="container-wrapper">
+    <div class="container">
+      <h2>New</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="30" #newListCritical="cdkDropList"
+                [cdkDropListData]="critical[0]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[0].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[0]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Analyse</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="31" #analyseListCritical="cdkDropList"
+                [cdkDropListData]="critical[1]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[1].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[1]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>To Do</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="32" #todoListCritical="cdkDropList"
+                [cdkDropListData]="critical[2]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[2].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[2]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Progress</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="33" #inProgressListCritical="cdkDropList"
+                [cdkDropListData]="critical[3]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[3].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[3]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Incomplete</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="34" #incompleteListCritical="cdkDropList"
+                [cdkDropListData]="critical[4]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[4].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[4]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Review</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="35" #reviewListCritical="cdkDropList"
+                [cdkDropListData]="critical[5]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[5].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[5]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Test</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="36" #inTestListCritical="cdkDropList"
+                [cdkDropListData]="critical[6]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[6].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[6]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Acceptance</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="37" #acceptanceListCritical="cdkDropList"
+                [cdkDropListData]="critical[7]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[7].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[7]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Done</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="38" #doneListCritical="cdkDropList"
+                [cdkDropListData]="critical[8]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="critical[8].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of critical[8]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+  </div>
+
+  <h1 style="text-align: center;">Major</h1>
+  <div class="container-wrapper">
+    <div class="container">
+      <h2>New</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="20" #newListMajor="cdkDropList" [cdkDropListData]="major[0]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[0].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[0]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Analyse</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="21" #analyseListMajor="cdkDropList"
+                [cdkDropListData]="major[1]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[1].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[1]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>To Do</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="22" #todoListMajor="cdkDropList" [cdkDropListData]="major[2]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[2].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[2]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Progress</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="23" #inProgressListMajor="cdkDropList"
+                [cdkDropListData]="major[3]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[3].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[3]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Incomplete</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="24" #incompleteListMajor="cdkDropList"
+                [cdkDropListData]="major[4]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[4].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[4]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Review</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="25" #reviewListMajor="cdkDropList" [cdkDropListData]="major[5]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[5].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[5]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Test</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="26" #inTestListMajor="cdkDropList"
+                [cdkDropListData]="major[6]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[6].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[6]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Acceptance</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="27" #acceptanceListMajor="cdkDropList"
+                [cdkDropListData]="major[7]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[7].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[7]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Done</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="28" #doneListMajor="cdkDropList" [cdkDropListData]="major[8]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="major[8].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of major[8]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+  </div>
+
+  <h1 style="text-align: center;">Normal</h1>
+  <div class="container-wrapper">
+    <div class="container">
+      <h2>New</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="10" #newListNormal="cdkDropList" [cdkDropListData]="normal[0]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[0].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[0]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Analyse</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="11" #analyseListNormal="cdkDropList"
+                [cdkDropListData]="normal[1]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[1].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[1]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>To Do</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="12" #todoListNormal="cdkDropList" [cdkDropListData]="normal[2]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[2].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[2]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Progress</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="13" #inProgressListNormal="cdkDropList"
+                [cdkDropListData]="normal[3]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[3].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[3]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Incomplete</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="14" #incompleteListNormal="cdkDropList"
+                [cdkDropListData]="normal[4]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[4].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[4]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Review</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="15" #reviewListNormal="cdkDropList"
+                [cdkDropListData]="normal[5]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[5].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[5]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Test</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="16" #inTestListNormal="cdkDropList"
+                [cdkDropListData]="normal[6]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[6].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[6]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Acceptance</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="17" #acceptanceListNormal="cdkDropList"
+                [cdkDropListData]="normal[7]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[7].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[7]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+
+    <div class="container">
+      <h2>Done</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="18" #doneListNormal="cdkDropList" [cdkDropListData]="normal[8]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="normal[8].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of normal[8]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+  </div>
+
+  <h1 style="text-align: center;">Minor</h1>
+  <div class="container-wrapper">
+    <div class="container">
+      <h2>New</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="00" #newListMinor="cdkDropList" [cdkDropListData]="minor[0]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[0].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[0]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Analyse</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="01" #analyseListMinor="cdkDropList"
+                [cdkDropListData]="minor[1]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[1].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[1]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>To Do</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="02" #todoListMinor="cdkDropList" [cdkDropListData]="minor[2]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[2].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[2]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Progress</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" class="mat-elevation-z0" cdkDropList id="03" #inProgressListMinor="cdkDropList"
+                [cdkDropListData]="minor[3]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[3].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[3]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Incomplete</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="04" #incompleteListMinor="cdkDropList"
+                [cdkDropListData]="minor[4]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[4].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[4]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Review</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="05" #reviewListMinor="cdkDropList" [cdkDropListData]="minor[5]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[5].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[5]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>In Test</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="06" #inTestListMinor="cdkDropList"
+                [cdkDropListData]="minor[6]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[6].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[6]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Acceptance</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="07" #acceptanceListMinor="cdkDropList" [cdkDropListData]="minor[7]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[7].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[7]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+    <div class="container">
+      <h2>Done</h2>
+      <hr>
+      <mat-card class="mat-elevation-z0" cdkDropList id="08" #doneListMinor="cdkDropList" [cdkDropListData]="minor[8]"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
+            newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
+            newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,
+            newListMajor, analyseListMajor, todoListMajor, inProgressListMajor, incompleteListMajor, reviewListMajor, inTestListMajor, acceptanceListMajor, doneListMajor,
+            newListCritical, analyseListCritical, todoListCritical, inProgressListCritical, incompleteListCritical, reviewListCritical, inTestListCritical, acceptanceListCritical, doneListCritical,
+            newListShowStopper, analyseListShowStopper, todoListShowStopper, inProgressListShowStopper, incompleteListShowStopper, reviewListShowStopper, inTestListShowStopper, acceptanceListShowStopper, doneListShowStopper]">
+        <p class="empty-label" *ngIf="minor[7].length == 0"></p>
+        <app-task class="task" cdkDrag *ngFor="let task of minor[8]" [task]="task"></app-task>
+      </mat-card>
+    </div>
+  </div>
+</div>

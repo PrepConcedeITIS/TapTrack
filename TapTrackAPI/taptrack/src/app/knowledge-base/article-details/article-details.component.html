@@ -1,0 +1,19 @@
+<div *ngIf="article" class="article-details">
+  <div class="project-title">Project: {{article.projectTitle}}</div>
+  <div class="article-title">Title: {{article.title}}</div>
+  <h4>Created by
+    <b>{{article.createdBy.username}}</b>
+    <span matTooltip="{{article.createdAt | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(article.createdAt)}}</span>
+  </h4>
+  <div *ngIf="article.createdAt!=article.updatedAt">
+    <h4>Updated by
+      <b>{{article.updatedBy.username}}</b>
+      <span matTooltip="{{article.updatedAt | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(article.updatedAt)}}</span>
+    </h4>
+  </div>
+  <md-editor height="100%" mode="preview" [ngModel]="article.content"></md-editor>
+  <button type="button" class="btn btn-primary" (click)="goToEdit(article.id)">Edit</button>
+  <button type="button" class="btn btn-danger" (click)="deleteArticle()">Delete</button>
+  <div class="article-comments">Comments:</div>
+  <app-comments entityType="Article" [entityId]="article.id" [projectId]="article.belongsToId"></app-comments>
+</div>

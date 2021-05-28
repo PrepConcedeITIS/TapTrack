@@ -1,0 +1,55 @@
+<div class="col-md-6 offset-md-3 pt-5 mt-5">
+  <tabset>
+    <tab heading="General information" id="general-info-tab">
+
+      <div class="card">
+        <h4 class="card-header">Edit Project</h4>
+
+        <div [ngClass]="(model.logo || imageSrcOnUpdate) ? 'row pt-4 pb-4' : 'p-4'">
+          <div [ngClass]="(model.logo || imageSrcOnUpdate) ? 'pl-4 pr-1 col-md-8' : null">
+            <form [formGroup]="form" (ngSubmit)="projectGeneralInfoSubmit()" (change)="removeServerErrors()">
+              <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+            </form>
+            <app-project-server-errors [serverValidationErrors]="serverValidationErrors"></app-project-server-errors>
+          </div>
+          <div *ngIf="(model.logo || imageSrcOnUpdate)"
+               [ngClass]="(model.logo || imageSrcOnUpdate) ? 'pr-4 pl-1 col-md-4 pt-4' : null">
+            <img [src]="imageSrcOnUpdate" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Team invitations" id="team-invitations-tab">
+      <div class="card">
+        <h4 class="card-header">Invite User</h4>
+        <div style="padding: 10px">
+          <form [formControl]="emailFormControl" class="email-form" (submit)="submitInvite()">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+              </div>
+              <input
+                [formControl]="emailFormControl"
+                type="email"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1">
+            </div>
+            <div *ngIf="emailFormControl.invalid" class="text-danger">Invalid email</div>
+            <button type="submit" class="btn btn-primary" [disabled]="emailFormControl.invalid">Invite</button>
+          </form>
+          <div style="font-size: 18px; padding-top: 20px"> Invited Users </div>
+          <ag-grid-angular
+            style="height: 200px; margin-top: 10px;"
+            class="ag-theme-alpine"
+            [rowData]="rowData | async"
+            [columnDefs]="columnDefs">
+          </ag-grid-angular>
+        </div>
+      </div>
+    </tab>
+  </tabset>
+</div>
+

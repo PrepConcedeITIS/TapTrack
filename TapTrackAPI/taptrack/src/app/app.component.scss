@@ -1,0 +1,41 @@
+.navbar {
+  font-size: 16px;
+  box-shadow: 0px 3px 10px 0px rgba(34, 60, 80, 0.2);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  color: #4e4f5f;
+  font-weight: lighter;
+}
+
+.nav-item {
+  margin-right: 0.5em;
+}
+
+.nav-item-new {
+  border-radius: 8px;
+  background-color: #007bff;
+  padding: 0.5em;
+  box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2);
+  -webkit-transition: all 0.3s ease;;
+  -moz-transition: all 0.2s ease;;
+  -o-transition: all 0.2s ease;;
+  transition: all 0.2s ease;
+}
+
+.nav-item-new:hover {
+  background-color: #0062cc;
+}
+
+.nav-link-new {
+  color: #FFFF;
+  text-decoration:none;
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: rgb(255,102,203);
+}
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
