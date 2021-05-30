@@ -25,7 +25,7 @@ namespace TapTrackAPI.Core.Features.Auth.Services
                 .ToDictionary(x => x.Key, y => y.Value);
             smtp.Credentials = new NetworkCredential(credentials["Mail"], credentials["Password"]);
 
-            //smtp.EnableSsl = true;
+            smtp.EnableSsl = true;
 
             await smtp.SendMailAsync(m);
         }

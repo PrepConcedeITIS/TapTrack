@@ -1,15 +1,16 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using TapTrackAPI.Core.Base.Utility;
+using TapTrackAPI.Core.Constants;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Extensions;
 using TapTrackAPI.TelegramBot.Enums;
 using TapTrackAPI.TelegramBot.Interfaces;
-using Telegram.Bot.Types.Enums;
 
 namespace TapTrackAPI.TelegramBot.Services
 {
@@ -19,6 +20,7 @@ namespace TapTrackAPI.TelegramBot.Services
         private readonly UserManager<User> _userManager;
         private readonly DbContext _dbContext;
         private readonly IHostEnvironment _environment;
+        private readonly bool _tgEnabled;
 
         public NotificationService(IChatService chatService, DbContext dbContext, UserManager<User> userManager,
             IHostEnvironment environment)
@@ -27,13 +29,14 @@ namespace TapTrackAPI.TelegramBot.Services
             _dbContext = dbContext;
             _userManager = userManager;
             _environment = environment;
+            _tgEnabled = bool.Parse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled)!); 
         }
 
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
             Issue issue, TeamMember? assignee)
         {
-            //if (!_environment.IsProduction())
-            //    return TelegramNotificationStatus.DeclinedBySystem;
+            if (!_tgEnabled)
+                return TelegramNotificationStatus.DeclinedBySystem;
 
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
             if (assignee == null || actorId == assignee.UserId)
@@ -59,8 +62,8 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueStatusChangeNotification(ClaimsPrincipal actionAuthor,
             State previousStatus, Issue issue)
         {
-            //if (!_environment.IsProduction())
-            //    return TelegramNotificationStatus.DeclinedBySystem;
+            if (!_tgEnabled)
+                return TelegramNotificationStatus.DeclinedBySystem;
 
             if (!((previousStatus == State.Review && issue.State == State.Incomplete) ||
                 (previousStatus == State.InTest && issue.State == State.Incomplete) ||

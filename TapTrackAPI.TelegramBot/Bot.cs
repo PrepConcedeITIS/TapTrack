@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TapTrackAPI.Core.Constants;
 using TapTrackAPI.TelegramBot.Base;
 using TapTrackAPI.TelegramBot.Interfaces;
 
@@ -16,21 +17,21 @@ namespace TapTrackAPI.TelegramBot
         private readonly IChatService _chatService;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<Bot> _logger;
-        private readonly IHostEnvironment _hostEnvironment;
 
+        private readonly bool _tgEnabled; 
         public const string UnknownCommandMessage = "Unknown command. Try /help for a list of available commands.";
 
-        public Bot(IChatService chatService, IServiceProvider serviceProvider, ILogger<Bot> logger, IHostEnvironment hostEnvironment)
+        public Bot(IChatService chatService, IServiceProvider serviceProvider, ILogger<Bot> logger)
         {
             _chatService = chatService;
             _serviceProvider = serviceProvider;
             _logger = logger;
-            _hostEnvironment = hostEnvironment;
+            _tgEnabled = bool.Parse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled)!); 
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            if (_hostEnvironment.IsProduction() || true)
+            if (_tgEnabled)
             {
                 _chatService.ChatMessage += OnChatMessage;
                 _chatService.Callback += OnCallback;
@@ -41,9 +42,10 @@ namespace TapTrackAPI.TelegramBot
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            if (_hostEnvironment.IsProduction() || true)
+            if (_tgEnabled)
             {
-                _chatService.ChatMessage -= OnChatMessage;
+                _chatService.ChatMessage += OnChatMessage;
+                _chatService.Callback += OnCallback;
             }
 
             return Task.CompletedTask;

@@ -1,5 +1,3 @@
-using TapTrackAPI.Core.Enums;
-
 namespace TapTrackAPI.Core.Features.Invitation
 {
     public class InvitationDto

@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -34,19 +33,20 @@ namespace TapTrackAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            WebHostEnvironment = webHostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<AppDbContext>(builder => builder
-                .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
+            AddDbContext(services);
             services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddSignInManager();
@@ -121,19 +121,13 @@ namespace TapTrackAPI
             RegisterMediaR(services);
 
             RegisterTelegramBot(services);
-            
+
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "taptrack/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-#warning
-            //app.UseCors(builder => builder.WithOrigins("paste url from prod front").AllowAnyHeader().AllowAnyMethod());
-
-            app.UseCors(builder =>
-                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             if (env.IsDevelopment())
             {
                 app.UseCors(builder =>
@@ -141,6 +135,11 @@ namespace TapTrackAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TapTrackAPI v1"));
+            }
+            else
+            {
+                app.UseCors(builder =>
+                    builder.WithOrigins("taptrack.tech").AllowAnyHeader().AllowAnyMethod());
             }
 
             app.UseMiddleware<ValidationExceptionMiddleware>();
@@ -150,19 +149,16 @@ namespace TapTrackAPI
             {
                 app.UseSpaStaticFiles();
             }
-            
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            
+
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "taptrack";
 
                 if (env.IsDevelopment())
@@ -170,6 +166,28 @@ namespace TapTrackAPI
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+        
+        private void AddDbContext(IServiceCollection services)
+        {
+            if (WebHostEnvironment.IsDevelopment())
+            {
+                var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                var databaseUri = new Uri(connectionUrl!);
+
+                var db = databaseUri.LocalPath.TrimStart('/');
+                var userInfo = databaseUri.UserInfo.Split(':', StringSplitOptions.RemoveEmptyEntries);
+
+                var connection =
+                    $"User ID={userInfo[0]};Password={userInfo[1]};Host={databaseUri.Host};Port={databaseUri.Port};Database={db};Pooling=true;SSL Mode=Require;Trust Server Certificate=True;";
+                services.AddDbContext<AppDbContext>(builder => builder.UseNpgsql(connection));
+            }
+            else
+            {
+                services.AddDbContext<AppDbContext>(builder => builder
+                    .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
+            }
         }
 
         private void RegisterMediaR(IServiceCollection services)
