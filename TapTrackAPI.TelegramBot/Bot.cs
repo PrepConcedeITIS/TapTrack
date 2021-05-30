@@ -31,6 +31,7 @@ namespace TapTrackAPI.TelegramBot
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            Console.WriteLine($"bot start {_tgEnabled}");
             if (_tgEnabled)
             {
                 _chatService.ChatMessage += OnChatMessage;
