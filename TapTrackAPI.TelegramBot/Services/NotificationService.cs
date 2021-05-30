@@ -65,7 +65,7 @@ namespace TapTrackAPI.TelegramBot.Services
         {
             Console.WriteLine($"prev state {previousStatus}");
             Console.WriteLine($"new state {issue.State}");
-            Console.WriteLine($"assignee {issue.Assignee?.UserId}");
+            Console.WriteLine($"assignee {issue.Assignee?.UserId.ToString()}");
             if (!_tgEnabled)
                 return TelegramNotificationStatus.DeclinedBySystem;
 
