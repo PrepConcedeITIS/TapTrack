@@ -23,11 +23,13 @@ namespace TapTrackAPI.Core.Features.Issue.Edit
         public async Task<Guid> Handle(EditStateIssueCommand request, CancellationToken cancellationToken)
         {
             var issues = Context.Set<Entities.Issue>().Include(x => x.Assignee);
-            var issue = await issues.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id), cancellationToken: cancellationToken);
+            var issue = await issues.Include(x=>x.Assignee)
+                .FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id), cancellationToken: cancellationToken);
             var previousStatus = issue.State;
             issue.UpdateState(request.State);
             await Context.SaveChangesAsync(cancellationToken);
-            await _notificationService.SendIssueStatusChangeNotification(request.User, previousStatus, issue);
+            //todo: return to front or log
+            var notificationResult = await _notificationService.SendIssueStatusChangeNotification(request.User, previousStatus, issue);
             return issue.Id;
         }
     }
