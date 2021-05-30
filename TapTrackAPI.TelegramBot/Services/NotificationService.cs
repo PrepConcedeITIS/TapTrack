@@ -63,7 +63,9 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueStatusChangeNotification(ClaimsPrincipal actionAuthor,
             State previousStatus, Issue issue)
         {
-            Console.WriteLine($"Notification service {_tgEnabled}");
+            Console.WriteLine($"prev state {previousStatus}");
+            Console.WriteLine($"new state {issue.State}");
+            Console.WriteLine($"assignee {issue.Assignee?.UserId}");
             if (!_tgEnabled)
                 return TelegramNotificationStatus.DeclinedBySystem;
 
@@ -73,6 +75,7 @@ namespace TapTrackAPI.TelegramBot.Services
                 return TelegramNotificationStatus.DeclinedBySystem;
             
             var actorId = _userManager.GetUserIdGuid(actionAuthor);
+            Console.WriteLine($"actor {actorId}");
             if (issue.Assignee == null || actorId == issue.Assignee.UserId)
                 return TelegramNotificationStatus.DeclinedBySystem;
 
