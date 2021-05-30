@@ -63,6 +63,7 @@ namespace TapTrackAPI.TelegramBot.Services
         public async Task<TelegramNotificationStatus> SendIssueStatusChangeNotification(ClaimsPrincipal actionAuthor,
             State previousStatus, Issue issue)
         {
+            Console.WriteLine($"Notification service {_tgEnabled}");
             if (!_tgEnabled)
                 return TelegramNotificationStatus.DeclinedBySystem;
 
