@@ -139,7 +139,7 @@ namespace TapTrackAPI
             else
             {
                 app.UseCors(builder =>
-                    builder.WithOrigins("taptrack.tech").AllowAnyHeader().AllowAnyMethod());
+                    builder.WithOrigins("https://www.taptrack.tech").AllowAnyHeader().AllowAnyMethod());
             }
 
             app.UseMiddleware<ValidationExceptionMiddleware>();
