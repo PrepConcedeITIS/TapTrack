@@ -27,4 +27,5 @@ RUN dotnet publish TapTrackAPI.csproj -c Release -o /app/publish
 FROM base as final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TapTrackAPI.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet TapTrackAPI.dll
+#ENTRYPOINT ["dotnet", "TapTrackAPI.dll"]
