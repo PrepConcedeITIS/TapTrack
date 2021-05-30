@@ -29,7 +29,6 @@ namespace TapTrackAPI.TelegramBot.Commands.Start
         public async Task Execute(IChatService chatService, DbContext dbContext, long chatId, int userId, int messageId,
             string? commandText)
         {
-            Console.WriteLine($"start exec {_tgEnabled}");
             if (!_tgEnabled)
                 return;
             var requestResponse = await _mediator.Send(new BindUserCommand(chatId, userId,

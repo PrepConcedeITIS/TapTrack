@@ -28,8 +28,8 @@ namespace TapTrackAPI.Core.Features.Issue.Edit
             var previousStatus = issue.State;
             issue.UpdateState(request.State);
             await Context.SaveChangesAsync(cancellationToken);
+            //todo: return to front or log
             var notificationResult = await _notificationService.SendIssueStatusChangeNotification(request.User, previousStatus, issue);
-            Console.WriteLine(notificationResult);
             return issue.Id;
         }
     }
