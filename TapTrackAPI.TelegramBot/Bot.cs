@@ -26,7 +26,7 @@ namespace TapTrackAPI.TelegramBot
             _chatService = chatService;
             _serviceProvider = serviceProvider;
             _logger = logger;
-            _tgEnabled = bool.Parse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled)!); 
+            bool.TryParse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled)!, out _tgEnabled); 
         }
 
         public Task StartAsync(CancellationToken cancellationToken)

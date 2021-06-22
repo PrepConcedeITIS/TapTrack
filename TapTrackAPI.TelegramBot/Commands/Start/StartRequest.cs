@@ -19,7 +19,7 @@ namespace TapTrackAPI.TelegramBot.Commands.Start
         public StartRequest(IMediator mediator, IHostEnvironment webHostEnvironment)
         {
             _mediator = mediator;
-            _tgEnabled = bool.Parse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled)!); 
+             bool.TryParse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled), out _tgEnabled); 
         }
 
         public string Command => "start";

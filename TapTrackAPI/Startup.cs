@@ -170,7 +170,7 @@ namespace TapTrackAPI
         
         private void AddDbContext(IServiceCollection services)
         {
-            if (WebHostEnvironment.IsDevelopment())
+            if (!WebHostEnvironment.IsDevelopment())
             {
                 var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
