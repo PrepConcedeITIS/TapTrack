@@ -32,6 +32,11 @@
 
       </div>
       <div class="col-md-4">
+        <div class="mb-2">
+          Project: <a class=""
+                      style="color: #007bff; cursor: pointer;"
+                      (click)="redirectToProject()">{{issueData.project}}</a>
+        </div>
         <ng-select
           placeholder="Issue type"
           [items]="dropdownsSchema.issueType"
