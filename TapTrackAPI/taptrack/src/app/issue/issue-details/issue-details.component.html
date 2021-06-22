@@ -1,33 +1,37 @@
-<div class="main-container" *ngIf="issueData && dropdownsSchema">
-  <div class="left-container">
-    <div class="short-name">
-      <div class="short-name-idVisible">{{issueData.idVisible}}</div>
-      <div class="short-name-creator">
-        <span>Created By {{issueData.creator}}</span>
-        <span matTooltip="{{issueData.created | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(issueData.created)}}</span>
+<div class="container">
+  <div class="mt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          {{issueData.idVisible}}
+          <span class="grey">Created By {{issueData.creator}}</span>
+          <span class="grey" matTooltip="{{issueData.created | date:'d MMM YYYY HH:mm'}}">
+            {{dateBeautifier.beatify(issueData.created)}}
+          </span>
+        </h3>
       </div>
-      <mat-icon class="icon" (click)="edit()">edit</mat-icon>
-      <mat-icon class="icon" (click)="delete()">delete</mat-icon>
     </div>
-    <div class="name">
-      {{issueData.title}}
-    </div>
-    <div class="description" style="word-wrap: break-word ">
-      {{issueData.description}}
-    </div>
-    <div class="commenting">
-      Comments:
-      <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
-    </div>
-  </div>
-  <div class="right-container">
-    <div class="right-bar">
-      <div class="project right-bar-element">
-        Project: <a class="projectRedirectButton"
-                    style="color: #007bff"
-                    (click)="redirectToProject()">{{issueData.project}}</a>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+
+          <div class="col-auto mr-auto">
+            <h1>{{issueData.title}}</h1>
+          </div>
+
+          <div class="col-auto">
+            <mat-icon class="icon ml-2 mr-1" (click)="edit()">edit</mat-icon>
+            <mat-icon class="icon mr-1 ml-2" (click)="delete()">delete</mat-icon>
+          </div>
+        </div>
+        <div style="word-wrap: break-word">{{issueData.description}}</div>
+
+        <div class="mt-3">
+          <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
+        </div>
+
       </div>
-      <div class="right-bar-element">
+      <div class="col-md-4">
         <ng-select
           placeholder="Issue type"
           [items]="dropdownsSchema.issueType"
@@ -36,9 +40,7 @@
           [searchable]="false"
           (change)="changeIssueType()"
         ></ng-select>
-      </div>
-      <div class="right-bar-element">
-         <ng-select
+        <ng-select
           placeholder="Priority"
           [items]="dropdownsSchema.priority"
           [(ngModel)]="issueData.priority"
@@ -46,8 +48,6 @@
           [searchable]="false"
           (change)="changePriority()"
         ></ng-select>
-      </div>
-      <div class="right-bar-element">
         <ng-select
           placeholder="State"
           [items]="dropdownsSchema.state"
@@ -56,8 +56,6 @@
           [searchable]="false"
           (change)="changeState()"
         ></ng-select>
-      </div>
-      <div class="right-bar-element">
         <ng-select
           placeholder="Assignee"
           [items]="dropdownsSchema.assignee"
@@ -66,14 +64,12 @@
           [searchable]="false"
           (change)="changeAssignee()"
         ></ng-select>
-      </div>
-      <div class="spentTime right-bar-element">
+
         <mat-form-field style="width: 100%">
           <mat-label>Spent time</mat-label>
           <input matInput (change)="changeSpentTime()" [(ngModel)]="issueData.spent" pattern="\d+w \d+d \d+h *">
         </mat-form-field>
-      </div>
-      <div class="estimation right-bar-element">
+
         <mat-form-field style="width: 100%">
           <mat-label>Estimation</mat-label>
           <input matInput (change)="changeEstimation()" [(ngModel)]="issueData.estimate" pattern="\d+w \d+d \d+h *">
