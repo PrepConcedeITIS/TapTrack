@@ -167,7 +167,7 @@ namespace TapTrackAPI
                 }
             });
         }
-        
+
         private void AddDbContext(IServiceCollection services)
         {
             if (!WebHostEnvironment.IsDevelopment())

@@ -7,7 +7,7 @@ using TapTrackAPI.Core.Enums;
 
 namespace TapTrackAPI.Core.Entities
 {
-    public class Issue : EntityBase
+    public partial class Issue : EntityBase
     {
         protected Issue()
         {
@@ -26,18 +26,32 @@ namespace TapTrackAPI.Core.Entities
             IdVisible = idVisible;
         }
 
+        class MyClass
+        {
+            void M()
+            {
+                var issue = new Issue();
+            }
+        }
         public string Title { get; protected set; }
 
         public string Description { get; protected set; }
 
         public long CreatorId { get; set; }
-        [JsonIgnore] public virtual TeamMember Creator { get; protected set; }
+
+        [JsonIgnore]
+        public virtual TeamMember Creator { get; protected set; }
 
         public long? AssigneeId { get; set; }
-        [JsonIgnore] [CanBeNull] public virtual TeamMember Assignee { get; protected set; }
+
+        [JsonIgnore]
+        [CanBeNull]
+        public virtual TeamMember Assignee { get; protected set; }
 
         public Guid ProjectId { get; set; }
-        [JsonIgnore] public virtual Project Project { get; protected set; }
+
+        [JsonIgnore]
+        public virtual Project Project { get; protected set; }
 
         public TimeSpan Estimation { get; protected set; }
 
@@ -56,9 +70,13 @@ namespace TapTrackAPI.Core.Entities
 
         public virtual ICollection<Comment> Comment { get; protected set; }
 
-        public void Update(string title, string description)
+        public void UpdateTitle(string title)
         {
             Title = title;
+        }
+
+        public void UpdateDescription(string description)
+        {
             Description = description;
         }
 
@@ -77,22 +95,22 @@ namespace TapTrackAPI.Core.Entities
         {
             State = state;
         }
-        
+
         public void UpdateIssueType(IssueType type)
         {
             IssueType = type;
         }
-        
+
         public void UpdateAssignee(long? assigneeId)
         {
             AssigneeId = assigneeId;
         }
-        
+
         public void UpdateSpentTime(TimeSpan spent)
         {
             Spent = spent;
         }
-        
+
         public void UpdateEstimation(TimeSpan estimation)
         {
             Estimation = estimation;
