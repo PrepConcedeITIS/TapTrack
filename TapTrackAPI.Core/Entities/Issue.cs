@@ -26,18 +26,11 @@ namespace TapTrackAPI.Core.Entities
             IdVisible = idVisible;
         }
 
-        class MyClass
-        {
-            void M()
-            {
-                var issue = new Issue();
-            }
-        }
         public string Title { get; protected set; }
 
         public string Description { get; protected set; }
 
-        public long CreatorId { get; set; }
+        public long CreatorId { get; protected set; }
 
         [JsonIgnore]
         public virtual TeamMember Creator { get; protected set; }
@@ -86,6 +79,13 @@ namespace TapTrackAPI.Core.Entities
             ProjectId = projectId;
         }
 
+        public void SetCreator(TeamMember creator)
+        {
+            if (CreatorId != default)
+                throw new InvalidOperationException("Creator can't be replaced");
+            CreatorId = creator.Id;
+        }
+
         public void UpdatePriority(Priority priority)
         {
             Priority = priority;
@@ -114,6 +114,20 @@ namespace TapTrackAPI.Core.Entities
         public void UpdateEstimation(TimeSpan estimation)
         {
             Estimation = estimation;
+        }
+
+        public void SetIdVisible(string idVisible)
+        {
+            if (IdVisible != default)
+                throw new InvalidOperationException("IdVisible can't be replaced");
+            IdVisible = idVisible;
+        }
+
+        public void SetCreationDate(DateTime creationDate)
+        {
+            if (Created != default)
+                throw new InvalidOperationException("Creation date can't be replaced");
+            Created = creationDate;
         }
     }
 }
