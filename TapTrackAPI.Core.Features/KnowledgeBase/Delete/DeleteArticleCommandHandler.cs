@@ -1,22 +1,24 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using JetBrains.Annotations;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.KnowledgeBase.Base;
-using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
+namespace TapTrackAPI.Core.Features.KnowledgeBase.Delete
 {
-    public class DeleteArticleCommandHandler : BaseCommandHandler, IRequestHandler<DeleteArticleCommand, Unit>
+    [UsedImplicitly]
+    public class DeleteArticleCommandHandler : BaseHandlerWithUserManager<DeleteArticleCommand, Unit>
     {
-        public DeleteArticleCommandHandler(DbContext dbContext, UserManager<User> userManager) : base(dbContext,
-            userManager)
+        public DeleteArticleCommandHandler(DbContext dbContext, IMapper mapper, UserManager<User> userManager) : base(
+            dbContext, mapper, userManager)
         {
         }
 
-        public async Task<Unit> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
         {
             var article = await DbContext
                 .Set<Article>()

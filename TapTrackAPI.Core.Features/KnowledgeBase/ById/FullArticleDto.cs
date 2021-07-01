@@ -1,6 +1,8 @@
 using System;
+using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
+using TapTrackAPI.Core.Records;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.DTOs
+namespace TapTrackAPI.Core.Features.KnowledgeBase.ById
 {
     public record FullArticleDto
     {

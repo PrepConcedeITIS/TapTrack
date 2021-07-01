@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Features.KnowledgeBase.ById;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
+using TapTrackAPI.Core.Features.KnowledgeBase.List;
+using TapTrackAPI.Core.Records;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Mappers
+namespace TapTrackAPI.Core.Features.KnowledgeBase
 {
     public class ArticleProfile : AutoMapper.Profile
     {

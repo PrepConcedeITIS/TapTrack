@@ -4,29 +4,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using MediatR;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
-using TapTrackAPI.Core.Features.KnowledgeBase.Queries;
+using TapTrackAPI.Core.Records;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
+namespace TapTrackAPI.Core.Features.KnowledgeBase.GetProjectOptions
 {
-    public class GetAllOptionsQueryHandler : BaseHandler<GetAllOptionsQuery, List<OptionDto>>
+    [UsedImplicitly]
+    public class GetProjectOptionsQueryHandler : BaseHandlerWithUserManager<GetProjectOptionsQuery, List<OptionDto>>
     {
-        protected UserManager<User> UserManager { get; }
-
-        public GetAllOptionsQueryHandler(DbContext context, IMapper mapper, UserManager<User> userManager) : base(
-            context,
-            mapper)
+        public GetProjectOptionsQueryHandler(DbContext context, IMapper mapper, UserManager<User> userManager)
+            : base(context, mapper, userManager)
         {
-            UserManager = userManager;
         }
 
-        public override async Task<List<OptionDto>> Handle(GetAllOptionsQuery request,
+        public override async Task<List<OptionDto>> Handle(GetProjectOptionsQuery request,
             CancellationToken cancellationToken)
         {
             var userId = UserManager.GetUserIdGuid(request.AppUser);

@@ -2,22 +2,24 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
+using AutoMapper;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.KnowledgeBase.Base;
-using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
+namespace TapTrackAPI.Core.Features.KnowledgeBase.Update
 {
-    public class UpdateArticleCommandHandler : BaseCommandHandler, IRequestHandler<UpdateArticleCommand, Guid>
+    [UsedImplicitly]
+    public class UpdateArticleCommandHandler : BaseHandlerWithUserManager<UpdateArticleCommand, Guid>
     {
-        public UpdateArticleCommandHandler(DbContext dbContext, UserManager<User> userManager) : base(dbContext, userManager)
+        public UpdateArticleCommandHandler(DbContext dbContext, IMapper mapper, UserManager<User> userManager) : base(
+            dbContext, mapper, userManager)
         {
         }
 
-        public async Task<Guid> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
+        public override async Task<Guid> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = await DbContext
                 .Set<Article>()

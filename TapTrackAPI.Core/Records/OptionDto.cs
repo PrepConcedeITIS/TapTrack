@@ -1,6 +1,6 @@
 using System;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.DTOs
+namespace TapTrackAPI.Core.Records
 {
     public record OptionDto
     {

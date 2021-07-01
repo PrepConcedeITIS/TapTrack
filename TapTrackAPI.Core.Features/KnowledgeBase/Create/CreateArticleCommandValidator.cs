@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
-using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Validators
+namespace TapTrackAPI.Core.Features.KnowledgeBase.Create
 {
     public class CreateArticleCommandValidator : AbstractValidator<CreateArticleCommand>
     {

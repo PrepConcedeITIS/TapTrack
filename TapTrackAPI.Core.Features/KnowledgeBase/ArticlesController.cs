@@ -7,11 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
-using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
+using TapTrackAPI.Core.Features.KnowledgeBase.ById;
+using TapTrackAPI.Core.Features.KnowledgeBase.Create;
+using TapTrackAPI.Core.Features.KnowledgeBase.Delete;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
-using TapTrackAPI.Core.Features.KnowledgeBase.Queries;
+using TapTrackAPI.Core.Features.KnowledgeBase.GetProjectOptions;
+using TapTrackAPI.Core.Features.KnowledgeBase.List;
+using TapTrackAPI.Core.Features.KnowledgeBase.Update;
+using TapTrackAPI.Core.Records;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Controllers
+namespace TapTrackAPI.Core.Features.KnowledgeBase
 {
     public class ArticlesController : AuthorizedApiController
     {
@@ -40,7 +45,7 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Controllers
         [HttpGet("options")]
         public async Task<ActionResult<List<OptionDto>>> GetAllOptions()
         {
-            return Ok(await Mediator.Send(new GetAllOptionsQuery(User)));
+            return Ok(await Mediator.Send(new GetProjectOptionsQuery(User)));
         }
 
         [HttpPost]

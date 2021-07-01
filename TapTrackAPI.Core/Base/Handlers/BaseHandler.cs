@@ -8,12 +8,11 @@ using TapTrackAPI.Core.Entities;
 
 namespace TapTrackAPI.Core.Base.Handlers
 {
-    public abstract class BaseHandler<TInput, TResult>: IRequestHandler<TInput, TResult> 
+    public abstract class BaseHandler<TInput, TResult> : IRequestHandler<TInput, TResult>
         where TInput : IRequest<TResult>
     {
         protected DbContext DbContext { get; }
         protected IMapper Mapper { get; }
-        protected UserManager<User> UserManager { get; }
 
         protected BaseHandler(DbContext dbContext, IMapper mapper)
         {
@@ -23,7 +22,8 @@ namespace TapTrackAPI.Core.Base.Handlers
 
         public abstract Task<TResult> Handle(TInput request, CancellationToken cancellationToken);
     }
-    public abstract class BaseHandler<TInput>: IRequestHandler<TInput> 
+
+    public abstract class BaseHandler<TInput> : IRequestHandler<TInput>
         where TInput : IRequest
     {
         protected DbContext DbContext { get; }

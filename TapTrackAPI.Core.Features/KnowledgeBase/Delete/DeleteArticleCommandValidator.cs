@@ -3,9 +3,8 @@ using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Validators
+namespace TapTrackAPI.Core.Features.KnowledgeBase.Delete
 {
     public class DeleteArticleCommandValidator : AbstractValidator<DeleteArticleCommand>
     {

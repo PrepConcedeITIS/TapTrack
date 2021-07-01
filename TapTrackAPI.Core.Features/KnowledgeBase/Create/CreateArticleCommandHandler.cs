@@ -4,25 +4,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
-using TapTrackAPI.Core.Features.KnowledgeBase.Commands;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.Handlers
+namespace TapTrackAPI.Core.Features.KnowledgeBase.Create
 {
     [UsedImplicitly]
-    public class CreateArticleCommandHandler : BaseHandler<CreateArticleCommand, Guid>
+    public class CreateArticleCommandHandler : BaseHandlerWithUserManager<CreateArticleCommand, Guid>
     {
-        private UserManager<User> UserManager { get; }
 
-        public CreateArticleCommandHandler(DbContext context, IMapper mapper, UserManager<User> userManager) : base(context,
-            mapper, userManager)
+        public CreateArticleCommandHandler(DbContext context, IMapper mapper, UserManager<User> userManager) 
+            : base(context, mapper, userManager)
         {
-            UserManager = userManager;
         }
 
         public override async Task<Guid> Handle(CreateArticleCommand request, CancellationToken cancellationToken)

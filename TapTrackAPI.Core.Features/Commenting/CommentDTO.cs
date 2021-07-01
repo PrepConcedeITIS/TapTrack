@@ -1,5 +1,6 @@
 using System;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
+using TapTrackAPI.Core.Records;
 
 namespace TapTrackAPI.Core.Features.Commenting
 {
