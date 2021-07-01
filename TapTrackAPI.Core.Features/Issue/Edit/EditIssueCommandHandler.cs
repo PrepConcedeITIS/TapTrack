@@ -20,7 +20,8 @@ namespace TapTrackAPI.Core.Features.Issue.Edit
         {
             var issue = await Context.Set<Entities.Issue>()
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-            issue.Update(request.Title, request.Description);
+            issue.UpdateTitle(request.Title);
+            issue.UpdateDescription(request.Description);
             if (issue.ProjectId != request.ProjectId)
             {
                 issue.UpdateProject(request.ProjectId);
