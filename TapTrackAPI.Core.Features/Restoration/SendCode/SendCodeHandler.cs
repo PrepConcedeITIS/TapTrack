@@ -8,7 +8,6 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Interfaces;
 

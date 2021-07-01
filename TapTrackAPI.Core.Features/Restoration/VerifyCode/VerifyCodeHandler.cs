@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
 
 namespace TapTrackAPI.Core.Features.Restoration.VerifyCode
 {

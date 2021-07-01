@@ -20,4 +20,18 @@ namespace TapTrackAPI.Core.Base.Handlers
 
         public abstract Task<TResult> Handle(TInput request, CancellationToken cancellationToken);
     }
+    public abstract class BaseHandler<TInput>: IRequestHandler<TInput> 
+        where TInput : IRequest
+    {
+        protected DbContext DbContext { get; }
+        protected IMapper Mapper { get; }
+
+        protected BaseHandler(DbContext dbContext, IMapper mapper)
+        {
+            DbContext = dbContext;
+            Mapper = mapper;
+        }
+
+        public abstract Task<Unit> Handle(TInput request, CancellationToken cancellationToken);
+    }
 }

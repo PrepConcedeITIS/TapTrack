@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
 

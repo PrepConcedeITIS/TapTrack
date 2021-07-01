@@ -1,10 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 using TapTrackAPI.Core.Features.KnowledgeBase.Queries;
