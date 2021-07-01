@@ -8,29 +8,30 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Restoration.SendCode
 {
     [UsedImplicitly]
-    public class SendCodeHandler : RequestHandlerBase, IRequestHandler<SendCodeCommand>
+    public class SendCodeHandler : BaseHandlerWithUserManager<SendCodeCommand>
     {
         private readonly IMailSender _mailSender;
         private readonly IConfiguration _configuration;
-        private readonly UserManager<User> _userManager;
 
-        public SendCodeHandler(DbContext dbContext, UserManager<User> userManager, IMapper mapper, IMailSender mailSender,
-            IConfiguration configuration) : base(dbContext, mapper)
+
+        public SendCodeHandler(DbContext dbContext, IMapper mapper, UserManager<User> userManager,
+            IConfiguration configuration, IMailSender mailSender)
+            : base(dbContext, mapper, userManager)
         {
-            _userManager = userManager;
-            _mailSender = mailSender;
             _configuration = configuration;
+            _mailSender = mailSender;
         }
 
-        public async Task<Unit> Handle(SendCodeCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit> Handle(SendCodeCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.UserMail);
+            var user = await UserManager.FindByEmailAsync(request.UserMail);
             if (user == null) return default;
             var userMail = request.UserMail;
             var rnd = new Random();
@@ -45,8 +46,8 @@ namespace TapTrackAPI.Core.Features.Restoration.SendCode
                 Subject = "Your restoration code on one hour", Body = code.ToString()
             };
             await _mailSender.SendMessageAsync(message);
-            Context.Add(restoreEnt);
-            await Context.SaveChangesAsync(cancellationToken);
+            DbContext.Add(restoreEnt);
+            await DbContext.SaveChangesAsync(cancellationToken);
             return default;
         }
     }

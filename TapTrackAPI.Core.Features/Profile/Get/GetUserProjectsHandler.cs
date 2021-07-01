@@ -26,14 +26,13 @@ namespace TapTrackAPI.Core.Features.Profile.Get
             var user = await UserManager.GetUserAsync(query.ClaimsPrincipal);
 
             var userProject = DbContext.Set<Entities.Project>()
-                .AsQueryable()
                 .Where(x => x.Team
                     .Select(y => y.User).Contains(user))
                 .Select(x => new UserProjectDto(x.Name,
                     x.Team.First(y => y.User == user).Role)
                 );
 
-            return userProject.ToList();
+            return await userProject.ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

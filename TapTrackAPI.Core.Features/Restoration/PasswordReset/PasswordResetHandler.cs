@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,24 +7,22 @@ using JetBrains.Annotations;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 
 namespace TapTrackAPI.Core.Features.Restoration.PasswordReset
 {
     [UsedImplicitly]
-    public class PasswordResetHandler : RequestHandlerBase, IRequestHandler<PasswordResetCommand, Unit?>
+    public class PasswordResetHandler : BaseHandlerWithUserManager<PasswordResetCommand, Unit?>
     {
-        private readonly UserManager<User> _userManager;
-
-        public PasswordResetHandler(UserManager<User> userManager, DbContext dbContext, IMapper mapper)
-            : base(dbContext, mapper)
+        public PasswordResetHandler(DbContext dbContext, IMapper mapper, UserManager<User> userManager)
+            : base(dbContext, mapper, userManager)
         {
-            _userManager = userManager;
         }
 
-        public async Task<Unit?> Handle(PasswordResetCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit?> Handle(PasswordResetCommand request, CancellationToken cancellationToken)
         {
-            var dbCode = Context.Set<RestorationCode>()
+            var dbCode = DbContext.Set<RestorationCode>()
                 .Where(x => x.Email == request.UserMail)
                 .OrderByDescending(x => x.CreationDate)
                 .FirstOrDefault();
@@ -32,13 +31,13 @@ namespace TapTrackAPI.Core.Features.Restoration.PasswordReset
                 return null;
 
             dbCode.CodeIsUsed();
-            var user = await _userManager.FindByEmailAsync(request.UserMail);
+            var user = await UserManager.FindByEmailAsync(request.UserMail);
             if (user == null) return default;
-            var result = await _userManager.RemovePasswordAsync(user);
+            var result = await UserManager.RemovePasswordAsync(user);
             if (!result.Succeeded) return default;
-            result = await _userManager.AddPasswordAsync(user, request.UserPassword);
+            result = await UserManager.AddPasswordAsync(user, request.UserPassword);
             if (!result.Succeeded) return default;
-            await Context.SaveChangesAsync(cancellationToken);
+            await DbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }
