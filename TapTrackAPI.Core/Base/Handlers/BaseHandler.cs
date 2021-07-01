@@ -2,7 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Entities;
 
 namespace TapTrackAPI.Core.Base.Handlers
 {
@@ -11,6 +13,7 @@ namespace TapTrackAPI.Core.Base.Handlers
     {
         protected DbContext DbContext { get; }
         protected IMapper Mapper { get; }
+        protected UserManager<User> UserManager { get; }
 
         protected BaseHandler(DbContext dbContext, IMapper mapper)
         {
