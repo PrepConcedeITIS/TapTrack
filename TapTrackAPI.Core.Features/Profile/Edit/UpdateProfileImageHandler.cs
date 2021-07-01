@@ -1,27 +1,30 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Profile.Base;
 using TapTrackAPI.Core.Features.Profile.Dto;
 using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Profile.Edit
 {
     [UsedImplicitly]
-    public class UpdateProfileImageHandler : ProfileHandlerWithDbContextBase<UpdateProfileImageCommand, UserProfileDto>
+    public class UpdateProfileImageHandler : BaseHandlerWithUserManager<UpdateProfileImageCommand, UserProfileDto>
     {
         private readonly IImageUploadService _imageUploadService;
 
-        public UpdateProfileImageHandler(UserManager<User> userManager, DbContext dbContext,
-            IImageUploadService imageUploadService) : base(userManager, dbContext)
+
+        public UpdateProfileImageHandler(DbContext dbContext, IMapper mapper, UserManager<User> userManager,
+            IImageUploadService imageUploadService) : base(dbContext, mapper, userManager)
         {
             _imageUploadService = imageUploadService;
         }
 
-        public override async Task<UserProfileDto> Handle(UpdateProfileImageCommand command, CancellationToken cancellationToken)
+        public override async Task<UserProfileDto> Handle(UpdateProfileImageCommand command,
+            CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 
@@ -30,9 +33,9 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
             user.UpdateProfileImage(imageUrl);
             DbContext.Set<User>().Update(user);
 
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync(cancellationToken);
 
-            return new UserProfileDto(user.ProfileImageUrl,user.UserName, user.Email);
+            return new UserProfileDto(user.ProfileImageUrl, user.UserName, user.Email);
         }
     }
 }

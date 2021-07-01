@@ -6,7 +6,6 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.ById
 {

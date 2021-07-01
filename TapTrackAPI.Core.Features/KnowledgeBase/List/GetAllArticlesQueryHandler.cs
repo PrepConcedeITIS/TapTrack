@@ -6,7 +6,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base.Handlers;
-using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.List
 {

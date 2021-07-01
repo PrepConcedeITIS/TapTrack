@@ -10,7 +10,6 @@ using TapTrackAPI.Core.Extensions;
 using TapTrackAPI.Core.Features.KnowledgeBase.ById;
 using TapTrackAPI.Core.Features.KnowledgeBase.Create;
 using TapTrackAPI.Core.Features.KnowledgeBase.Delete;
-using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 using TapTrackAPI.Core.Features.KnowledgeBase.GetProjectOptions;
 using TapTrackAPI.Core.Features.KnowledgeBase.List;
 using TapTrackAPI.Core.Features.KnowledgeBase.Update;
