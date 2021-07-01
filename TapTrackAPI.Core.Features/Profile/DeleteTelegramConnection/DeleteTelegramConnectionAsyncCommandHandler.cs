@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
 
@@ -13,28 +13,25 @@ namespace TapTrackAPI.Core.Features.Profile.DeleteTelegramConnection
 {
     [UsedImplicitly]
     public class DeleteTelegramConnectionAsyncCommandHandler
-        : RequestHandlerBase, IRequestHandler<DeleteTelegramConnectionCommand, Unit?>
+        : BaseHandlerWithUserManager<DeleteTelegramConnectionCommand, Unit?>
     {
-        private readonly UserManager<User> _userManager;
-
         public DeleteTelegramConnectionAsyncCommandHandler(DbContext context, IMapper mapper,
-            UserManager<User> userManager)
-            : base(context, mapper)
+            UserManager<User> userManager) : base(context, mapper, userManager)
         {
-            _userManager = userManager;
         }
 
-        public async Task<Unit?> Handle(DeleteTelegramConnectionCommand request, CancellationToken cancellationToken)
+        public override async Task<Unit?> Handle(DeleteTelegramConnectionCommand request,
+            CancellationToken cancellationToken)
         {
-            var userId = _userManager.GetUserIdGuid(request.ClaimsPrincipal);
+            var userId = UserManager.GetUserIdGuid(request.ClaimsPrincipal);
 
-            var tgConnection = await Context.Set<TelegramConnection>()
+            var tgConnection = await DbContext.Set<TelegramConnection>()
                 .FirstOrDefaultAsync(x => x.UserId == userId, cancellationToken);
             if (tgConnection == default)
                 return null;
 
-            Context.Set<TelegramConnection>().Remove(tgConnection);
-            await Context.SaveChangesAsync(cancellationToken);
+            DbContext.Set<TelegramConnection>().Remove(tgConnection);
+            await DbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }

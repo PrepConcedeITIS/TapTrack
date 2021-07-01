@@ -5,26 +5,21 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using JetBrains.Annotations;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Base.Handlers;
 
 namespace TapTrackAPI.Core.Features.Issue.Get
 {
     [UsedImplicitly]
-    public class GetIssuesByProjectIdHandler : RequestHandlerBase,
-         IRequestHandler<GetIssuesByProjectIdQuery, List<IssueOnBoardDto>>
+    public class GetIssuesByProjectIdHandler : BaseHandler<GetIssuesByProjectIdQuery, List<IssueOnBoardDto>>
     {
-        private readonly DbContext _dbContext;
-
         public GetIssuesByProjectIdHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            _dbContext = dbContext;
         }
 
-        public async Task<List<IssueOnBoardDto>> Handle(GetIssuesByProjectIdQuery request, CancellationToken cancellationToken)
+        public override async Task<List<IssueOnBoardDto>> Handle(GetIssuesByProjectIdQuery request, CancellationToken cancellationToken)
         {
-            var issueList = await _dbContext
+            var issueList = await DbContext
                 .Set<Entities.Issue>()
                 .Where(x => x.ProjectId == request.ProjectId)
                 .ProjectTo<IssueOnBoardDto>(Mapper.ConfigurationProvider)

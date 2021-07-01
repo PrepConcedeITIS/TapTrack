@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,16 +41,16 @@ namespace TapTrackAPI.Core.Features.Auth.Registration
             {
                 var userId = userDto.Id;
 
-                var contactTypes = _dbContext.Set<ContactType>().AsQueryable();
+                var contactTypes = _dbContext.Set<ContactType>().ToArray();
 
                 await _dbContext.Set<UserContact>().AddRangeAsync(
-                    new UserContact(userId, String.Empty,
+                    new UserContact(userId, string.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.TelegramName).Id),
-                    new UserContact(userId, String.Empty,
+                    new UserContact(userId, string.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.DiscordName).Id),
-                    new UserContact(userId, String.Empty,
+                    new UserContact(userId, string.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.SkypeName).Id),
-                    new UserContact(userId, String.Empty,
+                    new UserContact(userId, string.Empty,
                         contactTypes.First(x => x.Name == ContactTypeConstants.GitHubName).Id));
 
                 await _dbContext.SaveChangesAsync(cancellationToken);

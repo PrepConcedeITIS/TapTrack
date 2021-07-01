@@ -3,19 +3,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
-using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Invitation.InviteUser
 {
     [UsedImplicitly]
-    public class InviteUserAsyncHandler : BaseCommandHandler, IRequestHandler<InviteUserCommand, InvitationDto>
+    public class InviteUserAsyncHandler : BaseHandler<InviteUserCommand, InvitationDto>
     {
         private readonly IMailSender _mailSender;
         private readonly IConfiguration _configuration;
@@ -30,7 +29,7 @@ namespace TapTrackAPI.Core.Features.Invitation.InviteUser
             _userManager = userManager;
         }
 
-        public async Task<InvitationDto> Handle(InviteUserCommand request, CancellationToken cancellationToken)
+        public override async Task<InvitationDto> Handle(InviteUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             var project = await DbContext.Set<Entities.Project>()

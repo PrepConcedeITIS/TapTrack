@@ -3,15 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.TelegramBot.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     [UsedImplicitly]
-    public class EditStateIssueHandler : RequestHandlerBase, IRequestHandler<EditStateIssueCommand, Guid>
+    public class EditStateIssueHandler : BaseHandler<EditStateIssueCommand, Guid>
     {
         private readonly INotificationService _notificationService;
 
@@ -20,16 +19,17 @@ namespace TapTrackAPI.Core.Features.Issue.Edit
             _notificationService = notificationService;
         }
 
-        public async Task<Guid> Handle(EditStateIssueCommand request, CancellationToken cancellationToken)
+        public override async Task<Guid> Handle(EditStateIssueCommand request, CancellationToken cancellationToken)
         {
-            var issues = Context.Set<Entities.Issue>().Include(x => x.Assignee);
+            var issues = DbContext.Set<Entities.Issue>().Include(x => x.Assignee);
+            var (id, state, claimsPrincipal) = request;
             var issue = await issues.Include(x=>x.Assignee)
-                .FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id), cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == Guid.Parse(id), cancellationToken: cancellationToken);
             var previousStatus = issue.State;
-            issue.UpdateState(request.State);
-            await Context.SaveChangesAsync(cancellationToken);
+            issue.UpdateState(state);
+            await DbContext.SaveChangesAsync(cancellationToken);
             //todo: return to front or log
-            var notificationResult = await _notificationService.SendIssueStatusChangeNotification(request.User, previousStatus, issue);
+            var notificationResult = await _notificationService.SendIssueStatusChangeNotification(claimsPrincipal, previousStatus, issue);
             return issue.Id;
         }
     }

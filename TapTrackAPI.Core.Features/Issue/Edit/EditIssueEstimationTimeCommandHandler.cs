@@ -3,27 +3,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Base.Utility;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     [UsedImplicitly]
-    public class EditIssueEstimationTimeCommandHandler: RequestHandlerBase, IRequestHandler<EditIssueEstimationTimeCommand, Guid>
+    public class EditIssueEstimationTimeCommandHandler: BaseHandler<EditIssueEstimationTimeCommand, Guid>
     {
         public EditIssueEstimationTimeCommandHandler(DbContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
-        public async Task<Guid> Handle(EditIssueEstimationTimeCommand request, CancellationToken cancellationToken)
+        public override async Task<Guid> Handle(EditIssueEstimationTimeCommand request, CancellationToken cancellationToken)
         {
             var estimation = TimeSpanFormatter.FormatterFromString(request.Estimation);
-            var issues = Context.Set<Entities.Issue>();
+            var issues = DbContext.Set<Entities.Issue>();
             var issue = await issues.FindAsync(Guid.Parse(request.Id));
             issue.UpdateEstimation(estimation);
-            await Context.SaveChangesAsync(cancellationToken);
+            await DbContext.SaveChangesAsync(cancellationToken);
             return issue.Id;
         }
     }

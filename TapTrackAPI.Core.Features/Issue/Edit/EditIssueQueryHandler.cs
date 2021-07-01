@@ -4,22 +4,21 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using JetBrains.Annotations;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
+using TapTrackAPI.Core.Base.Handlers;
 
 namespace TapTrackAPI.Core.Features.Issue.Edit
 {
     [UsedImplicitly]
-    public class IssueEditQueryHandler: RequestHandlerBase, IRequestHandler<EditIssueQuery, EditIssueDto>
+    public class IssueEditQueryHandler: BaseHandler<EditIssueQuery, EditIssueDto>
     {
         public IssueEditQueryHandler(DbContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
-        public Task<EditIssueDto> Handle(EditIssueQuery request, CancellationToken cancellationToken)
+        public override Task<EditIssueDto> Handle(EditIssueQuery request, CancellationToken cancellationToken)
         {
-            var issue = Context.Set<Entities.Issue>()
+            var issue = DbContext.Set<Entities.Issue>()
                 .Where(x => x.Id == request.Id)
                 .ProjectTo<EditIssueDto>(Mapper.ConfigurationProvider)
                 .FirstOrDefault();

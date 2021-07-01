@@ -2,26 +2,27 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Profile.Base;
 using TapTrackAPI.Core.Features.Profile.Dto;
 
 namespace TapTrackAPI.Core.Features.Profile.Edit
 {
     [UsedImplicitly]
-    public class
-        UpdateContactsInfoHandler : ProfileHandlerWithDbContextBase<UpdateContactInfoCommand,
-            List<ContactInformationListItemDto>>
+    public class UpdateContactsInfoHandler
+        : BaseHandlerWithUserManager<UpdateContactInfoCommand, List<ContactInformationListItemDto>>
     {
-        public UpdateContactsInfoHandler(UserManager<User> userManager, DbContext dbContext) : base(userManager,
-            dbContext)
+        public UpdateContactsInfoHandler(DbContext dbContext, IMapper mapper, UserManager<User> userManager) : base(
+            dbContext, mapper, userManager)
         {
         }
 
-        public override async Task<List<ContactInformationListItemDto>> Handle(UpdateContactInfoCommand command, CancellationToken cancellationToken)
+        public override async Task<List<ContactInformationListItemDto>> Handle(UpdateContactInfoCommand command,
+            CancellationToken cancellationToken)
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 
@@ -34,7 +35,7 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
             foreach (var contact in userContactsList)
             {
                 var newContact = command.Contacts
-                    .FirstOrDefault(x => x.ResourceName == contact.ContactType.Name );
+                    .FirstOrDefault(x => x.ResourceName == contact.ContactType.Name);
 
                 if (newContact != null)
                 {

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
-using Force.Reflection;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
 using BindingFlags = System.Reflection.BindingFlags;

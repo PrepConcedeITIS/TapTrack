@@ -3,22 +3,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Features.Project;
 
 namespace TapTrackAPI.Core.Features.Invitation.ResolveInvitation
 {
     [UsedImplicitly]
-    public class ResolveInvitationAsyncHandler : BaseCommandHandler, IRequestHandler<ResolveInvitationCommand, ProjectDto>
+    public class ResolveInvitationAsyncHandler : BaseHandler<ResolveInvitationCommand, ProjectDto>
     {
         public ResolveInvitationAsyncHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
-        public async Task<ProjectDto> Handle(ResolveInvitationCommand request, CancellationToken cancellationToken)
+        public override async Task<ProjectDto> Handle(ResolveInvitationCommand request, CancellationToken cancellationToken)
         {
             var invite = await DbContext.Set<Entities.Invitation>().Include(x => x.Project).Include(x => x.User)
                 .FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.InvitationId), cancellationToken);

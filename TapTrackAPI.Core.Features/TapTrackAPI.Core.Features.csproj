@@ -137,6 +137,66 @@
       <Compile Update="Invitation\ResolveInvitation\ResolveInvitationValidator.cs">
         <DependentUpon>ResolveInvitationCommand.cs</DependentUpon>
       </Compile>
+      <Compile Update="Commenting\Create\CreateCommentCommandHandler.cs">
+        <DependentUpon>CreateCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Create\CreateCommentCommandValidator.cs">
+        <DependentUpon>CreateCommentCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Update\UpdateCommentCommandHandler.cs">
+        <DependentUpon>UpdateCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Update\UpdateCommentCommandValidator.cs">
+        <DependentUpon>UpdateCommentCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Delete\DeleteCommentCommandValidator.cs">
+        <DependentUpon>DeleteCommentCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Delete\DeleteCommentCommandHandler.cs">
+        <DependentUpon>DeleteCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\List\GetEntityCommentListQueryValidator.cs">
+        <DependentUpon>GetAllEntityCommentsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\List\GetEntityCommentListQueryHandler.cs">
+        <DependentUpon>GetAllEntityCommentsQueryValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Restore\RestoreCommentCommandHandler.cs">
+        <DependentUpon>RestoreCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Restore\RestoreCommentCommandValidator.cs">
+        <DependentUpon>RestoreCommentCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\Create\CreateArticleCommandHandler.cs">
+        <DependentUpon>CreateArticleCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\Create\CreateArticleCommandValidator.cs">
+        <DependentUpon>CreateArticleCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\Delete\DeleteArticleCommandHandler.cs">
+        <DependentUpon>DeleteArticleCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\Delete\DeleteArticleCommandValidator.cs">
+        <DependentUpon>DeleteArticleCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\Update\UpdateArticleCommandHandler.cs">
+        <DependentUpon>UpdateArticleCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\Update\UpdateArticleCommandValidator.cs">
+        <DependentUpon>UpdateArticleCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\List\GetAllArticlesQueryHandler.cs">
+        <DependentUpon>GetAllArticlesQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\ById\GetArticleByIdQueryHandler.cs">
+        <DependentUpon>GetArticleByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\GetProjectOptions\GetProjectOptionsQueryHandler.cs">
+        <DependentUpon>GetProjectOptionsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="KnowledgeBase\List\ShortArticleDto.cs">
+        <DependentUpon>ProjectWithArticlesDto.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
