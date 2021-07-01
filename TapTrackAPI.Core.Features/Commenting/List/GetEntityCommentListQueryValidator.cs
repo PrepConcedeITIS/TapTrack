@@ -1,14 +1,15 @@
 ﻿using System.Linq;
 using FluentValidation;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Queries;
 
-namespace TapTrackAPI.Core.Features.Commenting.Validators
+namespace TapTrackAPI.Core.Features.Commenting.List
 {
-    public class GetAllEntityCommentsQueryValidator : AbstractValidator<GetAllEntityCommentsQuery>
+    [UsedImplicitly]
+    public class GetEntityCommentListQueryValidator : AbstractValidator<GetEntityCommentListQuery>
     {
-        public GetAllEntityCommentsQueryValidator(DbContext dbContext)
+        public GetEntityCommentListQueryValidator(DbContext dbContext)
         {
             RuleFor(command => new {command.EntityType, command.ProjectId, command.EntityId})
                 .MustAsync(async (x, token) =>

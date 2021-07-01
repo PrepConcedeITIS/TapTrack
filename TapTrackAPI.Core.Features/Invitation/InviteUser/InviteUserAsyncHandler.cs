@@ -9,13 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Enums;
-using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Interfaces;
 
 namespace TapTrackAPI.Core.Features.Invitation.InviteUser
 {
     [UsedImplicitly]
-    public class InviteUserAsyncHandler : BaseCommandHandler, IRequestHandler<InviteUserCommand, InvitationDto>
+    public class InviteUserAsyncHandler : BaseHandler, IRequestHandler<InviteUserCommand, InvitationDto>
     {
         private readonly IMailSender _mailSender;
         private readonly IConfiguration _configuration;

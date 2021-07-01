@@ -1,8 +1,7 @@
 ﻿using System;
 using MediatR;
-using TapTrackAPI.Core.Features.Commenting.DTOs;
 
-namespace TapTrackAPI.Core.Features.Commenting.Commands
+namespace TapTrackAPI.Core.Features.Commenting.Update
 {
     public record UpdateCommentCommand : IRequest<EditedCommentDTO>
     {

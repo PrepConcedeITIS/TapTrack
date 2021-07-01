@@ -5,23 +5,21 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Force.Linq;
-using MediatR;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Base;
-using TapTrackAPI.Core.Features.Commenting.DTOs;
-using TapTrackAPI.Core.Features.Commenting.Queries;
 
-namespace TapTrackAPI.Core.Features.Commenting.Handlers
+namespace TapTrackAPI.Core.Features.Commenting.List
 {
-    public class GetAllEntityCommentsQueryHandler : BaseQueryHandler,
-        IRequestHandler<GetAllEntityCommentsQuery, List<CommentDTO>>
+    [UsedImplicitly]
+    public class GetEntityCommentListQueryHandler : BaseHandler<GetEntityCommentListQuery, List<CommentDTO>>
     {
-        public GetAllEntityCommentsQueryHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public GetEntityCommentListQueryHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
-        public async Task<List<CommentDTO>> Handle(GetAllEntityCommentsQuery request,
+        public override async Task<List<CommentDTO>> Handle(GetEntityCommentListQuery request,
             CancellationToken cancellationToken)
         {
             var (entityType, projectId, entityId, userId) = request;

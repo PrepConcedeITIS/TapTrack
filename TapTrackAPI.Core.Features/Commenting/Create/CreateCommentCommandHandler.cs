@@ -2,29 +2,29 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using MediatR;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Base;
-using TapTrackAPI.Core.Features.Commenting.Commands;
-using TapTrackAPI.Core.Features.Commenting.DTOs;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
-namespace TapTrackAPI.Core.Features.Commenting.Handlers
+namespace TapTrackAPI.Core.Features.Commenting.Create
 {
-    public class CreateCommentCommandHandler : BaseCommandHandler, IRequestHandler<CreateCommentCommand, CommentDTO>
+    [UsedImplicitly]
+    public class CreateCommentCommandHandler : BaseHandler<CreateCommentCommand, CommentDTO>
     {
         public CreateCommentCommandHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
-        public async Task<CommentDTO> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
+        public override async Task<CommentDTO> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
             var teamMember = await DbContext
                 .Set<TeamMember>()
                 .Where(member => member.ProjectId == request.ProjectId)
                 .Include(member => member.User)
                 .SingleAsync(member => member.UserId == request.UserId, cancellationToken);
+            
             var comment = new Comment(teamMember.Id, request.EntityType, request.EntityId, request.Text);
             DbContext.Entry(comment).State = EntityState.Added;
             await DbContext.SaveChangesAsync(cancellationToken);

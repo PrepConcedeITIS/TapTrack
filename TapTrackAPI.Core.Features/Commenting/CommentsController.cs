@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Entities;
 using TapTrackAPI.Core.Extensions;
-using TapTrackAPI.Core.Features.Commenting.Commands;
-using TapTrackAPI.Core.Features.Commenting.Queries;
+using TapTrackAPI.Core.Features.Commenting.Create;
+using TapTrackAPI.Core.Features.Commenting.Delete;
+using TapTrackAPI.Core.Features.Commenting.List;
+using TapTrackAPI.Core.Features.Commenting.Restore;
+using TapTrackAPI.Core.Features.Commenting.Update;
 
-namespace TapTrackAPI.Core.Features.Commenting.Controllers
+namespace TapTrackAPI.Core.Features.Commenting
 {
     public class CommentsController : AuthorizedApiController
     {
@@ -26,7 +29,7 @@ namespace TapTrackAPI.Core.Features.Commenting.Controllers
         {
             var result =
                 await Mediator.Send(
-                    new GetAllEntityCommentsQuery(entityType, projectId, entityId, UserManager.GetUserIdGuid(User)));
+                    new GetEntityCommentListQuery(entityType, projectId, entityId, UserManager.GetUserIdGuid(User)));
             if (result == null)
                 return BadRequest("Entity type is wrong");
             return Ok(result);

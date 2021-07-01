@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using MediatR;
-using TapTrackAPI.Core.Features.Commenting.DTOs;
 
-namespace TapTrackAPI.Core.Features.Commenting.Queries
+namespace TapTrackAPI.Core.Features.Commenting.List
 {
-    public record GetAllEntityCommentsQuery
+    public record GetEntityCommentListQuery
         (string EntityType, Guid ProjectId, Guid EntityId, Guid UserId) : IRequest<List<CommentDTO>>;
 }

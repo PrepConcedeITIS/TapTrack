@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.DTOs;
+using TapTrackAPI.Core.Features.Commenting.Update;
 
-namespace TapTrackAPI.Core.Features.Commenting.Mappers
+namespace TapTrackAPI.Core.Features.Commenting
 {
     [UsedImplicitly]
     public class CommentingProfile : AutoMapper.Profile

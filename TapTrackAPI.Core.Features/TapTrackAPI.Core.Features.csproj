@@ -137,6 +137,36 @@
       <Compile Update="Invitation\ResolveInvitation\ResolveInvitationValidator.cs">
         <DependentUpon>ResolveInvitationCommand.cs</DependentUpon>
       </Compile>
+      <Compile Update="Commenting\Create\CreateCommentCommandHandler.cs">
+        <DependentUpon>CreateCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Create\CreateCommentCommandValidator.cs">
+        <DependentUpon>CreateCommentCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Update\UpdateCommentCommandHandler.cs">
+        <DependentUpon>UpdateCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Update\UpdateCommentCommandValidator.cs">
+        <DependentUpon>UpdateCommentCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Delete\DeleteCommentCommandValidator.cs">
+        <DependentUpon>DeleteCommentCommand.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Delete\DeleteCommentCommandHandler.cs">
+        <DependentUpon>DeleteCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\List\GetEntityCommentListQueryValidator.cs">
+        <DependentUpon>GetAllEntityCommentsQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\List\GetEntityCommentListQueryHandler.cs">
+        <DependentUpon>GetAllEntityCommentsQueryValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Restore\RestoreCommentCommandHandler.cs">
+        <DependentUpon>RestoreCommentCommandValidator.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Commenting\Restore\RestoreCommentCommandValidator.cs">
+        <DependentUpon>RestoreCommentCommand.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

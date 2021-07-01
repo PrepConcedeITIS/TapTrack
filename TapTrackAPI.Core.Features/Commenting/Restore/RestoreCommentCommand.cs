@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace TapTrackAPI.Core.Features.Commenting.Commands
+namespace TapTrackAPI.Core.Features.Commenting.Restore
 {
     public record RestoreCommentCommand : IRequest<Unit>
     {

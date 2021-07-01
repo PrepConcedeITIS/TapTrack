@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Commands;
 
-namespace TapTrackAPI.Core.Features.Commenting.Validators
+namespace TapTrackAPI.Core.Features.Commenting.Update
 {
+    [UsedImplicitly]
     public class UpdateCommentCommandValidator : AbstractValidator<UpdateCommentCommand>
     {
         public UpdateCommentCommandValidator(DbContext dbContext)

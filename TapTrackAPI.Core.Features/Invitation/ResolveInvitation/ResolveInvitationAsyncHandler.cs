@@ -6,13 +6,12 @@ using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Base;
 using TapTrackAPI.Core.Features.Project;
 
 namespace TapTrackAPI.Core.Features.Invitation.ResolveInvitation
 {
     [UsedImplicitly]
-    public class ResolveInvitationAsyncHandler : BaseCommandHandler, IRequestHandler<ResolveInvitationCommand, ProjectDto>
+    public class ResolveInvitationAsyncHandler : BaseHandler, IRequestHandler<ResolveInvitationCommand, ProjectDto>
     {
         public ResolveInvitationAsyncHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {

@@ -1,7 +1,7 @@
 using System;
 using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
-namespace TapTrackAPI.Core.Features.Commenting.DTOs
+namespace TapTrackAPI.Core.Features.Commenting
 {
     public record CommentDTO
     {

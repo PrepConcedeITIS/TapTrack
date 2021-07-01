@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using FluentValidation;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Features.Commenting.Commands;
 
-namespace TapTrackAPI.Core.Features.Commenting.Validators
+namespace TapTrackAPI.Core.Features.Commenting.Restore
 {
+    [UsedImplicitly]
     public class RestoreCommentCommandValidator : AbstractValidator<RestoreCommentCommand>
     {
         public RestoreCommentCommandValidator(DbContext dbContext)

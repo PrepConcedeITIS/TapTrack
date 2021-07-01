@@ -7,12 +7,11 @@ using AutoMapper.QueryableExtensions;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using TapTrackAPI.Core.Features.Commenting.Base;
 
 namespace TapTrackAPI.Core.Features.Invitation.GetInvitationResults
 {
     [UsedImplicitly]
-    public class GetInvitationResultsAsyncHandler : BaseCommandHandler,
+    public class GetInvitationResultsAsyncHandler : BaseHandler,
         IRequestHandler<GetInvitationResultsQuery, List<InvitationDto>>
     {
         public GetInvitationResultsAsyncHandler(DbContext dbContext, IMapper mapper) : base(dbContext, mapper)

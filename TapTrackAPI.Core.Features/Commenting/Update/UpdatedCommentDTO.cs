@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TapTrackAPI.Core.Features.Commenting.DTOs
+namespace TapTrackAPI.Core.Features.Commenting.Update
 {
     public class EditedCommentDTO
     {
