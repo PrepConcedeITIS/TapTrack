@@ -34,7 +34,7 @@ namespace TapTrackAPI.Core.Features.Commenting.List
                 .OrderByDescending(comment => comment.Created)
                 .ProjectTo<CommentDTO>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
-            comments.ForEach(dto => dto.IsEditable = dto.IsDeletable = dto.Author.UserId == userId);
+            comments.ForEach(dto => dto.IsEditable = dto.IsDeletable = dto.Author.Id == userId);
             return comments;
         }
     }

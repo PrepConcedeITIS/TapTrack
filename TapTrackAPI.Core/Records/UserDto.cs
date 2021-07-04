@@ -2,9 +2,9 @@ using System;
 
 namespace TapTrackAPI.Core.Records
 {
-    public record TeamMemberDto
+    public record UserDto
     {
-        public Guid UserId { get; init; }
+        public Guid Id { get; init; }
         public string Username { get; init; }
         public string Email { get; init; }
     }
