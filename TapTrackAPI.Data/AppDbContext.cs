@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TapTrackAPI.Core.Constants;
 using TapTrackAPI.Core.Entities;
 
@@ -13,6 +14,7 @@ namespace TapTrackAPI.Data
         {
         }
 
+        // ReSharper disable UnusedMember.Global
         public DbSet<RestorationCode> RestorationCodes { get; protected set; }
         public DbSet<Issue> Issues { get; protected set; }
         public DbSet<Comment> Comments { get; protected set; }
@@ -42,6 +44,18 @@ namespace TapTrackAPI.Data
                 .HasMany(t => t.Issues)
                 .WithOne(t => t.Project)
                 .OnDelete(DeleteBehavior.Cascade);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            var loggerFactory = LoggerFactory.Create(
+                builder => builder
+                    .AddFilter(level => level == LogLevel.Information)
+                    .AddConsole()
+            );
+            optionsBuilder.UseLoggerFactory(loggerFactory);
         }
     }
 }
