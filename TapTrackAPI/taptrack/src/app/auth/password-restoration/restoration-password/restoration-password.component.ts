@@ -38,9 +38,7 @@ export class RestorationPasswordComponent implements OnInit {
   submit() {
     if (!this.form.invalid) {
       this.restorationService.codeBehaviorSubject.subscribe((code) => this.code = code);
-      console.log(this.code);
       this.restorationService.emailBehaviorSubject.subscribe((Email) => this.email = Email);
-      console.log(this.email);
       this.restorationService.sendPassword({userMail: this.email, userCode: this.code, userPassword: this.form.get('password').value})
         .subscribe(_ => {
             this.router.navigate(['login']);

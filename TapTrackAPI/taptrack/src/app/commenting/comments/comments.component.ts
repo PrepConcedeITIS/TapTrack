@@ -1,9 +1,8 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
-import {PageChangedEvent} from 'ngx-bootstrap/pagination';
 import {Comment} from '../_interfaces/comment';
 import {DateBeautifierService} from '../../_services/date-beautifier.service';
 
@@ -12,42 +11,48 @@ import {DateBeautifierService} from '../../_services/date-beautifier.service';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
-export class CommentsComponent implements OnChanges {
+export class CommentsComponent implements OnInit {
   @Input() entityType: 'Issue' | 'Article';
   @Input() entityId: string;
   @Input() projectId: string;
   form = new FormGroup({});
   model: CreateCommentCommand = {entityType: '', entityId: '', projectId: '', text: ''};
-  fields: FormlyFieldConfig[];
+  fields: FormlyFieldConfig[] = [
+    {
+      key: 'text',
+      type: 'md-editor'
+    }
+  ];
+
   p = 1;
   comments: Comment[];
-
+  deletedCommentsFlags: Map<string, boolean> = new Map<string, boolean>();
   dateBeautifier: DateBeautifierService;
 
   constructor(private http: HttpClient, dateBeautifier: DateBeautifierService) {
     this.dateBeautifier = dateBeautifier;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+
+  ngOnInit(): void {
     this.comments = undefined;
     this.model.entityType = this.entityType;
     this.model.entityId = this.entityId;
     this.model.projectId = this.projectId;
-    this.fields = [
-      {
-        key: 'text',
-        type: 'md-editor'
-      }
-    ];
+
     this.http
       .get<Comment[]>(
         environment.apiUrl + '/comments',
         {params: {entityType: this.entityType, projectId: this.projectId, entityId: this.entityId}})
-      .subscribe(response => this.comments = response);
+      .subscribe(response => {
+        this.comments = response;
+        this.comments
+          .filter(comment => comment.isDeleted)
+          .forEach(comment => this.deletedCommentsFlags.set(comment.id, false));
+      });
   }
 
   onSubmit(model) {
-    console.log(model);
     this.http
       .post<Comment>(environment.apiUrl + '/comments', model)
       .subscribe(response => {
@@ -98,6 +103,10 @@ export class CommentsComponent implements OnChanges {
         const index = this.comments.findIndex(x => x.id === comment.id);
         this.comments.splice(index, 1);
       });
+  }
+
+  showDeletedContent(id: string) {
+    this.deletedCommentsFlags.set(id, !this.deletedCommentsFlags.get(id));
   }
 }
 
