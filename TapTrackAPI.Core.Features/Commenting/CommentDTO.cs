@@ -6,7 +6,7 @@ namespace TapTrackAPI.Core.Features.Commenting
     public record CommentDTO
     {
         public Guid Id { get; init; }
-        public TeamMemberDto Author { get; set; }
+        public UserDto Author { get; set; }
         public string Text { get; set; }
         public bool IsDeleted { get; init; }
         public DateTime Created { get; init; }

@@ -22,7 +22,7 @@ namespace TapTrackAPI.Core.Features.Commenting.Delete
                 .Set<Comment>()
                 .FindAsync(new object[] {request.Id}, cancellationToken);
             if (request.IsCommentBeingDeletedPermanently)
-                DbContext.Entry(comment).State = EntityState.Deleted;
+                DbContext.Remove(comment);
             else
                 comment.MarkAsDeleted();
             await DbContext.SaveChangesAsync(cancellationToken);

@@ -12,6 +12,8 @@ namespace TapTrackAPI.Core.Entities
 
         public virtual ICollection<UserContact> UserContacts { get; protected set; }
 
+        public virtual ICollection<TeamMember> TeamMembers { get; protected set; }
+        
         #endregion
 
 

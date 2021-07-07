@@ -2,11 +2,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Base.Handlers;
 using TapTrackAPI.Core.Entities;
-using TapTrackAPI.Core.Records;
 
 namespace TapTrackAPI.Core.Features.Commenting.Create
 {
@@ -19,18 +19,25 @@ namespace TapTrackAPI.Core.Features.Commenting.Create
 
         public override async Task<CommentDTO> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
-            var teamMember = await DbContext
-                .Set<TeamMember>()
-                .Where(member => member.ProjectId == request.ProjectId)
-                .Include(member => member.User)
-                .SingleAsync(member => member.UserId == request.UserId, cancellationToken);
-            
-            var comment = new Comment(teamMember.Id, request.EntityType, request.EntityId, request.Text);
-            DbContext.Entry(comment).State = EntityState.Added;
+            var user = await DbContext.Set<User>()
+                .Where(u => u.Id == request.UserId)
+                .Select(u => new
+                {
+                    User = u,
+                    TeamMemberId = u.TeamMembers
+                        .FirstOrDefault(tm => tm.ProjectId == request.ProjectId).Id
+                })
+                .FirstOrDefaultAsync(cancellationToken);
+
+            var comment = new Comment(user.TeamMemberId, request.EntityType, request.EntityId, request.Text);
+            var entityEntry = await DbContext.Set<Comment>().AddAsync(comment, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);
-            var dto = Mapper.Map<CommentDTO>(comment);
-            dto.Author = Mapper.Map<TeamMemberDto>(teamMember);
-            return dto;
+
+            var commentDto = await DbContext.Set<Comment>()
+                .ProjectTo<CommentDTO>(Mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(c => c.Id == entityEntry.Entity.Id, cancellationToken);
+
+            return commentDto;
         }
     }
 }

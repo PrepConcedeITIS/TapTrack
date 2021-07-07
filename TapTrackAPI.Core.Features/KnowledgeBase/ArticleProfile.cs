@@ -16,10 +16,7 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase
             CreateMap<Article, ShortArticleDto>();
             CreateMap<Article, FullArticleDto>()
                 .ForMember(dto => dto.ProjectTitle, expression => expression.MapFrom(member => member.BelongsTo.Name));
-            CreateMap<TeamMember, TeamMemberDto>()
-                .ForMember(dto => dto.UserId, expression => expression.MapFrom(member => member.User.Id))
-                .ForMember(dto => dto.Email, expression => expression.MapFrom(member => member.User.Email))
-                .ForMember(dto => dto.Username, expression => expression.MapFrom(member => member.User.UserName));
+            CreateMap<User, UserDto>();
             CreateMap<Entities.Project, OptionDto>()
                 .ForMember(dto => dto.Value, expression => expression.MapFrom(project => project.Id))
                 .ForMember(dto => dto.Label, expression => expression.MapFrom(project => project.Name));

@@ -26,7 +26,6 @@ namespace TapTrackAPI.Core.Features.Profile.Edit
         {
             var user = await UserManager.GetUserAsync(command.ClaimsPrincipal);
 
-
             var userContactsList = await DbContext.Set<UserContact>()
                 .Where(x => x.UserId == user.Id)
                 .Include(x => x.ContactType)

@@ -156,10 +156,10 @@
         <DependentUpon>DeleteCommentCommandValidator.cs</DependentUpon>
       </Compile>
       <Compile Update="Commenting\List\GetEntityCommentListQueryValidator.cs">
-        <DependentUpon>GetAllEntityCommentsQuery.cs</DependentUpon>
+        <DependentUpon>GetEntityCommentListQuery.cs</DependentUpon>
       </Compile>
       <Compile Update="Commenting\List\GetEntityCommentListQueryHandler.cs">
-        <DependentUpon>GetAllEntityCommentsQueryValidator.cs</DependentUpon>
+        <DependentUpon>GetEntityCommentListQueryValidator.cs</DependentUpon>
       </Compile>
       <Compile Update="Commenting\Restore\RestoreCommentCommandHandler.cs">
         <DependentUpon>RestoreCommentCommandValidator.cs</DependentUpon>

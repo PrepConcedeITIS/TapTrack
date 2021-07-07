@@ -9,9 +9,9 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.ById
         public Guid BelongsToId { get; set; }
         public string ProjectTitle { get; set; }
         public string Title { get; set; }
-        public TeamMemberDto CreatedBy { get; set; }
+        public UserDto CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
-        public TeamMemberDto UpdatedBy { get; set; }
+        public UserDto UpdatedBy { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string Content { get; set; }
     }
