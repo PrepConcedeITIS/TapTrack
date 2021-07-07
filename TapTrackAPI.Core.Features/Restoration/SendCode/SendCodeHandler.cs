@@ -39,7 +39,7 @@ namespace TapTrackAPI.Core.Features.Restoration.SendCode
             var curDate = DateTime.Now;
             var expDate = curDate.AddHours(1);
             var restoreEnt = new RestorationCode(userMail, curDate, expDate, code);
-            var mailFrom = new MailAddress(_configuration.GetSection("Credentials").GetSection("Mail").Value);
+            var mailFrom = new MailAddress(_configuration.GetSection("SMTP").GetSection("Mail").Value);
             var mailTo = new MailAddress(userMail);
             var message = new MailMessage(mailFrom, mailTo)
             {
