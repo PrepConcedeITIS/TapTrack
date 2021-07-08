@@ -110,7 +110,7 @@ namespace TapTrackAPI
                 options.AddPolicy(Policies.Admin, PoliciesExtensions.AdminPolicy());
                 options.AddPolicy(Policies.User, PoliciesExtensions.UserPolicy());
             });
-
+            services.AddHttpClient();
             services.AddAutoMapper(mc => { mc.AddMaps(typeof(AuthController).Assembly); });
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
@@ -158,15 +158,15 @@ namespace TapTrackAPI
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "taptrack";
+           app.UseSpa(spa =>
+           {
+               spa.Options.SourcePath = "taptrack";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+               if (env.IsDevelopment())
+               {
+                   spa.UseAngularCliServer(npmScript: "start");
+               }
+           });
         }
 
         private void AddDbContext(IServiceCollection services)
