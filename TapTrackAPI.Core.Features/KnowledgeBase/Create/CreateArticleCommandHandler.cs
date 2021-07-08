@@ -28,7 +28,7 @@ namespace TapTrackAPI.Core.Features.KnowledgeBase.Create
                 .Set<TeamMember>()
                 .Where(x => x.ProjectId == request.BelongsToId)
                 .SingleAsync(member => member.UserId == userId, cancellationToken);
-            var time = DateTime.Now;
+            var time = DateTime.UtcNow;
             var article = new Article(request.BelongsToId, request.Title, teamMember.Id, time, teamMember.Id, time,
                 request.Content);
             await DbContext
