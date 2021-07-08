@@ -45,6 +45,7 @@ namespace TapTrackAPI.Core.Features.Issue.Create
                 .SetProject(project)
                 .SetCreator(creator)
                 .AddIdVisible(project)
+                .SetCreationDate()
                 .GetResult();
             var entity = _dbContext.Add(issue);
             _dbContext.SaveChanges();

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TapTrackAPI.Core.Features.KnowledgeBase.DTOs;
 
 namespace TapTrackAPI.Core.Features.KnowledgeBase.List
 {
