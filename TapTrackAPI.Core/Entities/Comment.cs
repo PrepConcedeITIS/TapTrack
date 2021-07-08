@@ -32,7 +32,7 @@ namespace TapTrackAPI.Core.Entities
             }
 
             Text = text;
-            var time = DateTime.Now;
+            var time = DateTime.UtcNow;
             Created = time;
             LastUpdated = time;
         }
@@ -44,7 +44,7 @@ namespace TapTrackAPI.Core.Entities
         public void UpdateText(string text)
         {
             Text = text;
-            LastUpdated = DateTime.Now;
+            LastUpdated = DateTime.UtcNow;
         }
 
         public void MarkAsDeleted()

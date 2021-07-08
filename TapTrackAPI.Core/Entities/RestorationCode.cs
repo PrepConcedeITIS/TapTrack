@@ -25,7 +25,7 @@ namespace TapTrackAPI.Core.Entities
 
         public void CodeIsUsed()
         {
-            this.ExpirationDate = DateTime.Now;
+            this.ExpirationDate = DateTime.UtcNow;
         }
     }
 }

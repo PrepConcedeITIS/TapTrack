@@ -114,7 +114,7 @@ namespace TapTrackAPI.Core.Features.Issue.Base
 
         public IIssueBuilder SetCreationDate(DateTime? dateTime = null)
         {
-            _issue.SetCreationDate(dateTime ?? DateTime.Now);
+            _issue.SetCreationDate(dateTime ?? DateTime.UtcNow);
             return this;
         }
 

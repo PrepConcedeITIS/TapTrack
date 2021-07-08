@@ -22,7 +22,7 @@ namespace TapTrackAPI.Core.Entities
             State = State.New;
             Priority = Priority.Normal;
             IssueType = IssueType.Task;
-            Created = DateTime.Now;
+            Created = DateTime.UtcNow;
             IdVisible = idVisible;
         }
 

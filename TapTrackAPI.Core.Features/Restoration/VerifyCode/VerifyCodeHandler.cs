@@ -24,7 +24,7 @@ namespace TapTrackAPI.Core.Features.Restoration.VerifyCode
                 .OrderByDescending(x => x.CreationDate)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             var userCode = request.UserCode;
-            if (dbCode != null && dbCode.Code == userCode && DateTime.Compare(dbCode.ExpirationDate, DateTime.Now) > 0)
+            if (dbCode != null && dbCode.Code == userCode && DateTime.Compare(dbCode.ExpirationDate, DateTime.UtcNow) > 0)
             {
                 return Unit.Value;
             }

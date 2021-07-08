@@ -38,7 +38,7 @@ namespace TapTrackAPI.Core.Entities
         {
             Title = title;
             UpdatedById = teamMemberId;
-            UpdatedAt = DateTime.Now;
+            UpdatedAt = DateTime.UtcNow;
             Content = content;
         }
     }
