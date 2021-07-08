@@ -7,7 +7,7 @@
     <div class="content-item" *ngFor="let comment of comments | paginate: {itemsPerPage: 5, currentPage: p }">
       <h4>Created by
         <b matTooltip="{{comment.author.email}}">{{comment.author.username}}</b>
-        <span matTooltip="{{comment.created | date:'d MMM YYYY HH:mm'}}">
+        <span matTooltip="{{dateBeautifier.correctToMachineTimeZoneFromUTC(comment.created) | date:'d MMM YYYY HH:mm'}}">
           {{dateBeautifier.beatify(comment.created)}}
         </span>
         <span *ngIf="!comment.isDeleted">
@@ -16,7 +16,8 @@
         </span>
       </h4>
       <h4 *ngIf="comment.lastUpdated!==comment.created">Updated
-        <span matTooltip="{{comment.lastUpdated| date:'d MMM YYYY HH:mm'}}">
+        <span
+          matTooltip="{{dateBeautifier.correctToMachineTimeZoneFromUTC(comment.lastUpdated)| date:'d MMM YYYY HH:mm'}}">
           {{dateBeautifier.beatify(comment.lastUpdated)}}
         </span>
       </h4>
