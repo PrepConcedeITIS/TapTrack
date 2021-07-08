@@ -26,33 +26,23 @@ namespace TapTrackAPI.Core.Features.Auth.Services
         public async Task SendMessageAsync(MailMessage m)
         {
             var httpClient = _httpClientFactory.CreateClient();
-            var authToken = Encoding.ASCII.GetBytes($"api:1b2b8e4cb2126148211bbe6eed4f707f-c4d287b4-40a91ea3");
+            var smtpSection = _configuration.GetSection("SMTP");
+            var emailSource = smtpSection["EmailSource"];
+            var authToken = Encoding.ASCII.GetBytes($"api:{smtpSection["MailGunApiKey"]}");
             httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authToken));
             var formContent = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                {"from", $"sandboxf4299dcf9c864470b8df5cdc863d7b24.mailgun.org <brad@sandboxf4299dcf9c864470b8df5cdc863d7b24.mailgun.org>"},
-                {"h:Reply-To", $"sandboxf4299dcf9c864470b8df5cdc863d7b24.mailgun.org  <brad@sandboxf4299dcf9c864470b8df5cdc863d7b24.mailgun.org>"},
-                {"to", "t1g2r3mr@gmail.com"},
-                {"subject", "mail12"},
-                {"text", "txtmsg"},
-                {"html", "htmlmsg"}
+                {"from", $"{emailSource} <{emailSource}>"},
+                {"h:Reply-To", $"{emailSource}  <{emailSource}>"},
+                {"to", $"{m.To.First().Address}"},
+                {"subject", $"{m.Subject}"},
+                {"html", $"{m.Body}"}
             });
             var result =
-                await httpClient.PostAsync($"https://api.mailgun.net/v3/sandboxf4299dcf9c864470b8df5cdc863d7b24.mailgun.org/messages",
+                await httpClient.PostAsync($"https://api.mailgun.net/v3/{smtpSection["Domain"]}/messages",
                     formContent);
             result.EnsureSuccessStatusCode();
-            /*
-            SmtpClient smtp = new("smtp.mailgun.org", 587);
-
-            var credentials = _configuration.GetSection("SMTP");
-            
-            smtp.Credentials = new NetworkCredential(credentials["Mail"], credentials["Password"]);
-
-            smtp.EnableSsl = true;
-
-            await smtp.SendMailAsync(m);
-            */
         }
     }
 }

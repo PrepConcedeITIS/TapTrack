@@ -123,7 +123,7 @@ namespace TapTrackAPI
 
             RegisterTelegramBot(services);
 
-            //services.AddSpaStaticFiles(configuration => { configuration.RootPath = "taptrack/dist"; });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "taptrack/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -158,15 +158,15 @@ namespace TapTrackAPI
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-           //app.UseSpa(spa =>
-           //{
-           //    spa.Options.SourcePath = "taptrack";
+           app.UseSpa(spa =>
+           {
+               spa.Options.SourcePath = "taptrack";
 
-           //    if (env.IsDevelopment())
-           //    {
-           //        spa.UseAngularCliServer(npmScript: "start");
-           //    }
-           //});
+               if (env.IsDevelopment())
+               {
+                   spa.UseAngularCliServer(npmScript: "start");
+               }
+           });
         }
 
         private void AddDbContext(IServiceCollection services)
