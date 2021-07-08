@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {AppSettings} from "../app-settings";
 
 declare var require: any;
 const DateDiff = require('date-diff');
@@ -6,15 +7,22 @@ const DateDiff = require('date-diff');
 @Injectable({
   providedIn: 'root'
 })
-export class DateBeautifierService {
+export class DateService {
 
   constructor() {
+  }
+
+  correctToMachineTimeZoneFromUTC(date: Date): Date {
+    const toCorrect = new Date(Date.parse(date.toString()));
+    toCorrect.setHours(toCorrect.getHours() + AppSettings.ServerTimeShiftHours);
+    return toCorrect;
   }
 
   beatify(date: Date): string {
     const now = new Date(Date.now());
 
-    const toBeautify = new Date(Date.parse(date.toString()));
+    const toBeautify = this.correctToMachineTimeZoneFromUTC(date);
+
     const diff = new DateDiff(now, toBeautify);
     return this.getDiffString(diff);
   }

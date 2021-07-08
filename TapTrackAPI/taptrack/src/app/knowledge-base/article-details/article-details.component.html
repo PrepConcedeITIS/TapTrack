@@ -3,12 +3,17 @@
   <div class="article-title">Title: {{article.title}}</div>
   <h4>Created by
     <b>{{article.createdBy.username}}</b>
-    <span matTooltip="{{article.createdAt | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(article.createdAt)}}</span>
+    <span matTooltip="{{dateBeautifier.correctToMachineTimeZoneFromUTC(article.createdAt) | date:'d MMM YYYY HH:mm'}}">
+      {{dateBeautifier.beatify(article.createdAt)}}
+    </span>
   </h4>
   <div *ngIf="article.createdAt!=article.updatedAt">
     <h4>Updated by
       <b>{{article.updatedBy.username}}</b>
-      <span matTooltip="{{article.updatedAt | date:'d MMM YYYY HH:mm'}}"> {{dateBeautifier.beatify(article.updatedAt)}}</span>
+      <span
+        matTooltip="{{dateBeautifier.correctToMachineTimeZoneFromUTC(article.updatedAt) | date:'d MMM YYYY HH:mm'}}">
+        {{dateBeautifier.beatify(article.updatedAt)}}
+      </span>
     </h4>
   </div>
   <md-editor height="100%" mode="preview" [ngModel]="article.content"></md-editor>

@@ -1,6 +1,6 @@
 using System;
 
-namespace TapTrackAPI.Core.Features.KnowledgeBase.DTOs
+namespace TapTrackAPI.Core.Features.KnowledgeBase.List
 {
     public record ShortArticleDto(Guid Id, string Title);
 }

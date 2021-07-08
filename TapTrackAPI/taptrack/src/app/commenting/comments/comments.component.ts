@@ -4,7 +4,8 @@ import {environment} from '../../../environments/environment';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig} from '@ngx-formly/core';
 import {Comment} from '../_interfaces/comment';
-import {DateBeautifierService} from '../../_services/date-beautifier.service';
+import {DateService} from '../../_services/date.service';
+import {AppSettings} from "../../app-settings";
 
 @Component({
   selector: 'app-comments',
@@ -23,13 +24,13 @@ export class CommentsComponent implements OnInit {
       type: 'md-editor'
     }
   ];
-
+  timeShift = AppSettings.ServerTimeShiftHours;
   p = 1;
   comments: Comment[];
   deletedCommentsFlags: Map<string, boolean> = new Map<string, boolean>();
-  dateBeautifier: DateBeautifierService;
+  dateBeautifier: DateService;
 
-  constructor(private http: HttpClient, dateBeautifier: DateBeautifierService) {
+  constructor(private http: HttpClient, dateBeautifier: DateService) {
     this.dateBeautifier = dateBeautifier;
   }
 

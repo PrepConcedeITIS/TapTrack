@@ -9,7 +9,7 @@ import {DropdownsSchemaDto} from "../dropdownsSchemaDto";
 import {IssueService} from "../../_services/issue.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
-import {DateBeautifierService} from "../../_services/date-beautifier.service";
+import {DateService} from "../../_services/date.service";
 
 @Component({
   selector: 'app-details-list',
@@ -24,10 +24,10 @@ export class IssueDetailsComponent implements OnInit {
               private router: Router,
               private issueService: IssueService,
               public dialog: MatDialog,
-              dateBeautifier: DateBeautifierService) {
+              dateBeautifier: DateService) {
     this.dateBeautifier = dateBeautifier;
   }
-  dateBeautifier: DateBeautifierService;
+  dateBeautifier: DateService;
   baseUrl: string;
   fields: FormlyFieldConfig[];
   issueData: IssueDetailsDto;

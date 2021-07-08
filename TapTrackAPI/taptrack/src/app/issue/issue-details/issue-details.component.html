@@ -5,7 +5,7 @@
         <h3>
           {{issueData.idVisible}}
           <span class="grey">Created By {{issueData.creator}}</span>
-          <span class="grey" matTooltip="{{issueData.created | date:'d MMM YYYY HH:mm'}}">
+          <span class="grey" matTooltip="{{dateBeautifier.correctToMachineTimeZoneFromUTC(issueData.created) | date:'d MMM YYYY HH:mm'}}">
             {{dateBeautifier.beatify(issueData.created)}}
           </span>
         </h3>
@@ -26,6 +26,7 @@
         </div>
         <div style="word-wrap: break-word">{{issueData.description}}</div>
         <hr class="my-4">
+
         <div class="mt-3">
           <app-comments entityType="Issue" [projectId]="issueData.projectId" [entityId]="issueData.id"></app-comments>
         </div>
