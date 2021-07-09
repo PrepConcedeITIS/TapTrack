@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <Configurations>Debug;Release;Angular+API</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 	    <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
