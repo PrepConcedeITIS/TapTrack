@@ -5,11 +5,17 @@
 
         <SpaRoot>taptrack/</SpaRoot>
         <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+        <Configurations>Debug;Release;Angular+API</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
     <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Angular+API' ">
+        <DefineConstants>ANGULAR_WITH_API</DefineConstants>
+    </PropertyGroup>
+    
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.0.2" />
