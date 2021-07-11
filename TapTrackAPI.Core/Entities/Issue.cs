@@ -7,18 +7,18 @@ using TapTrackAPI.Core.Enums;
 
 namespace TapTrackAPI.Core.Entities
 {
-    public partial class Issue : EntityBase
+    public class Issue : EntityBase
     {
         protected Issue()
         {
         }
 
-        public Issue(string title, string description, Guid projectId, TeamMember creator, string idVisible)
+        public Issue(string title, string description, Guid projectId, long creatorId, string idVisible)
         {
             Title = title;
             Description = description;
             ProjectId = projectId;
-            CreatorId = creator.Id;
+            CreatorId = creatorId;
             State = State.New;
             Priority = Priority.Normal;
             IssueType = IssueType.Task;
