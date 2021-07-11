@@ -6,6 +6,7 @@ import {AuthenticationService} from '../../_services/authentication.service';
 import {RegistrationService} from '../../_services/registration.service';
 import {tap} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
+import {ValidationResult} from "../../_models/validationResult";
 
 @Component({
   selector: 'app-registration',
@@ -27,7 +28,6 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.logout();
-    const passwordRegex = new RegExp('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{7,}$');
     this.form = this.formBuilder.group({
         email: ['', [Validators.email, Validators.required]],
         password: ['', [Validators.required]],
@@ -129,16 +129,3 @@ export class RegistrationComponent implements OnInit {
   }
 }
 
-export class ValidationResult<T> {
-  value: T;
-  isSuccess: boolean;
-  validationKey: string;
-  message: string;
-
-  constructor(value: T, isSuccess: boolean, validationKey: string, message: string) {
-    this.value = value;
-    this.isSuccess = isSuccess;
-    this.validationKey = validationKey;
-    this.message = message;
-  }
-}
