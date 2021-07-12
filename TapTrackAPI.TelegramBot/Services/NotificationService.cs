@@ -29,7 +29,7 @@ namespace TapTrackAPI.TelegramBot.Services
             _dbContext = dbContext;
             _userManager = userManager;
             _environment = environment;
-            _tgEnabled = bool.Parse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled)!); 
+            bool.TryParse(Environment.GetEnvironmentVariable(ConfigurationConstants.TelegramNotificationsEnabled), out _tgEnabled); 
         }
 
         public async Task<TelegramNotificationStatus> SendIssueAssignmentNotification(ClaimsPrincipal actionAuthor,
