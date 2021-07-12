@@ -175,11 +175,10 @@ namespace TapTrackAPI
 
         private void AddDbContext(IServiceCollection services)
         {
-            if (!WebHostEnvironment.IsDevelopment())
+            var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            if (!WebHostEnvironment.IsDevelopment() && !string.IsNullOrEmpty(connectionUrl))
             {
-                var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-
-                var databaseUri = new Uri(connectionUrl!);
+                var databaseUri = new Uri(connectionUrl);
 
                 var db = databaseUri.LocalPath.TrimStart('/');
                 var userInfo = databaseUri.UserInfo.Split(':', StringSplitOptions.RemoveEmptyEntries);
@@ -191,7 +190,7 @@ namespace TapTrackAPI
             else
             {
                 services.AddDbContext<AppDbContext>(builder => builder
-                    .UseNpgsql(Configuration.GetConnectionString("PostgresRemote")));
+                    .UseNpgsql(Configuration.GetConnectionString("PostgresLocal")));
             }
         }
 
