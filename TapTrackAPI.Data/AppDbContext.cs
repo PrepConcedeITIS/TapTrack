@@ -114,7 +114,8 @@ namespace TapTrackAPI.Data
         internal static ModelBuilder AddProject(this ModelBuilder builder)
         {
             var project = new Project("Example project", "EXM", "Some description", FirstUserId);
-
+            project.UpdateLogoUrl(
+                "https://www.gravatar.com/avatar/bce7a6deb01d3e6aef54e2e7344c4816?s=256&d=identicon&r=PG");
             project.SetProtectedId(ProjectId);
 
             builder.Entity<Project>()
@@ -126,7 +127,7 @@ namespace TapTrackAPI.Data
         {
             var teamMember = new TeamMember(FirstUserId, ProjectId, Role.Admin);
             teamMember.SetProtectedId(FirstTeamMemberId);
-            
+
             var teamMember2 = new TeamMember(SecondUserId, ProjectId, Role.User);
             teamMember2.SetProtectedId(SecondTeamMemberId);
 

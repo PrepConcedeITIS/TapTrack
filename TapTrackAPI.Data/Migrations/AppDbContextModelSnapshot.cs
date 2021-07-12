@@ -372,7 +372,7 @@ namespace TapTrackAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("7cd6f23a-900e-4229-a3f0-6e5aaeda3d86"),
-                            Created = new DateTime(2021, 7, 11, 22, 49, 49, 795, DateTimeKind.Utc).AddTicks(3900),
+                            Created = new DateTime(2021, 7, 12, 21, 44, 41, 137, DateTimeKind.Utc).AddTicks(6012),
                             CreatorId = 1L,
                             Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer libero, vel commodo risus luctus sed. Maecenas vitae nisi vel ex pulvinar maximus. Duis lectus et tellus volutpat, vitae laoreet metus molestie. Morbi orci orci, volutpat id congue id, consequat a lectus. Nam fermentum, odio sit amet iaculis aliquam, dui lorem rutrum nunc, mollis sollicitudin metus nisi nec libero. Ut fringilla, lorem eu vulputate sollicitudin, ipsum turpis scelerisque justo, eu tincidunt felis lectus volutpat lacus. Aenean justo leo, blandit eget dignissim eget, dignissim sit amet urna. Morbi volutpat  sed viverra . Etiam quis lacus nulla. Morbi porttitor aliquet lacus et rutrum. Etiam venenatis ex lacus, et finibus dui imperdiet non.",
                             Estimation = new TimeSpan(0, 0, 0, 0, 0),
@@ -424,6 +424,7 @@ namespace TapTrackAPI.Data.Migrations
                             CreatorId = new Guid("c9e155d4-c374-4ff4-a198-4559a76e99ae"),
                             Description = "Some description",
                             IdVisible = "EXM",
+                            LogoUrl = "https://www.gravatar.com/avatar/bce7a6deb01d3e6aef54e2e7344c4816?s=256&d=identicon&r=PG",
                             Name = "Example project"
                         });
                 });
