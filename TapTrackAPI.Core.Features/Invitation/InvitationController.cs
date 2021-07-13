@@ -28,8 +28,8 @@ namespace TapTrackAPI.Core.Features.Invitation
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpPost("AcceptOrDeclineInvitation")]
-        public async Task<IActionResult> AcceptOrDeclineInvitation([FromBody] ResolveInvitationCommand command)
+        [HttpGet("AcceptOrDeclineInvitation")]
+        public async Task<IActionResult> AcceptOrDeclineInvitation([FromQuery] ResolveInvitationCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
