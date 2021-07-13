@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapTrackAPI.Core.Features",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapTrackAPI.TelegramBot", "TapTrackAPI.TelegramBot\TapTrackAPI.TelegramBot.csproj", "{83CC2253-056D-4E97-B88B-729FD6FDDF12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapTrackAPI.Core.Utilities", "TapTrackAPI.Core.Utilities\TapTrackAPI.Core.Utilities.csproj", "{D7CC5169-D66E-46D1-B515-C643192704F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,5 +49,11 @@ Global
 		{83CC2253-056D-4E97-B88B-729FD6FDDF12}.Release|Any CPU.Build.0 = Release|Any CPU
 		{83CC2253-056D-4E97-B88B-729FD6FDDF12}.Angular+API|Any CPU.ActiveCfg = Angular+API|Any CPU
 		{83CC2253-056D-4E97-B88B-729FD6FDDF12}.Angular+API|Any CPU.Build.0 = Angular+API|Any CPU
+		{D7CC5169-D66E-46D1-B515-C643192704F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CC5169-D66E-46D1-B515-C643192704F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7CC5169-D66E-46D1-B515-C643192704F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CC5169-D66E-46D1-B515-C643192704F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7CC5169-D66E-46D1-B515-C643192704F4}.Angular+API|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CC5169-D66E-46D1-B515-C643192704F4}.Angular+API|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

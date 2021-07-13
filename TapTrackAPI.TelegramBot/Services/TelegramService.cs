@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TapTrackAPI.TelegramBot.Base;
 using TapTrackAPI.TelegramBot.Interfaces;
@@ -26,19 +27,30 @@ namespace TapTrackAPI.TelegramBot.Services
 
         public async Task<string> BotUserName() => $"@{(await _botClient.GetMeAsync()).Username}";
 
-        public TelegramService(IConfiguration configuration, IServiceProvider serviceProvider, ILogger<TelegramService> logger)
+        public TelegramService(IConfiguration configuration, IServiceProvider serviceProvider, 
+            ILogger<TelegramService> logger, IHostEnvironment environment)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
 
-            var val = configuration["TelegramApiKey"];
-            _botClient = new TelegramBotClient(val);
+            _botClient = new TelegramBotClient(GetApiKey(configuration, environment));
             _botClient.OnMessage += OnMessage;
             _botClient.OnCallbackQuery += OnCallbackQuery;
             RegisterCommands();
             _botClient.StartReceiving();
         }
 
+        private static string GetApiKey(IConfiguration configuration, IHostEnvironment environment)
+        {
+            var tgKeyEnvironment = Environment.GetEnvironmentVariable(Constants.TelegramApiKeyKey);
+            if (!environment.IsDevelopment() && tgKeyEnvironment != null)
+            {
+                return tgKeyEnvironment;
+            }
+
+            return configuration[Constants.TelegramApiKeyKey];
+        }
+        
         /// This method registers all the commands with the bot on telegram
         /// so that the user gets some sort of intelisense
         private void RegisterCommands()
