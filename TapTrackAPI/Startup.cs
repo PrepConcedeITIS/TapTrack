@@ -89,24 +89,7 @@ namespace TapTrackAPI
                 });
             });
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        IssuerSigningKey =
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
+            AddAuthentication(services);
 
             services.AddAuthorization(options =>
             {
@@ -199,6 +182,29 @@ namespace TapTrackAPI
             }
         }
 
+
+        private void AddAuthentication(IServiceCollection services)
+        {
+            var (key, issuer, audience) = GetJwtParams();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = issuer,
+                        ValidAudience = audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+        }
+
         private void RegisterMediaR(IServiceCollection services)
         {
             services.AddMediatR(typeof(AuthController).Assembly, typeof(BindUserAsyncHandler).Assembly);
@@ -213,6 +219,20 @@ namespace TapTrackAPI
             services.AddBotCommands(typeof(IBotRequest).Assembly);
             services.AddHostedService<Bot>();
             services.AddScoped<INotificationService, NotificationService>();
+        }
+
+        private (string, string, string) GetJwtParams()
+        {
+            var jwtSecretKeyEnvironment = Environment.GetEnvironmentVariable("JWT_Key");
+            var jwtIssuerEnvironment = Environment.GetEnvironmentVariable("JWT_Issuer");
+            var jwtAudienceEnvironment = Environment.GetEnvironmentVariable("JWT_Audience");
+            if (!WebHostEnvironment.IsDevelopment() &&
+                jwtSecretKeyEnvironment != null && jwtIssuerEnvironment != null && jwtAudienceEnvironment != null)
+            {
+                return (jwtSecretKeyEnvironment, jwtIssuerEnvironment, jwtAudienceEnvironment);
+            }
+
+            return (Configuration["Jwt:SecretKey"], Configuration["Jwt:Issuer"], Configuration["Jwt:Audience"]);
         }
     }
 }
