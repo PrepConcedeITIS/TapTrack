@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://www.taptrack.tech'
+  apiUrl: 'https://www.taptrack.tech/api'
 };
