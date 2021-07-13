@@ -17,7 +17,7 @@
     </div>
     <ng-template #unlink>
       <h4>Follow this link for Telegram connection:</h4>
-      <a target="_blank" rel="noopener noreferrer" href="https://t.me/TapTrackNotificationBot?start={{model.userId}}"
+      <a target="_blank" rel="noopener noreferrer" href="https://t.me/{{tgBotName}}?start={{model.userId}}"
          (click)="bsModalRef.hide()">Connect</a>
     </ng-template>
   </div>

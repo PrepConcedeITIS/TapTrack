@@ -28,6 +28,7 @@ export class TelegramBindingComponent implements OnInit {
     }
   ];
   error: string;
+  tgBotName: string = environment.tgBotName;
 
   constructor(public bsModalRef: BsModalRef,
               private httpClient: HttpClient) {
