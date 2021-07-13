@@ -39,18 +39,17 @@ namespace TapTrackAPI.Core.Features.Invitation.InviteUser
             var entityEntry = await DbContext.AddAsync(invite, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);
             
-            #warning //todo:change after deploy fixes
             var url = _configuration["Invitation:RemoteHostUrl"];
-            var email = _configuration["Credentials:Mail"];
-            var message = new MailMessage(new MailAddress(email, "TapTrack"),
-                new MailAddress(request.Email))
+            var message = new MailMessage
             {
+                To = { new MailAddress(request.Email)},
+                Subject = "TapTrack project invitation",
                 Body =
-                    $"Вы были приглашены в проект {project?.Name}, чтобы принять перейдите по ссылке: {url}?IsAccept=true&InvitationId={entityEntry.Entity.Id}" +
-                    $"\nЧтобы отклонить перейдите по ссылке: {url}?IsAccept=false&InvitationId={entityEntry.Entity.Id}",
+                    $"You were invited to {project?.Name} project." +
+                    $"\nTo accept invite follow this link: {url}?IsAccept=true&InvitationId={entityEntry.Entity.Id}" +
+                    $"\nTo decline invite follow this link: {url}?IsAccept=false&InvitationId={entityEntry.Entity.Id}",
                 IsBodyHtml = true
             };
-
             await _mailSender.SendMessageAsync(message);
             return Mapper.Map<InvitationDto>(invite);
         }
