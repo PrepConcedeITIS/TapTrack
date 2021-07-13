@@ -1,26 +1,43 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using image4ioDotNetSDK;
 using image4ioDotNetSDK.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using TapTrackAPI.Core.Interfaces;
 
-namespace TapTrackAPI.Core.Services
+namespace TapTrack.Core.Utilities.Services
 {
     public class ImageUploadService : IImageUploadService
     {
-        private const string BaseImgLink = "https://cdn.image4.io/mvc2img/f_auto";
-        private readonly IConfiguration _configuration;
+        private readonly string _baseImgLink;
         private readonly Image4ioAPI _image4IoApi;
 
-        public ImageUploadService(IConfiguration configuration)
+        public ImageUploadService(IConfiguration configuration, IHostEnvironment environment)
         {
-            _configuration = configuration;
-            var credentials = _configuration.GetSection("Image4IO")
+            var (image4IoApi, baseImageLink) = GetImageStorageApiSetup(configuration, environment);
+            _image4IoApi = image4IoApi;
+            _baseImgLink = baseImageLink;
+        }
+
+        private (Image4ioAPI, string) GetImageStorageApiSetup(IConfiguration configuration,
+            IHostEnvironment environment)
+        {
+            var image4IoKeyEnvironment = Environment.GetEnvironmentVariable("Image4IO_Key");
+            var image4IoSecretEnvironment = Environment.GetEnvironmentVariable("Image4IO_Secret");
+            if (!environment.IsDevelopment() && image4IoKeyEnvironment != null && image4IoSecretEnvironment != null)
+            {
+                return (new Image4ioAPI(image4IoKeyEnvironment, image4IoSecretEnvironment),
+                    "https://cdn.image4.io/taptrack/f_auto");
+            }
+
+            var credentials = configuration.GetSection("Image4IO")
                 .GetChildren()
                 .ToDictionary(x => x.Key, y => y.Value);
-            _image4IoApi = new Image4ioAPI(credentials["Key"], credentials["Secret"]);
+            var api = new Image4ioAPI(credentials["Key"], credentials["Secret"]);
+            return (api, "https://cdn.image4.io/mvc2img/f_auto");
         }
 
         public async Task<string> UploadProjectLogoImageAsync(IFormFile file, string userId, string projectIdVisible)
@@ -57,7 +74,7 @@ namespace TapTrackAPI.Core.Services
             if (response.Success)
             {
                 var imgName = response.UploadedFiles.FirstOrDefault()?.Name;
-                var link = $"{BaseImgLink}{imgName}";
+                var link = $"{_baseImgLink}{imgName}";
                 return link;
             }
 

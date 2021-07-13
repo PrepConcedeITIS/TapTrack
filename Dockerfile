@@ -12,6 +12,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
 WORKDIR /src
 COPY TapTrackAPI/TapTrackAPI.csproj TapTrackAPI/
 COPY TapTrackAPI.Core/TapTrackAPI.Core.csproj TapTrackAPI.Core/
+COPY TapTrackAPI.Core.Utilities/TapTrackAPI.Core.Utilities.csproj TapTrackAPI.Core.Utilities/
 COPY TapTrackAPI.Core.Features/TapTrackAPI.Core.Features.csproj TapTrackAPI.Core.Features/
 COPY TapTrackAPI.Data/TapTrackAPI.Data.csproj TapTrackAPI.Data/
 COPY TapTrackAPI.TelegramBot/TapTrackAPI.TelegramBot.csproj TapTrackAPI.TelegramBot/

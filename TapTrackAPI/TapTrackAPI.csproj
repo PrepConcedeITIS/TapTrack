@@ -39,6 +39,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\TapTrackAPI.Core.Features\TapTrackAPI.Core.Features.csproj" />
+      <ProjectReference Include="..\TapTrackAPI.Core.Utilities\TapTrackAPI.Core.Utilities.csproj" />
       <ProjectReference Include="..\TapTrackAPI.Core\TapTrackAPI.Core.csproj" />
       <ProjectReference Include="..\TapTrackAPI.Data\TapTrackAPI.Data.csproj" />
       <ProjectReference Include="..\TapTrackAPI.TelegramBot\TapTrackAPI.TelegramBot.csproj" />

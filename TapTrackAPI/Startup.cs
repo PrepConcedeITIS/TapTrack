@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using TapTrack.Core.Utilities.Services;
 using TapTrackAPI.Core.Base;
 using TapTrackAPI.Core.Base.ValidationBase;
 using TapTrackAPI.Core.Entities;
@@ -21,13 +21,16 @@ using TapTrackAPI.Core.Features.Auth;
 using TapTrackAPI.Core.Features.Auth.Services;
 using TapTrackAPI.Core.Features.Issue;
 using TapTrackAPI.Core.Interfaces;
-using TapTrackAPI.Core.Services;
 using TapTrackAPI.Data;
 using TapTrackAPI.TelegramBot;
 using TapTrackAPI.TelegramBot.Base;
 using TapTrackAPI.TelegramBot.Commands.Start;
 using TapTrackAPI.TelegramBot.Interfaces;
 using TapTrackAPI.TelegramBot.Services;
+
+// ReSharper disable once RedundantUsingDirective
+// used in Angular+API configuration
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace TapTrackAPI
 {
@@ -141,8 +144,10 @@ namespace TapTrackAPI
             }
             else
             {
-                app.UseCors(builder =>
-                    builder.WithOrigins("https://www.taptrack.tech", "https://tapkan.herokuapp.com").AllowAnyHeader().AllowAnyMethod());
+                app.UseCors(builder => builder
+                    .WithOrigins("https://www.taptrack.tech", "https://tapkan.herokuapp.com")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
             }
 
             app.UseMiddleware<ValidationExceptionMiddleware>();
