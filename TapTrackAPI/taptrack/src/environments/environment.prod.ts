@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tapkan.herokuapp.com/api'
+  apiUrl: 'https://www.taptrack.tech'
 };
