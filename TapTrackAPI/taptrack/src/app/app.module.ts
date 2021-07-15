@@ -53,10 +53,12 @@ import {CommentUpdateComponent} from './commenting/comment-update/comment-update
 import {TaskComponent} from './agile-board/task/task.component';
 import {IssueCreateComponent} from './issue/issue-create/issue-create.component';
 import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.config';
-import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {IssueEditComponent} from './issue/issue-edit/issue-edit.component';
+import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {NgxPaginationModule} from "ngx-pagination";
-import { ResolveInviteComponent } from './resolve-invite/resolve-invite.component';
+import {ResolveInviteComponent} from './resolve-invite/resolve-invite.component';
+import {PopoverModule} from "ngx-bootstrap/popover";
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import { ResolveInviteComponent } from './resolve-invite/resolve-invite.componen
     IssueCreateComponent,
     IssueEditComponent,
     ConfirmDialogComponent,
-    ResolveInviteComponent
+    ResolveInviteComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
@@ -136,7 +139,8 @@ import { ResolveInviteComponent } from './resolve-invite/resolve-invite.componen
     PaginationModule.forRoot(),
     NgSelectModule,
     SidebarModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    PopoverModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

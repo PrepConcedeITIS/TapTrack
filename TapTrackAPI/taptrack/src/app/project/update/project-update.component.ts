@@ -3,11 +3,12 @@ import {FormlyFieldConfig} from '@ngx-formly/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProjectQuery} from '../_interfaces/project-query';
 import {BehaviorSubject, Observable, of, timer} from 'rxjs';
-import {debounce, skip, tap} from 'rxjs/operators';
+import {debounce, map, skip, tap} from 'rxjs/operators';
 import {ProjectService} from '../../_services/project.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {InvitationDto} from "../../_interfaces/invitationDto";
 
 @Component({
   selector: 'app-project-update',
@@ -172,7 +173,7 @@ export class ProjectUpdateComponent implements OnInit {
       });
   }
 
-  getInvitationResults() {
-    return this.httpClient.get(`${environment.apiUrl}/Invitation/GetInvitedUsers/${this.projectId}`);
+  getInvitationResults(): Observable<InvitationDto[]> {
+    return this.httpClient.get<InvitationDto[]>(`${environment.apiUrl}/Invitation/GetInvitedUsers/${this.projectId}`);
   }
 }
