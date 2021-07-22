@@ -20,7 +20,7 @@ namespace TapTrackAPI.Core.Features.Invitation.ResolveInvitation
         public override async Task<ProjectDto> Handle(ResolveInvitationCommand request, CancellationToken cancellationToken)
         {
             var invite = await DbContext.Set<Entities.Invitation>().Include(x => x.Project).Include(x => x.User)
-                .FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.InvitationId), cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id), cancellationToken);
 
             invite.SetAcceptState(request.IsAccept);
 

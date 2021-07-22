@@ -27,12 +27,13 @@ export class AppComponent implements OnInit {
         this.isAuthPage = (user === null);
         if (!this.isAuthPage) {
           this.userEmail = user.user.email;
+
+          this.notificationService.getInvitationsCount()
+            .subscribe(value => this.notificationsCount = value);
         }
       }, 0);
     });
 
-    this.notificationService.getInvitationsCount()
-      .subscribe(value => this.notificationsCount = value);
   }
 
   navigateToProfile() {

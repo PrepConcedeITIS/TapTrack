@@ -2,15 +2,21 @@
 
   <div class="w-100" *ngIf="invitations; else loading">
     <div class="row pl-3 pr-3" *ngFor="let invitation of invitations">
+      <div class="col-md-3">
+        {{invitation.projectName}}
+      </div>
       <div class="col-md-4">
-        <div class="align-items-center h-100">{{invitation.projectName}}</div>
+        <button class="btn btn-outline-primary m-0"
+                (click)="resolveInvitation($event,invitation.id, true)">
+          Accept
+        </button>
       </div>
-      <!--<div class="col-md-auto">
-        <button class="btn btn-outline-primary m-0">Accept</button>
+      <div class="col-md-4">
+        <button class="btn btn-outline-danger m-0"
+                (click)="resolveInvitation($event,invitation.id, false)">
+          Decline
+        </button>
       </div>
-      <div class="col-md-auto">
-        <button class="btn btn-outline-danger m-0">Decline</button>
-      </div>-->
     </div>
   </div>
 
@@ -21,10 +27,11 @@
 <button type="button" class="btn bg-light"
         [popover]="invitationsPopover"
         (onShown)="setupInvitations()"
+        placement="bottom"
         popoverTitle="Project invitations"
         container="body">
-  <ng-container *ngIf="badgeCount === 0; else iconWithBadge">
-    <mat-icon class="">notifications</mat-icon>
+  <ng-container *ngIf="badgeCount == 0; else iconWithBadge">
+    <mat-icon>notifications</mat-icon>
   </ng-container>
   <ng-template #iconWithBadge>
     <mat-icon matBadge="{{badgeCount}}" matBadgeColor="warn">notifications_active</mat-icon>

@@ -34,8 +34,8 @@
             <a class="nav-link-new" [routerLink]="['/article/create']">New Article</a>
           </li>
         </ul>
+        <app-notification [badgeCount]="notificationsCount"></app-notification>
         <div *ngIf="notificationsCount" class="btn-group">
-          <app-notification [badgeCount]="notificationsCount"></app-notification>
         </div>
         <div class="btn-group" dropdown>
           <button id="button-basic" dropdownToggle type="button" class="btn bg-light dropdown-toggle"

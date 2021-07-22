@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {InvitationDto} from "../_interfaces/invitationDto";
+import {InvitationDetailedDto, InvitationDto} from "../_interfaces/invitationDto";
 import {NotificationService} from "../_services/notification.service";
 
 
@@ -11,7 +11,7 @@ import {NotificationService} from "../_services/notification.service";
 export class NotificationComponent implements OnInit {
 
   @Input() badgeCount = 0;
-  invitations: InvitationDto[];
+  invitations: InvitationDetailedDto[];
 
   constructor(private notificationsService: NotificationService) {
   }
@@ -24,5 +24,10 @@ export class NotificationComponent implements OnInit {
       .subscribe(value => {
         this.invitations = value;
       });
+  }
+
+  resolveInvitation($event: MouseEvent, id: string, isAccept: boolean) {
+    this.notificationsService.resolveInvitation(id, isAccept)
+      .subscribe(_ => this.setupInvitations());
   }
 }

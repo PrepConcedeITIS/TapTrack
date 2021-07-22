@@ -56,7 +56,6 @@ import {FormlyFieldConfig} from '@ngx-formly/core/lib/components/formly.field.co
 import {IssueEditComponent} from './issue/issue-edit/issue-edit.component';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {NgxPaginationModule} from "ngx-pagination";
-import {ResolveInviteComponent} from './resolve-invite/resolve-invite.component';
 import {PopoverModule} from "ngx-bootstrap/popover";
 import { NotificationComponent } from './notification/notification.component';
 
@@ -95,7 +94,6 @@ import { NotificationComponent } from './notification/notification.component';
     IssueCreateComponent,
     IssueEditComponent,
     ConfirmDialogComponent,
-    ResolveInviteComponent,
     NotificationComponent
   ],
   imports: [
