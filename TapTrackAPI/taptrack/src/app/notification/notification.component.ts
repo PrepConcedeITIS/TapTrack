@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {InvitationDetailedDto, InvitationDto} from "../_interfaces/invitationDto";
+import {InvitationDetailedDto} from "../_interfaces/invitationDto";
 import {NotificationService} from "../_services/notification.service";
 
 
@@ -23,6 +23,7 @@ export class NotificationComponent implements OnInit {
     this.notificationsService.getInvitations()
       .subscribe(value => {
         this.invitations = value;
+        this.badgeCount = value.length;
       });
   }
 

@@ -1,23 +1,28 @@
 <ng-template #invitationsPopover>
 
   <div class="w-100" *ngIf="invitations; else loading">
-    <div class="row pl-3 pr-3" *ngFor="let invitation of invitations">
-      <div class="col-md-3">
-        {{invitation.projectName}}
+    <ng-container *ngIf="invitations.length>0; else noItems">
+      <div class="row pl-3 pr-3" *ngFor="let invitation of invitations">
+        <div class="col-md-3">
+          {{invitation.projectName}}
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-outline-primary m-0"
+                  (click)="resolveInvitation($event,invitation.id, true)">
+            Accept
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-outline-danger m-0"
+                  (click)="resolveInvitation($event,invitation.id, false)">
+            Decline
+          </button>
+        </div>
       </div>
-      <div class="col-md-4">
-        <button class="btn btn-outline-primary m-0"
-                (click)="resolveInvitation($event,invitation.id, true)">
-          Accept
-        </button>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-outline-danger m-0"
-                (click)="resolveInvitation($event,invitation.id, false)">
-          Decline
-        </button>
-      </div>
-    </div>
+    </ng-container>
+    <ng-template #noItems>
+      There is no invitations yet
+    </ng-template>
   </div>
 
   <ng-template #loading>
