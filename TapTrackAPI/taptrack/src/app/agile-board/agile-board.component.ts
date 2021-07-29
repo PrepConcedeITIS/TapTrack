@@ -1,12 +1,13 @@
 import {CdkDragDrop, transferArrayItem} from '@angular/cdk/drag-drop';
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Observable} from 'rxjs';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {environment} from 'src/environments/environment';
-import {IssueOnBoardDto} from './IssueDetailsDto';
-import {TaskComponent} from './task/task.component';
+import {IssueOnBoardDto} from './issueOnBoardDto';
 import {IssueService} from '../_services/issue.service';
+import {Subject} from "rxjs";
+import {ProjectService} from "../_services/project.service";
+import {Project} from "../project/_interfaces/project";
 
 @Component({
   selector: 'app-agile-board',
@@ -16,12 +17,14 @@ import {IssueService} from '../_services/issue.service';
 
 export class AgileBoardComponent implements OnInit {
 
-  private projectId: string;
+  projectId$: Subject<string> = new Subject<string>();
+  projectId: string;
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private issueService: IssueService) {
+  projectList: Project[];
+
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router,
+              private issueService: IssueService, private projectService: ProjectService) {
   }
-
-  issueList = Array<IssueOnBoardDto>();
 
   minor: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
   normal: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
@@ -30,14 +33,29 @@ export class AgileBoardComponent implements OnInit {
   showStopper: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.projectId = params.id;
-    });
-    this.getIssue();
+    this.projectId$
+      .subscribe(projectId => this.getIssue(projectId));
+    this.projectService
+      .getProjectsList()
+      .subscribe(projects => {
+        this.projectList = projects;
+        if (this.projectList.length > 0) {
+          const projectId = this.projectList[0].id;
+          this.projectId$.next(projectId);
+          this.projectId = projectId;
+        }
+      });
+    this.route.params
+      .subscribe((params: Params) =>  this.projectId$.next(params.id));
   }
 
-  getIssue() {
-    return this.httpClient.get<IssueOnBoardDto[]>(`${environment.apiUrl}/issue/board/${this.projectId}`).subscribe(issues => {
+  changeProject(): void {
+    //this.router.navigate([''])
+    this.projectId$.next(this.projectId);
+  }
+
+  getIssue(projectId: string) {
+    return this.httpClient.get<IssueOnBoardDto[]>(`${environment.apiUrl}/issue/board/${projectId}`).subscribe(issues => {
       issues.forEach(issue => {
         switch (issue.priority) {
           case 'Minor':
@@ -64,37 +82,46 @@ export class AgileBoardComponent implements OnInit {
   filterState(priority: Array<Array<IssueOnBoardDto>>, issue: IssueOnBoardDto) {
     switch (issue.state) {
       case 'New':
+        priority[0] = [];
         priority[0].push(issue);
         break;
       case 'Analyse':
+        priority[1] = [];
         priority[1].push(issue);
         break;
       case 'ToDo':
+        priority[2] = [];
         priority[2].push(issue);
         break;
       case 'InProgress':
+        priority[3] = [];
         priority[3].push(issue);
         break;
       case 'Incomplete':
+        priority[4] = [];
         priority[4].push(issue);
         break;
       case 'Review':
+        priority[5] = [];
         priority[5].push(issue);
         break;
       case 'InTest':
+        priority[6] = [];
         priority[6].push(issue);
         break;
       case 'Acceptance':
+        priority[7] = [];
         priority[7].push(issue);
         break;
       case 'Done':
+        priority[8] = [];
         priority[8].push(issue);
         break;
     }
   }
 
   drop(event: CdkDragDrop<IssueOnBoardDto[]>): void {
-    if (event.previousContainer == event.container) {
+    if (event.previousContainer === event.container) {
       return;
     }
     const issueId = event.previousContainer.data[event.previousIndex].id;

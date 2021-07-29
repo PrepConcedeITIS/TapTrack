@@ -1,5 +1,14 @@
 <div class="content-wrapper">
-
+  <ng-select
+    placeholder="Issue type"
+    [items]="projectList"
+    [(ngModel)]="projectId"
+    [clearable]="false"
+    [searchable]="false"
+    (change)="changeProject()"
+    bindValue="id"
+    bindLabel="name"
+  ></ng-select>
   <h1 style="text-align: center;">Show Stopper</h1>
   <div class="container-wrapper">
     <div class="container">
@@ -626,7 +635,8 @@
     <div class="container">
       <h2>Acceptance</h2>
       <hr>
-      <mat-card class="mat-elevation-z0" cdkDropList id="07" #acceptanceListMinor="cdkDropList" [cdkDropListData]="minor[7]"
+      <mat-card class="mat-elevation-z0" cdkDropList id="07" #acceptanceListMinor="cdkDropList"
+                [cdkDropListData]="minor[7]"
                 (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[
             newListMinor, analyseListMinor, todoListMinor, inProgressListMinor, incompleteListMinor, reviewListMinor, inTestListMinor, acceptanceListMinor, doneListMinor,
             newListNormal, analyseListNormal, todoListNormal, inProgressListNormal, incompleteListNormal, reviewListNormal, inTestListNormal, acceptanceListNormal, doneListNormal,

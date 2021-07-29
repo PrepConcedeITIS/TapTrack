@@ -36,7 +36,7 @@ import {RestorationEmailComponent} from './auth/password-restoration/restoration
 import {RestorationCodeComponent} from './auth/password-restoration/restoration-code/restoration-code.component';
 import {RestorationPasswordComponent} from './auth/password-restoration/restoration-password/restoration-password.component';
 import {ArticleCreateComponent} from './knowledge-base/article-create/article-create.component';
-import {LMarkdownEditorModule, MarkdownEditorComponent} from 'ngx-markdown-editor';
+import {LMarkdownEditorModule} from 'ngx-markdown-editor';
 import {FormlyFieldMdEditorComponent} from './_extensions/formly-field-md-editor.component';
 import {ImageFormatterService} from './_services/image-formatter.service';
 import {ForbiddenErrorComponent} from './error/forbidden-error/forbidden-error.component';
@@ -57,7 +57,7 @@ import {IssueEditComponent} from './issue/issue-edit/issue-edit.component';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {NgxPaginationModule} from "ngx-pagination";
 import {PopoverModule} from "ngx-bootstrap/popover";
-import { NotificationComponent } from './notification/notification.component';
+import {NotificationComponent} from './notification/notification.component';
 
 @NgModule({
   declarations: [
