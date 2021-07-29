@@ -14,19 +14,24 @@ namespace TapTrackAPI.Core.Features.Invitation.InviteUser
         public InviteUserValidator(DbContext dbContext, UserManager<User> userManager)
         {
             RuleFor(x => x.Email)
-                .Must((command, _) => dbContext.Set<User>().FirstOrDefault(x => x.Email == command.Email) != null)
+                .MustAsync(async (command, _) => await userManager.FindByEmailAsync(command) != default)
                 .WithMessage("User not found")
                 .WithErrorCode("422");
+
             RuleFor(x => x.ProjectId)
                 .Must((command, _) =>
                     dbContext.Set<Entities.Project>().FirstOrDefault(c => c.Id == command.ProjectId) != null)
                 .WithMessage("Project not found")
                 .WithErrorCode("422");
+
             RuleFor(x => x)
-                .Must((command, _) =>
-                    dbContext.Set<Entities.Invitation>().FirstOrDefault(c =>
-                        c.Id == command.ProjectId && c.User.Email == command.Email &&
-                        c.InvitationState == InvitationState.Wait) == null)
+                .MustAsync(async (command, ct) =>
+                    !await dbContext
+                        .Set<Entities.Invitation>()
+                        .Where(invitation => invitation.InvitationState == InvitationState.Wait)
+                        .AnyAsync(invitation =>
+                            invitation.User.NormalizedEmail == command.Email.ToUpperInvariant()
+                            && invitation.ProjectId == command.ProjectId, ct))
                 .WithMessage("Invitation to user already send")
                 .WithErrorCode("422");
         }

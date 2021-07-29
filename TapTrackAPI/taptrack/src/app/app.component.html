@@ -1,6 +1,7 @@
 <header *ngIf="!isAuthPage">
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light"><!--пока выключил fixed on top, надо написать хендлер, который включает, когда проскроллили на высоту хедера-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!--пока выключил fixed on top, надо написать хендлер, который включает, когда проскроллили на высоту хедера-->
     <div class="container-fluid">
       <button class="navbar-toggler navbar-toggler-left" type="button" (click)="isCollapsed = !isCollapsed">
         <span class="navbar-toggler-icon"></span>
@@ -21,18 +22,24 @@
           <li class="nav-item" routerLinkActive="active text-dark">
             <a class="nav-link" [routerLink]="['/article']">Knowledge Base</a>
           </li>
-          <li *ngIf = "router.url == '/project/list'" class="nav-item nav-item-new" routerLinkActive="link-active text-dark">
+          <li *ngIf="router.url == '/project/list'" class="nav-item nav-item-new"
+              routerLinkActive="link-active text-dark">
             <a class="nav-link-new" [routerLink]="['/project/create']">New Project</a>
           </li>
-          <li *ngIf = "router.url == '/issue/list'" class="nav-item nav-item-new" routerLinkActive="link-active text-dark">
+          <li *ngIf="router.url == '/issue/list'" class="nav-item nav-item-new"
+              routerLinkActive="link-active text-dark">
             <a class="nav-link-new" [routerLink]="['/issue/create']">New Issue</a>
           </li>
-          <li *ngIf = "router.url == '/article'" class="nav-item nav-item-new" routerLinkActive="link-active text-dark">
+          <li *ngIf="router.url == '/article'" class="nav-item nav-item-new" routerLinkActive="link-active text-dark">
             <a class="nav-link-new" [routerLink]="['/article/create']">New Article</a>
           </li>
         </ul>
+        <app-notification [badgeCount]="notificationsCount"></app-notification>
+        <div *ngIf="notificationsCount" class="btn-group">
+        </div>
         <div class="btn-group" dropdown>
-          <button id="button-basic" dropdownToggle type="button" class="btn bg-light dropdown-toggle" aria-controls="dropdown-basic">
+          <button id="button-basic" dropdownToggle type="button" class="btn bg-light dropdown-toggle"
+                  aria-controls="dropdown-basic">
             Hello, {{this.userEmail}}!
             <span class="caret"></span>
           </button>

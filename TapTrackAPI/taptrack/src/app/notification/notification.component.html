@@ -1,0 +1,44 @@
+<ng-template #invitationsPopover>
+
+  <div class="w-100" *ngIf="invitations; else loading">
+    <ng-container *ngIf="invitations.length>0; else noItems">
+      <div class="row pl-3 pr-3" *ngFor="let invitation of invitations">
+        <div class="col-md-3">
+          {{invitation.projectName}}
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-outline-primary m-0"
+                  (click)="resolveInvitation($event,invitation.id, true)">
+            Accept
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-outline-danger m-0"
+                  (click)="resolveInvitation($event,invitation.id, false)">
+            Decline
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noItems>
+      There is no invitations yet
+    </ng-template>
+  </div>
+
+  <ng-template #loading>
+    <mat-spinner color="primary"></mat-spinner>
+  </ng-template>
+</ng-template>
+<button type="button" class="btn bg-light"
+        [popover]="invitationsPopover"
+        (onShown)="setupInvitations()"
+        placement="bottom"
+        popoverTitle="Project invitations"
+        container="body">
+  <ng-container *ngIf="badgeCount == 0; else iconWithBadge">
+    <mat-icon>notifications</mat-icon>
+  </ng-container>
+  <ng-template #iconWithBadge>
+    <mat-icon matBadge="{{badgeCount}}" matBadgeColor="warn">notifications_active</mat-icon>
+  </ng-template>
+</button>

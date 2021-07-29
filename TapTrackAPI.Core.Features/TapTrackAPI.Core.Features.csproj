@@ -200,6 +200,9 @@
       <Compile Update="KnowledgeBase\List\ShortArticleDto.cs">
         <DependentUpon>ProjectWithArticlesDto.cs</DependentUpon>
       </Compile>
+      <Compile Update="Invitation\GetInvitationsByUser\GetInvitationsByUserAsyncHandler.cs">
+        <DependentUpon>GetInvitationsByUser.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

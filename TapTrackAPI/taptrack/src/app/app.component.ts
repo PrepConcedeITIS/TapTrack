@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from './_services/authentication.service';
 import {Router} from '@angular/router';
 import {UserWithToken} from './auth/userWithToken';
+import {NotificationService} from "./_services/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,11 @@ export class AppComponent implements OnInit {
   userEmail = '';
   isCollapsed: boolean;
   router: Router;
- 
-  constructor(private authService: AuthenticationService, private _router: Router) {
+  notificationsCount: number;
+
+  constructor(private authService: AuthenticationService, private notificationService: NotificationService, router: Router) {
     this.isCollapsed = false;
-    this.router = _router;
+    this.router = router;
   }
 
   ngOnInit(): void {
@@ -25,9 +27,13 @@ export class AppComponent implements OnInit {
         this.isAuthPage = (user === null);
         if (!this.isAuthPage) {
           this.userEmail = user.user.email;
+
+          this.notificationService.getInvitationsCount()
+            .subscribe(value => this.notificationsCount = value);
         }
       }, 0);
     });
+
   }
 
   navigateToProfile() {

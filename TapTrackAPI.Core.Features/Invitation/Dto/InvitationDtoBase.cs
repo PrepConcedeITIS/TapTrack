@@ -1,6 +1,6 @@
-namespace TapTrackAPI.Core.Features.Invitation
+﻿namespace TapTrackAPI.Core.Features.Invitation.Dto
 {
-    public class InvitationDto
+    public abstract class InvitationDtoBase
     {
         public string UserName { get; set; } 
         public string Status { get; set; } 
