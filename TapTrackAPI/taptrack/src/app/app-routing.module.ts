@@ -10,7 +10,7 @@ import {ProjectUpdateComponent} from './project/update/project-update.component'
 import {ProjectListComponent} from './project/list/project-list.component';
 import {ErrorComponent} from './error/error.component';
 import {IssueDetailsComponent} from "./issue/issue-details/issue-details.component";
-import { AgileBoardComponent } from './agile-board/agile-board.component';
+import {AgileBoardComponent} from './agile-board/agile-board.component';
 import {ArticleComponent} from "./knowledge-base/article/article.component";
 import {ArticleDetailsComponent} from "./knowledge-base/article-details/article-details.component";
 import {ArticleCreateComponent} from "./knowledge-base/article-create/article-create.component";
@@ -49,8 +49,7 @@ const routes: Routes = [
       {path: 'list', component: ProjectListComponent, canActivate: [AuthGuard]},
       {path: 'details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
       {path: 'create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
-      {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]},
-      {path: 'board/:id', component: AgileBoardComponent, canActivate: [AuthGuard]}
+      {path: 'edit/:id', component: ProjectUpdateComponent, canActivate: [AuthGuard]}
     ]
   },
   {
@@ -60,6 +59,8 @@ const routes: Routes = [
       {path: 'edit/:id', component: ArticleUpdateComponent, canActivate: [AuthGuard]}
     ]
   },
+  {path: 'agiles', redirectTo: 'agiles/', pathMatch: 'full'},
+  {path: 'agiles/:id', component: AgileBoardComponent, canActivate: [AuthGuard]},
   {path: 'access-error', component: ForbiddenErrorComponent},
   {path: '**', component: ErrorComponent}
 ];

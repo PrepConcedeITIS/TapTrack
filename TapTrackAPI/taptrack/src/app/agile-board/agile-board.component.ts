@@ -5,7 +5,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {environment} from 'src/environments/environment';
 import {IssueOnBoardDto} from './issueOnBoardDto';
 import {IssueService} from '../_services/issue.service';
-import {Subject} from "rxjs";
 import {ProjectService} from "../_services/project.service";
 import {Project} from "../project/_interfaces/project";
 
@@ -17,15 +16,14 @@ import {Project} from "../project/_interfaces/project";
 
 export class AgileBoardComponent implements OnInit {
 
-  projectId$: Subject<string> = new Subject<string>();
   projectId: string;
-
   projectList: Project[];
 
   constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router,
               private issueService: IssueService, private projectService: ProjectService) {
   }
 
+  stateCount = 9;
   minor: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
   normal: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
   major: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
@@ -33,28 +31,39 @@ export class AgileBoardComponent implements OnInit {
   showStopper: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
 
   ngOnInit(): void {
-    this.projectId$
-      .subscribe(projectId => this.getIssue(projectId));
+    this.route.params
+      .subscribe((params: Params) => {
+        if (params.id === '') {
+          return;
+        }
+        this.projectId = params.id;
+        this.setIssues(this.projectId);
+      });
     this.projectService
       .getProjectsList()
       .subscribe(projects => {
         this.projectList = projects;
-        if (this.projectList.length > 0) {
-          const projectId = this.projectList[0].id;
-          this.projectId$.next(projectId);
-          this.projectId = projectId;
+        if (this.projectList.length > 0 && this.projectId === undefined) {
+          this.projectId = this.projectList[0].id;
+          this.changeProject();
         }
       });
-    this.route.params
-      .subscribe((params: Params) =>  this.projectId$.next(params.id));
   }
 
   changeProject(): void {
-    //this.router.navigate([''])
-    this.projectId$.next(this.projectId);
+    this.router.navigate([`agiles/${this.projectId}`])
+      .then(_ => _);
   }
 
-  getIssue(projectId: string) {
+  setIssues(projectId: string) {
+    for (let i = 0; this.stateCount < 9; i++) {
+      this.minor[i] = [];
+      this.normal[i] = [];
+      this.major[i] = [];
+      this.critical[i] = [];
+      this.showStopper[i] = [];
+    }
+
     return this.httpClient.get<IssueOnBoardDto[]>(`${environment.apiUrl}/issue/board/${projectId}`).subscribe(issues => {
       issues.forEach(issue => {
         switch (issue.priority) {
@@ -82,39 +91,30 @@ export class AgileBoardComponent implements OnInit {
   filterState(priority: Array<Array<IssueOnBoardDto>>, issue: IssueOnBoardDto) {
     switch (issue.state) {
       case 'New':
-        priority[0] = [];
         priority[0].push(issue);
         break;
       case 'Analyse':
-        priority[1] = [];
         priority[1].push(issue);
         break;
       case 'ToDo':
-        priority[2] = [];
         priority[2].push(issue);
         break;
       case 'InProgress':
-        priority[3] = [];
         priority[3].push(issue);
         break;
       case 'Incomplete':
-        priority[4] = [];
         priority[4].push(issue);
         break;
       case 'Review':
-        priority[5] = [];
         priority[5].push(issue);
         break;
       case 'InTest':
-        priority[6] = [];
         priority[6].push(issue);
         break;
       case 'Acceptance':
-        priority[7] = [];
         priority[7].push(issue);
         break;
       case 'Done':
-        priority[8] = [];
         priority[8].push(issue);
         break;
     }
