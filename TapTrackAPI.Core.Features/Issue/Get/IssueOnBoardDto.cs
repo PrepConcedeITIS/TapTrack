@@ -6,6 +6,7 @@ namespace TapTrackAPI.Core.Features.Issue.Get
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
+        public string IdVisible { get; set; }
         public string Description { get; set; }
         public string Creator { get; set; }
         public string Assignee { get; set; }

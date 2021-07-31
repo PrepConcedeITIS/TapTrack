@@ -1,5 +1,8 @@
 <mat-card class="item mat-elevation-z0 border">
-  <a style="color: black" routerLink="/issue/{{task.id}}">{{ task.title }}</a>
+  <a class="black" routerLink="/issue/{{task.id}}">
+    <span class="darkgrey">{{ task.idVisible }} </span>
+    <span>{{ task.title }}</span>
+  </a>
   <hr>
   <p>
     {{ task.description }}

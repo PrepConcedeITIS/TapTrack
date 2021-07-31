@@ -51,8 +51,6 @@ namespace TapTrackAPI.Core.Features.Issue
                     e.MapFrom(m => m.IdVisible));
 
             CreateMap<Entities.Issue, IssueOnBoardDto>()
-                .ForMember(dto => dto.Id, e =>
-                    e.MapFrom(m => m.Id))
                 .ForMember(dto => dto.Creator, e =>
                     e.MapFrom(m => m.Creator.User.UserName))
                 .ForMember(dto => dto.Assignee, e =>
