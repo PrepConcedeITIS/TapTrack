@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectService} from '../../_services/project.service';
 import {Observable} from 'rxjs';
 import {ImageFormatterService} from 'src/app/_services/image-formatter.service';
-import {Project} from '../_interfaces/project';
 import {Router} from '@angular/router';
 
 
@@ -17,8 +16,6 @@ export interface IGrouped<TItem> {
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
-
-  public projectsList: Project[] = [];
 
   constructor(private projectService: ProjectService,
               private router: Router) {

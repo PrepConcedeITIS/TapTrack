@@ -5,7 +5,6 @@
       <div [ngClass]="project.logoUrl ? 'pl-4 pr-1 col-md-8' : null">
         <form [formGroup]="form">
           <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-          <button type="button" class="btn btn-primary" (click)="toBoard()">Open Agile board</button>
           <hr>
           <button type="button" class="btn btn-primary" (click)="goToEdit()">Edit</button>
           <button type="button" class="btn btn-danger ml-2" (click)="openModal(template)">Delete</button>

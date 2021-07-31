@@ -1,12 +1,12 @@
 import {CdkDragDrop, transferArrayItem} from '@angular/cdk/drag-drop';
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Observable} from 'rxjs';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {environment} from 'src/environments/environment';
-import {IssueOnBoardDto} from './IssueDetailsDto';
-import {TaskComponent} from './task/task.component';
+import {IssueOnBoardDto} from './issueOnBoardDto';
 import {IssueService} from '../_services/issue.service';
+import {ProjectService} from "../_services/project.service";
+import {Project} from "../project/_interfaces/project";
 
 @Component({
   selector: 'app-agile-board',
@@ -16,13 +16,14 @@ import {IssueService} from '../_services/issue.service';
 
 export class AgileBoardComponent implements OnInit {
 
-  private projectId: string;
+  projectId: string;
+  projectList: Project[];
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private issueService: IssueService) {
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router,
+              private issueService: IssueService, private projectService: ProjectService) {
   }
 
-  issueList = Array<IssueOnBoardDto>();
-
+  stateCount = 9;
   minor: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
   normal: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
   major: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
@@ -30,14 +31,40 @@ export class AgileBoardComponent implements OnInit {
   showStopper: IssueOnBoardDto[][] = [[], [], [], [], [], [], [], [], []];
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.projectId = params.id;
-    });
-    this.getIssue();
+    this.route.params
+      .subscribe((params: Params) => {
+        if (params.id === '') {
+          return;
+        }
+        this.projectId = params.id;
+        this.setIssues(this.projectId);
+      });
+    this.projectService
+      .getProjectsList()
+      .subscribe(projects => {
+        this.projectList = projects;
+        if (this.projectList.length > 0 && this.projectId === undefined) {
+          this.projectId = this.projectList[0].id;
+          this.changeProject();
+        }
+      });
   }
 
-  getIssue() {
-    return this.httpClient.get<IssueOnBoardDto[]>(`${environment.apiUrl}/issue/board/${this.projectId}`).subscribe(issues => {
+  changeProject(): void {
+    this.router.navigate([`agiles/${this.projectId}`])
+      .then(_ => _);
+  }
+
+  setIssues(projectId: string) {
+    for (let i = 0; this.stateCount < 9; i++) {
+      this.minor[i] = [];
+      this.normal[i] = [];
+      this.major[i] = [];
+      this.critical[i] = [];
+      this.showStopper[i] = [];
+    }
+
+    return this.httpClient.get<IssueOnBoardDto[]>(`${environment.apiUrl}/issue/board/${projectId}`).subscribe(issues => {
       issues.forEach(issue => {
         switch (issue.priority) {
           case 'Minor':
@@ -94,7 +121,7 @@ export class AgileBoardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<IssueOnBoardDto[]>): void {
-    if (event.previousContainer == event.container) {
+    if (event.previousContainer === event.container) {
       return;
     }
     const issueId = event.previousContainer.data[event.previousIndex].id;

@@ -95,8 +95,4 @@ export class ProjectDetailsComponent implements OnInit {
         this.router.navigate([`project/list`]);
       });
   }
-
-  toBoard() {
-    this.router.navigate([`project/board/${this.project.id}`]);
-  }
 }
