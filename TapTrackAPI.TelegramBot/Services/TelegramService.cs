@@ -156,7 +156,7 @@ namespace TapTrackAPI.TelegramBot.Services
         {
             try
             {
-                //message = EscapeText(message);
+                message = EscapeText(message);
 
                 _logger.LogTrace("Sending message to {ChatId}: {Message}", chatId, message);
 
@@ -178,7 +178,7 @@ namespace TapTrackAPI.TelegramBot.Services
 
         private string EscapeText(string? source)
         {
-            var charactersToEscape = new[] { "_", "*", "[", "]", "(", ")", "~", "`", ">", "#", "+", "-", "=", "|", "{", "}", ".", "!" };
+            var charactersToEscape = new[] { "." };
             foreach (var item in charactersToEscape)
             {
                 source = source.Replace(item, $@"\{item}");
