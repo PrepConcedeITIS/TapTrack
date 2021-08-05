@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TapTrackAPI.Core.Entities;
+using TapTrackAPI.Core.Enums;
 using TapTrackAPI.Core.Features.Project.Base;
 using TapTrackAPI.Core.Features.Project.Validators;
 
@@ -23,7 +24,8 @@ namespace TapTrackAPI.Core.Features.Project.Edit
                 })
                 .WithMessage("Project with the same shortcut name already exist");
             RuleFor(x => x.ClaimsPrincipal)
-                .SetAsyncValidator(new HasAccessToProjectPropertyValidator<ProjectEditCommand>(dbContext, userManager))
+                .SetAsyncValidator(new HasAccessToProjectPropertyValidator<ProjectEditCommand>(dbContext, userManager,
+                    new[] {Role.Admin}))
                 .WithErrorCode("403")
                 .WithMessage("You can't touch this project");
         }
